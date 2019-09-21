@@ -4,17 +4,19 @@
 <configuration>
 
 	<!-- 설정파일에서 사용할 프로퍼티의 파일의 경로 지정: classpath -->
-	<properties resource="config/mybatis/db.properties"/> 
-	
-	<!-- SQL의 결과를 담을 VO 객체들의 별칭을 설정하여 사용의 편의를 도모  -->
+	<properties resource="config/mybatis/db.properties" />
+
+	<!-- SQL의 결과를 담을 VO 객체들의 별칭을 설정하여 사용의 편의를 도모 -->
 	<typeAliases>
 		<!-- 게시판 -->
-		<typeAlias alias="User" type="kr.co.bitcomu.repository.vo.User" />
+<!-- 		<typeAlias alias="User" type="kr.co.bitcomu.repository.vo.User" /> -->
+		<typeAlias type="kr.co.bitcomu.repository.vo.Vote" alias="Vote" />
+		<typeAlias type="kr.co.bitcomu.repository.vo.VoteIn" alias="VoteIn" />
 	</typeAliases>
-	
+
 	<environments default="development">
 		<environment id="development">
-			<transactionManager type="JDBC"/>
+			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="${driver}" />
 				<property name="url" value="${url}" />
@@ -26,6 +28,7 @@
 
 	<mappers>
 		<!-- 게시판 -->
-		<mapper resource="config/mapper/user.xml"/>
+<!-- 		<mapper resource="config/mapper/user.xml" /> -->
+		<mapper resource="config/mapper/vote.xml"/>
 	</mappers>
 </configuration>
