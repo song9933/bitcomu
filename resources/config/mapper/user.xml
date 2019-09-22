@@ -42,6 +42,15 @@
       	     and user_pass = #{userPass}
      </select>
      
+     <!-- 개인 유저 아이디 찾기 -->
+     <select id="selectFindUser" resultType="string" parameterType="User" flushCache="true" useCache="true">
+      	   select user_id
+      	     from tb_user
+      	   where user_mobile = #{userMobile}
+      	     and user_email = #{userEmail}
+      	     and user_name = #{userName}
+     </select>
+     
      <!-- 개인 유저 중복체크 -->
      <select id="selectOneUserCheck" resultType="int" parameterType="string" flushCache="true" useCache="true">
       	   select count(*) 
@@ -65,7 +74,6 @@
         set user_name = #{userName}, 
             user_pass = #{userPass},
             user_mobile = #{userMobile},
-            user_email = #{userEmail},
             user_birth = #{userBirth}
       where user_no = #{userNo}
       

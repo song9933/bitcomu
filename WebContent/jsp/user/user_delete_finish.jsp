@@ -17,7 +17,7 @@
      <!-- 헤더 -->
     <div class="w1280">
       <header>
-        <h1><a href="../index.html"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
+        <h1><a href="${pageContext.request.contextPath}/main.do"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
         <ul class="gnb">
           <li><a href="../notice.html">공지</a></li>
           <li><a href="#">커뮤니티</a>
@@ -44,7 +44,7 @@
     </div>
     <div class="tab-box sj">
       <ul class="sj">
-        <li class="sj">회원정보 수정</li>
+        
         <li class="sj selected">회원 탈퇴</li>
       </ul>
     </div>   
@@ -71,8 +71,8 @@
                     </div>
 
                     <div class="board_box_sj box_detail_sj">
-                  <button type="submit" class="button_box_sj box_email_sj">홈으로</button><span class="margin_sj"></span>
-                  <button type="submit" class="button_box_sj box_email_sj">회원가입</button>
+                  <button type="button" onclick="location.replace('${pageContext.request.contextPath}/main.do')" class="button_box_sj box_email_sj">홈으로</button><span class="margin_sj"></span>
+                  <button type="button" onclick="location.replace('${pageContext.request.contextPath}/user/userJoinTos.do')" class="button_box_sj box_email_sj">회원가입</button>
                 </div>
               </div>
           </section>

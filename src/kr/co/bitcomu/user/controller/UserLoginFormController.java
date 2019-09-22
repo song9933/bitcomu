@@ -8,21 +8,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
+import kr.co.bitcomu.encrypt.SHA256Password;
 import kr.co.bitcomu.repository.dao.UserDAO;
+import kr.co.bitcomu.repository.vo.User;
 
-@WebServlet("/user/userLogin.do")
-public class UserLoginController extends HttpServlet {
-	UserDAO dao;
-	
-	public UserLoginController() {
-		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(UserDAO.class);
-	}
-	
+@WebServlet("/user/userLoginForm.do")
+public class UserLoginFormController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
-		req.getRequestDispatcher("../jsp/user/user_tos.jsp").forward(req, res);
+		req.getRequestDispatcher("../jsp/user/login_form.jsp").forward(req, res);
 	}
 }

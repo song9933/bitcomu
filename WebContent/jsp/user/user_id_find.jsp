@@ -16,7 +16,7 @@
      <!-- 헤더 -->
     <div class="w1280">
       <header>
-        <h1><a href="../index.html"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
+        <h1><a href="${pageContext.request.contextPath}/main.do"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
         <ul class="gnb">
           <li><a href="../notice.html">공지</a></li>
           <li><a href="#">커뮤니티</a>
@@ -51,7 +51,7 @@
                   <table class="type02_sj">
                         <tr>
                           <td>가입된 전화번호</td>
-                          <td> <select name="user_phone1" class="input_box_sj box_phone_sj">
+                          <td> <select name="userphone1" class="input_box_sj box_phone_sj">
                               <option value="010" selected="selected">010</option>
                               <option value="011">011</option>
                               <option value="016">016</option>
@@ -59,9 +59,9 @@
                               <option value="019">019</option>
                             </select>-
                             <input type="text"
-                            name="user_phone2" class="input_box_sj box_phone_sj">-
+                            name="userphone2" class="input_box_sj box_phone_sj">-
                             <input type="text"
-                            name="user_phone3" class="input_box_sj box_phone_sj">
+                            name="userphone3" class="input_box_sj box_phone_sj">
                           </td>
                         </tr>
                         <tr>
@@ -72,12 +72,12 @@
                         <tr>
                             <td>가입된 이름</td>
                             <td> <input type="text"
-                                name="user_name" class="input_box_sj box_join_sj" placeholder="이름을 입력하세요">
+                                name="name" class="input_box_sj box_join_sj" placeholder="이름을 입력하세요">
                         </tr>
                   </table>
                   <div class="board_box_sj box_detail_sj">
                     <button type="submit" class="button_box_sj box_email_sj">아이디찾기</button><span class="margin_sj"></span>
-                    <button type="submit" class="button_box_sj box_email_sj">취소</button>
+                    <button type="button" onclick="location.replace('${pageContext.request.contextPath}/main.do')" class="button_box_sj box_email_sj">취소</button>
                   </div>
               </div>
           </section>

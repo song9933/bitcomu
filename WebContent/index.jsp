@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,13 +12,19 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
   <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+//   	function showPopup() {
+//   		window.open( "${pageContext.request.contextPath}/user/userLoginForm.do", "로그인 팝업", "width=400, height=800, left=800, top=50");
+//   	}
+
+  </script>
 </head>
 <body>
    <div class="wrapepr main_wrap">
      <!-- 헤더 -->
     <div class="w1280">
       <header class="clearboth">
-        <h1><a href="/index.html"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
+        <h1><a href="${pageContext.request.contextPath}/main.do"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
         <ul class="gnb">
           <li><a href="/notice.html">공지</a></li>
           <li><a href="#">커뮤니티</a>
@@ -32,8 +39,16 @@
           <li><a href="/onlineclass.html">온라인강의</a></li>
         </ul>
         <ul class="nav">
-          <li><a href="#">로그인</a></li>
-          <li><a href="${pageContext.request.contextPath}/user/userJoinTos.do">회원가입</a></li>
+          <c:choose>
+          	<c:when test="${empty sessionScope.user}">
+		          <li><a href="${pageContext.request.contextPath}/user/userLoginForm.do">로그인</a></li>
+		          <li><a href="${pageContext.request.contextPath}/user/userJoinTos.do">회원가입</a></li>
+          	</c:when>
+          	<c:otherwise>
+		          <li><a href="${pageContext.request.contextPath}/user/userLogout.do"">로그아웃</a></li>
+		          <li><a href="${pageContext.request.contextPath}/user/userUpdateForm.do">마이페이지</a></li>  	
+          	</c:otherwise>
+          </c:choose>
         </ul>
       </header>
     </div>

@@ -132,5 +132,45 @@ public class CommUtil {
 		return true;
 	}
 	
+	/**
+	 *  전화번호 병합
+	 * 
+	 * @param phone1
+	 * @param phone2
+	 * @param phone3
+	 * @return
+	 */
+	public static String phoneMerge(String phone1, String phone2, String phone3) {
+		return phone1 + "-" + phone2 + "-" + phone3;
+	}
+	
+	/**
+	 *  이메일 병합
+	 * 
+	 * @param phone1
+	 * @param phone2
+	 * @param phone3
+	 * @return
+	 */
+	public static String emailMerge(String email1, String email2) {
+		return email1 + "@" + email2;
+	}
+	
+	/**
+	 *  문자열 자르기
+	 * 
+	 */
+	public static String[] phoneSplit(String phone) {
+		return phone.split("-");
+	}
+	/**
+	 *  이메일 자르기
+	 * 
+
+	 */
+	public static String[] emailSplit(String email) {
+		return email.split("@");
+	}
+	
 	
 }

@@ -22,9 +22,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="location.href='index.html'">×</button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post">
+                    <form action="${pageContext.request.contextPath}/user/userLogin.do" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username" required="required">		
+                            <input type="text" class="form-control" name="id" placeholder="Username" required="required">		
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" placeholder="Password" required="required">	
@@ -35,7 +35,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a href="#">아이디 찾기</a>
+                    <a href="${pageContext.request.contextPath}/user/userIdFindForm.do">아이디 찾기</a>
                     <a href="#">비밀번호 찾기</a>
                 </div>
             </div>
