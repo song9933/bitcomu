@@ -16,7 +16,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="avatar">
-                        <img src="img/annyms.png" alt="Avatar">
+                        <img src="${pageContext.request.contextPath}/resources/images/annyms.png" alt="Avatar">
                     </div>				
                     <h4 class="modal-title">Member Login</h4>	
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="location.href='index.html'">¡¿</button>
