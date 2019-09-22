@@ -187,7 +187,7 @@
 
                     <div class="board_box_sj box_detail_sj">
                       
-                            <a href="user_email.html" class="button_box_sj box_email_sj">동의함</a><span class="margin_sj"></span>
+                            <a href="${pageContext.request.contextPath}/user/userJoinEmail.do" class="button_box_sj box_email_sj">동의함</a><span class="margin_sj"></span>
                             <a href="../index.html" class="button_box_sj box_email_sj">동의안함</a>
                     </div>
                 </div> 

@@ -4,7 +4,7 @@
 <!-- 독타입.. 중복이여서는 안된다 -->
 <!--파일을 고유하게 이름짓는 것 namespace testMapper1의 이름을 줘야한다 패키지명 같이 줘야한다  -->
 <!-- dao 클래스 위치 ctrl 키 눌러서 경로 확인되는지 .. check-->
-<mapper namespace="kr.co.mlec.repository.dao.UserDAO">
+<mapper namespace="kr.co.bitcomu.repository.dao.UserDAO">
 
 
 	<sql id="selectUsers">
@@ -42,18 +42,25 @@
       	     and user_pass = #{userPass}
      </select>
      
+     <!-- 개인 유저 중복체크 -->
+     <select id="selectOneUserCheck" resultType="int" parameterType="string" flushCache="true" useCache="true">
+      	   select count(*) 
+      	     from tb_user
+      	   where user_id = #{userId}
+     </select>
+     
 
 
      <!-- 유저 등록 -->
      <insert id="insertUser" parameterType="User">
         insert into tb_user( user_no, user_id, user_name, user_pass,
-        					 user_mobile, user_email, user_birth, user_grade ) 
+        					 user_mobile, user_email, user_birth ) 
 					values(tb_user_seq.nextval, #{userId}, #{userName}, #{userPass},
-					       userMobile, userEmail, userBirth, userGrade )
+					       #{userMobile}, #{userEmail}, #{userBirth} )
 	 </insert>
            
      <!-- 유저 수정 -->
-     <update id="updateBoard" parameterType="Board">
+     <update id="updateUser" parameterType="User">
      update tb_user 
         set user_name = #{userName}, 
             user_pass = #{userPass},
@@ -65,7 +72,7 @@
 	 </update>
 	 
      <!-- 유저 등급 변경(관리자 전용) -->
-     <update id="updateBoard" parameterType="int">
+     <update id="updateUserAdmin" parameterType="int">
      update tb_user 
         set user_grade = #{userGrade} 
       where user_no = #{userNo}
@@ -89,9 +96,15 @@
 	 </select>
 	 
       <!-- 유저 전체 삭제(관리자 전용) -->     
-     <select id="deleteAllUserAdmin" parameterType="int">
+     <select id="deleteAllUserAdmin">
        <include refid="deleteUsers" />
-        where user_no = #{userNo}      
+	 </select>
+	 
+	 <!-- 전화번호 앞자리 조회(공통) -->
+	 <select id="selectMolibeList" resultType="string">
+	 	select code_name
+	 	  from tb_codenm 
+	 	 where code_group = 'MOBILE_CD'
 	 </select>
     
 </mapper>	

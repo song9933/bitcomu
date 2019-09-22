@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -49,7 +50,7 @@
     </div>
     <!-- //비주얼이미지 영역 끝-->
     <!-- width = 1280px 인 컨텐츠영역-->
-    <form method="GET" action="#">
+    <form method="GET" action="${pageContext.request.contextPath}/user/userJoin.do">
       <div class="w1280">
           <section class="content">
               <div class="board_box_sj">
@@ -63,7 +64,7 @@
                         <td>아이디</td>
                         <td><input type="text"
                           name="id" class="input_box_sj box_join_sj" placeholder="아이디를 입력하세요.">
-                          <button class="button_box_sj">중복확인</button>
+                          <button type="button" class="button_box_sj">중복확인</button>
                         </td>
                       </tr>
                       <tr>
@@ -82,31 +83,24 @@
                           name="passwordRetry" class="input_box_sj box_join_sj" placeholder="비밀번호를 확인"> * 비밀번호가 일치합니다.</td>
                       </tr>
                       <tr>
-                        <td>비밀번호 확인</td>
-                        <td> <input type="text"
-                          name="user_name" class="input_box_sj box_join_sj" placeholder="이름을 입력하세요">
-                      </tr>
-                      <tr>
                         <td>전화번호</td>
-                        <td> <select name="user_phone1" class="input_box_sj box_phone_sj">
-                            <option value="010" selected="selected">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
+                        <td> <select name="userphone1" class="input_box_sj box_phone_sj">
+                        	<c:forEach var="phoneNum" items="${mobileList}">
+                            <option value="${phoneNum}">${phoneNum}</option>
+                        	</c:forEach>
                           </select>-
                           <input type="text"
-                          name="user_phone2" class="input_box_sj box_phone_sj">-
+                          name="userphone2" class="input_box_sj box_phone_sj">-
                           <input type="text"
-                          name="user_phone3" class="input_box_sj box_phone_sj">
+                          name="userphone3" class="input_box_sj box_phone_sj">
                         </td>
                       </tr>
                       <tr>
                           <td>이메일</td>
                           <td> <input type="text"
-                            name="email1" class="input_box_sj box_join_sj" disabled value="aaa">@
+                            name="email1" class="input_box_sj box_join_sj">@
                             <input type="text"
-                     name="email2" class="input_box_sj box_join_sj" disabled value="naver.com">
+                     name="email2" class="input_box_sj box_join_sj">
                         </tr>
                       <tr>
                         <td>생년월일</td>  

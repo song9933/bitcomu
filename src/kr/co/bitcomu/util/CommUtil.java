@@ -1,6 +1,7 @@
 package kr.co.bitcomu.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import java.security.MessageDigest;
 
 /**
@@ -59,6 +61,17 @@ public class CommUtil {
 		c.setTime(parseDate);
 		DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 		return df.format(c.getTime());
+	}
+	/**
+	 * 문자열 형태의 날짜값을 받아 Date로 반환한다.
+	 * 
+	 * 
+	 * @param parseStr
+	 * @return
+	 */
+	public static Date parseDate(String parseStr) throws ParseException {
+		DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+		return df.parse(parseStr);
 	}
 
 

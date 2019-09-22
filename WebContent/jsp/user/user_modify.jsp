@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -62,51 +63,49 @@
                       <tr>
                         <td>아이디</td>
                         <td><input type="text"
-                          name="id" class="input_box_sj box_join_sj" disabled value="aaa">
+                          name="id" class="input_box_sj box_join_sj" disabled value="${sessionScope.user.userId}">
                          </td>
                       </tr>
                       <tr>
                         <td>이름</td>
                         <td> <input type="text"
-                          name="user_name" class="input_box_sj box_join_sj" placeholder="이름을 입력하세요" value="홍길동">
+                          name="user_name" class="input_box_sj box_join_sj" placeholder="이름을 입력하세요" value="${sessionScope.user.userName}">
                       </tr>
                       <tr>
                         <td>비밀번호</td>
                         <td> <input type="password"
-                          name="password" class="input_box_sj box_join_sj" placeholder="변경할 비밀번호를 입력" value="1234!@#$"> * 10~20자 이하 영문.숫자,특수문자(~,!,#,$,%,^,*) 조합으로 입력하세요.</td>
+                          name="password" class="input_box_sj box_join_sj" placeholder="변경할 비밀번호를 입력"> * 10~20자 이하 영문.숫자,특수문자(~,!,#,$,%,^,*) 조합으로 입력하세요.</td>
                       </tr>
                       <tr>
                         <td>비밀번호 확인</td>
                         <td> <input type="password"
-                          name="passwordRetry" class="input_box_sj box_join_sj" placeholder="변경할 비밀번호를 확인" value="1234!@#$"> * 비밀번호가 일치합니다.</td>
+                          name="passwordRetry" class="input_box_sj box_join_sj" placeholder="변경할 비밀번호를 확인"> * 비밀번호가 일치합니다.</td>
                       </tr>
                       <tr>
                         <td>전화번호</td>
                         <td> <select name="user_phone1" class="input_box_sj box_phone_sj">
-                            <option value="010" selected="selected">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
+                        	<c:forEach var="phoneNum" items="${mobileList}">
+                            	<option value="${phoneNum}" <c:if test="${phoneNum eq phone[0]}"> selected </c:if>>${phoneNum}</option>
+                        	</c:forEach>
                           </select>-
                           <input type="text"
-                          name="user_phone2" class="input_box_sj box_phone_sj" value="2222">-
+                          name="user_phone2" class="input_box_sj box_phone_sj" value="${phone[1]}">-
                           <input type="text"
-                          name="user_phone3" class="input_box_sj box_phone_sj" value="3333">
+                          name="user_phone3" class="input_box_sj box_phone_sj" value="${phone[2]}">
                         </td>
                       </tr>
                       <tr>
                         <td>이메일</td>
                         <td> <input type="text"
-                          name="email1" class="input_box_sj box_join_sj" disabled value="aaa">@
+                          name="email1" class="input_box_sj box_join_sj" disabled value="${email[0]}">@
                           <input type="text"
-                          name="email2" class="input_box_sj box_join_sj" disabled value="naver.com">
+                          name="email2" class="input_box_sj box_join_sj" disabled value="${email[1]}">
                       </tr>
                       <tr>
                         <td>생년월일</td>  
                         <td>
                             <input type="date"
-                            name="birth" class="input_box_sj box_join_sj">
+                            name="birth" class="input_box_sj box_join_sj" value="${sessionScope.user.userBirth}">
                         </td>
                       </tr>  
                 </table>
