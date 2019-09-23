@@ -45,7 +45,7 @@
 		          <li><a href="${pageContext.request.contextPath}/user/userJoinTos.do">회원가입</a></li>
           	</c:when>
           	<c:otherwise>
-		          <li><a href="${pageContext.request.contextPath}/user/userLogout.do"">로그아웃</a></li>
+		          <li><a href="${pageContext.request.contextPath}/user/userLogout.do">로그아웃</a></li>
 		          <li><a href="${pageContext.request.contextPath}/user/userUpdateForm.do">마이페이지</a></li>  	
           	</c:otherwise>
           </c:choose>
