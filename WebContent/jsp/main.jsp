@@ -10,39 +10,6 @@
 </head>
 <body>
    <div class="wrapepr main_wrap">
-<<<<<<< HEAD
-     <!-- 헤더 -->
-    <div class="w1280">
-      <header class="clearboth">
-        <h1><a href="${pageContext.request.contextPath}/main.do"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
-        <ul class="gnb">
-          <li><a href="/notice.html">공지</a></li>
-          <li><a href="#">커뮤니티</a>
-            <ul class="dep2">
-              <li><a href="/board_talk.html">자유게시판</a></li>
-              <li><a href="/board_team.html">조별게시판</a></li>
-              <li><a href="/board_study.html">스터디게시판</a></li>
-            </ul>
-          </li>
-          <li><a href="/qna.html">질문답변</a></li>
-          <li><a href="/vote.html">투표</a></li>
-          <li><a href="/onlineclass.html">온라인강의</a></li>
-        </ul>
-        <ul class="nav">
-          <c:choose>
-          	<c:when test="${empty sessionScope.user}">
-		          <li><a href="${pageContext.request.contextPath}/user/userLoginForm.do">로그인</a></li>
-		          <li><a href="${pageContext.request.contextPath}/user/userJoinTos.do">회원가입</a></li>
-          	</c:when>
-          	<c:otherwise>
-		          <li><a href="${pageContext.request.contextPath}/user/userLogout.do">로그아웃</a></li>
-		          <li><a href="${pageContext.request.contextPath}/user/userUpdateForm.do">마이페이지</a></li>  	
-          	</c:otherwise>
-          </c:choose>
-        </ul>
-      </header>
-    </div>
-    <!-- // 헤더 끝-->
     <c:import url="/jsp/include/header.jsp"/>
     <!-- 비주얼이미지 영역 -->
     <div class="visual">
