@@ -43,9 +43,7 @@
       </header>
     </div>
     <!-- // 헤더 끝-->
-=======
     <c:import url="/jsp/include/header.jsp"/>
->>>>>>> branch 'master' of https://github.com/SeungjaeYu/bitcomu.git
     <!-- 비주얼이미지 영역 -->
     <div class="visual">
       <img src="${pageContext.request.contextPath}/resources/images/main_visual.png" alt="메인비주얼영억">
