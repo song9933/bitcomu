@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.bitcomu.repository.dao.TeamDAO">
+	<resultMap id="teamMap" type="Team">
+		<result column="user_no" property="useNo" />
+		<result column="team_no" property="teamNo" />
+		<result column="project_no" property="projectNo" />
+		<result column="team_board_no" property="teamBoardNo" />
+		<result column="team_board_title" property="teamBoardTitle" />
+		<result column="team_board_content" property="teamBoardContent" />
+		<result column="team_date" property="teamDate" />
+	</resultMap>
+
+	<select id="selectTeamBoard" resultMap="teamMap">
+		select *
+		  from board_team
+		 order by team_board_no desc
+	</select>
+
+	<select id="selectOneTeamBoard" parameterType="int" resultMap="teamMap">
+		select *
+		  from board_team
+		 where team_board_no = #{teamBoardNo}
+	</select>
+
+	<insert id="insertBoard" parameterType="Team">
+		insert into board_team(
+			team_board_no, team_board_title, user_no, team_board_content
+		) values (
+			seq_team_board_no.nextval, #{teamBoardTitle}, #{useNo}, #{teamBoardContent}
+		)
+	</insert>
+
+	<update id="updateBoard" parameterType="Team">
+		update board_team  
+		   set team_board_title = #{teamBoardTitle},  
+			   team_board_content = #{teamBoardContent}
+		 where team_board_no = #{teamBoardNo}
+	</update>
+
+	<delete id="deleteBoard" parameterType="int">
+		delete 
+		  from board_team 
+		 where team_board_no = #{teamBoardNo}
+	</delete>
+
+<!-- ===댓글================================================= -->
+
+<!-- 	<resultMap id="teamCommentMap" type="TeamComment"> -->
+<!-- 		<result column="user_no" property="userNo" /> -->
+<!-- 		<result column="team_board_no" property="teamBoardNo" /> -->
+<!-- 		<result column="team_board_cmt" property="teamBoardCmt" /> -->
+<!-- 		<result column="team_board_cmt_no" property="teamBoardCmtNo" /> -->
+<!-- 		<result column="team_board_cmt_date" property="teamBoardCmtDate" /> -->
+<!-- 	</resultMap> -->
+
+<!-- 	<select id="selectTeamComment" parameterType="int" resultMap="teamCommentMap"> -->
+<!-- 		select * -->
+<!-- 		  from board_team_comment -->
+<!-- 		 where no = #{no} -->
+<!-- 		 order by no desc -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectOneComment" parameterType="int" resultMap="teamCommentMap"> -->
+<!-- 		select * -->
+<!-- 		  from board_team_comment -->
+<!-- 		 where comment_no = #{commentNo} -->
+<!-- 	</select> -->
+
+<!-- 	<insert id="insertComment" parameterType="Comment"> -->
+<!-- 		insert into board_team_comment( -->
+<!-- 			no, comment_no, writer, content -->
+<!-- 		) values ( -->
+<!-- 			#{no}, comment_no_seq.nextval, #{writer}, #{content} -->
+<!-- 		) -->
+<!-- 	</insert> -->
+
+<!-- 	<update id="updateComment" parameterType="Comment"> -->
+<!-- 		update board_team_comment   -->
+<!-- 		   set content = #{content} -->
+<!-- 		 where comment_no = #{commentNo} -->
+<!-- 	</update> -->
+
+<!-- 	<delete id="deleteComment" parameterType="int"> -->
+<!-- 		delete  -->
+<!-- 		  from board_team_comment  -->
+<!-- 		 where comment_no = #{commentNo} -->
+<!-- 	</delete> -->
+	
+<!-- ===파일================================================= -->
+	
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
