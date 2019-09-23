@@ -62,9 +62,6 @@ header .nav li:first-child:after {
   content: '  |';
 }
 /* 컨텐츠 */
-section > div {
-  float: left;
-}
 /* 컨텐츠 - 상위게시글 표시*/
 section { margin: 100px 0; }
 
