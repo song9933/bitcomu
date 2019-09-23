@@ -22,7 +22,7 @@ public class WriteTeamBoardController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		dao.insertTeamBoard(
-				new Team().setUserNo(Integer.parseInt(req.getParameter("userNo")))
+				new Team() .setUserId(req.getParameter("userId"))
 						   .setTeamBoardTitle(req.getParameter("teamBoardTitle"))
 						   .setTeamBoardContent(req.getParameter("teamBoardContent"))
 		);

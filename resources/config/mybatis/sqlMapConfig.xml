@@ -10,6 +10,8 @@
 	<typeAliases>
 		<!-- 게시판 -->
 		<typeAlias alias="User" type="kr.co.bitcomu.repository.vo.User" />
+		<typeAlias alias="Team" type="kr.co.bitcomu.repository.vo.Team" />
+		<typeAlias alias="TeamComment" type="kr.co.bitcomu.repository.vo.TeamComment" />
 	</typeAliases>
 	
 	<environments default="development">
@@ -27,5 +29,6 @@
 	<mappers>
 		<!-- 게시판 -->
 		<mapper resource="config/mapper/user.xml"/>
+		<mapper resource="config/mapper/team.xml"/>
 	</mappers>
 </configuration>

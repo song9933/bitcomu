@@ -7,6 +7,7 @@ public class Team {
 	private int teamNo;
 	private int projectNo;
 	private int teamBoardNo;
+	private String userId;
 	private String teamBoardTitle;
 	private String teamBoardContent;
 	private Date teamDate;
@@ -30,6 +31,13 @@ public class Team {
 	}
 	public Team setTeamNo(int teamNo) {
 		this.teamNo = teamNo;
+		return this;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public Team setUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	public int getProjectNo() {
