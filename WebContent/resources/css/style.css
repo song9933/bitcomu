@@ -753,7 +753,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     
 
 
-    .pagination {
+    .pagination.nams {
         display:inline-block;
         padding-left:0;
         margin:20px 0;
@@ -990,8 +990,8 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     font-weight: bold; 
 }
 
-p {
-    margin: 5px;
+.qna_delete_1 {
+    margin-top: 5px;
 }
 
 
