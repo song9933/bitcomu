@@ -15,7 +15,7 @@
             </ul>
           </li>
           <li><a href="../qna.html">질문답변</a></li>
-          <li><a href="../vote.html">투표</a></li>
+          <li><a href="<c:url value="/vote/votelist.do" />">투표</a></li>
           <li><a href="../onlineclass.html">온라인강의</a></li>
         </ul>
         <ul class="nav">
