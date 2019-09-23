@@ -1939,12 +1939,12 @@ div.a_cws {
 /* 동찬 시작 */
 
 #dc_form_write {
-	width: 40%;
+	width: 70%;
 	margin: 0 auto;
 }
 
 #dc_form_write>p {
-	font-size: 20px;
+	font-size: 15px;
 	line-height: 200%;
 }
 

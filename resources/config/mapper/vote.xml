@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bitcomu.repository.dao.VoteDAO">
+	<resultMap id="voteMap" type="Vote">
+		<result column="VOTE_NO" property="voteNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="VOTE_REG_DATE" property="voteRegDate" />
+		<result column="VOTE_TITLE" property="voteTitle" />
+		<result column="VOTE_CONTENT" property="voteContent" />
+		<result column="VOTE_COUNT" property="voteCount" />
+		<result column="VOTE_TYPE" property="voteType" />
+		<result column="VOTE_MENU" property="voteMenu" />
+		<result column="VOTE_NOTICE" property="voteNotice" />
+		<result column="VOTE_ANONYMOUS" property="voteAnonymous" />
+		<result column="VOTE_EXPIRED" property="voteExpired" />
+		<result column="VOTE_EX_DATE" property="voteExDate" />
+	</resultMap>
+	<select id="selectVote" resultMap="voteMap">
+		  select * from ( select *
+		  from vote
+		 where vote_notice = 'Y'
+		 union
+		select *
+		  from vote
+		 where vote_expired = 'N'
+ 	     union
+ 	    select *
+ 	     from vote
+ 	    where vote_expired = 'Y'
+        )
+ 	 order by VOTE_REG_DATE desc
+	</select>
+	<select id="selectOneVote" parameterType="int" resultMap="voteMap">
+		select *
+		  from vote
+		 where vote_no = #{voteNo} 
+	</select>
+	<insert id="insertVote" parameterType="Vote">
+		insert into vote (
+			vote_no, USER_NO, VOTE_TITLE,
+			 VOTE_CONTENT, VOTE_TYPE, VOTE_MENU,
+			 VOTE_NOTICE, VOTE_ANONYMOUS, VOTE_EX_DATE
+		) values (
+			vote_seq.nextval, #{userNo}, #{voteTitle},
+			#{voteContent}, #{voteType}, #{voteMenu},
+			#{voteNotice}, #{voteAnonymous},
+			to_date(#{voteExDate},'MM-DD-YYYY HH24:MI:SS')
+		)
+	</insert>
+	<update id="updateVoteCount" parameterType="int">
+		update vote
+		   set VOTE_COUNT = VOTE_COUNT + 1
+		 where vote_no = #{voteNo}
+	</update>
+	<update id="updateVote" parameterType="Vote">
+		update vote 
+		   set VOTE_TITLE = #{voteTitle}, 
+		       VOTE_CONTENT = #{voteContent}
+		       VOTE_TYPE = #{voteType}
+		       VOTE_MENU = #{voteMenu}
+		       VOTE_NOTICE = #{voteNotice}
+		       VOTE_ANONYMOUS = #{voteAnonymous}
+		       VOTE_EXPIRED = #{voteExpired}
+		       VOTE_EX_DATE = #{voteExDate}
+		 where VOTE_NO = #{voteNo}
+	</update>
+	<delete id="deleteVote" parameterType="int">
+		delete 
+		  from vote
+		 where vote_no = #{voteNo}
+	</delete>
+	
+	<!-- 투표 변동 파트 ================================== -->
+	<resultMap id="voteInMap" type="VoteIn">
+		<result column="VOTE_IN_NO" property="voteInNo" />
+		<result column="VOTE_NO" property="voteNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="VOTE_DATA" property="voteData" />
+	</resultMap>
+	
+	<select id="selectVoteIn" parameterType="int" resultMap="voteInMap">
+	    select *
+	      from vote_in
+	     where vote_no = #{voteNo}
+	</select>
+	
+	<select id="selectOneVoteIn" parameterType="int" resultType="VoteIn">
+	    select *
+	      from vote_in
+	     where vote_in_no = #{voteInNo}
+	</select>
+	
+	<insert id="insertVoteIn" parameterType="VoteIn">
+		insert into vote_in(
+			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA
+		) values (
+			VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData}
+		)
+	</insert>	
+			
+	<delete id="deleteVoteIn" parameterType="int">
+	    delete 
+	      from vote_in
+	     where VOTE_IN_NO = #{voteInNo}
+	</delete>	
+	
+<!-- 	<update id="updateComment" parameterType="comment"> -->
+<!-- 	    update tb_comment -->
+<!-- 	       set content = #{content} -->
+<!-- 	     where comment_no = #{commentNo} -->
+<!-- 	</update> -->
+	
+</mapper>
+	
