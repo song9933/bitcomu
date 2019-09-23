@@ -19,7 +19,6 @@
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 
-</script>
 
 </head>
 <Style>
@@ -192,7 +191,8 @@
 				<c:choose>
 					<c:when test="${!empty list}">
 						<c:forEach var="v" items="${list}">
-							<div class="w3-panel w3-card-4 w3-round dc_listbox">
+							<div class="w3-panel w3-card-4 w3-round dc_listbox"
+							onclick="location.href='/vote/votedetail.do?voteNo=${v.voteNo}'">
 								<p>
 									<c:if test="${v.voteNotice eq 'Y'}">
 										<공지>
@@ -200,7 +200,7 @@
 									<c:if test="${v.voteAnonymous eq 'Y'}">
 										<익명>
 									</c:if>
-									<br>${v.voteTitle}
+									<div onclick="location.href'<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">${v.voteTitle}</div>
 								</p>
 								<p>
 									written by SBC
