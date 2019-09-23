@@ -1,62 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ include file="/jsp/include/taglib.jsp" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>비트캠프 커뮤니티 | 메인 </title>
-  <link rel="stylesheet" href="<c:url value="/resources/css/w3.css" />"/>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-  <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript">
-//   	function showPopup() {
-//   		window.open( "${pageContext.request.contextPath}/user/userLoginForm.do", "로그인 팝업", "width=400, height=800, left=800, top=50");
-//   	}
-
-  </script>
+  <c:import url="/jsp/include/head.jsp">
+		<c:param name="msg" value="이용약관" />
+  </c:import> 
 </head>
 <body>
    <div class="wrapepr main_wrap">
-     <!-- 헤더 -->
-    <div class="w1280">
-      <header class="clearboth">
-        <h1><a href="${pageContext.request.contextPath}/main.do"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="비트컴퓨터로고"></a></h1>
-        <ul class="gnb">
-          <li><a href="/notice.html">공지</a></li>
-          <li><a href="#">커뮤니티</a>
-            <ul class="dep2">
-              <li><a href="/board_talk.html">자유게시판</a></li>
-              <li><a href="/board_team.html">조별게시판</a></li>
-              <li><a href="/board_study.html">스터디게시판</a></li>
-            </ul>
-          </li>
-          <li><a href="/qna.html">질문답변</a></li>
-          <li><a href="/vote.html">투표</a></li>
-          <li><a href="/onlineclass.html">온라인강의</a></li>
-        </ul>
-        <ul class="nav">
-          <c:choose>
-          	<c:when test="${empty sessionScope.user}">
-		          <li><a href="${pageContext.request.contextPath}/user/userLoginForm.do">로그인</a></li>
-		          <li><a href="${pageContext.request.contextPath}/user/userJoinTos.do">회원가입</a></li>
-          	</c:when>
-          	<c:otherwise>
-		          <li><a href="${pageContext.request.contextPath}/user/userLogout.do"">로그아웃</a></li>
-		          <li><a href="${pageContext.request.contextPath}/user/userUpdateForm.do">마이페이지</a></li>  	
-          	</c:otherwise>
-          </c:choose>
-        </ul>
-      </header>
-    </div>
-    <!-- // 헤더 끝-->
+    <c:import url="/jsp/include/header.jsp"/>
     <!-- 비주얼이미지 영역 -->
     <div class="visual">
       <img src="${pageContext.request.contextPath}/resources/images/main_visual.png" alt="메인비주얼영억">
-    </div>
+    </div> 
     <!-- //비주얼이미지 영역 끝-->
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
@@ -165,12 +123,7 @@
         </div>
     </div>
     </div>
-    <!-- width= 100%인 컨텐츠 영역-->
-    <!-- 푸터 -->
-    <footer class="w1280">
-      <p> Copyright &copy; 비트캠프 All rights reserved.</p>
-    </footer>
-    <!--// 푸터 끝-->
+   <%@include file="/jsp/include/footer.jsp" %>
     
     
 
