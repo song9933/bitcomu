@@ -1,6 +1,7 @@
 package kr.co.bitcomu.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import java.security.MessageDigest;
 
 /**
@@ -59,6 +61,17 @@ public class CommUtil {
 		c.setTime(parseDate);
 		DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 		return df.format(c.getTime());
+	}
+	/**
+	 * 문자열 형태의 날짜값을 받아 Date로 반환한다.
+	 * 
+	 * 
+	 * @param parseStr
+	 * @return
+	 */
+	public static Date parseDate(String parseStr) throws ParseException {
+		DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+		return df.parse(parseStr);
 	}
 
 
@@ -117,6 +130,46 @@ public class CommUtil {
 	public static boolean emailChk(String randomNum, String sendNum) {
 		if (!randomNum.equals(sendNum)) return false;
 		return true;
+	}
+	
+	/**
+	 *  전화번호 병합
+	 * 
+	 * @param phone1
+	 * @param phone2
+	 * @param phone3
+	 * @return
+	 */
+	public static String phoneMerge(String phone1, String phone2, String phone3) {
+		return phone1 + "-" + phone2 + "-" + phone3;
+	}
+	
+	/**
+	 *  이메일 병합
+	 * 
+	 * @param phone1
+	 * @param phone2
+	 * @param phone3
+	 * @return
+	 */
+	public static String emailMerge(String email1, String email2) {
+		return email1 + "@" + email2;
+	}
+	
+	/**
+	 *  문자열 자르기
+	 * 
+	 */
+	public static String[] phoneSplit(String phone) {
+		return phone.split("-");
+	}
+	/**
+	 *  이메일 자르기
+	 * 
+
+	 */
+	public static String[] emailSplit(String email) {
+		return email.split("@");
 	}
 	
 	

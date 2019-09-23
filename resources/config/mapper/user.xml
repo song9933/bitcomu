@@ -4,52 +4,115 @@
 <!-- 독타입.. 중복이여서는 안된다 -->
 <!--파일을 고유하게 이름짓는 것 namespace testMapper1의 이름을 줘야한다 패키지명 같이 줘야한다  -->
 <!-- dao 클래스 위치 ctrl 키 눌러서 경로 확인되는지 .. check-->
-<mapper namespace="kr.co.mlec.repository.dao.BoardDAO">  
-     <!-- regDate는 못갖고오니까 리절트맵 만들어주기 -->
-     <resultMap type="Board" id="boardMap">
-       <result column="no" property="no"/>
-       <result column="title" property="title"/>
-       <result column="content" property="content"/>
-       <result column="writer" property="writer"/>
-       <result column="view_cnt" property="viewCnt"/>
-       <result column="reg_date" property="regDate"/>
-     </resultMap>
+<mapper namespace="kr.co.bitcomu.repository.dao.UserDAO">
+
+
+	<sql id="selectUsers">
+		select user_no, user_id, user_name, user_pass, user_mobile,
+			   user_email, user_birth, user_grade
+		  from tb_user	   
+	</sql>
+	  
+	<sql id="deleteUsers">
+		 delete
+	       from tb_user
+	</sql>  
+
+
+    <resultMap type="User" id="userMap">
+      <result column="user_no" property="userNo"/>
+      <result column="user_id" property="userId"/>
+      <result column="user_name" property="userName"/>
+      <result column="user_pass" property="userPass"/>
+      <result column="user_mobile" property="userMobile"/>
+      <result column="user_email" property="userEmail"/>
+      <result column="user_birth" property="userBirth"/>
+      <result column="user_grade" property="userGrade"/>
+    </resultMap>
      
-     <!-- 게시판 전체 -->
-     <select id="selectBoard" resultMap="boardMap" flushCache="true" useCache="true">
-      	     select * 
-			   from  tb_board 
-			  order by  no desc
+     <!-- 유저 전체(관리자 전용) -->
+     <select id="selectUserAdmin" resultMap="userMap" flushCache="true" useCache="true">
+      	   <include refid="selectUsers" />
+     </select>
+     
+     <!-- 개인 유저 조회 -->
+     <select id="selectOneUser" resultMap="userMap" parameterType="User" flushCache="true" useCache="true">
+      	   <include refid="selectUsers" />
+      	   where user_id = #{userId}
+      	     and user_pass = #{userPass}
+     </select>
+     
+     <!-- 개인 유저 아이디 찾기 -->
+     <select id="selectFindUser" resultType="string" parameterType="User" flushCache="true" useCache="true">
+      	   select user_id
+      	     from tb_user
+      	   where user_mobile = #{userMobile}
+      	     and user_email = #{userEmail}
+      	     and user_name = #{userName}
+     </select>
+     
+     <!-- 개인 유저 중복체크 -->
+     <select id="selectOneUserCheck" resultType="int" parameterType="string" flushCache="true" useCache="true">
+      	   select count(*) 
+      	     from tb_user
+      	   where user_id = #{userId}
      </select>
      
 
-     <!--선택한 게시판 -->
-     <select id="selectOneBoard" parameterType="int" resultMap="boardMap">
-      	     select * 
-			   from  tb_board 
-			  where no = #{no} 
-     </select>
-     
 
-     <!-- 글쓰기 -->
-     <select id="insertBoard" parameterType="Board">
-        insert into tb_board( no, title, writer, content  ) 
-					values(seq_board_no.nextval, #{title}, #{writer}, #{content} )
-	 </select>
+     <!-- 유저 등록 -->
+     <insert id="insertUser" parameterType="User">
+        insert into tb_user( user_no, user_id, user_name, user_pass,
+        					 user_mobile, user_email, user_birth ) 
+					values(tb_user_seq.nextval, #{userId}, #{userName}, #{userPass},
+					       #{userMobile}, #{userEmail}, #{userBirth} )
+	 </insert>
            
-     <!-- 글수정 -->
-     <select id="updateBoard" parameterType="Board">
-     update tb_board 
-        set title = #{title}, 
-            content = #{content} 
-      where no = #{no}
-	 </select>
+     <!-- 유저 수정 -->
+     <update id="updateUser" parameterType="User">
+     update tb_user 
+        set user_name = #{userName}, 
+            user_pass = #{userPass},
+            user_mobile = #{userMobile},
+            user_birth = #{userBirth}
+      where user_no = #{userNo}
+      
+	 </update>
+	 
+     <!-- 유저 등급 변경(관리자 전용) -->
+     <update id="updateUserAdmin" parameterType="int">
+     update tb_user 
+        set user_grade = #{userGrade} 
+      where user_no = #{userNo}
+      
+	 </update>
            
-      <!-- 글수정 -->     
-     <select id="deleteBoard" parameterType="int">
-       delete
-         from tb_board
-        where no = #{no}      
+      <!-- 유저 탈퇴 -->     
+     <select id="deleteUser" parameterType="int">
+     	<include refid="deleteUsers" />
+        where user_no = #{userNo}      
+	 </select>
+	 
+	 
+      <!-- 유저 삭제(관리자 전용) -->     
+     <select id="deleteUserAdmin" parameterType="map">
+       <include refid="deleteUsers" />
+        where user_no in
+        <foreach collection="list" item="userNo"  open="(" close=")" separator=",">
+              #{userNo}    
+        </foreach>
+	 </select>
+	 
+      <!-- 유저 전체 삭제(관리자 전용) -->     
+     <select id="deleteAllUserAdmin">
+       <include refid="deleteUsers" />
+	 </select>
+	 
+	 <!-- 전화번호 앞자리 조회(공통) -->
+	 <select id="selectMolibeList" resultType="string">
+	 	select code_name
+	 	  from tb_codenm 
+	 	 where code_group = 'MOBILE_CD'
 	 </select>
     
 </mapper>	
