@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>bitcomu</display-name>
+  
+   <filter>
+ 	<filter-name>Encoding</filter-name>
+ 	<filter-class>kr.co.bitcomu.filter.EncodingFilter</filter-class>
+ 	<init-param>
+ 		<param-name>charset</param-name>
+ 		<param-value>utf-8</param-value>
+ 	</init-param>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>Encoding</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>Auth</filter-name>
+  	<filter-class>kr.co.bitcomu.filter.AuthFilter</filter-class>
+  	<init-param>
+  		<param-name>pages</param-name>
+  		<param-value>
+  			/main.do;
+  			/user/userLogin.do;
+  			/user/userIdFind.do;
+  			/user/userIdFindForm.do;
+  			/user/userJoin.do;
+  			/user/userJoinEmail.do;
+  			/user/userJoinFinish.do;
+  			/user/userJoinForm.do;
+  			/user/userJoinTos.do;
+  			/user/userLoginForm.do;
+  			/user/userPWFindForm.do;
+  		</param-value>
+  	</init-param>
+  </filter>
+  
+   <filter-mapping>
+  	<filter-name>Auth</filter-name>
+  	<url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

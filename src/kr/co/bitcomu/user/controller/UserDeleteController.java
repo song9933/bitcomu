@@ -29,7 +29,7 @@ public class UserDeleteController extends HttpServlet {
 		if (user.getUserPass().equals(SHA256Password.LockPassword(req.getParameter("password")))) {
 			dao.deleteUser(Integer.parseInt(req.getParameter("no")));
 			session.invalidate();			
-			req.getRequestDispatcher("../jsp/user/user_delete_finish.jsp").forward(req, res);
+			req.getRequestDispatcher("/jsp/user/user_delete_finish.jsp").forward(req, res);
 			return;
 		}
 		req.getRequestDispatcher("").forward(req, res);	

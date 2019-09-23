@@ -21,6 +21,6 @@ public class UserLogoutFormController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		session.invalidate();
-		req.getRequestDispatcher("../main.do").forward(req, res);
+		res.sendRedirect(req.getContextPath() + "/main.do");
 	}
 }

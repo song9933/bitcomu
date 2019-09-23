@@ -20,6 +20,6 @@ public class UserDeleteFormController extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.getRequestDispatcher("../jsp/user/user_delete.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/user/user_delete.jsp").forward(req, res);
 	}
 }

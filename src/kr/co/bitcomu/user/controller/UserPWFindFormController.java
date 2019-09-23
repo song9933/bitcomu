@@ -19,6 +19,6 @@ import kr.co.bitcomu.repository.vo.User;
 public class UserPWFindFormController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.getRequestDispatcher("../jsp/user/user_password_find.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/user/user_password_find.jsp").forward(req, res);
 	}
 }

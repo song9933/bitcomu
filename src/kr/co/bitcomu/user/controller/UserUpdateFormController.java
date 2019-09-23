@@ -26,11 +26,7 @@ public class UserUpdateFormController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		
-		User testUser = new User();
-		testUser.setUserId("admin");
-		testUser.setUserPass(SHA256Password.LockPassword("admin"));
-		
-		session.setAttribute("user", dao.selectOneUser(testUser));
+
 		
 		User user = (User) session.getAttribute("user");
 		
@@ -40,7 +36,7 @@ public class UserUpdateFormController extends HttpServlet {
 		req.setAttribute("email", email);
 		req.setAttribute("mobileList", dao.selectMolibeList());
 		if (user.getUserGrade() == 1) {
-			req.getRequestDispatcher("../jsp/user/user_modify.jsp").forward(req, res);
+			req.getRequestDispatcher("/jsp/user/user_modify.jsp").forward(req, res);
 			return;
 		} else if (user.getUserGrade() == 3) {
 			return;

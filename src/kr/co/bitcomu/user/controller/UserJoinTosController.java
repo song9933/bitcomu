@@ -17,6 +17,6 @@ public class UserJoinTosController extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.getRequestDispatcher("../jsp/user/user_tos.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/user/user_tos.jsp").forward(req, res);
 	}
 }
