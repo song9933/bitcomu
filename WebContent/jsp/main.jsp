@@ -14,7 +14,7 @@
     <!-- 비주얼이미지 영역 -->
     <div class="visual">
       <img src="${pageContext.request.contextPath}/resources/images/main_visual.png" alt="메인비주얼영억">
-    </div>
+    </div> 
     <!-- //비주얼이미지 영역 끝-->
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
