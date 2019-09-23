@@ -1,14 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/jsp/include/taglib.jsp" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>∫Ò∆Æƒøπ¬ | ∑Œ±◊¿Œ</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+    <c:import url="/jsp/include/head.jsp">
+		<c:param name="msg" value="Î°úÍ∑∏Ïù∏" />
+</c:import> 
 </head>
 <body>
     <div class="wrapper login_form_wrap">
@@ -19,7 +17,7 @@
                         <img src="${pageContext.request.contextPath}/resources/images/annyms.png" alt="Avatar">
                     </div>				
                     <h4 class="modal-title">Member Login</h4>	
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="location.href='index.html'">°ø</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="location.href='index.html'">√ó</button>
                 </div>
                 <div class="modal-body">
                     <form action="${pageContext.request.contextPath}/user/userLogin.do" method="post">
@@ -35,8 +33,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a href="${pageContext.request.contextPath}/user/userIdFindForm.do">æ∆¿Ãµ √£±‚</a>
-                    <a href="#">∫Òπ–π¯»£ √£±‚</a>
+                    <a href="${pageContext.request.contextPath}/user/userIdFindForm.do">ÏïÑÏù¥Îîî Ï∞æÍ∏∞</a>
+                    <a href="#">ÎπÑÎ∞ÄÎ≤àÌò∏ Ï∞æÍ∏∞</a>
                 </div>
             </div>
         </div>
