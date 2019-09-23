@@ -9,7 +9,12 @@
 		<c:param name="msg" value="투표글쓰기" />
 </c:import>
 </head>
-
+<style>
+.dc_form {
+	width: 80%;
+	height: 550px;
+}
+</style>
 <body>
   <div class="wrapepr">
    <c:import url="/jsp/include/header.jsp"/>
@@ -178,7 +183,39 @@
 					</c:otherwise>
 				</c:choose>
 				<%-- 투표 리스트 출력 끝 --%>
-				
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 
 			</section>
 		</div>

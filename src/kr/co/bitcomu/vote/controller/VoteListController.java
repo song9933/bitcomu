@@ -13,7 +13,7 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.VoteDAO;
 import kr.co.bitcomu.repository.vo.Vote;
 
-@WebServlet("/jsp/vote/votelist.do")
+@WebServlet("/vote/votelist.do")
 public class VoteListController extends HttpServlet{
 	private VoteDAO dao;
 	
@@ -24,7 +24,7 @@ public class VoteListController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		List<Vote> list = dao.selectVote();
 		req.setAttribute("list", list);
-		req.getRequestDispatcher("votelist.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/vote/votelist.jsp").forward(req, res);
 	}
 
 }
