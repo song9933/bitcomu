@@ -1,26 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ include file="/jsp/include/taglib.jsp" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>비트캠프 커뮤니티 | 메인 </title>
-  <link rel="stylesheet" href="<c:url value="/resources/css/w3.css" />"/>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-  <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript">
-//   	function showPopup() {
-//   		window.open( "${pageContext.request.contextPath}/user/userLoginForm.do", "로그인 팝업", "width=400, height=800, left=800, top=50");
-//   	}
-
-  </script>
+  <c:import url="/jsp/include/head.jsp">
+		<c:param name="msg" value="이용약관" />
+  </c:import> 
 </head>
 <body>
    <div class="wrapepr main_wrap">
+<<<<<<< HEAD
      <!-- 헤더 -->
     <div class="w1280">
       <header class="clearboth">
@@ -53,6 +43,9 @@
       </header>
     </div>
     <!-- // 헤더 끝-->
+=======
+    <c:import url="/jsp/include/header.jsp"/>
+>>>>>>> branch 'master' of https://github.com/SeungjaeYu/bitcomu.git
     <!-- 비주얼이미지 영역 -->
     <div class="visual">
       <img src="${pageContext.request.contextPath}/resources/images/main_visual.png" alt="메인비주얼영억">
@@ -165,12 +158,7 @@
         </div>
     </div>
     </div>
-    <!-- width= 100%인 컨텐츠 영역-->
-    <!-- 푸터 -->
-    <footer class="w1280">
-      <p> Copyright &copy; 비트캠프 All rights reserved.</p>
-    </footer>
-    <!--// 푸터 끝-->
+   <%@include file="/jsp/include/footer.jsp" %>
     
     
 
