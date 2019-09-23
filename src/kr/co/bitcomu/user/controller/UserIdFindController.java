@@ -32,6 +32,6 @@ public class UserIdFindController extends HttpServlet {
 		req.setAttribute("userId", dao.selectFindUser(user));
 		
 		
-		req.getRequestDispatcher("../jsp/user/user_id_find_finish.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/user/user_id_find_finish.jsp").forward(req, res);
 	}
 }

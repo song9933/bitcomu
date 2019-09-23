@@ -26,7 +26,6 @@ public class UserJoinController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		try {
-			req.setCharacterEncoding("utf-8");
 			User user = new User();
 			user.setUserId(req.getParameter("id"));
 			user.setUserName(req.getParameter("name"));
@@ -39,7 +38,7 @@ public class UserJoinController extends HttpServlet {
 			e.printStackTrace();
 			res.sendRedirect("");
 		}
-		res.sendRedirect("../user/userJoinFinish.do");
+		res.sendRedirect(req.getContextPath() + "/user/userJoinFinish.do");
 		
 			
 

@@ -22,6 +22,6 @@ public class UserJoinFormController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setAttribute("mobileList", dao.selectMolibeList());
-		req.getRequestDispatcher("../jsp/user/user_join.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/user/user_join.jsp").forward(req, res);
 	}
 }

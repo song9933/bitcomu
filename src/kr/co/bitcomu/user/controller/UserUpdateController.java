@@ -27,7 +27,6 @@ public class UserUpdateController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		req.setCharacterEncoding("utf-8");
 		try {
 			User user = new User();
 			user.setUserId(req.getParameter("userId"));
@@ -43,7 +42,7 @@ public class UserUpdateController extends HttpServlet {
 			e.printStackTrace();
 			res.sendRedirect("");
 		}
-		res.sendRedirect("../user/userUpdateFinish.do");
+		res.sendRedirect(req.getContextPath() + "/user/userUpdateFinish.do");
 	}
 	
 }
