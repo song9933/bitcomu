@@ -234,6 +234,7 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 
 /* 온라인 강의 페이지 */
 .online_cls .visual {
+  width: 100%;
   z-index: -1;
   position: relative; 
   overflow: hidden;
