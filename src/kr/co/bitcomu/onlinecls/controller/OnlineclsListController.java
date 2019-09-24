@@ -1,5 +1,7 @@
 package kr.co.bitcomu.onlinecls.controller;
 
-public class OnlineclsListController {
+import javax.servlet.http.HttpServlet;
+
+public class OnlineclsListController extends HttpServlet {
 
 }
