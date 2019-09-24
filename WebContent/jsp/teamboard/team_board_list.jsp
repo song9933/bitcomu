@@ -1,50 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/jsp/include/taglib.jsp" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>비트캠프 커뮤니티 | 조별 게시판</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/w3.css">
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<c:import url="/jsp/include/head.jsp">
+		<c:param name="msg" value="조별게시판" />
+</c:import>
 </head>
 
 <body>
 	<div class="wrapepr">
-		<!-- 헤더 -->
-		<div class="w1280">
-			<header class="clearboth">
-				<h1>
-					<a href="/index.html"><img src="img/logo.png" alt="비트컴퓨터로고"></a>
-				</h1>
-				<ul class="gnb">
-					<li><a href="/notice.html">공지</a></li>
-					<li><a href="#">커뮤니티</a>
-						<ul class="dep2">
-							<li><a href="/board_talk.html">자유게시판</a></li>
-							<li><a href="/board_team.html">조별게시판</a></li>
-							<li><a href="/board_study.html">스터디게시판</a></li>
-						</ul></li>
-					<li><a href="/qna.html">질문답변</a></li>
-					<li><a href="/vote.html">투표</a></li>
-					<li><a href="/onlineclass.html">온라인강의</a></li>
-				</ul>
-				<ul class="nav">
-					<li><a href="#">로그인</a></li>
-					<li><a href="#">회원가입</a></li>
-				</ul>
-			</header>
-		</div>
-		<!-- // 헤더 끝-->
+	<c:import url="/jsp/include/header.jsp"/>
 		<!-- width = 1280px 인 컨텐츠영역-->
 		<div class="w1280">
 			<section class="content">
