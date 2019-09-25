@@ -9,6 +9,7 @@
 	<!-- SQL의 결과를 담을 VO 객체들의 별칭을 설정하여 사용의 편의를 도모 -->
 	<typeAliases>
 		<!-- 게시판 -->
+		<typeAlias alias="Study" type="kr.co.bitcomu.repository.vo.Study"/>
 		<typeAlias alias="User" type="kr.co.bitcomu.repository.vo.User" />
 		<typeAlias type="kr.co.bitcomu.repository.vo.Vote" alias="Vote" />
 		<typeAlias type="kr.co.bitcomu.repository.vo.VoteIn" alias="VoteIn" />
@@ -30,6 +31,7 @@
 
 	<mappers>
 		<!-- 게시판 -->
+		<mapper resource="config/mapper/study.xml" />
 		<mapper resource="config/mapper/user.xml" />
 		<mapper resource="config/mapper/vote.xml"/>
 		<mapper resource="config/mapper/team.xml"/>
