@@ -12,7 +12,8 @@
 		<typeAlias alias="User" type="kr.co.bitcomu.repository.vo.User" />
 		<typeAlias type="kr.co.bitcomu.repository.vo.Vote" alias="Vote" />
 		<typeAlias type="kr.co.bitcomu.repository.vo.VoteIn" alias="VoteIn" />
-		
+		<typeAlias alias="Team" type="kr.co.bitcomu.repository.vo.Team" />
+		<typeAlias alias="TeamComment" type="kr.co.bitcomu.repository.vo.TeamComment" />
 	</typeAliases>
 
 	<environments default="development">
@@ -31,5 +32,6 @@
 		<!-- 게시판 -->
 		<mapper resource="config/mapper/user.xml" />
 		<mapper resource="config/mapper/vote.xml"/>
+		<mapper resource="config/mapper/team.xml"/>
 	</mappers>
 </configuration>

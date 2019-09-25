@@ -11,6 +11,7 @@
 <body>
    <div class="wrapepr main_wrap">
     <c:import url="/jsp/include/header.jsp"/>
+
     <!-- 비주얼이미지 영역 -->
     <div class="visual">
       <img src="${pageContext.request.contextPath}/resources/images/main_visual.png" alt="메인비주얼영억">

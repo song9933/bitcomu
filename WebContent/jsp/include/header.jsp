@@ -10,7 +10,7 @@
           <li><a href="#">커뮤니티</a>
             <ul class="dep2">
               <li><a href="../board_talk.html">자유게시판</a></li>
-              <li><a href="../board_team.html">조별게시판</a></li>
+              <li><a href="../team_board_list.do">조별게시판</a></li>
               <li><a href="../board_study.html">스터디게시판</a></li>
             </ul>
           </li>
