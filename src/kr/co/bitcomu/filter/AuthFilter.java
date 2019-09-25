@@ -51,7 +51,7 @@ public class AuthFilter implements Filter {
 			HttpSession session = req.getSession();
 			User user = (User)session.getAttribute("user");
 			if (user == null) {
-				res.sendRedirect(req.getContextPath() + "/user/userLogin.do");
+				res.sendRedirect(req.getContextPath() + "/user/userLoginForm.do");
 				return;
 			}
 		}
