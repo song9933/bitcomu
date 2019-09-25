@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/onlineclass/onlinecls_main.do")
 public class OnlineclsListController extends HttpServlet {
-	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 	}
 }

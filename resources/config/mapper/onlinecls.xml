@@ -1,1 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bitcomu.repository.dao.OnlineclsDAO">
+
+
+<resultMap type="Onlinecls" id="onlineclsMap">
+	<result column="yt_no" property="ytNo" />
+	<result column="user_no" property="userNo" />
+	<result column="yt_title" property="ytTitle" />
+	<result column="yt_content" property="ytContent" />
+	<result column="yt_addr" property="ytAddr" />
+	<result column="yt_reg_dt" property="ytRegDt" />
+	<result column="yt_subject" property="ytSubject" />
+	<result column="yt_view_cnt" property="ytViewCnt" />
+	<result column="yt_like_cnt" property="ytLike" />
+</resultMap>
+
+<!-- 온라인강의 리스트 조회 -->	
+<select id="seletOnlinecls" resultMap="onlineclsMap" flushCache="true" useCache="true">
+	select * 
+	  from tb_youtube
+</select>
+
+<!-- 온라인강의 상세 -->	
+<select id="selectOneOnlinecls" resultMap="onlineclsMap" parameterType="Onlinecls" flushCache="true" useCache="true">
+	select *
+	  from tb_youtube
+	 where yt_no = #{ytNo}
+</select>
+
+<!-- 온라인강의 추가 -->	
+<insert id="insertOnlinecls" parameterType="Onlinecls">
+	insert into tb_youtube(
+		yt_no, user_no, yt_title, yt_content, yt_addr, yt_subject
+	) values (
+		tb_youtube_seq.nextval, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject} 
+	)
+</insert>
+
+<!-- 온라인강의 수정 -->	
+<update>
+
+</update>
+
+<!-- 온라인강의 삭제 -->	
+<delete>
+
+</delete>
+</mapper>
+<!--
+검색은
+select * 
+  from tb_youtube
+ where title = '%' ||#{title}|| '%'
+  
+
+ -->
