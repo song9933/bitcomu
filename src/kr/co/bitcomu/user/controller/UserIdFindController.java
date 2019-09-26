@@ -28,7 +28,7 @@ public class UserIdFindController extends HttpServlet {
 		User user = new User();
 		user.setUserMobile(CommUtil.phoneMerge(req.getParameter("userphone1"), req.getParameter("userphone2"), req.getParameter("userphone3")));
 		user.setUserEmail(CommUtil.emailMerge(req.getParameter("email1"), req.getParameter("email2")));
-		user.setUserName(req.getParameter("userName"));
+		user.setUserName(req.getParameter("name"));
 		req.setAttribute("userId", dao.selectFindUser(user));
 		
 		

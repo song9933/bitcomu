@@ -19,7 +19,7 @@
     </div>
     <!-- //비주얼이미지 영역 끝-->
     <!-- width = 1280px 인 컨텐츠영역-->
-    <form method="GET" action="#">
+    <form method="POST" action="${pageContext.request.contextPath}/user/userIdFind.do">
       <div class="w1280">
           <section class="content">
               <div class="board_box_sj">
@@ -42,8 +42,10 @@
                         </tr>
                         <tr>
                             <td>가입된 이메일</td>
-                            <td> <input type="text"
-                                name="emailAuth" class="input_box_sj box_default_sj" placeholder="가입된 이메일 주소를 입력하세요"></td>
+                          <td> <input type="text"
+                            name="email1" class="input_box_sj box_join_sj">@
+                            <input type="text"
+                     		name="email2" class="input_box_sj box_join_sj">
                         </tr>
                         <tr>
                             <td>가입된 이름</td>
