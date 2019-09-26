@@ -1,89 +1,78 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/jsp/include/taglib.jsp" %>
+<%@ include file="/jsp/include/taglib.jsp"%>
+<%
+	List<String> realMenu = (List) request.getAttribute("realMenu");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
 <c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="투표글쓰기" />
+	<c:param name="msg" value="투표글쓰기" />
 </c:import>
 </head>
 
 <body>
-  <div class="wrapepr">
-   <c:import url="/jsp/include/header.jsp"/>
+	<div class="wrapepr">
+		<c:import url="/jsp/include/header.jsp" />
 		<!-- // 헤더 끝-->
 		<!-- width = 1280px 인 컨텐츠영역-->
 		<div class="w1280">
 			<section class="content">
 				<h2>투표상세보기페이지</h2>
-				
-<!-- 				모달로 처리되는 부분 시작 -->
-<!-- 				<div id="dc_modal" class="w3-modal"> -->
-<!-- 					<div class="w3-modal-content w3-card-4"> -->
-<!-- 						<header class="w3-container w3-white"> -->
-<!-- <!-- 							<span --> -->
-<!-- <!-- 								onclick="document.getElementById('dc_modal').style.display='none'" --> -->
-<!-- <!-- 								class="w3-button w3-display-topright">&times;</span> --> -->
 
-<!-- 							<div class="w3-container w3-card w3-white w3-round" -->
-<!-- 								id="dc_modal_content"> -->
-<!-- 								<h3> -->
-<!-- 									<공지> -->
-<!-- 									<익명>반장 선출 투표 -->
-<!-- 								</h3> -->
-<!-- 								<i class="fa fa-info-circle" aria-hidden="true"></i> -->
-<!-- 								<div class="w3-panel w3-blue"> -->
-<!-- 									<h5>반장 선출 투표</h5> -->
-<!-- 									<p>투표 결과는 익명처리됩니다.</p> -->
-<!-- 									<p>뽑고싶은 사람 이름을 선택하세요.</p> -->
-<!-- 									<br> -->
-<!-- 								</div> -->
+				<div class="w3-container w3-card w3-white w3-round">
+					<i class="fa fa-info-circle" aria-hidden="true"></i>
+					<div class="w3-panel w3-blue">
+						<h5>${vote.voteTitle}</h5>
+						<c:if test="vote.voteAnonyEnabled">
+							<p>투표 결과는 익명처리됩니다.</p>
+						</c:if>
+						<p>${vote.voteContent}</p>
+						<br>
+					</div>
+					<form action="<c:url value='/vote/votein.do' />">
 
-<!-- 								셀렉트박스 -->
-<!-- 								<div class="w3-container w3-card w3-white"> -->
-<!-- 									<form action="/action_page.php"> -->
-<!-- 										<h3>투표하기</h3> -->
+						<c:choose>
+							<%-- 중복체크 가능한 체크박스형태  --%>
+							
+							<c:when test="${vote.voteType == 0}">
+								<%--원래 메뉴의 이름을 입력할때 파악하기 위해 저장해놓는다. --%>
+								<c:forEach var="aa" items="${realMenu}" varStatus="idx">
+									<div>
+										<input type="checkbox" name="choice" value="${idx.index}">${aa}
+										</div>
+								</c:forEach>
+							</c:when>
+							<%-- 중복체크 불가능한 라디오박스형태  --%>
+							<c:when test="${vote.voteType == 1}">
+										${vote.voteMenu}
+									
+									</c:when>
+						</c:choose>
+					</form>
+					<button type="submit" class="w3-btn w3-green">투표하기</button>
 
-<!-- 										<select class="w3-select" name="option"> -->
-<!-- 											<option value="" disabled selected>선택해 주세요..</option> -->
-<!-- 											<option value="1">유승재</option> -->
-<!-- 											<option value="2">박남수</option> -->
-<!-- 											<option value="3">임진산</option> -->
-<!-- 											<option value="4">최우석</option> -->
-<!-- 											<option value="5">오동훈</option> -->
-<!-- 											<option value="6">신용환</option> -->
-<!-- 										</select> <br> <br> <br> -->
-<!-- 									</form> -->
-
-<!-- 								</div> -->
-<!-- 								<br> -->
-<!-- 								<p> -->
-<!-- 									<button type="submit" class="w3-btn w3-green">투표하기</button> -->
-<!-- 								</p> -->
-
-<!-- 							</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				모달로 처리되는 부분 끝 -->
-				
-				
-
-			</section>
+				</div>
 		</div>
-		<!-- //width = 1280px 인 컨텐츠영역 끝-->
 
-		<%@include file="/jsp/include/footer.jsp" %>
+
+
+		</section>
+	</div>
+	<!-- //width = 1280px 인 컨텐츠영역 끝-->
+
+	<%@include file="/jsp/include/footer.jsp"%>
 
 
 
 
 	</div>
 	<script>
-//   $(document).ready(alert());
-
-    </script>
+		//   $(document).ready(alert());
+	</script>
 </body>
 
 </html>

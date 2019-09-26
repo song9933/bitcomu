@@ -1,6 +1,8 @@
 package kr.co.bitcomu.vote.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +34,17 @@ public class VoteDetailController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		int voteNo = Integer.parseInt(req.getParameter("voteNo"));
 		Vote vote = dao.selectOneVote(voteNo);
+		
+		//투표 메뉴 관련 데이터 가공 처리 시작
+		String[] splitedMenu = vote.getVoteMenu().split("★");
+		List<String> realMenu = new ArrayList<String>();
+		for(String m : splitedMenu) {
+//			System.out.println(m);
+			if(m.equals("")) continue;
+			realMenu.add(m);
+			System.out.print(m + ", ");
+		}
+		req.setAttribute("realMenu", realMenu);
 		req.setAttribute("vote", vote);
 		req.getRequestDispatcher("/jsp/vote/votedetail.jsp").forward(req, res);
 	}

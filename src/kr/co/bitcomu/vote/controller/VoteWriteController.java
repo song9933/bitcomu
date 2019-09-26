@@ -50,10 +50,10 @@ public class VoteWriteController extends HttpServlet{
 		vote.setVoteTitle(req.getParameter("voteTitle"));
 		vote.setVoteContent(req.getParameter("voteContent"));
 		if(req.getParameter("voteMultiCheck") != null) {
-			//중복체크가 가능하면 타입이 0번 체크박스형태로 변경
+			//중복체크허용을 선택했다면 0번 체크박스형태로 변경
 			vote.setVoteType(0);
 		} else {
-			//중복체크가 가능하면 항목들이 1번 라디오박스형태가 됨
+			//중복체크허용을 선택하지 않아서 null이 넘어 왔다면 1번 라디오박스형태가 됨
 			vote.setVoteType(1);
 		}
 		

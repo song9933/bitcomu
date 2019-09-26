@@ -73,7 +73,7 @@
 								
 								<br>
 								<div>중복체크 가능여부 설정(체크박스로 변경)</div>
-								<input class="w3-check" type="checkbox" name="voteMultiCheck" value="1"> <label>중복체크 가능</label>
+								<input class="w3-check" type="checkbox" name="voteMultiCheck" > <label>중복체크 가능</label>
 								
 								<div>투표 선택지1의 이름.</div>
 									<input class="w3-input" type="text" placeholder="항목을 입력하세요"
