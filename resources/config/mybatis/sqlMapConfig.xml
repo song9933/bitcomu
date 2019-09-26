@@ -16,6 +16,8 @@
 		<typeAlias alias="Team" type="kr.co.bitcomu.repository.vo.Team" />
 		<typeAlias alias="TeamComment" type="kr.co.bitcomu.repository.vo.TeamComment" />
 		<typeAlias alias="Onlinecls" type="kr.co.bitcomu.repository.vo.Onlinecls" />
+		<typeAlias alias="Notice" type="kr.co.bitcomu.repository.vo.Notice" />
+		<typeAlias alias="Page" type="kr.co.bitcomu.repository.vo.Page" />
 	</typeAliases>
 
 	<environments default="development">
@@ -37,5 +39,6 @@
 		<mapper resource="config/mapper/vote.xml"/>
 		<mapper resource="config/mapper/team.xml"/>
 		<mapper resource="config/mapper/onlinecls.xml" />
+		<mapper resource="config/mapper/notice.xml" />
 	</mappers>
 </configuration>

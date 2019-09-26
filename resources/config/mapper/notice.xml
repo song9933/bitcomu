@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bitcomu.repository.dao.NoticeDAO">
+	<resultMap id="noticeMap" type="Notice">
+		<result column="notice_post_no" property="postNo" />
+		<result column="notice_post_title" property="title" />
+		<result column="notice_post_content" property="content" />
+		<result column="user_no" property="userNo" />
+		<result column="notice_view_cnt" property="viewCnt" />
+		<result column="notice_reg_dt" property="regDt" />
+	</resultMap>
+	
+	
+	
+	<select id="selectNotice" parameterType="Page" resultMap="noticeMap">
+	    select *
+	      from (select rownum rnum, a.*
+			      from ( 
+					      select *
+								  from tb_notice
+								 order by notice_post_no desc
+						  )
+						  a)
+		 where rnum between #{begin} and #{end}  			 
+	</select>
+	<select id="selectNoticeCount" resultType="int">
+		select count(*)
+		  from tb_notice
+	</select>
+	
+
+	
+	<select id="selectOneNotice" parameterType="int" resultMap="noticeMap">
+		select *
+		  from tb_notice
+		 where notice_post_no = #{postNo} 
+	</select>
+	<insert id="insertNotice" parameterType="Notice">
+		insert into tb_notice (
+			notice_post_no, notice_post_title, notice_post_content, user_no,
+		) values (
+			seq_board_no.nextval, #{title}, #{content}, 1
+		)
+	</insert>
+	<update id="updateViewCnt" parameterType="int">
+		update tb_notice 
+		   set notice_view_cnt = notice_view_cnt + 1
+		 where notice_post_no = #{postNo}
+	</update>
+	<update id="updateNotice" parameterType="Notice">
+		update tb_notice 
+		   set notice_post_title = #{title}, 
+		       notice_post_content = #{content}
+		 where notice_post_no = #{postNo}
+	</update>
+	<delete id="deleteNotice" parameterType="int">
+		delete 
+		  from tb_notice 
+		 where notice_post_no = #{postNo}
+		 cascade
+	</delete>
+
+</mapper>
