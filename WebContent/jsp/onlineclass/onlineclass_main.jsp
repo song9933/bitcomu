@@ -43,6 +43,7 @@
             <li class="on">강의회차정보</li>
             <li>전체강의</li>
           </ul>
+          <!-- 현재 선택한 과목 강의리스트 div -->
           <div class="vid_container clearboth">
               <div class="ifrWrap clearboth">
                 <!--  <iframe src="https://www.youtube.com/embed/KR9nyo8hAdI?playsinline=0&fs=1&rel=0" frameborder="0" allowfullscreen ></iframe> -->
@@ -80,6 +81,17 @@
                 </div>
               </div>
           </div>
+          <!-- 전체과목 리스트 div -->
+          <!-- 
+          <div class="subj_container clearboth">
+              <div class="subjWrap clearboth">
+                <div class=""></div>
+                <div class=""></div>
+                <div class=""></div>
+                <div class=""></div>
+              </div>
+          </div>
+           -->
           <div class="btn_r">
             <a href="/online_cls/upload_form.html">강의 등록하기 </a>
           </div>
