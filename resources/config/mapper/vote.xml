@@ -5,69 +5,71 @@
 	<resultMap id="voteMap" type="Vote">
 		<result column="VOTE_NO" property="voteNo" />
 		<result column="USER_NO" property="userNo" />
-		<result column="VOTE_REG_DATE" property="voteRegDate" />
+		<result column="vote_reg_dt" property="voteRegDt" />
 		<result column="VOTE_TITLE" property="voteTitle" />
 		<result column="VOTE_CONTENT" property="voteContent" />
-		<result column="VOTE_COUNT" property="voteCount" />
+		<result column="vote_in_cnt" property="voteInCnt" />
 		<result column="VOTE_TYPE" property="voteType" />
 		<result column="VOTE_MENU" property="voteMenu" />
-		<result column="VOTE_NOTICE" property="voteNotice" />
-		<result column="VOTE_ANONYMOUS" property="voteAnonymous" />
-		<result column="VOTE_EXPIRED" property="voteExpired" />
-		<result column="VOTE_EX_DATE" property="voteExDate" />
+		<result column="vote_notice_enabled" property="voteNoticeEnabled" />
+		<result column="vote_anony_enabled" property="voteAnonyEnabled" />
+		<result column="vote_close_enabled" property="voteCloseEnabled" />
+		<result column="vote_close_dt" property="voteCloseDt" />
 	</resultMap>
 	<select id="selectVote" resultMap="voteMap">
 		  select * from ( select *
-		  from vote
-		 where vote_notice = 'Y'
+		  from tb_vote
+		 where vote_notice_enabled = 'Y'
 		 union
 		select *
-		  from vote
-		 where vote_expired = 'N'
+		  from tb_vote
+		 where vote_close_enabled = 'N'
  	     union
  	    select *
- 	     from vote
- 	    where vote_expired = 'Y'
+ 	     from tb_vote
+ 	    where vote_close_enabled = 'Y'
         )
- 	 order by VOTE_REG_DATE desc
+ 	 order by vote_reg_dt desc
 	</select>
 	<select id="selectOneVote" parameterType="int" resultMap="voteMap">
 		select *
-		  from vote
+		  from tb_vote
 		 where vote_no = #{voteNo} 
 	</select>
 	<insert id="insertVote" parameterType="Vote">
-		insert into vote (
+		insert into tb_vote (
 			vote_no, USER_NO, VOTE_TITLE,
 			 VOTE_CONTENT, VOTE_TYPE, VOTE_MENU,
-			 VOTE_NOTICE, VOTE_ANONYMOUS, VOTE_EX_DATE
+			 vote_notice_enabled, vote_anony_enabled, vote_close_dt,
+			 vote_in_cnt, vote_reg_dt
 		) values (
-			vote_seq.nextval, #{userNo}, #{voteTitle},
+			tb_vote_seq.nextval, #{userNo}, #{voteTitle},
 			#{voteContent}, #{voteType}, #{voteMenu},
-			#{voteNotice}, #{voteAnonymous},
-			to_date(#{voteExDate},'MM-DD-YYYY HH24:MI:SS')
+			#{voteNoticeEnabled}, #{voteAnonyEnabled},
+			to_date(#{voteCloseDt},'MM-DD-YYYY HH24:MI:SS'),
+			#{voteInCnt}, SYSDATE
 		)
 	</insert>
-	<update id="updateVoteCount" parameterType="int">
-		update vote
-		   set VOTE_COUNT = VOTE_COUNT + 1
+	<update id="updateVoteInCnt" parameterType="int">
+		update tb_vote
+		   set vote_in_cnt = vote_in_cnt + 1
 		 where vote_no = #{voteNo}
 	</update>
 	<update id="updateVote" parameterType="Vote">
-		update vote 
+		update tb_vote 
 		   set VOTE_TITLE = #{voteTitle}, 
 		       VOTE_CONTENT = #{voteContent}
 		       VOTE_TYPE = #{voteType}
 		       VOTE_MENU = #{voteMenu}
-		       VOTE_NOTICE = #{voteNotice}
-		       VOTE_ANONYMOUS = #{voteAnonymous}
-		       VOTE_EXPIRED = #{voteExpired}
-		       VOTE_EX_DATE = #{voteExDate}
+		       vote_notice_enabled = #{voteNoticeEnabled}
+		       vote_anony_enabled = #{voteAnonyEnabled}
+		       vote_close_enabled = #{voteCloseEnabled}
+		       vote_close_dt = #{voteCloseDt}
 		 where VOTE_NO = #{voteNo}
 	</update>
 	<delete id="deleteVote" parameterType="int">
 		delete 
-		  from vote
+		  from tb_vote
 		 where vote_no = #{voteNo}
 	</delete>
 	
@@ -95,7 +97,7 @@
 		insert into vote_in(
 			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA
 		) values (
-			VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData}
+			tb_VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData}
 		)
 	</insert>	
 			

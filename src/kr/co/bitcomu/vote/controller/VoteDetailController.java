@@ -12,7 +12,7 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.VoteDAO;
 import kr.co.bitcomu.repository.vo.Vote;
 
-@WebServlet("/jsp/vote/votedetail.do")
+@WebServlet("/vote/votedetail.do")
 public class VoteDetailController extends HttpServlet{
 	private VoteDAO dao;
 	
@@ -33,7 +33,7 @@ public class VoteDetailController extends HttpServlet{
 		int voteNo = Integer.parseInt(req.getParameter("voteNo"));
 		Vote vote = dao.selectOneVote(voteNo);
 		req.setAttribute("vote", vote);
-		req.getRequestDispatcher("votedetail.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/vote/votedetail.jsp").forward(req, res);
 	}
 	
 }

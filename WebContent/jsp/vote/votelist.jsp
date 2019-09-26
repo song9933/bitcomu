@@ -12,7 +12,10 @@
 <style>
 .dc_form {
 	width: 80%;
-	height: 550px;
+	height: 800px;
+}
+.dc_writeform-container {
+	height: 750px;
 }
 </style>
 <body>
@@ -43,14 +46,15 @@
 				<!-- 투표모달창 시작 -->
 				<div id="writevoteform" class="w3-modal">
 					<div class="w3-modal-content">
-						<div class="w3-container">
+						<div class="w3-container dc_writeform-container">
 							<span
 								onclick="document.getElementById('writevoteform').style.display='none'"
 								class="w3-button w3-display-topright">&times;</span>
 
 							<%-- 투표 등록하는 폼 시작 --%>
 							<form id="dc_form_write" class="dc_form w3-panel w3-card-4"
-								action="votewrite.do" method="post">
+							
+								action="<c:url value="/vote/votewrite.do" />" method="post">
 								<h1>새 투표 등록하기</h1>
 
 								<div>투표 제목을 입력해주세요.</div>
@@ -158,19 +162,19 @@
 					<c:when test="${!empty list}">
 						<c:forEach var="v" items="${list}">
 							<div class="w3-panel w3-card-4 w3-round dc_listbox"
-							onclick="location.href='/vote/votedetail.do?voteNo=${v.voteNo}'">
+							onclick="location.href='<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">
 								<p>
-									<c:if test="${v.voteNotice eq 'Y'}">
+									<c:if test="${v.voteNoticeEnabled eq 'Y'}">
 										<공지>
 									</c:if>
-									<c:if test="${v.voteAnonymous eq 'Y'}">
+									<c:if test="${v.voteAnonyEnabled eq 'Y'}">
 										<익명>
 									</c:if>
-									<div onclick="location.href'<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">${v.voteTitle}</div>
+									<div onclick="location.href='<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">${v.voteTitle}</div>
 								</p>
 								<p>
 									written by SBC
-									<fmt:formatDate value="${v.voteRegDate}"
+									<fmt:formatDate value="${v.voteRegDt}"
 										pattern="yyyy년 MM월 dd일 hh시 mm분 " />
 								</p>
 							</div>

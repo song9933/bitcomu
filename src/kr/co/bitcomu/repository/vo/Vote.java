@@ -5,16 +5,16 @@ import java.util.Date;
 public class Vote {
 	private int voteNo;
 	private int userNo;
-	private Date voteRegDate;
+	private Date voteRegDt;
 	private String voteTitle;
 	private String voteContent;
-	private int voteCount;
+	private int voteInCnt;
 	private int voteType;
 	private String voteMenu;
-	private String voteNotice;
-	private String voteAnonymous;
-	private String voteExpired;
-	private String voteExDate;
+	private String voteNoticeEnabled;
+	private String voteAnonyEnabled;
+	private String voteCloseEnabled;
+	private String voteCloseDt;
 	public int getVoteNo() {
 		return voteNo;
 	}
@@ -27,11 +27,11 @@ public class Vote {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public Date getVoteRegDate() {
-		return voteRegDate;
+	public Date getVoteRegDt() {
+		return voteRegDt;
 	}
-	public void setVoteRegDate(Date voteRegDate) {
-		this.voteRegDate = voteRegDate;
+	public void setVoteRegDt(Date voteRegDt) {
+		this.voteRegDt = voteRegDt;
 	}
 	public String getVoteTitle() {
 		return voteTitle;
@@ -45,11 +45,11 @@ public class Vote {
 	public void setVoteContent(String voteContent) {
 		this.voteContent = voteContent;
 	}
-	public int getVoteCount() {
-		return voteCount;
+	public int getVoteInCnt() {
+		return voteInCnt;
 	}
-	public void setVoteCount(int voteCount) {
-		this.voteCount = voteCount;
+	public void setVoteInCnt(int voteInCnt) {
+		this.voteInCnt = voteInCnt;
 	}
 	public int getVoteType() {
 		return voteType;
@@ -63,29 +63,29 @@ public class Vote {
 	public void setVoteMenu(String voteMenu) {
 		this.voteMenu = voteMenu;
 	}
-	public String getVoteNotice() {
-		return voteNotice;
+	public String getVoteNoticeEnabled() {
+		return voteNoticeEnabled;
 	}
-	public void setVoteNotice(String voteNotice) {
-		this.voteNotice = voteNotice;
+	public void setVoteNoticeEnabled(String voteNoticeEnabled) {
+		this.voteNoticeEnabled = voteNoticeEnabled;
 	}
-	public String getVoteAnonymous() {
-		return voteAnonymous;
+	public String getVoteAnonyEnabled() {
+		return voteAnonyEnabled;
 	}
-	public void setVoteAnonymous(String voteAnonymous) {
-		this.voteAnonymous = voteAnonymous;
+	public void setVoteAnonyEnabled(String voteAnonyEnabled) {
+		this.voteAnonyEnabled = voteAnonyEnabled;
 	}
-	public String getVoteExpired() {
-		return voteExpired;
+	public String getVoteCloseEnabled() {
+		return voteCloseEnabled;
 	}
-	public void setVoteExpired(String voteExpired) {
-		this.voteExpired = voteExpired;
+	public void setVoteCloseEnabled(String voteCloseEnabled) {
+		this.voteCloseEnabled = voteCloseEnabled;
 	}
-	public String getVoteExDate() {
-		return voteExDate;
+	public String getVoteCloseDt() {
+		return voteCloseDt;
 	}
-	public void setVoteExDate(String voteExDate) {
-		this.voteExDate = voteExDate;
+	public void setVoteCloseDt(String voteCloseDt) {
+		this.voteCloseDt = voteCloseDt;
 	}
 	
 }

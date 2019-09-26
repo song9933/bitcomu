@@ -15,7 +15,7 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.VoteDAO;
 import kr.co.bitcomu.repository.vo.Vote;
 
-@WebServlet("/jsp/vote/votewrite.do")
+@WebServlet("/vote/votewrite.do")
 public class VoteWriteController extends HttpServlet{
 	private VoteDAO dao;
 	
@@ -71,14 +71,14 @@ public class VoteWriteController extends HttpServlet{
 		vote.setVoteMenu(convertedMenu);
 		System.out.println(req.getParameter("voteNotice"));
 		if(req.getParameter("voteNotice") != null) {
-			vote.setVoteNotice("Y");
+			vote.setVoteNoticeEnabled("Y");
 		} else {
-			vote.setVoteNotice("N");
+			vote.setVoteNoticeEnabled("N");
 		}
 		if(req.getParameter("voteAnonymous") != null) {
-			vote.setVoteAnonymous("Y");
+			vote.setVoteAnonyEnabled("Y");
 		} else {
-			vote.setVoteAnonymous("N");
+			vote.setVoteAnonyEnabled("N");
 		}
 		
 		//일단 마감일은 등록일로부터 2일후로 설정
@@ -89,7 +89,10 @@ public class VoteWriteController extends HttpServlet{
 		String after2day = sdf.format(twoDaysLater);
 		//마감일자 설정부분은 자바스크립트 공부한후에 다시하기
 		System.out.println(after2day);
-		vote.setVoteExDate(after2day);
+		vote.setVoteCloseDt(after2day);
+		
+		//투표참여인원숫자
+		
 		dao.insertVote(vote);
 		
 		res.sendRedirect("votelist.do");
