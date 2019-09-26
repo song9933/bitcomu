@@ -39,14 +39,14 @@
 </insert>
 
 <!-- 온라인강의 수정 -->	
-<update>
+<!-- <update>
 
-</update>
+</update> -->
 
 <!-- 온라인강의 삭제 -->	
-<delete>
+<!-- <delete>
 
-</delete>
+</delete> -->
 </mapper>
 <!--
 검색은
