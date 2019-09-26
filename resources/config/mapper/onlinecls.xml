@@ -18,8 +18,9 @@
 
 <!-- 온라인강의 과목 리스트 조회 -->
 <select id="selectOnlineclsSubject" resultMap="onlineclsMap" flushCache="true" useCache="true">
-	select * 
-	  from tb_youtube
+	select max(yt_subject), max(yt_addr) 
+	  from tb_youtube 
+	 group by yt_subject
 </select>
 <!-- 온라인강의 리스트 조회 -->	
 <select id="seletOnlinecls" resultMap="onlineclsMap" parameterType="Onlinecls" flushCache="true" useCache="true">
@@ -40,7 +41,7 @@
 	insert into tb_youtube(
 		yt_no, user_no, yt_title, yt_content, yt_addr, yt_subject
 	) values (
-		tb_youtube_seq.nextval, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject} 
+		tb_youtube_seq.nextval, #{userNo}, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject} 
 	)
 </insert>
 

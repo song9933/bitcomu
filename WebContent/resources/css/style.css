@@ -28,9 +28,11 @@ body {
   clear: both;
 }
 
+.hidden {
+  display: none;
+}
 /* header */
 header { padding: 30px 0;}
-w1280:first-child { background: #fff; border-bottom: 1px solid #eca9a9; display: none; }
 
 header > * { float: left; }
 header .gnb, header .nav { float: right; text-align: right; }
@@ -325,6 +327,27 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .online_cls .tab li:hover {
   cursor: pointer;
 }
+
+/* 리스트과목 뿌리는 부분 */
+.online_cls .subj_container {
+  margin: 30px 0;
+}
+.online_cls .subj_container h5 {
+  line-height: 60px;
+}
+.online_cls .subj_container .imgBox {
+  position: relative; 
+  width: 100%; 
+  padding-top: 56%; 
+  overflow: hidden;
+}
+.online_cls .subj_container img {
+  position: absolute;
+  top: -28.6px;
+  left: 0;
+  width: 100%;
+}
+
 /* iframe 온라인영상 */
 .online_cls .content {
   margin-top: 100px; 

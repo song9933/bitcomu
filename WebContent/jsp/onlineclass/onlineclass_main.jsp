@@ -40,11 +40,52 @@
     <div class="w1280">
         <section class="content video clearboth">
           <ul class="tab clearboth">
-            <li class="on">강의회차정보</li>
-            <li>전체강의</li>
+            <li class="on">전체강의</li>
+            <li>강의회차정보</li>
           </ul>
+          <!-- 전체과목 리스트 div -->
+          <div class="subj_container clearboth">
+            <div class="subjWrap clearboth">
+              <div class="ifrBox">
+                  <div class="imgBox">
+                      <img src="https://img.youtube.com/vi/MtxFWczSFqU/0.jpg">
+                  </div>
+                  <span>1</span>
+                  <div class="ifrInfo">
+                    <h5>자바</h5>
+                  </div>
+              </div>
+              <div class="ifrBox">
+                  <div class="imgBox">
+                      <img src="https://img.youtube.com/vi/MtxFWczSFqU/0.jpg">
+                  </div>
+                  <span>1</span>
+                  <div class="ifrInfo">
+                    <h5>자바</h5>
+                  </div>
+              </div>
+              <div class="ifrBox">
+                  <div class="imgBox">
+                      <img src="https://img.youtube.com/vi/MtxFWczSFqU/0.jpg">
+                  </div>
+                  <span>1</span>
+                  <div class="ifrInfo">
+                    <h5>자바</h5>
+                  </div>
+              </div>
+              <div class="ifrBox">
+                  <div class="imgBox">
+                      <img src="https://img.youtube.com/vi/MtxFWczSFqU/0.jpg">
+                  </div>
+                  <span>1</span>
+                  <div class="ifrInfo">
+                    <h5>자바</h5>
+                  </div>
+              </div>
+            </div>
+          </div>
           <!-- 현재 선택한 과목 강의리스트 div -->
-          <div class="vid_container clearboth">
+          <div class="hidden vid_container clearboth">
               <div class="ifrWrap clearboth">
                 <!--  <iframe src="https://www.youtube.com/embed/KR9nyo8hAdI?playsinline=0&fs=1&rel=0" frameborder="0" allowfullscreen ></iframe> -->
                 <div class="ifrBox">
@@ -81,17 +122,6 @@
                 </div>
               </div>
           </div>
-          <!-- 전체과목 리스트 div -->
-          <!-- 
-          <div class="subj_container clearboth">
-              <div class="subjWrap clearboth">
-                <div class=""></div>
-                <div class=""></div>
-                <div class=""></div>
-                <div class=""></div>
-              </div>
-          </div>
-           -->
           <div class="btn_r">
             <a href="/online_cls/upload_form.html">강의 등록하기 </a>
           </div>
