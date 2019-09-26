@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/onlineclass/onlinecls_main.do")
+@WebServlet("/onlineclass/onlineclsMain.do")
 public class OnlineclsListController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+		req.getRequestDispatcher("/jsp/onlineclass/onlineclass_main.jsp").forward(req, res);
 	}
 }
