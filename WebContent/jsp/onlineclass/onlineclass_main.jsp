@@ -55,7 +55,7 @@ int yt_no = 0;
 	            	</c:when>
 	            	<c:otherwise>
 	            	<c:forEach var="subject" items="${ sList }">
-	            		<div class="ifrBox">
+	            		<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${ subject.ytSubject }'">
 		                  <div class="imgBox">
 		                      <img src="https://img.youtube.com/vi/${ subject.ytAddr }/0.jpg">
 		                  </div>
