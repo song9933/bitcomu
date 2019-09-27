@@ -14,6 +14,12 @@ public class Notice {
 	
 	
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public int getPostNo() {
 		return postNo;
 	}
