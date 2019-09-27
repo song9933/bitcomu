@@ -45,7 +45,7 @@
                           <td> <input type="text"
                             name="email1" class="input_box_sj box_join_sj">@
                             <input type="text"
-                     		name="email2" class="input_box_sj box_join_sj">
+                     		name="email2" class="input_box_sj box_join_sj"></td>
                         </tr>
                         <tr>
                             <td>가입된 이름</td>

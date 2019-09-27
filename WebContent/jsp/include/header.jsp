@@ -27,7 +27,15 @@
           	</c:when>
           	<c:otherwise>
 		          <li><a href="<c:url value="/user/userLogout.do"/>">로그아웃</a></li>
-		          <li><a href="<c:url value="/user/userUpdateForm.do"/>">마이페이지</a></li>  	
+		          <li><a href="
+		          <c:choose>
+		          	<c:when test="${sessionScope.user.userGrade eq 3}">
+		          		<c:url value="/admin/adminUserList.do"/>
+		          	</c:when>
+		          	<c:otherwise>
+		          		<c:url value="/user/userUpdateForm.do"/>
+		          	</c:otherwise>
+		          </c:choose>">마이페이지</a></li>  	
           	</c:otherwise>
           </c:choose>
         </ul>

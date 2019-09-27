@@ -30,8 +30,10 @@
                       </tr>
                         <tr>
                               <td>이메일</td>
-                              <td> <input type="text"
-                                  name="email1" class="input_box_sj box_default_sj" placeholder="인증 받을 이메일 주소를 입력해 주세요."> <button type="submit" class="button_box_sj">전송</button></td>
+                              <td>  <input type="text"
+                            name="email1" class="input_box_sj box_join_sj">@
+                            <input type="text"
+                     		name="email2" class="input_box_sj box_join_sj"><button type="button" class="button_box_sj">전송</button></td>
                               </tr>
                         <tr>
                           <td>인증번호</td>

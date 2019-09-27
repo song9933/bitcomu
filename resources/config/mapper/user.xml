@@ -8,9 +8,22 @@
 
 
 	<sql id="selectUsers">
-		select user_no, user_id, user_name, user_pass, user_mobile,
-			   user_email, user_birth, user_grade
-		  from tb_user	   
+	     select user_no, user_id, user_name, user_pass, user_mobile,
+			   					 user_email, user_birth, user_grade
+						    from tb_user
+	</sql>
+	<sql id="selectAllUsers">
+	    select *
+	      from (select rownum rnum, a.*
+			      from ( 
+					      select user_no, user_id, user_name, user_pass, user_mobile,
+			   					 user_email, user_birth, user_grade
+						    from tb_user
+						   where user_id != 'admin'
+								 order by user_no desc
+						)
+			    a)
+		 where rnum between #{begin} and #{end}
 	</sql>
 	  
 	<sql id="deleteUsers">
@@ -31,8 +44,15 @@
     </resultMap>
      
      <!-- 유저 전체(관리자 전용) -->
-     <select id="selectUserAdmin" resultMap="userMap" flushCache="true" useCache="true">
-      	   <include refid="selectUsers" />
+     <select id="selectUserAdmin" resultMap="userMap" parameterType="Page" flushCache="true" useCache="true">
+      	   <include refid="selectAllUsers" />
+      	   
+     </select>
+     
+     <!-- 유저 카운트(관리자 전용) -->
+     <select id="selectUserAdminCount" resultType="int" flushCache="true" useCache="true">
+      	   select count(*)
+      	     from tb_user
      </select>
      
      <!-- 개인 유저 조회 -->
@@ -80,7 +100,7 @@
 	 </update>
 	 
      <!-- 유저 등급 변경(관리자 전용) -->
-     <update id="updateUserAdmin" parameterType="int">
+     <update id="updateUserAdmin" parameterType="User">
      update tb_user 
         set user_grade = #{userGrade} 
       where user_no = #{userNo}
