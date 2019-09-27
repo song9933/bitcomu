@@ -104,7 +104,7 @@
                 <c:if test="${pr.count != 0}">
 			  	<c:if test="${pr.prev}">
 			    <li>
-			      <a href="notice.do?pageNo=${pr.beginPage -1}" aria-label="previous">
+			      <a href="noticeList.do?pageNo=${pr.beginPage -1}" aria-label="previous">
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
@@ -112,11 +112,11 @@
 			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
 			    	<li 
 			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="notice.do?pageNo=${i}">${i}</a></li>
+			    	><a href="noticeList.do?pageNo=${i}">${i}</a></li>
 			    </c:forEach>
 			  	<c:if test="${pr.next}">
 			    <li>
-			      <a href="notice.do?pageNo=${pr.endPage + 1}" aria-label="next">
+			      <a href="noticeList.do?pageNo=${pr.endPage + 1}" aria-label="next">
 			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </li>
@@ -124,8 +124,7 @@
 		</c:if>
 		</ul>
             
-            
-            <a class="ns_go_write" href="../board_talk_write.html"> 
+            <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
               <div> 
               	  글쓰기
               </div>
@@ -151,11 +150,11 @@
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
 
     <!-- 푸터 -->
-    <footer class="w1280">
+    <!-- <footer class="w1280">
       <p> Copyright &copy; 비트캠프 All rights reserved.</p>
-    </footer>
-    <%-- <%@ include file="../include/footer.jsp"%> --%>
+    </footer> -->
     <!--// 푸터 끝-->
+    <%@ include file="../include/footer.jsp"%> 
     
     
 

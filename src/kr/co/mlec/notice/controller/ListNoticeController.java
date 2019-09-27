@@ -14,7 +14,7 @@ import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.util.PageResult;
 
 
-@WebServlet("/notice/notice.do")
+@WebServlet("/notice/noticeList.do")
 public class ListNoticeController extends HttpServlet {
 	
 	private NoticeDAO dao;

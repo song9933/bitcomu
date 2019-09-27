@@ -21,7 +21,7 @@
 </head>
 <body>
    <div class="wrapepr">
-     <!-- 헤더 -->
+      <!-- 헤더 
     <div class="w1280">
       <header>
         <h1><a href="./index.html"><img src="img/logo.png" alt="비트컴퓨터로고"></a></h1>
@@ -44,7 +44,8 @@
         </ul>
       </header>
     </div>
-    <!-- // 헤더 끝-->
+     	헤더 끝 -->
+    <%@ include file="/jsp/include/header.jsp"%>
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
         <section class="content ns_content">
@@ -80,11 +81,11 @@
             <div class="ns_table">
                 <ul class="ns_TableListHead">
                     <li >
-                        <span>번호</span>
-                        <span>제목</span>
-                        <span>작성자</span>
-                        <span>작성일</span>
-                        <span>조회수</span>
+                        <span>${board.postNo}</span>
+                        <span>${board.title}</span>
+                        <span>${board.userNo }</span>
+                        <span><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                        <span>조회수${board.viewCnt}</span>
                     </li>
                     
                 </ul>
@@ -172,7 +173,7 @@
                   </li>
                 </ul>
               
-             <a class="ns_go_write" href="../board_talk_write.html"> 
+             <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
               <div> 
               	  글쓰기
               </div>
@@ -196,12 +197,12 @@
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
 
     <!-- 푸터 -->
-    <div id="ns_bottom"></div>
+   <!--  <div id="ns_bottom"></div>
     <footer class="w1280">
       <p> Copyright &copy; 비트캠프 All rights reserved.</p>
-    </footer>
+    </footer> -->
     <!--// 푸터 끝-->
-    
+    <%@ include file="../include/footer.jsp"%> 
     
 
 

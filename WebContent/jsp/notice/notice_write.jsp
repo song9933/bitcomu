@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/jsp/include/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <div id="ns_top"></div>
+   <%--  <div id="ns_top"></div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -14,13 +12,13 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
-    
+    <script src="js/jquery-3.3.1.min.js"></script> --%>
+    <%@ include file="/jsp/include/head.jsp"%>
 </head>
 <body>
    <div class="wrapepr">
      <!-- 헤더 -->
-    <div class="w1280">
+    <!-- <div class="w1280">
       <header>
         <h1><a href="./index.html"><img src="img/logo.png" alt="비트컴퓨터로고"></a></h1>
         <ul class="gnb">
@@ -41,8 +39,9 @@
           <li><a href="#">회원가입</a></li>
         </ul>
       </header>
-    </div>
+    </div> -->
     <!-- // 헤더 끝-->
+     <%@ include file="/jsp/include/header.jsp"%>
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
         <section class="content ns_content">
@@ -65,25 +64,45 @@
             
   
            
+           
+           <div class="ns_table_write">
+     <form method='post' action="/bitcomu/notice/write.do" enctype = "multipart/form-data">
+	 	<div>
+  		   제목 : <input type='text' name='title' size='70' />	 	
+	 	</div>
+	 	<div>
+		     글쓴이 :${userNo} <input type='hidden' value="${userNo}" name='writer' size='30' />
+	 	</div> 
+	 	<div>
+	            내용 : <textarea name='content' rows='7' cols='70'></textarea>
+	 	</div>
+		<div>
+			<input type="file" name="attach" />
+		</div>
+              <a class="ns_write_do" > 
+	    <button type='submit'>등록</button>
+              </a> 
+	</form>
+              </div>
+           
+           
+           
                 
             
-              <div class="ns_table_write">
-                <div class="ns_table_write_title">
-                    <input type="text" name="writetitle" placeholder="제목을 입력하세요">
+            <!--     <div class="ns_table_write_title">
+                    <input type="text" name="title" placeholder="제목을 입력하세요">
                 </div>
 
                 <div class="ns_table_write_content">
-                    <input type="text" name="writecontent" placeholder="내용을 입력하세요">
+                    <input type="text" name="content" placeholder="내용을 입력하세요">
                 </div>
-              </div>
 
-              <a class="ns_write_do" href="../board_talk.html"> 
                 <div> 
                   글등록
                 </div>
-              </a>
+               -->
 
-              <a class="ns_to_list" href="../board_talk.html"> 
+              <a class="ns_to_list" href="<c:url value="/notice/noticeList.do" />"> 
                 <div> 
                   목록으로
                 </div>

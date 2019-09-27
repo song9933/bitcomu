@@ -40,7 +40,7 @@
 		insert into tb_notice (
 			notice_post_no, notice_post_title, notice_post_content, user_no,
 		) values (
-			seq_board_no.nextval, #{title}, #{content}, 1
+			seq_board_no.nextval, #{title}, #{content}, ${userNo}
 		)
 	</insert>
 	<update id="updateViewCnt" parameterType="int">
