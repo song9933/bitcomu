@@ -151,10 +151,14 @@ section { margin: 100px 0; }
 .video .ifrBox {
    float: left;
    width: 305px;
-   margin-right: 20px;
+   margin: 0 20px 20px 0;
    border: 1px solid #b1b1b1;
    box-sizing: border-box;
  }
+ 
+.subjWrap > .ifrBox:nth-child(4) {
+   margin-right: 0;
+}
  
  .video .ifrBox:last-child {
    margin-right: 0;

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/jsp/include/taglib.jsp" %>
+<%
+int yt_no = 0;
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,7 +49,25 @@
           <!-- 전체과목 리스트 div -->
           <div class="subj_container clearboth">
             <div class="subjWrap clearboth">
-              <div class="ifrBox">
+	            <c:choose>
+	            	<c:when test="${empty sList }">
+		            	<h2> 등록된 과목이 없습니다 </h2>
+	            	</c:when>
+	            	<c:otherwise>
+	            	<c:forEach var="subject" items="${ sList }">
+	            		<div class="ifrBox">
+		                  <div class="imgBox">
+		                      <img src="https://img.youtube.com/vi/${ subject.ytAddr }/0.jpg">
+		                  </div>
+		                  <span><%= ++yt_no %></span>
+		                  <div class="ifrInfo">
+		                    <h5>${ subject.ytSubject }</h5>
+		                  </div>
+		              </div>
+	            	</c:forEach>
+	            	</c:otherwise>
+	            </c:choose>
+              <!-- <div class="ifrBox">
                   <div class="imgBox">
                       <img src="https://img.youtube.com/vi/MtxFWczSFqU/0.jpg">
                   </div>
@@ -81,7 +102,7 @@
                   <div class="ifrInfo">
                     <h5>자바</h5>
                   </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <!-- 현재 선택한 과목 강의리스트 div -->
