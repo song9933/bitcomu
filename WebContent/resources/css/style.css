@@ -155,11 +155,7 @@ section { margin: 100px 0; }
    border: 1px solid #b1b1b1;
    box-sizing: border-box;
  }
- 
-.subjWrap > .ifrBox:nth-child(4) {
-   margin-right: 0;
-}
- 
+
  .video .ifrBox:last-child {
    margin-right: 0;
  }
@@ -350,8 +346,16 @@ footer { width: 100%; line-height: 60px; text-align: center; }
   top: -28.6px;
   left: 0;
   width: 100%;
+  border-bottom: 1px solid #b1b1b1;
+  box-sizing: border-box;
 }
-
+ 
+.online_cls .subjWrap > .ifrBox:nth-child(4) {
+   margin-right: 0;
+}
+.online_cls .subjWrap .ifrBox:hover {
+    cursor: pointer;
+} 
 /* iframe 온라인영상 */
 .online_cls .content {
   margin-top: 100px; 

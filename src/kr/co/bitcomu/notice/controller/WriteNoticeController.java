@@ -1,4 +1,4 @@
-package kr.co.mlec.notice.controller;
+package kr.co.bitcomu.notice.controller;
 
 import java.io.IOException;
 
@@ -26,6 +26,8 @@ public class WriteNoticeController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
+		req.setAttribute("user", user);
+	
 		
 		Notice  
 			

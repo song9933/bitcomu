@@ -81,11 +81,12 @@
             <div class="ns_table">
                 <ul class="ns_TableListHead">
                     <li >
-                        <span>${board.postNo}</span>
-                        <span>${board.title}</span>
-                        <span>${board.userNo }</span>
-                        <span><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
-                        <span>조회수${board.viewCnt}</span>
+                    
+                        <span>${noticeDetail.postNo}</span>
+                        <span>${noticeDetail.title}</span>
+                        <span>${noticeDetail.userId }</span>
+                        <span><fmt:formatDate value="${noticeDetail.regDt}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                        <span>조회수${noticeDetail.viewCnt}</span>
                     </li>
                     
                 </ul>
@@ -93,7 +94,7 @@
 
                 <ul class="ns_TableDetailBody">
                   <li>
-                    ${board.content}
+                    ${noticeDetail.content}
                   </li>
                 </ul>
 
@@ -103,11 +104,11 @@
                   <%@ include file="/jsp/notice/notice_list.jsp" %> 
                 </ul>
                 
-            <a class="ns_go_update" href="/bitcomu/jsp/notice/notice_write.jsp"> 
-              <div> 
+              <div class="ns_go_update"> 
+            <a  href="/bitcomu//updateNoticeForm.do?postNo=${noticeDetail.postNo}"> 
                	 수정
-              </div>
             </a>
+              </div>
             <a class="ns_go_delete" href="../notice_write.html"> 
               <div> 
                	 삭제

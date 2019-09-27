@@ -7,6 +7,7 @@
 		<result column="notice_post_title" property="title" />
 		<result column="notice_post_content" property="content" />
 		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
 		<result column="notice_view_cnt" property="viewCnt" />
 		<result column="notice_reg_dt" property="regDt" />
 	</resultMap>
@@ -17,8 +18,8 @@
 	    select *
 	      from (select rownum rnum, a.*
 			      from ( 
-					      select *
-								  from tb_notice
+					      select n.*, (select user_id  from tb_user u
+                    where u.user_no = n.user_no ) as user_id from tb_notice n;
 								 order by notice_post_no desc
 						  )
 						  a)

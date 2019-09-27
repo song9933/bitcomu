@@ -6,6 +6,7 @@ public class Notice {
 	private int postNo;
 	private int viewCnt; 
 	private int userNo;
+	private String userId;	
 	private String title;
 	private String content;
 	private Date regDt;
