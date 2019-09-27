@@ -1,4 +1,4 @@
-package kr.co.mlec.notice.controller;
+package kr.co.bitcomu.notice.controller;
 
 import java.io.IOException;
 import java.util.List;

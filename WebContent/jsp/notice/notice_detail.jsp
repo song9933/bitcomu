@@ -103,11 +103,11 @@
                   <%@ include file="/jsp/notice/notice_list.jsp" %> 
                 </ul>
                 
-            <a class="ns_go_update" href="/bitcomu/jsp/notice/notice_write.jsp"> 
-              <div> 
+              <div class="ns_go_update"> 
+            <a  href="/bitcomu/updateNotice.do?postNo=${board.postNo}"> 
                	 수정
-              </div>
             </a>
+              </div>
             <a class="ns_go_delete" href="../notice_write.html"> 
               <div> 
                	 삭제
