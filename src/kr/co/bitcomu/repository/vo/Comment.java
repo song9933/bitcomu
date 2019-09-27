@@ -6,39 +6,49 @@ public class Comment {
 	private int cmtNo;
 	private int userNo;
 	private int boardPostNo;
+	private String cmtContent;
 	private Date cmtRegDt;
 	private int codeValue;
-	
-	int getCmtNo() {
+	public int getCmtNo() {
 		return cmtNo;
 	}
-	void setCmtNo(int cmtNo) {
+	public void setCmtNo(int cmtNo) {
 		this.cmtNo = cmtNo;
 	}
-	int getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	void setUserNo(int userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	int getBoardPostNo() {
+	public int getBoardPostNo() {
 		return boardPostNo;
 	}
-	void setBoardPostNo(int boardPostNo) {
+	public void setBoardPostNo(int boardPostNo) {
 		this.boardPostNo = boardPostNo;
 	}
-	Date getCmtRegDt() {
+	public String getCmtContent() {
+		return cmtContent;
+	}
+	public void setCmtContent(String cmtContent) {
+		this.cmtContent = cmtContent;
+	}
+	public Date getCmtRegDt() {
 		return cmtRegDt;
 	}
-	void setCmtRegDt(Date cmtRegDt) {
+	public void setCmtRegDt(Date cmtRegDt) {
 		this.cmtRegDt = cmtRegDt;
 	}
-	int getCodeValue() {
+	public int getCodeValue() {
 		return codeValue;
 	}
-	void setCodeValue(int codeValue) {
+	public void setCodeValue(int codeValue) {
 		this.codeValue = codeValue;
 	}
+	
+	
+	
+	
 	
 	
 	

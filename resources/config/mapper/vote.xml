@@ -74,46 +74,58 @@
 	</delete>
 	
 	
-	<!-- 댓글테이블 이용한 투표 변동 파트 ================================== -->
-<!-- 	<resultMap id="commentMap" type="Comment"> -->
-<!-- 		<result column="cmt_no" property="cmtNo" /> -->
-<!-- 		<result column="user_no" property="userNo" /> -->
-<!-- 		<result column="board_post_no" property="boardPostNo" /> -->
-<!-- 		<result column="cmt_reg_dt" property="cmtRegDt" /> -->
-<!-- 		<result column="code_value" property="codeValue" /> -->
-<!-- 	</resultMap> -->
+<!-- 	댓글테이블 이용한 투표 변동 파트 ================================== -->
+	<resultMap id="commentMap" type="Comment">
+		<result column="cmt_no" property="cmtNo" />
+		<result column="user_no" property="userNo" />
+		<result column="board_post_no" property="boardPostNo" />
+		<result column="cmt_reg_dt" property="cmtRegDt" />
+		<result column="code_value" property="codeValue" />
+	</resultMap>
 	
-<!-- 	<select id="selectVoteIn" parameterType="int" resultMap="voteInMap"> -->
-<!-- 	    select * -->
-<!-- 	      from vote_in -->
-<!-- 	     where vote_no = #{voteNo} -->
-<!-- 	</select> -->
+	<select id="selectVoteIn" parameterType="int" resultMap="commentMap">
+	    select *
+	      from tb_comment
+	     where board_post_no = #{boardPostNo}
+	       and code_value = (select code_value
+	       					   from tb_codenm
+	       					  where code_group = 'board_cd' 
+	       					    and code_name = '투표게시판')
+	</select>
 	
-<!-- 	<select id="selectOneVoteIn" parameterType="int" resultType="VoteIn"> -->
-<!-- 	    select * -->
-<!-- 	      from vote_in -->
-<!-- 	     where vote_in_no = #{voteInNo} -->
-<!-- 	</select> -->
+	<!--코드벨류를 명시적으로 얻어오기 위한 코드 -->
+	<select id="selectCodeValueVote" resultType="int">
+	select code_value
+	from tb_codenm
+	where code_group = 'BOARD_CD' 
+	and code_name = '투표게시판'
+	</select>
+	<select id="selectOneVoteIn" parameterType="int" resultType="Comment">
+	    select *
+	      from tb_comment
+	     where cmt_no = #{cmtNo}
+	</select>
 	
-<!-- 	<insert id="insertVoteIn" parameterType="VoteIn"> -->
-<!-- 		insert into vote_in( -->
-<!-- 			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA -->
-<!-- 		) values ( -->
-<!-- 			tb_VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData} -->
-<!-- 		) -->
-<!-- 	</insert>	 -->
+	<insert id="insertVoteIn" parameterType="Comment">
+		insert into tb_comment(
+			cmt_no, user_no, board_post_no, cmt_content, code_value
+		) values (
+			tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent},
+			#{codeValue}
+		)
+	</insert>	
 			
-<!-- 	<delete id="deleteVoteIn" parameterType="int"> -->
-<!-- 	    delete  -->
-<!-- 	      from vote_in -->
-<!-- 	     where VOTE_IN_NO = #{voteInNo} -->
-<!-- 	</delete>	 -->
+	<delete id="deleteVoteIn" parameterType="int">
+	    delete 
+	      from tb_comment
+	     where cmt_no = #{cmtNo};
+	</delete>	
 	
-<!-- 	<update id="updateComment" parameterType="comment"> -->
-<!-- 	    update tb_comment -->
-<!-- 	       set content = #{content} -->
-<!-- 	     where comment_no = #{commentNo} -->
-<!-- 	</update> -->
+	<update id="updateVoteIn" parameterType="Comment">
+	    update tb_comment
+	       set cmt_content = #{cmtContent}
+	     where cmt_no = #{cmtNo}
+	</update>
 	
 	
 	

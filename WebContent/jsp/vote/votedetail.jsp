@@ -65,8 +65,9 @@
 								</c:forEach>
 							</c:when>
 						</c:choose>
-					</form>
+					<input type="hidden" name="voteNo" value="${vote.voteNo}" />
 					<button type="submit" class="w3-btn w3-green">투표하기</button>
+					</form>
 
 				</div>
 		</div>
