@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.NoticeDAO;
 import kr.co.bitcomu.repository.vo.Page;
+import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.util.PageResult;
 
 @WebServlet("/notice_detail.do")
@@ -60,13 +62,16 @@ public class DetailNoticeController extends HttpServlet {
 		Board board = dao.selectOneBoard(no); 
 		req.setAttribute("board", board);
 		*/
-		req.setAttribute("board", dao.selectOneNotice(no));
+		req.setAttribute("noticeDetail", dao.selectOneNotice(no));
 		
 		// 댓글 목록 공유
 		/*
 		 * List<Comment> commentList = dao.selectComment(no);
 		 * req.setAttribute("commentList", commentList);
 		 */
+		
+		
+		
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/jsp/notice/notice_detail.jsp");
 		rd.forward(req, res);

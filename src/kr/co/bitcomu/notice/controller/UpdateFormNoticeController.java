@@ -7,13 +7,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.NoticeDAO;
+import kr.co.bitcomu.repository.vo.User;
 
 
 
-@WebServlet("/updateNotice.do")
+@WebServlet("/updateNoticeForm.do")
 public class UpdateFormNoticeController extends HttpServlet {
 
 	private NoticeDAO dao;
@@ -32,6 +34,10 @@ public class UpdateFormNoticeController extends HttpServlet {
 		RequestDispatcher rd = req.getRequestDispatcher("updateform.jsp");
 		rd.forward(req, res);
 		*/
+		
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("user");
+		req.setAttribute("user", user);
 		
 		req.setAttribute(
 			"board", dao.selectOneNotice(Integer.parseInt(req.getParameter("postNo")))

@@ -7,10 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.NoticeDAO;
 import kr.co.bitcomu.repository.vo.Page;
+import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.util.PageResult;
 
 
@@ -40,6 +42,8 @@ public class ListNoticeController extends HttpServlet {
 		int count = dao.selectNoticeCount();
 		PageResult pr = new PageResult(pageNo, count);
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수
+		
+		
 		
 		// 데이터를 구하고 공유
 		req.setAttribute("notice", dao.selectNotice(page));

@@ -71,7 +71,7 @@
   		   제목 : <input type='text' name='title' size='70' value="${board.title}" />	 	
 	 	</div>
 	 	<div>
-		     글쓴이 :${userNo} <input type='hidden' value="${userNo}" name='writer' size='30' />
+		     글쓴이 :${user.userId} <input type='hidden' value="${user.userId}" name='writer' size='30' />
 	 	</div> 
 	 	<div>
 	            내용 : <textarea name='content' rows='7' cols='70' value="${board.content}" ></textarea>
