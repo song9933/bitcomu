@@ -75,39 +75,39 @@
 	
 	
 	<!-- 댓글테이블 이용한 투표 변동 파트 ================================== -->
-	<resultMap id="commentMap" type="Comment">
-		<result column="cmt_no" property="cmtNo" />
-		<result column="user_no" property="userNo" />
-		<result column="board_post_no" property="boardPostNo" />
-		<result column="cmt_reg_dt" property="cmtRegDt" />
-		<result column="code_value" property="codeValue" />
-	</resultMap>
+<!-- 	<resultMap id="commentMap" type="Comment"> -->
+<!-- 		<result column="cmt_no" property="cmtNo" /> -->
+<!-- 		<result column="user_no" property="userNo" /> -->
+<!-- 		<result column="board_post_no" property="boardPostNo" /> -->
+<!-- 		<result column="cmt_reg_dt" property="cmtRegDt" /> -->
+<!-- 		<result column="code_value" property="codeValue" /> -->
+<!-- 	</resultMap> -->
 	
-	<select id="selectVoteIn" parameterType="int" resultMap="voteInMap">
-	    select *
-	      from vote_in
-	     where vote_no = #{voteNo}
-	</select>
+<!-- 	<select id="selectVoteIn" parameterType="int" resultMap="voteInMap"> -->
+<!-- 	    select * -->
+<!-- 	      from vote_in -->
+<!-- 	     where vote_no = #{voteNo} -->
+<!-- 	</select> -->
 	
-	<select id="selectOneVoteIn" parameterType="int" resultType="VoteIn">
-	    select *
-	      from vote_in
-	     where vote_in_no = #{voteInNo}
-	</select>
+<!-- 	<select id="selectOneVoteIn" parameterType="int" resultType="VoteIn"> -->
+<!-- 	    select * -->
+<!-- 	      from vote_in -->
+<!-- 	     where vote_in_no = #{voteInNo} -->
+<!-- 	</select> -->
 	
-	<insert id="insertVoteIn" parameterType="VoteIn">
-		insert into vote_in(
-			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA
-		) values (
-			tb_VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData}
-		)
-	</insert>	
+<!-- 	<insert id="insertVoteIn" parameterType="VoteIn"> -->
+<!-- 		insert into vote_in( -->
+<!-- 			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA -->
+<!-- 		) values ( -->
+<!-- 			tb_VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData} -->
+<!-- 		) -->
+<!-- 	</insert>	 -->
 			
-	<delete id="deleteVoteIn" parameterType="int">
-	    delete 
-	      from vote_in
-	     where VOTE_IN_NO = #{voteInNo}
-	</delete>	
+<!-- 	<delete id="deleteVoteIn" parameterType="int"> -->
+<!-- 	    delete  -->
+<!-- 	      from vote_in -->
+<!-- 	     where VOTE_IN_NO = #{voteInNo} -->
+<!-- 	</delete>	 -->
 	
 <!-- 	<update id="updateComment" parameterType="comment"> -->
 <!-- 	    update tb_comment -->
@@ -124,38 +124,38 @@
 	
 	
 	<!-- 투표 변동 파트 ================================== -->
-	<resultMap id="voteInMap" type="VoteIn">
-		<result column="VOTE_IN_NO" property="voteInNo" />
-		<result column="VOTE_NO" property="voteNo" />
-		<result column="USER_NO" property="userNo" />
-		<result column="VOTE_DATA" property="voteData" />
-	</resultMap>
+<!-- 	<resultMap id="voteInMap" type="VoteIn"> -->
+<!-- 		<result column="VOTE_IN_NO" property="voteInNo" /> -->
+<!-- 		<result column="VOTE_NO" property="voteNo" /> -->
+<!-- 		<result column="USER_NO" property="userNo" /> -->
+<!-- 		<result column="VOTE_DATA" property="voteData" /> -->
+<!-- 	</resultMap> -->
 	
-	<select id="selectVoteIn" parameterType="int" resultMap="voteInMap">
-	    select *
-	      from vote_in
-	     where vote_no = #{voteNo}
-	</select>
+<!-- 	<select id="selectVoteIn" parameterType="int" resultMap="voteInMap"> -->
+<!-- 	    select * -->
+<!-- 	      from vote_in -->
+<!-- 	     where vote_no = #{voteNo} -->
+<!-- 	</select> -->
 	
-	<select id="selectOneVoteIn" parameterType="int" resultType="VoteIn">
-	    select *
-	      from vote_in
-	     where vote_in_no = #{voteInNo}
-	</select>
+<!-- 	<select id="selectOneVoteIn" parameterType="int" resultType="VoteIn"> -->
+<!-- 	    select * -->
+<!-- 	      from vote_in -->
+<!-- 	     where vote_in_no = #{voteInNo} -->
+<!-- 	</select> -->
 	
-	<insert id="insertVoteIn" parameterType="VoteIn">
-		insert into vote_in(
-			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA
-		) values (
-			tb_VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData}
-		)
-	</insert>	
+<!-- 	<insert id="insertVoteIn" parameterType="VoteIn"> -->
+<!-- 		insert into vote_in( -->
+<!-- 			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA -->
+<!-- 		) values ( -->
+<!-- 			tb_VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData} -->
+<!-- 		) -->
+<!-- 	</insert>	 -->
 			
-	<delete id="deleteVoteIn" parameterType="int">
-	    delete 
-	      from vote_in
-	     where VOTE_IN_NO = #{voteInNo}
-	</delete>	
+<!-- 	<delete id="deleteVoteIn" parameterType="int"> -->
+<!-- 	    delete  -->
+<!-- 	      from vote_in -->
+<!-- 	     where VOTE_IN_NO = #{voteInNo} -->
+<!-- 	</delete>	 -->
 	
 <!-- 	<update id="updateComment" parameterType="comment"> -->
 <!-- 	    update tb_comment -->
