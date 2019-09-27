@@ -13,19 +13,19 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.StudyDAO;
 import kr.co.bitcomu.repository.vo.Study;
 
-@WebServlet("/jsp/study/studylist.do")
+@WebServlet("/study/studyList.do")
 public class StudyListController extends HttpServlet{
 	private StudyDAO dao;
-
+	
 	public StudyListController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(StudyDAO.class);
 	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Study> list = dao.selectStudy();
+		List<Study> list = dao.selectStudyList();
 		req.setAttribute("list", list);
-		req.getRequestDispatcher("study_main.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/study/study_main.jsp").forward(req, res);
 	}
 	
 	

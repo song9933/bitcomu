@@ -16,7 +16,7 @@
         <section class="content">
           <div class="container">
             <div class="top_box">
-              <a class="write" href="./board_write_study.html"><i class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a>
+              <a class="write" href="<c:url value="/study/studywriteform.do" />"><i class="fa fa-pencil" aria-hidden="true"></i>글쓰기</a>
               <div class="search">
                 <form>
                   <i class="fa fa-search" aria-hidden="true"></i>
@@ -26,6 +26,25 @@
               </div>
             </div>
             <div class="list">
+              <c:if test="${empty list}">
+              	<p>게시물이 없습니다.</p>
+              </c:if>
+              <!-- 반복돌려서 스터디게시판 전체 글 가져오기 -->
+              <c:forEach var="std" items="${list}">
+              	  <a class="item" href="<c:url value="/study/studydetail.do?studyPostNo=${std.studyPostNo}" />">
+	                <p class="completed">${std.studyRecruitEnabled}</p>
+	                <h2> ${std.studyPostTitle }</h2>
+	                <p class="info">
+	                  <span><fmt:formatDate value="${std.studyRegDt}" pattern="yyyy-MM-dd HH:mm" /></span>
+	                  <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>${std.studyViewCnt }</span>
+	                  <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
+	                </p>
+	              </a>
+              
+              </c:forEach>
+              
+              <!-- 
+              
               <a class="item" href="./board_detail_study.html">
                 <p class="completed">모집중</p>
                 <h2> 자바 스터디 모집합니다 :)</h2>
@@ -70,7 +89,8 @@
                     <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>10</span>
                     <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
                   </p>
-              </a>
+              </a> 
+              -->
             </div>
           </div>
         </section>

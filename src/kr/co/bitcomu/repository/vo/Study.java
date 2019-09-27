@@ -3,43 +3,42 @@ package kr.co.bitcomu.repository.vo;
 import java.util.Date;
 
 public class Study {
-	// 스터디게시판 테이블
-	// 글 번호
-	private int postNo;
+	 // 스터디 글 번호 
+    private int studyPostNo;
 
-	// 회원 번호
-	private int userNo;
+    // 회원 번호 
+    private int userNo;
 
-	// 모집 여부
-	private String recruitEnabled;
+    // 스터디 모집 여부 
+    private String studyRecruitEnabled;
 
-	// 글 제목
-	private String postTitle;
+    // 스터디 글 제목 
+    private String studyPostTitle;
 
-	// 조회 수
-	private int viewCnt;
+    // 스터디 조회 수 
+    private int studyViewCnt;
 
-	// 등록 날짜
-	private Date regDt;
+    // 스터디 지역 
+    private String studyLoc;
 
-	// 지역
-	private String loc;
+    // 스터디 모집 인원 
+    private int studyRecruitMem;
 
-	// 모집 인원
-	private int recruitMem;
+    // 스터디 모집 분야 
+    private String studyRecruitField;
 
-	// 모집 분야
-	private String recruitField;
+    // 스터디 글 내용 
+    private String studyPostContent;
 
-	// 글 내용
-	private String postContent;
+    // 스터디 등록 날짜 
+    private Date studyRegDt;
 
-	public int getPostNo() {
-		return postNo;
+	public int getStudyPostNo() {
+		return studyPostNo;
 	}
 
-	public void setPostNo(int postNo) {
-		this.postNo = postNo;
+	public void setStudyPostNo(int studyPostNo) {
+		this.studyPostNo = studyPostNo;
 	}
 
 	public int getUserNo() {
@@ -50,69 +49,67 @@ public class Study {
 		this.userNo = userNo;
 	}
 
-	public String getRecruitEnabled() {
-		return recruitEnabled;
+	public String getStudyRecruitEnabled() {
+		return studyRecruitEnabled;
 	}
 
-	public void setRecruitEnabled(String recruitEnabled) {
-		this.recruitEnabled = recruitEnabled;
+	public void setStudyRecruitEnabled(String studyRecruitEnabled) {
+		this.studyRecruitEnabled = studyRecruitEnabled;
 	}
 
-	public String getPostTitle() {
-		return postTitle;
+	public String getStudyPostTitle() {
+		return studyPostTitle;
 	}
 
-	public void setPostTitle(String postTitle) {
-		this.postTitle = postTitle;
+	public void setStudyPostTitle(String studyPostTitle) {
+		this.studyPostTitle = studyPostTitle;
 	}
 
-	public int getViewCnt() {
-		return viewCnt;
+	public int getStudyViewCnt() {
+		return studyViewCnt;
 	}
 
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
+	public void setStudyViewCnt(int studyViewCnt) {
+		this.studyViewCnt = studyViewCnt;
 	}
 
-	public Date getRegDt() {
-		return regDt;
+	public String getStudyLoc() {
+		return studyLoc;
 	}
 
-	public void setRegDt(Date regDt) {
-		this.regDt = regDt;
+	public void setStudyLoc(String studyLoc) {
+		this.studyLoc = studyLoc;
 	}
 
-	public String getLoc() {
-		return loc;
+	public int getStudyRecruitMem() {
+		return studyRecruitMem;
 	}
 
-	public void setLoc(String loc) {
-		this.loc = loc;
+	public void setStudyRecruitMem(int studyRecruitMem) {
+		this.studyRecruitMem = studyRecruitMem;
 	}
 
-	public int getRecruitMem() {
-		return recruitMem;
+	public String getStudyRecruitField() {
+		return studyRecruitField;
 	}
 
-	public void setRecruitMem(int recruitMem) {
-		this.recruitMem = recruitMem;
+	public void setStudyRecruitField(String studyRecruitField) {
+		this.studyRecruitField = studyRecruitField;
 	}
 
-	public String getRecruitField() {
-		return recruitField;
+	public String getStudyPostContent() {
+		return studyPostContent;
 	}
 
-	public void setRecruitField(String recruitField) {
-		this.recruitField = recruitField;
+	public void setStudyPostContent(String studyPostContent) {
+		this.studyPostContent = studyPostContent;
 	}
 
-	public String getPostContent() {
-		return postContent;
+	public Date getStudyRegDt() {
+		return studyRegDt;
 	}
 
-	public void setPostContent(String postContent) {
-		this.postContent = postContent;
+	public void setStudyRegDt(Date studyRegDt) {
+		this.studyRegDt = studyRegDt;
 	}
-	
-	
 }

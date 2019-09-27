@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/jsp/include/taglib.jsp" %>        
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="스터디게시판 글쓰기" />
+		<c:param name="msg" value="스터디게시판 | 글쓰기" />
 </c:import> 
 </head>
 <body>
@@ -14,63 +15,53 @@
     <div class="w1280">
         <section class="content">
           <div class="container">
+          <form method="post" action="<c:url value="/study/studywrite.do"/>">
               <div class="section">
                   <h2>분야</h2>
-                  <div class="checks"> 
-                      <input type="checkbox"> 
-                      <label for="ex_chk">JAVA</label> 
-                      <input type="checkbox"> 
-                      <label for="ex_chk">JavaScript</label> 
-                      <input type="checkbox"> 
-                      <label for="ex_chk">알고리즘</label> 
-                      <input type="checkbox"> 
-                      <label for="ex_chk">기타</label> 
+                  <div class="checks">
+                    <input type="radio" id="srf1" name="studyRecruitField" checked="checked" value="자바" /><label for="srf1">자바 </label>                  	 
+                    <input type="radio" id="srf2" name="studyRecruitField"  value="자바스크립트" /><label for="srf2">자바스크립트 </label>                  	 
+                    <input type="radio" id="srf3" name="studyRecruitField"  value="데이터베이스" /><label for="srf3">데이터베이스 </label>                  	 
+                    <input type="radio" id="srf4" name="studyRecruitField"  value="알고리즘" /><label for="srf4">알고리즘 </label>                  	 
+                    <input type="radio" id="srf5" name="studyRecruitField"  value="jsp/서블릿" /><label for="srf5">jsp/서블릿 </label>                  	 
+                    <input type="radio" id="srf6" name="studyRecruitField"  value="jQuery" /><label for="srf6">jQuery </label>                  	 
+                    <input type="radio" id="srf7" name="studyRecruitField"  value="Spring" /><label for="srf7">Spring </label>                  	 
+                    <input type="radio" id="srf8" name="studyRecruitField"  value="기타" /><label for="srf8">기타</label>                  	 
                   </div>
               </div>
               <div class="section">
                   <h2>지역</h2>
-                  <select name="location">
-                      <option selected>선택</option>
-                      <option >지역1</option>
-                      <option >지역2</option>
-                      <option >지역3</option>
-                      <option >지역4</option>
-                  </select>
+                  <input type="text"  name="studyLoc" placeholder="지역을 입력하세요">
               </div>
               <div class="section">
                   <h2>모집 인원</h2>
                 <div class="checks">
-                    <input type="radio">
-                    <label class="radio">2~5명</label>
-                    <input type="radio">
-                    <label class="radio">6~9명</label>
-                    <input type="radio">
-                    <label class="radio">10~ 명</label>
-                    <input type="radio">
-                    <label class="radio">제한없음</label>
+                    <input type="radio" id="srm1" name="studyRecruitMem" value="1" checked="checked" /><label for="srm1">2~5명</label>
+                    <input type="radio" id="srm2" name="studyRecruitMem" value="2" /><label for="srm2">6~9명</label>
+                    <input type="radio" id="srm3" name="studyRecruitMem" value="3" /><label for="srm3">10~ 명</label>
+                    <input type="radio" id="srm4" name="studyRecruitMem" value="4" /><label for="srm4">제한없음</label>
                 </div>
               </div>
               <div class="section">
                   <h2>모집 여부</h2>
                 <div class="enabled">
-                    <input type="radio">
-                    <label class="radio">모집중</label>
-                    <input type="radio">
-                    <label class="radio">마감</label>
+                    <input type="radio" id="sre1" name="studyRecruitEnabled" value="Y" /><label for="sre1">모집중</label>
+                    <input type="radio" id="sre2" name="studyRecruitEnabled" value="N" /><label for="sre2">마감</label>
+                    
                 </div>  
               </div>
              
             <p class="title">
-                <input type="text"  name="title" placeholder="제목을 입력하세요">
+                <input type="text"  name="studyPostTitle" placeholder="제목을 입력하세요">
             </p>
             <p class="text">
-                <textarea name="text" placeholder="내용을 입력하세요"></textarea>
+                <textarea name="studyPostContent" placeholder="내용을 입력하세요"></textarea>
 
             </p>
             <div class="submit">
                 <input type="submit" value="글쓰기">
             </div>
-        
+        	</form>
           </div>
         </section>
     </div>

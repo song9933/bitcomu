@@ -5,8 +5,9 @@ import java.util.List;
 import kr.co.bitcomu.repository.vo.Study;
 
 public interface StudyDAO {
-	List<Study> selectStudy();
-	Study selectOneStudy(int postNo);
+	List<Study> selectStudyList();
+	Study selectOneStudy(int studyPostNo);
 	void insertStudy(Study study);
-	
+	void updateStudy(Study study);
+	void deleteStudy(int studyPostNo);
 }

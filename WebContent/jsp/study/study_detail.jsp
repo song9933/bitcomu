@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/jsp/include/taglib.jsp" %>      
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="스터디게시판 상세" />
+		<c:param name="msg" value="스터디게시판 | 상세" />
 </c:import> 
 </head>
 <body>
@@ -15,22 +16,22 @@
         <section class="content">
           <div class="container">
             <div class="top_box">
-                <a class="write" href="./board_write_study.html"><i class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a>
+                <a class="write" href="<c:url value="/study/studywriteform.do" />"><i class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a>
             </div>
             <article>
-              <p class="completed">모집중</p>
-              <h1>자바 스터디 모집합니다 :)</h1>
+              <p class="completed">${study.studyRecruitEnabled}</p>
+              <h1>${study.studyPostTitle}</h1>
               <p class="info">
-                <span>19/09/05 20:27</span>
-                <span class="viewcount">10</span>
+                <span><fmt:formatDate value="${study.studyRegDt}" pattern="yyyy-MM-dd HH:mm" /></span>
+                <span class="viewcount">${study.studyViewCnt}</span>
                 <span class="commentcount">2</span>
               </p>
               <div class="about">
-                <h3>지역</h3>
-                <h3>분야</h3>
-                <h3>인원</h3>
+                <h3>${study.studyLoc}</h3>
+                <h3>${study.studyRecruitField}</h3>
+                <h3>${study.studyRecruitMem}</h3>
               </div>
-              <p class="text">자바 스터디 같이해요~ 댓글주세요!</p>
+              <p class="text">${study.studyPostContent}</p>
             </article>
             <div class="bottom_box">
                 <div style="margin-bottom : 10px">
@@ -49,10 +50,10 @@
                       <div class="box">
                         <p class="text">삭제 하시겠습니까?</p>
                         <a href="#" class="close">닫기</a>
-                        <a href="./board_main_study.html" class="delete">삭제</a>
+                        <a href="<c:url value="/study/studyDelete.do?studyPostNo=${study.studyPostNo}" />" class="delete">삭제</a>
                       </div>
                     </div>
-                    <a href="./board_modify_study.html" class="floating modify">수정</a>
+                    <a href="<c:url value="/study/studyUpdate.do?studyPostNo=${study.studyPostNo}" />" class="floating modify">수정</a>
                   </div>
             </div>
             

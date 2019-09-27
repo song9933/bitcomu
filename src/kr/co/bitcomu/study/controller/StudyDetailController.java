@@ -12,7 +12,7 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.StudyDAO;
 import kr.co.bitcomu.repository.vo.Study;
 
-@WebServlet("/jsp/study/studydetail.do")
+@WebServlet("/study/studydetail.do")
 public class StudyDetailController extends HttpServlet{
 	StudyDAO dao;
 
@@ -22,10 +22,10 @@ public class StudyDetailController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		int postNo = Integer.parseInt(req.getParameter("postNo"));
-		Study study= dao.selectOneStudy(postNo);
+		int studyPostNo = Integer.parseInt(req.getParameter("studyPostNo"));
+		Study study= dao.selectOneStudy(studyPostNo);
 		req.setAttribute("study", study);
-		req.getRequestDispatcher("study_detail.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/study/study_detail.jsp").forward(req, res);
 	}
 	
 	

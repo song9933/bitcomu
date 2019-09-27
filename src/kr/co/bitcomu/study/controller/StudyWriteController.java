@@ -1,7 +1,6 @@
 package kr.co.bitcomu.study.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +12,9 @@ import javax.servlet.http.HttpSession;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.StudyDAO;
 import kr.co.bitcomu.repository.vo.Study;
-import kr.co.bitcomu.util.CommUtil;
+import kr.co.bitcomu.repository.vo.User;
 
-@WebServlet("/jsp/study/studywrite.do")
+@WebServlet("/study/studywrite.do")
 public class StudyWriteController extends HttpServlet{
 	private StudyDAO dao;
 
@@ -25,24 +24,21 @@ public class StudyWriteController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		try {
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("user");
+		
 		Study study = new Study();	
-		study.setUserNo(Integer.parseInt(req.getParameter("userNo")));
-		study.setRecruitEnabled(req.getParameter("recruitEnabled"));
-		study.setPostTitle(req.getParameter("postTitle"));
-		study.setViewCnt(Integer.parseInt(req.getParameter("viewCnt")));
-		study.setRegDt(CommUtil.parseDate(req.getParameter("regDt")));
-		study.setLoc(req.getParameter("loc"));
-		study.setRecruitMem(Integer.parseInt(req.getParameter("recruitMem")));
-		study.setRecruitField(req.getParameter("recruitField"));
-		study.setPostContent(req.getParameter("postContent"));
+		study.setUserNo(user.getUserNo());
+		study.setStudyRecruitEnabled(req.getParameter("studyRecruitEnabled"));
+		study.setStudyPostTitle(req.getParameter("studyPostTitle"));
+		study.setStudyLoc(req.getParameter("studyLoc"));
+		study.setStudyRecruitMem(Integer.parseInt(req.getParameter("studyRecruitMem")));
+		study.setStudyRecruitField(req.getParameter("studyRecruitField"));
+		study.setStudyPostContent(req.getParameter("studyRecruitField"));
 		
 		dao.insertStudy(study);
-		
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		res.sendRedirect(req.getContextPath() + "/study/studylist.do");
+
+		res.sendRedirect(req.getContextPath() + "/study/studyList.do");
 		
 	}
 	
