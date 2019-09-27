@@ -23,7 +23,7 @@
 	 group by yt_subject
 </select>
 <!-- 온라인강의 리스트 조회 -->	
-<select id="seletOnlinecls" resultMap="onlineclsMap" parameterType="Onlinecls" flushCache="true" useCache="true">
+<select id="seletOnlinecls" resultMap="onlineclsMap" parameterType="string" flushCache="true" useCache="true">
 	select * 
 	  from tb_youtube
 	 where yt_subject = #{ytSubject}
