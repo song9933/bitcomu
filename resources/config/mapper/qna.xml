@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.bitcomu.repository.dao.QnaDAO">
+	<resultMap type="Qna" id="qnaMap">
+		<result column="qna_no" property="qnaNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="qna_title" property="qnaTitle" />
+		<result column="qna_content" property="qnaContent" />
+		<result column="qna_public_enabled" property="qnaPublicEnabled" />
+		<result column="qna_like_cnt" property="qnaLikeCnt" />
+		<result column="qna_reg_dt" property="qnaRegDt" />
+	</resultMap>
+	
+	
+</mapper>
