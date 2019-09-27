@@ -38,9 +38,9 @@
 	</select>
 	<insert id="insertNotice" parameterType="Notice">
 		insert into tb_notice (
-			notice_post_no, notice_post_title, notice_post_content, user_no,
+			notice_post_no, notice_post_title, notice_post_content, user_no
 		) values (
-			seq_board_no.nextval, #{title}, #{content}, ${userNo}
+			tb_notice_seq.nextval, #{title}, #{content}, ${userNo}
 		)
 	</insert>
 	<update id="updateViewCnt" parameterType="int">
@@ -48,7 +48,7 @@
 		   set notice_view_cnt = notice_view_cnt + 1
 		 where notice_post_no = #{postNo}
 	</update>
-	<update id="updateNotice" parameterType="Notice">
+	<update id="updateNotice" parameterType="Notice" >
 		update tb_notice 
 		   set notice_post_title = #{title}, 
 		       notice_post_content = #{content}

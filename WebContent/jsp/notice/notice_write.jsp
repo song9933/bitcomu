@@ -66,15 +66,15 @@
            
            
            <div class="ns_table_write">
-     <form method='post' action="/bitcomu/notice/write.do" enctype = "multipart/form-data">
+     <form method='post' action="/bitcomu/notice/write.do" > <!-- enctype = "multipart/form-data"> -->
 	 	<div>
-  		   제목 : <input type='text' name='title' size='70' />	 	
+  		   제목 : <input type='text' name='title' size='70' value="${board.title}" />	 	
 	 	</div>
 	 	<div>
 		     글쓴이 :${userNo} <input type='hidden' value="${userNo}" name='writer' size='30' />
 	 	</div> 
 	 	<div>
-	            내용 : <textarea name='content' rows='7' cols='70'></textarea>
+	            내용 : <textarea name='content' rows='7' cols='70' value="${board.content}" ></textarea>
 	 	</div>
 		<div>
 			<input type="file" name="attach" />

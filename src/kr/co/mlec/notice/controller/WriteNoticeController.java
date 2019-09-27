@@ -26,7 +26,12 @@ public class WriteNoticeController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
-		Notice n = new Notice();
+		
+		Notice  
+			
+			n = new Notice();
+		
+		
 		n.setTitle(req.getParameter("title"));
 		n.setContent(req.getParameter("content"));
 		n.setUserNo(user.getUserNo());

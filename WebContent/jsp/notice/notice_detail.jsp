@@ -103,7 +103,7 @@
                   <%@ include file="/jsp/notice/notice_list.jsp" %> 
                 </ul>
                 
-            <a class="ns_go_update" href="../notice_write.html"> 
+            <a class="ns_go_update" href="/bitcomu/jsp/notice/notice_write.jsp"> 
               <div> 
                	 수정
               </div>
