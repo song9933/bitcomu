@@ -32,7 +32,10 @@ public class OnlineclsListController extends HttpServlet {
 
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		List<Onlinecls> list = dao.selectOnlineclsSubject();
+		List<Onlinecls> sList = dao.selectOnlineclsSubject();
+		req.setAttribute("sList", sList);
+		
+		List<Onlinecls> list = dao.seletOnlinecls();
 		req.setAttribute("list", list);
 		
 		req.getRequestDispatcher("/jsp/onlineclass/onlineclass_main.jsp").forward(req, res);
