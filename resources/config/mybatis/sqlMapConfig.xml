@@ -18,6 +18,8 @@
 		<typeAlias alias="Onlinecls" type="kr.co.bitcomu.repository.vo.Onlinecls" />
 		<typeAlias alias="Notice" type="kr.co.bitcomu.repository.vo.Notice" />
 		<typeAlias alias="Page" type="kr.co.bitcomu.repository.vo.Page" />
+		<typeAlias alias="Comment" type="kr.co.bitcomu.repository.vo.Comment" />
+		
 	</typeAliases>
 
 	<environments default="development">
