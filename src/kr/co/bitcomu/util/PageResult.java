@@ -11,7 +11,7 @@ public class PageResult {
 	private boolean next;
 	
 	public PageResult(int pageNo, int count) {
-		this(pageNo, count, 5, 5);
+		this(pageNo, count, 10, 5);
 	}
 	public PageResult(int pageNo, int count, int listSize, int tabSize) {
 		this.pageNo = pageNo;

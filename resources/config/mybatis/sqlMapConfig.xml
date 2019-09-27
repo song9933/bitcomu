@@ -19,6 +19,7 @@
 		<typeAlias alias="Notice" type="kr.co.bitcomu.repository.vo.Notice" />
 		<typeAlias alias="Page" type="kr.co.bitcomu.repository.vo.Page" />
 		<typeAlias alias="Comment" type="kr.co.bitcomu.repository.vo.Comment" />
+		<typeAlias alias="Board" type="kr.co.bitcomu.repository.vo.Board" />
 		
 	</typeAliases>
 
@@ -42,5 +43,6 @@
 		<mapper resource="config/mapper/team.xml"/>
 		<mapper resource="config/mapper/onlinecls.xml" />
 		<mapper resource="config/mapper/notice.xml" />
+		<mapper resource="config/mapper/admin.xml" />
 	</mappers>
 </configuration>

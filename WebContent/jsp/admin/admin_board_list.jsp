@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="유저관리" />
+		<c:param name="msg" value="게시판 관리" />
 </c:import> 
 </head>
 <body>
@@ -20,8 +20,8 @@
       <ul class="sj" style="position: absolute;
     		top: -10px;
     		left: 100px;">
-      <li class="sj selected">유저관리</li>
-      <li class="sj"><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do">게시판 관리</a></li>
+      <li class="sj"><a href="${pageContext.request.contextPath}/user/userDeleteForm.do">유저관리</a></li>
+      <li class="sj selected">게시판 관리</a></li>
       </ul>
     </div> 
          <section class="content ns_content">
@@ -43,18 +43,18 @@
      		<div class="ns_table">
                 <ul class="ns_TableListHead ns_TableListHeadByAdmin">
                     <li>
-                        <span>id</span>
-                        <span>이름</span>
-                        <span>권한</span>
-                        <span>관리</span>
+                        <span>유저이름</span>
+                        <span>제목</span>
+                        <span>날짜</span>
+                        <span>게시판형태</span>
                     </li>
                     
                 </ul>
                 
-                <c:if test="${empty userList}">
+                <c:if test="${empty boardList}">
 				<li>
 					<span></span>
-					<span colspan='4'>가입된 회원이 없습니다.</span>
+					<span colspan='4'>등록된 게시글이 없습니다.</span>
 				</li>
 				</c:if>
                 
@@ -62,48 +62,21 @@
 
                 
                 <ul class="ns_TableListBody ns_TableListBodyByAdmin">
-                <c:forEach var="member" items="${userList}">
+                <c:forEach var="board" items="${boardList}">
                   <li>
-                      <span>${member.userId}</span>
-                      <span>${member.userName}</span>
-                      <span>
-                      <c:choose>
-                      	<c:when test="${member.userGrade eq '2'}">
-                      		Y
-                      	</c:when>
-                      	<c:otherwise>
-                      		N
-                      	</c:otherwise>
-                      </c:choose>
-                      </span>
-                      
-                      <span>
-                      <form method="POST" action="<c:url value="/admin/adminUserAuthUpdate.do"/>">
-                      <input type="hidden" name="pageNo" value="${pr.pageNo}">
-                      <input type="hidden" name="userNo" value="${member.userNo}">
-                      <input type="hidden" name="userGrade" value="${member.userGrade}">
-                     
-                      <button type="submit" class="button_box_sj box_email_sj">
-                      <c:choose>
-                      	<c:when test="${member.userGrade eq '2'}">
-                      		권한 뺏기
-                      	</c:when>
-                      	<c:otherwise>
-                      		권한 부여
-                      	</c:otherwise>                      	
-                      </c:choose> 
-                      </button>
-                      </form>
-                      </span>
-                      <span style="margin-left: 20px;">
-                      <form method="POST" action="<c:url value="/admin/adminUserDelete.do"/>"> 
-                   			<input type="hidden" name="userNo" value="${member.userNo}">
-                   			<input type="hidden" name="pageNo" value="${pr.pageNo}">
-                      		<button type="submit" class="button_box_sj box_email_sj">
-                      				강제 탈퇴
-                      		</button>
-                      </form>              
-                      </span>
+                      <span>${board.userId}</span>
+                      <span>${board.postTitle}</span>
+                      <span><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd"/></span>
+                      <span>${board.codeName}</span>
+<!--                       <span style="margin-left: 20px;"> -->
+<%--                       <form method="POST" action="<c:url value="/admin/adminUserDelete.do"/>">  --%>
+<%--                    			<input type="hidden" name="userNo" value="${member.userNo}"> --%>
+<%--                    			<input type="hidden" name="pageNo" value="${pr.pageNo}"> --%>
+<!--                       		<button type="submit" class="button_box_sj box_email_sj"> -->
+<!--                       				강제 탈퇴 -->
+<!--                       		</button> -->
+<!--                       </form>               -->
+<!--                       </span> -->
 
                   </li>
                 </c:forEach>
@@ -119,7 +92,7 @@
                 <c:if test="${pr.count ne 0}">
 			  	<c:if test="${pr.prev}">
 			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.beginPage -1}" aria-label="previous">
+			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.beginPage -1}" aria-label="previous">
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
@@ -128,11 +101,11 @@
 			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
 			    	<li 
 			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${i}">${i}</a></li>
+			    	><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${i}">${i}</a></li>
 			    </c:forEach>
 			  	<c:if test="${pr.next}">
 			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.endPage + 1}" aria-label="next">
+			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.endPage + 1}" aria-label="next">
 			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </li>
