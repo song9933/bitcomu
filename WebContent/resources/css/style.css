@@ -340,14 +340,14 @@ footer { width: 100%; line-height: 60px; text-align: center; }
   width: 100%; 
   padding-top: 56%; 
   overflow: hidden;
+  border-bottom: 1px solid #b1b1b1;
+  box-sizing: border-box;
 }
 .online_cls .subj_container img {
   position: absolute;
   top: -28.6px;
   left: 0;
   width: 100%;
-  border-bottom: 1px solid #b1b1b1;
-  box-sizing: border-box;
 }
  
 .online_cls .subjWrap > .ifrBox:nth-child(4) {
