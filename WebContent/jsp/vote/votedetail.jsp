@@ -22,6 +22,9 @@
     padding: 13px 15px 20px 0px;
     font-size: x-large;
 }
+.vote_submit_button{
+    margin-top: 20px;
+}
 </style>
 </head>
 
@@ -66,7 +69,7 @@
 							</c:when>
 						</c:choose>
 					<input type="hidden" name="voteNo" value="${vote.voteNo}" />
-					<button type="submit" class="w3-btn w3-green">투표하기</button>
+					<button type="submit" class="w3-btn w3-green vote_submit_button">투표하기</button>
 					</form>
 
 				</div>
