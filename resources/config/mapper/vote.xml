@@ -17,19 +17,11 @@
 		<result column="vote_close_dt" property="voteCloseDt" />
 	</resultMap>
 	<select id="selectVote" resultMap="voteMap">
-		  select * from ( select *
-		  from tb_vote
-		 where vote_notice_enabled = 'Y'
-		 union
-		select *
-		  from tb_vote
-		 where vote_close_enabled = 'N'
- 	     union
- 	    select *
- 	     from tb_vote
- 	    where vote_close_enabled = 'Y'
-        )
- 	 order by vote_reg_dt desc
+		  select *
+		  from tb_vote		 
+		 order by vote_notice_enabled desc, vote_reg_dt desc
+		 
+        
 	</select>
 	<select id="selectOneVote" parameterType="int" resultMap="voteMap">
 		select *
@@ -79,6 +71,7 @@
 		<result column="cmt_no" property="cmtNo" />
 		<result column="user_no" property="userNo" />
 		<result column="board_post_no" property="boardPostNo" />
+		<result column="cmt_content" property="cmtContent" />
 		<result column="cmt_reg_dt" property="cmtRegDt" />
 		<result column="code_value" property="codeValue" />
 	</resultMap>
@@ -87,10 +80,10 @@
 	    select *
 	      from tb_comment
 	     where board_post_no = #{boardPostNo}
-	       and code_value = (select code_value
-	       					   from tb_codenm
-	       					  where code_group = 'board_cd' 
-	       					    and code_name = '투표게시판')
+	       and code_value =  (select code_value
+								from tb_codenm
+	 	   					   where code_group = 'BOARD_CD'
+ 	       					     and code_name = '투표게시판')
 	</select>
 	
 	<!--코드벨류를 명시적으로 얻어오기 위한 코드 -->

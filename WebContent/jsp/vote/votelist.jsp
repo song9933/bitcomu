@@ -24,13 +24,19 @@
 .vote_plusminus {
 	font-size: 1.6em;
 }
+.vote_bg {
+	background-image: url("../resources/images/vote_vono.jpg");
+	background-size: auto;
+	/* background-clip: padding-box; */
+	background-repeat: round;
+}
 </style>
 <body>
 	<div class="wrapepr">
 		<c:import url="/jsp/include/header.jsp" />
 
 		<!-- width = 1280px 인 컨텐츠영역-->
-		<div class="w1280">
+		<div class="w1280 vote_bg">
 			<section class="content">
 				<h2>투표하기</h2>
 				<button type="button"
@@ -94,11 +100,7 @@
 								</h3></div>
 								
 								<div id="vote_tg"></div>
-								<!-- <i class="fa fa-plus-square" onclick="vote_add()" aria-hidden="true"></i> -->
 							    </div>
-									<!-- <i
-									class="fa fa-plus-square" onclick="vote_add();" aria-hidden="true"></i> <i
-									class="fa fa-minus-square" onclick="vote_sub();" aria-hidden="true"></i> -->
 
 								<p>
 									<input class="w3-check" type="checkbox" name="voteNotice">
@@ -153,9 +155,6 @@
 				<%-- 투표 리스트 출력 끝 --%>
 				<br> <br> <br> <br> <br> <br> <br>
 				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br>
 
 			</section>
 		</div>
@@ -191,11 +190,20 @@
 		title.append(input, plusbtn, minusbtn);
 		tg.append(title);
 		index = index + 1;
+		sleep(300);
 	}
 	
 	function vote_sub(num){
 		document.getElementById(`vwmenu\${num}`).remove();
+		sleep(300);
 	}
+	
+	function sleep (delay) {
+		   var start = new Date().getTime();
+		   while (new Date().getTime() < start + delay);
+		}
+
+
 </script>
 
 </html>

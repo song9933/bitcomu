@@ -25,7 +25,9 @@
                         <p>뽑고싶은 사람 이름을 선택하세요.</p>
                         <br>
                 </div>
-                
+                <script>
+                  
+                </script>
                 <!-- 셀렉트박스 -->
                 <div class="w3-container w3-card w3-white">
                     <form action="/action_page.php">

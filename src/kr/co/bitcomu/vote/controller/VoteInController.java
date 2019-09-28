@@ -54,6 +54,7 @@ public class VoteInController extends HttpServlet{
 			System.out.println(choice.toString());
 			StringBuffer sb = new StringBuffer();
 			for(String c : choice) {
+				System.out.println("초이스로 얻어온 파라미터 밸류 하나하나 : " + c);
 				sb.append(c + "★");
 			}
 			String convertedChoice = sb.toString();	
