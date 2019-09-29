@@ -105,11 +105,11 @@
                 </ul>
                 
               <div class="ns_go_update"> 
-            <a  href="/bitcomu//updateNoticeForm.do?postNo=${noticeDetail.postNo}"> 
+            <a  href="/bitcomu/updateNoticeForm.do?postNo=${noticeDetail.postNo}"> 
                	 수정
             </a>
               </div>
-            <a class="ns_go_delete" href="../notice_write.html"> 
+            <a class="ns_go_delete" href="/bitcomu/noticedelete.do?postNo=${noticeDetail.postNo}"> 
               <div> 
                	 삭제
               </div>

@@ -59,7 +59,6 @@
 		delete 
 		  from tb_notice 
 		 where notice_post_no = #{postNo}
-		 cascade
 	</delete>
 
 </mapper>

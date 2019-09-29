@@ -22,7 +22,7 @@
                   <li >
                       <span>${b.postNo}</span>
                       <span ><a href="<c:url value="/notice_detail.do?postNo=${b.postNo}&pageNo=${pr.pageNo}"/>">${b.title}</a></span>
-                      <span>${b.userId }</span>
+                      <span>${b.userId}</span>
                       <span><fmt:formatDate value="${b.regDt}" pattern="yyyy-MM-dd"/></span>
                       <span>${b.viewCnt}</span>
                   </li>
