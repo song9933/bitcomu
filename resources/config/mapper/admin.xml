@@ -6,6 +6,8 @@
 <!-- dao 클래스 위치 ctrl 키 눌러서 경로 확인되는지 .. check-->
 <mapper namespace="kr.co.bitcomu.repository.dao.AdminDAO">
 
+	<!-- 페이징 처리 시작 -->
+
 	<sql id="pagingStart">
 	  	    select *
 	      from (select rownum rnum, a.*
@@ -16,6 +18,10 @@
 			    a)
 		 where rnum between #{begin} and #{end}
 	</sql>
+	
+	<!-- 페이징 처리 끝 -->
+	
+	<!-- 전체 게시판 조회를 위한 쿼리 -->
 
 	<sql id="selectStudy">
 		select s.user_no, (select user_id  from tb_user u
@@ -23,7 +29,6 @@
 		 s.study_reg_dt as reg_dt, s.study_post_title as post_title,
                      (select code_name from tb_codenm where code_name='스터디게시판') code_name
                 from tb_study s 
-        <!-- order by study_post_no desc -->
 	</sql>
 	
 	<sql id="selectVote">
@@ -31,7 +36,6 @@
                     		where u.user_no = v.user_no ) user_id, v.vote_reg_dt, v.vote_title,
                      (select code_name from tb_codenm where code_name='투표게시판') code_name
                 from tb_vote v
-<!--                order by vote_no desc -->
 	</sql>
 	
 	<sql id="selectNotice">
@@ -40,13 +44,43 @@
 		 				n.notice_reg_dt, n.notice_post_title,
                      (select code_name from tb_codenm where code_name='공지게시판') code_name
                 from tb_notice n
-<!--                order by notice_post_no desc -->
 	</sql>
-<!-- 	<sql id="selectNotice"> -->
-<!-- 		select * -->
-<!-- 		  from tb_notice -->
-<!-- 		  order by notice_post_no desc -->
-<!-- 	</sql> -->
+	
+	<sql id="selectTeam">
+		select t.user_no, (select user_id  from tb_user u
+                    	where u.user_no = t.user_no ) user_id,
+		 				t.team_board_reg_dt, t.team_board_title,
+                     (select code_name from tb_codenm where code_name='팀프로젝트게시판') code_name
+                from tb_team t
+	</sql>
+	
+	<sql id="selectYoutube">
+		select y.user_no, (select user_id  from tb_user u
+                    	where u.user_no = y.user_no ) user_id,
+		 				y.yt_reg_dt, y.yt_title,
+                     (select code_name from tb_codenm where code_name='온라인강의게시판') code_name
+                from tb_youtube y
+	</sql>
+	
+	<sql id="selectQna">
+		select q.user_no, (select user_id  from tb_user u
+                    	where u.user_no = q.user_no ) user_id,
+		 				q.qna_reg_dt, q.qna_title,
+                     (select code_name from tb_codenm where code_name='질문답변게시판') code_name
+                from tb_qna q
+	</sql>
+	
+	<sql id="selectTalk">
+		select tk.user_no, (select user_id  from tb_user u
+                    	where u.user_no = tk.user_no ) user_id,
+		 				tk.talk_reg_dt, tk.talk_post_title,
+                     (select code_name from tb_codenm where code_name='자유게시판') code_name
+                from tb_talk tk
+	</sql>
+	
+	<!-- 전체 게시판 조회를 위한 쿼리 끝 -->
+	
+	
 
 	<resultMap type="Board" id="boardMap">
       <result column="user_no" property="userNo"/>
@@ -71,6 +105,22 @@
 		 		select * from (
 	     			<include refid="selectNotice" />
   			    order by notice_post_no desc) notice
+  			    union all
+  			    select * from (
+	     			<include refid="selectTeam" />  			    
+  			    order by team_board_no desc) team
+  			    union all
+  			    select * from ( 
+  			        <include refid="selectYoutube" />
+  			    order by yt_no desc) youtube
+  			    union all
+  			    select * from ( 
+  			        <include refid="selectQna" />
+  			    order by qna_no desc) qna  			        
+  			    union all
+  			    select * from ( 
+  			        <include refid="selectTalk" />
+  			    order by talk_post_no desc) talk  			        
 	     		) allboard order by reg_dt desc
 	     <include refid="pagingEnd" />
 	</select>
@@ -88,120 +138,26 @@
 		 		select * from (
 	     			<include refid="selectNotice" />
   			    			 ) notice
+		 		union all
+		 		select * from (
+	     			<include refid="selectTeam" />
+  			    			 ) team
+		 		union all
+		 		select * from (
+	     			<include refid="selectYoutube" />
+  			    			 ) youtube
+		 		union all
+		 		select * from (
+	     			<include refid="selectQna" />
+  			    			 ) qna
+		 		union all
+		 		select * from (
+	     			<include refid="selectTalk" />
+  			    			 ) talk
 	     		) allboard
 	</select>
 	
 	
-	
-	  
-<!-- 	<sql id="deleteUsers"> -->
-<!-- 		 delete -->
-<!-- 	       from tb_user -->
-<!-- 	</sql>   -->
-
-
-<!--     <resultMap type="User" id="userMap"> -->
-<!--       <result column="user_no" property="userNo"/> -->
-<!--       <result column="user_id" property="userId"/> -->
-<!--       <result column="user_name" property="userName"/> -->
-<!--       <result column="user_pass" property="userPass"/> -->
-<!--       <result column="user_mobile" property="userMobile"/> -->
-<!--       <result column="user_email" property="userEmail"/> -->
-<!--       <result column="user_birth" property="userBirth"/> -->
-<!--       <result column="user_grade" property="userGrade"/> -->
-<!--     </resultMap> -->
-     
-<!--      유저 전체(관리자 전용) -->
-<!--      <select id="selectUserAdmin" resultMap="userMap" parameterType="Page" flushCache="true" useCache="true"> -->
-<!--       	   <include refid="selectAllUsers" /> -->
-      	   
-<!--      </select> -->
-     
-     <!-- 유저 카운트(관리자 전용) -->
-<!--      <select id="selectUserAdminCount" resultType="int" flushCache="true" useCache="true"> -->
-<!--       	   select count(*) -->
-<!--       	     from tb_user -->
-<!--      </select> -->
-     
-     <!-- 개인 유저 조회 -->
-<!--      <select id="selectOneUser" resultMap="userMap" parameterType="User" flushCache="true" useCache="true"> -->
-<!--       	   <include refid="selectUsers" /> -->
-<!--       	   where user_id = #{userId} -->
-<!--       	     and user_pass = #{userPass} -->
-<!--      </select> -->
-     
-     <!-- 개인 유저 아이디 찾기 -->
-<!--      <select id="selectFindUser" resultType="string" parameterType="User" flushCache="true" useCache="true"> -->
-<!--       	   select user_id -->
-<!--       	     from tb_user -->
-<!--       	   where user_mobile = #{userMobile} -->
-<!--       	     and user_email = #{userEmail} -->
-<!--       	     and user_name = #{userName} -->
-<!--      </select> -->
-     
-     <!-- 개인 유저 중복체크 -->
-<!--      <select id="selectOneUserCheck" resultType="int" parameterType="string" flushCache="true" useCache="true"> -->
-<!--       	   select count(*)  -->
-<!--       	     from tb_user -->
-<!--       	   where user_id = #{userId} -->
-<!--      </select> -->
-     
-
-
-     <!-- 유저 등록 -->
-<!--      <insert id="insertUser" parameterType="User"> -->
-<!--         insert into tb_user( user_no, user_id, user_name, user_pass, -->
-<!--         					 user_mobile, user_email, user_birth )  -->
-<!-- 					values(tb_user_seq.nextval, #{userId}, #{userName}, #{userPass}, -->
-<!-- 					       #{userMobile}, #{userEmail}, #{userBirth} ) -->
-<!-- 	 </insert> -->
-           
-     <!-- 유저 수정 -->
-<!--      <update id="updateUser" parameterType="User"> -->
-<!--      update tb_user  -->
-<!--         set user_name = #{userName},  -->
-<!--             user_pass = #{userPass}, -->
-<!--             user_mobile = #{userMobile}, -->
-<!--             user_birth = #{userBirth} -->
-<!--       where user_no = #{userNo} -->
-      
-<!-- 	 </update> -->
-	 
-     <!-- 유저 등급 변경(관리자 전용) -->
-<!--      <update id="updateUserAdmin" parameterType="User"> -->
-<!--      update tb_user  -->
-<!--         set user_grade = #{userGrade}  -->
-<!--       where user_no = #{userNo} -->
-      
-<!-- 	 </update> -->
-           
-      <!-- 유저 탈퇴 -->     
-<!--      <select id="deleteUser" parameterType="int"> -->
-<!--      	<include refid="deleteUsers" /> -->
-<!--         where user_no = #{userNo}       -->
-<!-- 	 </select> -->
-	 
-	 
-      <!-- 유저 삭제(관리자 전용) -->     
-<!--      <select id="deleteUserAdmin" parameterType="map"> -->
-<!--        <include refid="deleteUsers" /> -->
-<!--         where user_no in -->
-<!--         <foreach collection="list" item="userNo"  open="(" close=")" separator=","> -->
-<!--               #{userNo}     -->
-<!--         </foreach> -->
-<!-- 	 </select> -->
-	 
-      <!-- 유저 전체 삭제(관리자 전용) -->     
-<!--      <select id="deleteAllUserAdmin"> -->
-<!--        <include refid="deleteUsers" /> -->
-<!-- 	 </select> -->
-	 
-	 <!-- 전화번호 앞자리 조회(공통) -->
-<!-- 	 <select id="selectMolibeList" resultType="string"> -->
-<!-- 	 	select code_name -->
-<!-- 	 	  from tb_codenm  -->
-<!-- 	 	 where code_group = 'MOBILE_CD' -->
-<!-- 	 </select> -->
     
 </mapper>	
 

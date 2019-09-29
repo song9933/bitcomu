@@ -20,7 +20,7 @@
       <ul class="sj" style="position: absolute;
     		top: -10px;
     		left: 100px;">
-      <li class="sj"><a href="${pageContext.request.contextPath}/user/userDeleteForm.do">유저관리</a></li>
+      <li class="sj"><a href="${pageContext.request.contextPath}/admin/adminUserList.do">유저관리</a></li>
       <li class="sj selected">게시판 관리</a></li>
       </ul>
     </div> 
@@ -32,7 +32,7 @@
 
             <div class="ns_listlength">
               
-                <select name="list">
+                <select name="viewList">
                     <option value="10" selected>10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
@@ -47,6 +47,7 @@
                         <span>제목</span>
                         <span>날짜</span>
                         <span>게시판형태</span>
+                        <span></span>
                     </li>
                     
                 </ul>
@@ -67,7 +68,8 @@
                       <span>${board.userId}</span>
                       <span>${board.postTitle}</span>
                       <span><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd"/></span>
-                      <span>${board.codeName}</span>
+                      <span colspan="2">${board.codeName}</span>
+                      <span></span>
 <!--                       <span style="margin-left: 20px;"> -->
 <%--                       <form method="POST" action="<c:url value="/admin/adminUserDelete.do"/>">  --%>
 <%--                    			<input type="hidden" name="userNo" value="${member.userNo}"> --%>
@@ -118,7 +120,7 @@
             
             <div class="ns_search">
                 search : 
-                <select name="list">
+                <select name="searchList">
                     <option value="10" selected>제목 + 내용</option>
                     <option value="15">제목</option>
                     <option value="20">내용</option>
@@ -148,7 +150,7 @@
   </div>
   <script>
   // $(document).ready(alert());
-
+	
   </script>
 </body>
 </html>
