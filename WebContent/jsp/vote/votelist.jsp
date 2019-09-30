@@ -24,12 +24,6 @@
 .vote_plusminus {
 	font-size: 1.6em;
 }
-.vote_bg {
-	background-image: url("../resources/images/vote_vono.jpg");
-	background-size: auto;
-	/* background-clip: padding-box; */
-	background-repeat: round;
-}
 </style>
 <body>
 	<div class="wrapepr">
