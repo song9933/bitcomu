@@ -22,14 +22,13 @@
       <section class="qna_content">
         <div>
           <strong class="qna_title">질문 답변</strong>
-		  <form action="/bitcomu/qna/qnaList.do">
+
           <div class="qna_accordion vertical">
             <ul>
                 <li>
                     <input type="checkbox" id="checkbox-1" name="checkbox-accordion" />
                     <label for="checkbox-1" class="qna_title_1">비트 캠프 지각은 몇시 인가요?</label>
                     <i class="fa fa-lock qna_pd10" style="font-size: 2em" aria-hidden="true"></i>
-          
                     <div class="qna_content_1">
                         <p>공개 10분전 조회수 10</p>
                         <h3>관리자</h3>
@@ -44,23 +43,19 @@
                 </li>
             </ul>
         </div>
-        </form>
   <!-- 수정버튼 -->
-  <form action="/bitcomu/qna/qnaupdate.do">
   <p class="qna_updat_1">
     <a href="javascript:void(0)"
   onclick="document.getElementById('light_1').style.display='block'; document.getElementById('fade_1').style.display='block'"
   style="font-weight: bold">수정</a>
   </p>
-  </form>
   <!-- 삭제버튼 -->
-  <form action="/bitcomu/qna/qnadelete.do">
   <p class="qna_delete_1">
     <a href="javascript:void(0)"
   onclick="document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"
   style="font-weight: bold">삭제</a>
   </p>
-  </form>
+  
   <div id="light_1" class="qna_white_content_1"><a href="javascript:void(0)"
     onclick="document.getElementById('light_1').style.display='none'; document.getElementById('fade_1').style.display='none'">
 
@@ -87,17 +82,16 @@
           </ul>  
 
           
-       	<form method='post' action="/bitcomu/qna/write.do" >
+       
           <ul class="qna_board_qna_title">
             <div>
               <textarea class="qna_text_title" name="title" style="resize: none" placeholder="Title"></textarea>
               <input type="checkbox" id="qna_check_2"  value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
               <textarea class="qna_text_content" name="content" style="resize: none" placeholder="Content"></textarea>
-              <button type="submit" class="qna_button">등록</button>
+              <button type="submit" class="qna_button">등록</button></p>
             </div>
           </ul>
-		  </form>
-		  <form action="/bitcomu/qna/search.do">
+
           <ul class="qna_board_serh">
             <div>
               <textarea class="qna_text_search" name="search" style="resize: none" placeholder="Search"></textarea>
@@ -108,7 +102,6 @@
               <button type="submit" class="qna_button_serch">검색</button>
             </div>
           </ul>
-          </form>
         </div>
       </section>
       
