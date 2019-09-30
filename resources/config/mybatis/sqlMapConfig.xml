@@ -20,6 +20,7 @@
 		<typeAlias alias="Page" type="kr.co.bitcomu.repository.vo.Page" />
 		<typeAlias alias="Comment" type="kr.co.bitcomu.repository.vo.Comment" />
 		<typeAlias alias="Board" type="kr.co.bitcomu.repository.vo.Board" />
+		<typeAlias alias="Qna" type="kr.co.bitcomu.repository.vo.Qna" />
 		
 	</typeAliases>
 

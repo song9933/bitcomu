@@ -13,9 +13,7 @@
 		<result column="qna_reg_dt" property="qnaRegDt" />
 	</resultMap>
 	
-<<<<<<< HEAD
-=======
-	<select id="selectQna" parameterType="Page" resultMap="QnaMap">
+	<select id="selectQna" parameterType="Page" resultMap="qnaMap">
 	   select *
 	      from (select rownum rnum, a.*
 			      from ( select q.*, (select user_id  from tb_user u where u.user_no = q.user_no ) as user_id 
@@ -29,7 +27,7 @@
 		select count(*)
 		  from tb_qna
 	</select>
-	<select id="selectOneQna" parameterType="int" resultMap="QnaMap">
+	<select id="selectOneQna" parameterType="int" resultMap="qnaMap">
 		select q.*, (select user_id  from tb_user u where u.user_no = q.user_no ) as user_id 
                             from tb_qna q
 		 where qna_no = #{qnaNo} 
@@ -52,7 +50,5 @@
 		  from tb_qna
 		 where qna_no = #{qnaNo}
 	</delete>
-	
->>>>>>> parent of bc0d174... 긴급 QNA 맵핑 오류 수정
 	
 </mapper>
