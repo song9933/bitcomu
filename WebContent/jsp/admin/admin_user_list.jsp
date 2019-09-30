@@ -140,24 +140,22 @@
 		</c:if>
 		</ul>
             
-            
 
             
+            
             <div class="ns_search">
-                search : 
-                <select name="list">
-                    <option value="10" selected>제목 + 내용</option>
-                    <option value="15">제목</option>
-                    <option value="20">내용</option>
+                <select name="searchList" id="searchList">
+                    <option>전체</option>
+                    <option value="id">아이디</option>
+                    <option value="name">이름</option>
                     
                 </select>
-                <input type="text" name="search">
+                <input type="text" name="search" id="search" >
+                <button type="button" name="searchVal" onclick="doSearchUser()">검색</button>
             </div> 
         </section>  
         
-        
-        
-        
+
         
     </div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -175,7 +173,14 @@
   </div>
   <script>
   // $(document).ready(alert());
+	function doSearchUser() {
 
+		let sList = document.querySelector("#searchList").value;
+		let sValue = document.querySelector("#search").value;
+		
+		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.pageNo}&searchType=' + sList + '&searchWord=' + sValue;
+						
+	}
   </script>
 </body>
 </html>

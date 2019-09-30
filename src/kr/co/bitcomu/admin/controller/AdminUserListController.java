@@ -1,6 +1,8 @@
 package kr.co.bitcomu.admin.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +47,11 @@ public class AdminUserListController extends HttpServlet {
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		// 데이터를 구하고 공유
-		req.setAttribute("userList", dao.selectUserAdmin(page));
+		Map<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		map.put("searchType", req.getParameter("searchType"));
+		map.put("searchWord", req.getParameter("searchWord"));
+		req.setAttribute("userList", dao.selectUserAdmin(map));
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/admin/admin_user_list.jsp").forward(req, res);
 	}

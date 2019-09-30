@@ -13,7 +13,7 @@
 						    from tb_user
 	</sql>
 	<sql id="selectAllUsers">
-	    select *
+	   select * from (select *
 	      from (select rownum rnum, a.*
 			      from ( 
 					      select user_no, user_id, user_name, user_pass, user_mobile,
@@ -22,8 +22,8 @@
 						   where user_id != 'admin'
 								 order by user_no desc
 						)
-			    a)
-		 where rnum between #{begin} and #{end}
+			    a)    
+		where rnum between #{page.begin} and #{page.end})
 	</sql>
 	  
 	<sql id="deleteUsers">
@@ -44,9 +44,22 @@
     </resultMap>
      
      <!-- 유저 전체(관리자 전용) -->
-     <select id="selectUserAdmin" resultMap="userMap" parameterType="Page" flushCache="true" useCache="true">
+     <select id="selectUserAdmin" resultMap="userMap" parameterType="hashmap" flushCache="true" useCache="true">
       	   <include refid="selectAllUsers" />
-      	   
+      	   <where>
+	      	   <choose>
+	               <when test="searchType == 'id'">
+	               	
+	               	user_id like '%'|| #{searchWord} ||'%'
+	               
+	               </when>
+	               <when test="searchType == 'name'">
+	               	
+	               	user_name like '%'|| #{searchWord} ||'%'
+	               	
+	               </when>
+	            </choose>
+      	   </where>
      </select>
      
      <!-- 유저 카운트(관리자 전용) -->

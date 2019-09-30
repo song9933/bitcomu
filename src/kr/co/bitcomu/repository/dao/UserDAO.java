@@ -1,13 +1,13 @@
 package kr.co.bitcomu.repository.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.User;
 
 public interface UserDAO {
 	/* 관리자 전용 */
-	List<User> selectUserAdmin(Page page);
+	List<User> selectUserAdmin(Map<String, Object> map);
 	void updateUserAdmin(User user);
 	void deleteUserAdmin(List<Integer> list);
 	void deleteAllUserAdmin();

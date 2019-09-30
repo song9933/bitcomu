@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
   <c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="이용약관" />
+		<c:param name="msg" value="메인" />
   </c:import> 
 </head>
 <body>
