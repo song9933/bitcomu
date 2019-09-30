@@ -30,7 +30,7 @@
 </select>
 
 <!-- 온라인강의 상세 -->	
-<select id="selectOneOnlinecls" resultMap="onlineclsMap" parameterType="Onlinecls" flushCache="true" useCache="true">
+<select id="selectOneOnlinecls" resultMap="onlineclsMap" parameterType="int" flushCache="true" useCache="true">
 	select *
 	  from tb_youtube
 	 where yt_no = #{ytNo}

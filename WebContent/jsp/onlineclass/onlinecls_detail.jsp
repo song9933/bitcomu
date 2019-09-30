@@ -8,7 +8,7 @@ int yt_no = 0;
 <html lang="ko">
 <head>
 <c:import url="/jsp/include/head.jsp">
-	<c:param name="msg" value="온라인강의::${ subject}" />
+	<c:param name="msg" value="온라인강의::${ subject.ytSubject }" />
 </c:import>
 </head>
 <body>
@@ -79,7 +79,7 @@ int yt_no = 0;
                 	</c:when>
                 	<c:otherwise>
                 	<c:forEach var="ocls" items="${ list }">
- 						<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/p.do?no=${ ocls.ytNo }&subj=${ocls.ytSubject }'">
+ 						<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/p.do?no=${ ocls.ytNo }'">
 <!-- 						<div class="ifrBox"> -->
 							<iframe src="https://www.youtube.com/embed/${ ocls.ytAddr }" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
 							<span><%= ++yt_no %></span>
@@ -137,21 +137,22 @@ int yt_no = 0;
     
 
     <!-- 팝업 -->
-    <div class="popbg"></div>
-    <div class="popup clearboth">
+    <div class="popbg" style="display:block;"></div>
+    <div class="popup clearboth" style="display:block;">
       <div class="pop_l">
-        <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" width="100%" height="100%" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/${ ocls.ytAddr }" width="100%" height="100%" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
       </div>
       <div class="pop_r">
           <div>
+          	<p>${ ocls.ytTitle }<a href="">···</a></p>
             <dl>
               <dt><i class="fa fa-user-circle" aria-hidden="true"></i></dt>
-              <dd>iamteacher</dd>
+              <dd>${ ocls.userNo }</dd>
             </dl>
           </div>
           <div>
             <p>
-              #jsp #스프링프레임워크 #Servlet
+            	${ ocls.ytContent }
             </p>
           </div>
           <div class="socialbox">
@@ -159,7 +160,7 @@ int yt_no = 0;
               <!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
               <i class="fa fa-comment-o" aria-hidden="true"></i>
               <p>좋아요 44,444개</p>
-              <p>2019.09.09</p>
+              <p><fmt:formatDate pattern="yyyy.MM.dd" value="${ ocls.ytRegDt }"/></p>
 
           </div> 
           <div class="comment">
@@ -167,6 +168,8 @@ int yt_no = 0;
           </div>
 
       </div>
+      <a href="${ pageContext.request.contextPath }/onlineclass/onlineclsList.do?subj=${ocls.ytSubject }"><img src="${ pageContext.request.contextPath }/resources/images/icon_closeW.png" alt="팝업닫기"/></a>
+      
     </div>
     <!-- //팝업 끝 -->
   </div>
