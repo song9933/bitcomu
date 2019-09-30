@@ -83,7 +83,7 @@
 
           
        
-          <ul class="qna_board_qna_title">
+           <ul class="qna_board_qna_title">
             <div>
               <textarea class="qna_text_title" name="title" style="resize: none" placeholder="Title"></textarea>
               <input type="checkbox" id="qna_check_2"  value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
@@ -92,8 +92,10 @@
             </div>
           </ul>
 
-          <ul class="qna_board_serh">
             <div>
+              <form method="post" enctype="multipart/form-data">
+                <div><input type="file" class="qna_attatch" name="attach" /></div>
+              </form>
               <textarea class="qna_text_search" name="search" style="resize: none" placeholder="Search"></textarea>
               <select name="select" class="qna_select_1">
                   <option value="1">작성자</option>
@@ -101,7 +103,6 @@
               </select>
               <button type="submit" class="qna_button_serch">검색</button>
             </div>
-          </ul>
         </div>
       </section>
       

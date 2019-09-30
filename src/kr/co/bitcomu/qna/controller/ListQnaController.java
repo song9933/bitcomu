@@ -15,7 +15,6 @@ import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.util.PageResult;
 
-
 @WebServlet("/qna/qnaList.do")
 public class ListQnaController extends HttpServlet {
 	
@@ -46,7 +45,7 @@ public class ListQnaController extends HttpServlet {
 		
 		
 		// 데이터를 구하고 공유
-		req.setAttribute("notice", dao.selectQna(page));
+		req.setAttribute("qna", dao.selectQna(page));
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/qna/qna.jsp").forward(req, res);
 	}
