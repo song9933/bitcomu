@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
 
-
-
 @WebServlet("/qnadelete.do")
 public class DeleteQnaController extends HttpServlet {
 	

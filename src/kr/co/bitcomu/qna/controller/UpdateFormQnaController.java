@@ -13,8 +13,6 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
 import kr.co.bitcomu.repository.vo.User;
 
-
-
 @WebServlet("/updateQnaForm.do")
 public class UpdateFormQnaController extends HttpServlet {
 
