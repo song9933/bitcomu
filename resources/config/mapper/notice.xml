@@ -18,9 +18,9 @@
 	    select *
 	      from (select rownum rnum, a.*
 			      from ( 
-					      select n.*, (select user_id  from tb_user u
-                    where u.user_no = n.user_no ) as user_id from tb_notice n
-								 order by notice_post_no desc
+					      select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+                            from tb_notice n
+						   order by notice_post_no desc
 						  )
 						  a)
 		 where rnum between #{begin} and #{end}  			 
@@ -33,8 +33,8 @@
 
 	
 	<select id="selectOneNotice" parameterType="int" resultMap="noticeMap">
-		select *
-		  from tb_notice
+		select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+                            from tb_notice n
 		 where notice_post_no = #{postNo} 
 	</select>
 	<insert id="insertNotice" parameterType="Notice">
