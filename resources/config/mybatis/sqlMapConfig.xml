@@ -17,6 +17,7 @@
 		<typeAlias alias="TeamComment" type="kr.co.bitcomu.repository.vo.TeamComment" />
 		<typeAlias alias="Onlinecls" type="kr.co.bitcomu.repository.vo.Onlinecls" />
 		<typeAlias alias="Notice" type="kr.co.bitcomu.repository.vo.Notice" />
+		<typeAlias alias="Talk" type="kr.co.bitcomu.repository.vo.Talk" />
 		<typeAlias alias="Page" type="kr.co.bitcomu.repository.vo.Page" />
 		<typeAlias alias="Comment" type="kr.co.bitcomu.repository.vo.Comment" />
 		<typeAlias alias="Board" type="kr.co.bitcomu.repository.vo.Board" />
@@ -45,6 +46,7 @@
 		<mapper resource="config/mapper/qna.xml" />
 		<mapper resource="config/mapper/onlinecls.xml" />
 		<mapper resource="config/mapper/notice.xml" />
+		<mapper resource="config/mapper/talk.xml" />
 		<mapper resource="config/mapper/admin.xml" />
 	</mappers>
 </configuration>
