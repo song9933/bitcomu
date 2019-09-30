@@ -42,6 +42,7 @@
 		<mapper resource="config/mapper/user.xml" />
 		<mapper resource="config/mapper/vote.xml"/>
 		<mapper resource="config/mapper/team.xml"/>
+		<mapper resource="config/mapper/qna.xml" />
 		<mapper resource="config/mapper/onlinecls.xml" />
 		<mapper resource="config/mapper/notice.xml" />
 		<mapper resource="config/mapper/admin.xml" />
