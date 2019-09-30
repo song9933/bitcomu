@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.VoteDAO;
+import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.repository.vo.Vote;
 
 @WebServlet("/vote/votewrite.do")
@@ -46,7 +48,11 @@ public class VoteWriteController extends HttpServlet{
 		req.setCharacterEncoding("utf-8");
 		Vote vote = new Vote();
 		//유저테이블 병합후 로그인세션에서 유저번호 얻어오는 방식으로 번경
-		vote.setUserNo(1);
+		
+		//로그인한 유저정보를 얻어와 글쓴이로 설정.
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("user");
+		vote.setUserNo(user.getUserNo());
 		vote.setVoteTitle(req.getParameter("voteTitle"));
 		vote.setVoteContent(req.getParameter("voteContent"));
 		if(req.getParameter("voteMultiCheck") != null) {

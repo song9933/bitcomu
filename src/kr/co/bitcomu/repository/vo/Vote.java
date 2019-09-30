@@ -15,6 +15,7 @@ public class Vote {
 	private String voteAnonyEnabled;
 	private String voteCloseEnabled;
 	private String voteCloseDt;
+	private String userId;
 	public int getVoteNo() {
 		return voteNo;
 	}
@@ -86,6 +87,12 @@ public class Vote {
 	}
 	public void setVoteCloseDt(String voteCloseDt) {
 		this.voteCloseDt = voteCloseDt;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 }

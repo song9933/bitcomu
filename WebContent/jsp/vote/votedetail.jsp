@@ -63,7 +63,9 @@
 						<br>
 					</div>
 					<form action="<c:url value='/vote/votein.do' />">
-
+					<c:choose>
+						<c:when test="${user.userNo eq vote.userNo}"></c:when>
+					</c:choose>
 						<c:choose>
 							<%-- 중복체크 가능한 체크박스형태  --%>
 							<c:when test="${vote.voteType == 0}">
@@ -84,7 +86,14 @@
 							</c:when>
 						</c:choose>
 						<input type="hidden" name="voteNo" value="${vote.voteNo}" />
+						<c:choose>
+							<c:when test="${user.userNo eq vote.userNo}">
+								<button type="button" onclick="<c:url value='/vote/closevote.do' />" class="w3-btn w3-green vote_submit_button">마감하기</button>
+							</c:when>
+							<c:otherwise>
 						<button type="submit" class="w3-btn w3-green vote_submit_button">투표하기</button>
+							</c:otherwise>
+						</c:choose>
 					</form>
 
 				</div>

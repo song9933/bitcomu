@@ -139,7 +139,7 @@
 									onclick="location.href='<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">${v.voteTitle}</div>
 								</p>
 								<p>
-									written by SBC
+									글쓴이 : ${v.userId}<br>
 									<fmt:formatDate value="${v.voteRegDt}"
 										pattern="yyyy년 MM월 dd일 hh시 mm분 " />
 								</p>

@@ -11,10 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.VoteDAO;
 import kr.co.bitcomu.repository.vo.Comment;
+import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.repository.vo.Vote;
 
 @WebServlet("/vote/votedetail.do")
@@ -70,6 +72,10 @@ public class VoteDetailController extends HttpServlet{
 		}
 		req.setAttribute("menuCount", menuCount);
 		
+		//디테일을 조회하는 유저의 정보를 넘김.
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("user");
+		req.setAttribute("user", user);
 		
 		
 		req.getRequestDispatcher("/jsp/vote/votedetail.jsp").forward(req, res);

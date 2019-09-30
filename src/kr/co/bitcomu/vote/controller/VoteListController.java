@@ -23,6 +23,9 @@ public class VoteListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		List<Vote> list = dao.selectVote();
+		for(Vote v : list) {
+			v.setUserId(dao.selectUserId(v.getVoteNo()));
+		}
 		req.setAttribute("list", list);
 		req.getRequestDispatcher("/jsp/vote/votelist.jsp").forward(req, res);
 	}

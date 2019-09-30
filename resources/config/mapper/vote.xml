@@ -20,8 +20,14 @@
 		  select *
 		  from tb_vote		 
 		 order by vote_notice_enabled desc, vote_reg_dt desc
-		 
-        
+	</select>
+	
+	<select id="selectUserId" parameterType="int" resultType="String">
+		  select (select user_id  
+          from tb_user u
+        where v.user_no = u.user_no ) as user_id
+          from tb_vote v
+         where vote_no = #{voteNo}
 	</select>
 	<select id="selectOneVote" parameterType="int" resultMap="voteMap">
 		select *
