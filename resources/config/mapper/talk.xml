@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bitcomu.repository.dao.TalkDAO">
+	<resultMap id="talkMap" type="Talk">
+		<result column="talk_post_no" property="postNo" />
+		<result column="talk_post_title" property="title" />
+		<result column="talk_post_content" property="content" />
+		<result column="user_id" property="userId" />
+		<result column="user_no" property="userNo" />
+		<result column="talk_view_cnt" property="viewCnt" />
+		<result column="talk_reg_dt" property="regDt" />
+	</resultMap>
+	<select id="selectTalk" parameterType="Page" resultMap="talkMap">
+		select *
+	      from (select rownum rnum, a.*
+			      from ( 
+					      select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+                            from tb_talk n
+						   order by talk_post_no desc
+						  )
+						  a)
+		 where rnum between #{begin} and #{end} 
+	</select>
+	<select id="selectTalkCount" resultType="int">
+		select count(*)
+		  from tb_talk
+	</select>
+	
+	
+	<select id="selectOneTalk" parameterType="int" resultMap="talkMap">
+		select *
+		  from tb_talk
+		 where no = #{no} 
+	</select>
+	<insert id="insertTalk" parameterType="Talk">
+		insert into tb_talk (
+			no, title, writer, content
+		) values (
+			seq_talk_no.nextval, #{title}, #{writer}, #{content}
+		)
+	</insert>
+	<update id="updateViewCnt" parameterType="int">
+		update tb_talk 
+		   set view_cnt = view_cnt + 1
+		 where no = #{no}
+	</update>
+	<update id="updateTalk" parameterType="Talk">
+		update tb_talk 
+		   set title = #{title}, 
+		       content = #{content}
+		 where no = #{no}
+	</update>
+	<delete id="deleteTalk" parameterType="int">
+		delete 
+		  from tb_talk 
+		 where no = #{no}
+	</delete>
+	
+	<!-- 댓글 파트 ============================================= -->
+	<resultMap id="commentMap" type="comment">
+		<result column="comment_no" property="commentNo" />
+		<result column="no" property="no" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+	
+	<select id="selectComment" parameterType="int" resultMap="commentMap">
+	    select *
+	      from tb_comment
+	     where no = #{no}
+	     order by comment_no 
+	</select>	
+	
+	<insert id="insertComment" parameterType="Comment">
+		insert into tb_comment(
+			comment_no, no, writer, content
+		) values (
+			seq_comment_no.nextVal, #{no}, #{writer}, #{content}
+		)
+	</insert>	
+			
+	<delete id="deleteComment" parameterType="int">
+	    delete 
+	      from tb_comment
+	     where comment_no = #{commentNo}
+	</delete>	
+	
+	<update id="updateComment" parameterType="comment">
+	    update tb_comment
+	       set content = #{content}
+	     where comment_no = #{commentNo}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
