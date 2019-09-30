@@ -8,13 +8,14 @@ import kr.co.bitcomu.repository.vo.TeamComment;
 public interface TeamDAO {
 	List<Team> selectTeamBoard();
 	Team selectOneTeamBoard(int no);
+	Team selectUserId(int no);
 	void insertTeamBoard(Team team);
 	void updateTeamBoard(Team team);
 	int deleteTeamBoard(int no);
 	
 	/* 댓글 파트 시작 ========================================= */
-	List<Team> selectComment(int teamBoardCmtNo);
-	void insertComment(TeamComment teamComment);
-	void deleteComment(int commentNo);
-	void updateComment(TeamComment teamComment);
+//	List<Team> selectComment(int teamBoardCmtNo);
+//	void insertComment(TeamComment teamComment);
+//	void deleteComment(int commentNo);
+//	void updateComment(TeamComment teamComment);
 }

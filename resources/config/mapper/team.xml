@@ -4,37 +4,52 @@
 
 <mapper namespace="kr.co.bitcomu.repository.dao.TeamDAO">
 	<resultMap id="teamMap" type="Team">
-		<result column="user_no" property="useNo" />
+		<result column="user_id" property="userId" /> 
+		<result column="user_no" property="userNo" />
 		<result column="team_no" property="teamNo" />
 		<result column="project_no" property="projectNo" />
 		<result column="team_board_no" property="teamBoardNo" />
 		<result column="team_board_title" property="teamBoardTitle" />
 		<result column="team_board_content" property="teamBoardContent" />
-		<result column="team_date" property="teamDate" />
+		<result column="team_board_reg_dt" property="teamBoardRegDt" />
 	</resultMap>
 
-	<select id="selectTeamBoard" resultMap="teamMap">
+	<select id="selectTeamBoard" resultMap="teamMap" flushCache="true" useCache="true">
 		select *
-		  from board_team
-		 order by team_board_no desc
+          from tb_team
 	</select>
 
-	<select id="selectOneTeamBoard" parameterType="int" resultMap="teamMap">
-		select *
-		  from board_team
+	<select id="selectOneTeamBoard" parameterType="int" resultMap="teamMap" flushCache="true" useCache="true">
+		select t.*, (select user_id  
+					   from tb_user u
+                      where u.user_no = t.user_no ) as user_id
+          from tb_team t
 		 where team_board_no = #{teamBoardNo}
 	</select>
+	
+<!-- 	<select id="selectUserId" parameterType="int" resultMap="teamMap" flushCache="true" useCache="true"> -->
+<!-- 		select u.user_id -->
+<!-- 		  from tb_team t -->
+<!-- 		 inner join tb_user u -->
+<!-- 		    on t.user_no = u.user_no -->
+<!-- 		 where team_board_no = #{teamBoardNo} -->
+		 
+<!-- 		select t.*, (select user_id   -->
+<!-- 					   from tb_user u -->
+<!--                       where u.user_no = t.user_no ) as user_id -->
+<!--           from tb_team t; -->
+<!-- 	</select> -->
 
-	<insert id="insertBoard" parameterType="Team">
-		insert into board_team(
-			team_board_no, team_board_title, user_no, team_board_content
+	<insert id="insertTeamBoard" parameterType="Team">
+		insert into tb_team(
+			team_board_no, project_no, team_no, team_board_title, user_no, team_board_content
 		) values (
-			seq_team_board_no.nextval, #{teamBoardTitle}, #{useNo}, #{teamBoardContent}
+			tb_team_seq.nextval, #{projectNo}, #{teamNo}, #{teamBoardTitle}, #{userNo}, #{teamBoardContent}
 		)
 	</insert>
 
 	<update id="updateBoard" parameterType="Team">
-		update board_team  
+		update tb_team  
 		   set team_board_title = #{teamBoardTitle},  
 			   team_board_content = #{teamBoardContent}
 		 where team_board_no = #{teamBoardNo}
@@ -42,7 +57,7 @@
 
 	<delete id="deleteBoard" parameterType="int">
 		delete 
-		  from board_team 
+		  from tb_team 
 		 where team_board_no = #{teamBoardNo}
 	</delete>
 

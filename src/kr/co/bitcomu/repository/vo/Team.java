@@ -10,13 +10,20 @@ public class Team {
 	private String userId;
 	private String teamBoardTitle;
 	private String teamBoardContent;
-	private Date teamDate;
+	private Date teamBoardRegDt;
 	
 	public int getTeamBoardNo() {
 		return teamBoardNo;
 	}
 	public Team setTeamBoardNo(int teamBoardNo) {
 		this.teamBoardNo = teamBoardNo;
+		return this;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public Team setUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	public int getUserNo() {
@@ -31,13 +38,6 @@ public class Team {
 	}
 	public Team setTeamNo(int teamNo) {
 		this.teamNo = teamNo;
-		return this;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public Team setUserId(String userId) {
-		this.userId = userId;
 		return this;
 	}
 	public int getProjectNo() {
@@ -61,11 +61,11 @@ public class Team {
 		this.teamBoardContent = teamBoardContent;
 		return this;
 	}
-	public Date getTeamDate() {
-		return teamDate;
+	public Date getTeamBoardRegDt() {
+		return teamBoardRegDt;
 	}
-	public Team setTeamDate(Date teamDate) {
-		this.teamDate = teamDate;
+	public Team setTeamBoardRegDt(Date teamBoardRegDt) {
+		this.teamBoardRegDt = teamBoardRegDt;
 		return this;
 	}
 	

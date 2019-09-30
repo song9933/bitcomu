@@ -17,7 +17,8 @@
     <div class="w1280">
       <section class="content">
 
-        <h2 class="title_cws">조별프로젝트 게시판</h2>
+        <h2 class="title_cws"style="text-align: center">
+		<a href="/teamBoardList.do">조별프로젝트 게시판</a></h2>
         <br>
         <br>
         <br>
@@ -25,7 +26,7 @@
         <div class="tabs_cws">
           <ul>
             <li class="active"><a href="#">1 차</a></li>
-            <li><a href="#">2 차</a></li>
+            <li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo='${projectNo}'">2 차</a></li>
             <li><a href="#">3 차</a></li>
             <li><a href="#">4 차</a></li>
           </ul>
@@ -59,7 +60,7 @@
     <div class="background_cws">
     </div>
     <div class="writepopup_cws">
-      <form action="team_board_list.do">
+      <form action="${pageContext.request.contextPath}/team/teamBoardList.do">
         <button class="close_cws" style="width:50px; height:50px; 
       background-color: white; opacity: .9; border: none">
       </button>
@@ -67,18 +68,28 @@
       <br>
       <h1 style="text-align: center">글등록페이지</h1>
       <br>
+     <form method='post' action='${pageContext.request.contextPath}/team/teamBoardWrite.do'>
+<%--       <input type="hidden" name="projectNo" value="${projectNo}"> --%>
+      <input type="hidden" name="userNo" value="${userNo}">
+      
       <div>
-        <select>
-          <option selected>말머리선택</option>
-          <option>1조</option>
-          <option>2조</option>
-          <option>3조</option>
-          <option>4조</option>
-          <option>공지</option>
+        <select name="projectNo">
+          <option value="1" selected>1차</option>
+          <option value="2">2차</option>
+          <option value="3">3차</option>
+        </select>
+      </div>
+      
+      <div>
+        <select name="teamNo">
+          <option value="1" selected>1조</option>
+          <option value="2">2조</option>
+          <option value="3">3조</option>
+          <option value="4">4조</option>
+          <option value="0">공지</option>
         </select>
       </div>
       <div class="titleboard_cws">
-        <input type="hidden" name="useNo"/>
         <input type="text" name="teamBoardTitle" placeholder="제목을 입력하세요" 
         style="width: 100%; border: hidden">
         <br>
@@ -90,11 +101,12 @@
           padding: 5px; resize: none">내용을 입력하세요.</textarea>
         </div>
         <br>
-        <input type="file" style="cursor: pointer; width:180px; float: left; margin-left: -120px" onchange="previewImage(this,'View_area')">
-        <input type="image" src="" style="margin-left: 20px;">
+<!--         <input type="file" style="cursor: pointer; width:180px; float: left; margin-left: -120px" onchange="previewImage(this,'View_area')"> -->
+<!--         <input type="image" src="" style="margin-left: 20px;"> -->
         <br>
-        <button class="submitbutton_cws">등록</button>
+        <button class="submitbutton_cws" type="submit">등록</button>
       </div>
+     </form>
     </div>
 
 
