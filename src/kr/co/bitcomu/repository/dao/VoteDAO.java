@@ -21,4 +21,5 @@ public interface VoteDAO {
 	void deleteVoteIn(int cmtNo);
 	void updateVoteIn(Comment comment);
 	int selectCodeValueVote();
+	List<Comment> selectCommentInVote(Comment comment);
 }

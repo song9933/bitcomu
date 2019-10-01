@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.VoteDAO;
@@ -42,9 +43,15 @@ public class VoteCloseController extends HttpServlet{
 		       vote_close_dt = #{voteCloseDt}
 		 where VOTE_NO = #{voteNo}*/
 		
-		Vote vote = new Vote();
+		HttpSession session = req.getSession();
+		Vote vote = (Vote) session.getAttribute("vote");
+		System.out.println(vote.toString());
+		
 		 
-		 
+		
+		//볼일 다끝나면
+		session.removeAttribute("vote");
+		
 	}
 	
 }

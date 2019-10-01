@@ -92,6 +92,18 @@
  	       					     and code_name = '투표게시판')
 	</select>
 	
+	<!--투표에 현재 로그인한 유저가 참여했는지 검사하기위한 쿼리 -->
+	<select id="selectCommentInVote" parameterType="Comment" resultMap="commentMap">
+	select *
+	from tb_comment
+	where user_no = #{userNo}
+	and board_post_no = #{boardPostNo}
+	and code_value = (select code_value
+                  	    from tb_codenm
+                   	   where code_group = 'BOARD_CD' 
+                     	 and code_name = '투표게시판')
+	</select>
+	
 	<!--코드벨류를 명시적으로 얻어오기 위한 코드 -->
 	<select id="selectCodeValueVote" resultType="int">
 	select code_value

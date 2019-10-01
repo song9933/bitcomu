@@ -11,6 +11,9 @@
 	List<Comment> cList = (List)request.getAttribute("cList");
 	Map<String,Integer> menuCount = (Map)request.getAttribute("menuCount");
 	%>
+<%
+	session.setAttribute("vote", vote);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -86,13 +89,19 @@
 							</c:when>
 						</c:choose>
 						<input type="hidden" name="voteNo" value="${vote.voteNo}" />
+						
+						<%-- 참여or미참여 버튼 번경 --%>
+							<c:if test="${user.userNo eq vote.userNo}">
+							<button type="button" id="vote-close" onclick = "location.href=`<c:url value='/vote/closevote.do' />`" class="w3-btn w3-green vote_submit_button">마감하기</button>
+							</c:if>
 						<c:choose>
-							<c:when test="${user.userNo eq vote.userNo}">
-								<button type="button" onclick="<c:url value='/vote/closevote.do' />" class="w3-btn w3-green vote_submit_button">마감하기</button>
+							<c:when test="${commentinvote == 'N'}">
+							<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button">투표하기</button>	
 							</c:when>
-							<c:otherwise>
-						<button type="submit" class="w3-btn w3-green vote_submit_button">투표하기</button>
-							</c:otherwise>
+							<c:when test="${commentinvote == 'Y'}">
+								<button id="vote-in" type="butten" disabled class="w3-btn w3-green vote_submit_button">참여한투표</button>
+								<div>나의 선택 : ${userContent}</div>
+							</c:when>
 						</c:choose>
 					</form>
 
@@ -110,6 +119,8 @@
 
 
 	<script>
+		
+	
 		function nodata(){
 			let nodataMsg = document.createElement("h3");
 			nodataMsg.innerText = "아직 집계된 통계가 없습니다.";
