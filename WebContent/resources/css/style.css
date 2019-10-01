@@ -1444,6 +1444,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 
 .sWrapDetail .item .text{
   margin-bottom: 4px;
+  padding : 5px;
   line-height: 20px;
   color: #706e6e;
   font-size: 15px;
@@ -1469,13 +1470,16 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 }
 
 .sWrapDetail .comments .info{
-  display: inline-block;
+  display: block;
   margin-right: 8px;
   padding: 1px 16px ; 
   line-height: 18px;
   color: #a6a6a6;
   font-size: 12px;
   letter-spacing: 0;
+}
+.sWrapDetail .comments .info form{
+	display : inline !important;
 }
 .sWrapDetail .comments .info a{
   display: inline-block;
