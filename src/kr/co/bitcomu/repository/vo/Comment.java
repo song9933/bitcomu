@@ -46,6 +46,12 @@ public class Comment {
 	public void setCodeValue(int codeValue) {
 		this.codeValue = codeValue;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	
 	
 	
