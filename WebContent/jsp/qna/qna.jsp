@@ -56,43 +56,40 @@
   style="font-weight: bold">삭제</a>
   </p>
   
-  <div id="light_1" class="qna_white_content_1"><a href="javascript:void(0)"
-    onclick="document.getElementById('light_1').style.display='none'; document.getElementById('fade_1').style.display='none'">
-
-    <ul class="qna_update_title">
-    <div>
-      <input type="text" class="qna_text_title_1" name="title" style="resize: none" placeholder="비트 캠프 지각은 몇시 인가요?" />
+  <div id="light_1" class="qna_white_content_1">
+  	<a href="javascript:void(0)"
+    onclick="document.getElementById('light_1').style.display='none'; document.getElementById('fade_1').style.display='none'"></a>
+	
+    <div class="qna_update_title">
+      <form method='post' action="/bitcomu/qna/qnaUpdate.do"> 
+      <input type="text" class="qna_text_title_1" name="title" style="resize: none" value="${board.title}" />
       <input type="checkbox" id="check_0" value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
-      <input type="text" class="qna_text_content_1" name="content" style="resize: none" placeholder="몇시 부터 지각처리가 되나요?" />
+      <input type="text" class="qna_text_content_1" name="content" style="resize: none" value="${board.content}" />
       <ul class="qna_count">
         <p>작성시간 : 10분전    조회수 : 7</p>
       </ul>
       <div><button type="submit" class="qna_button_update">수정</button></div>
-      <div><button type="submit" class="qna_button_cancle">취소</button></div>
+      <div><button onclick="doRef()" class="qna_button_cancle">취소</button></div>
+      </form> 
     </div>
   </div>
   <div id="fade_1" class="qna_black_overlay_1"></div>
-</ul>
             
 <ul class="qna_delete_1">
   <a href="javascript:void(0)"
   onclick="document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"
-  style="font-weight: bold"></a>
+  style="font-weight: bold" ></a>
 
-          </ul>  
-           <ul class="qna_board_qna_title">
-            <div>
-              <input type="text" class="qna_text_title" name="title" style="resize: none" placeholder="Title" />
+</ul>  
+        <div class="qna_board_qna_title">
+           <form method='post' enctype="multipart/form-data" action="/bitcomu/qna/write.do" >
+              <input type="text" class="qna_text_title" name="title" style="resize: none" placeholder="Title" value="${board.title}" />
               <input type="checkbox" id="qna_check_2"  value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
-              <input type="text" class="qna_text_content" name="content" style="resize: none" placeholder="Content" />
+              <input type="text" class="qna_text_content" name="content" style="resize: none" placeholder="Content" value="${board.content}" />
               <button type="submit" class="qna_button">등록</button>
-            </div>
-          </ul>
-
-            <div>
-              <form method="post" enctype="multipart/form-data">
-                <div><input type="file" class="qna_attatch" name="attach" /></div>
-              </form>
+              <input type="file" class="qna_attatch" name="attach" />
+          	</form>
+         </div>
               <input type="text" class="qna_text_search" name="search" style="resize: none" placeholder="Search" />
               <select name="select" class="qna_select_1">
                   <option value="1">작성자</option>
@@ -109,18 +106,25 @@
 
     </div>
 	
-      <div id="light" class="qna_white_content"><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none'; document.getElementById('fade').style.display='none'"></a><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none'; document.getElementById('fade').style.display='none'">
-              
+      <div id="light" class="qna_white_content">
+      <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none'; document.getElementById('fade').style.display='none'" />  
           <div class="qna_delete_2"><p>삭제 하시겠습니까?</p></div> 
           <div class="qna_button_1" style="resize: none">
-          <div><button type="submit" class="qna_button_0">확인</button></div>
-          <div><button type="submit" class="qna_button_0">취소</button></div>
+          <div><button onclick="doDel();" class="qna_button_0">삭제</button></div>
+          <div><button onclick="doRef();" class="qna_button_0">취소</button></div>
         </div>
         </div>
         <div id="fade" class="qna_black_overlay"></div>
-        </form>
+       
     </div>
-
+	<script>
+		function doDel(no) {	
+     //   	location.href = `/qna/qnadelete.do?no=${qnaNo}`;
+    }
+		function doRef() {
+			location.href = location.href;
+    }
+	</script>
 </body>
 
 </html>
