@@ -108,7 +108,7 @@ int yt_no = 0;
               </div>
           </div>
           <div class="btn_r">
-            <a href="/online_cls/upload_form.html">강의 등록하기 </a>
+            <a href="${ pageContext.request.contextPath }/onlineclass/ytwriteform.do">강의 등록하기 </a>
           </div>
         </section>
     </div>

@@ -17,4 +17,6 @@ public interface OnlineclsDAO {
 	void updateOnlinecls(Onlinecls oncls);
 	// 온라인강의 삭제
 	void deleteOnlinecls(int no);
+	// 회원 아이디 조회
+	String selectUserId(int ytNo);
 }

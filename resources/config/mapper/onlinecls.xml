@@ -15,7 +15,13 @@
 	<result column="yt_view_cnt" property="ytViewCnt" />
 	<result column="yt_like_cnt" property="ytLike" />
 </resultMap>
-
+<!-- 회원번호로 조인해 회원아이디 조회 -->
+<select id="selectUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
+	select (select user_id from tb_user u
+			 where y.user_no = u.user_no) as user_id
+	  from tb_youtube y
+	 where yt_no = #{ytNo}
+</select>
 <!-- 온라인강의 과목 리스트 조회 -->
 <select id="selectOnlineclsSubject" resultMap="onlineclsMap" flushCache="true" useCache="true">
 	select max(yt_subject) as yt_subject, max(yt_addr) as yt_addr 

@@ -22,7 +22,9 @@ public class Onlinecls {
 	private int ytViewCnt;
 	// 온라인강의 좋아요 수 	
 	private int ytLike;
-		
+	// 회원 아이디
+	private String userId;
+	
 	// getter와 setter
 	public int getYtNo() {
 		return ytNo;
@@ -78,5 +80,10 @@ public class Onlinecls {
 	public void setYtLike(int ytLike) {
 		this.ytLike = ytLike;
 	}
-	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 }
