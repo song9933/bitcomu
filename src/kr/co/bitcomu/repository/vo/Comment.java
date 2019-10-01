@@ -9,6 +9,7 @@ public class Comment {
 	private String cmtContent;
 	private Date cmtRegDt;
 	private int codeValue;
+	private String userId;
 	public int getCmtNo() {
 		return cmtNo;
 	}
