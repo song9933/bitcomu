@@ -25,13 +25,13 @@ public class WriteTeamBoardController extends HttpServlet {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
 		dao.insertTeamBoard(
-				new Team() .setUserNo(user.getUserNo())
+				new Team().setUserNo(user.getUserNo())
 						   .setTeamNo(Integer.parseInt(req.getParameter("teamNo")))
 						   .setProjectNo(Integer.parseInt(req.getParameter("projectNo")))
 						   .setTeamBoardTitle(req.getParameter("teamBoardTitle"))
 						   .setTeamBoardContent(req.getParameter("teamBoardContent"))
 		);
-		res.sendRedirect("team/teamBoardList.do");
+		res.sendRedirect("teamBoardList.do");
 	}
 	
 }

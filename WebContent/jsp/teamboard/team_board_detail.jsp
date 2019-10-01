@@ -116,7 +116,7 @@
 			</div>
 
 			<button class="viewcomment_cws">댓글보기(accordion)</button>
-			<form method="post" action="/team/teamBoardUpdate.do">
+			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdate.do?teamBoardNo=${teamBoard.teamBoardNo}">
 				<button class="updatebutton_cws">수정</button>
 			</form>
 			<br> <br> <br>

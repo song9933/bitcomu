@@ -32,7 +32,6 @@ private TeamDAO dao;
 		*/
 		
 		Team t =  dao.selectOneTeamBoard(no);
-		System.out.println(t.getUserId());
 		req.setAttribute("teamBoard", t);
 		// 댓글 목록 공유
 //		List<Comment> commentList = dao.selectComment(no);

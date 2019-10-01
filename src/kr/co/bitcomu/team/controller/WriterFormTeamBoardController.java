@@ -13,6 +13,8 @@ public class WriterFormTeamBoardController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setAttribute("projectNo", req.getParameter("projectNo"));
+//		System.out.println(req.getParameter("projectNo"));
+		req.setAttribute("teamNo", req.getParameter("teamNo"));
 		req.getRequestDispatcher("/jsp/teamboard/team_board_write.jsp").forward(req, res);
 	}
 }

@@ -116,11 +116,15 @@ div.a_cws {
 						<li>
 							<h6 style="margin: 0 auto">작성일: <fmt:formatDate pattern="yyyy-MM-dd" value="${t.teamBoardRegDt}" /></h6>
 						</li>
+						<br>
+						<p>--------------------------------------------------------------------</p>
+						<br>
 						</c:forEach>
 					</ul>
 					<br>
 					<progress value="20" max="100"></progress>
 					<h5>진행률: 20%</h5>
+					<br>
 				</div>
 
 				<div>&nbsp;</div>

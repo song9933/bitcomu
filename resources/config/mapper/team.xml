@@ -50,9 +50,12 @@
 
 	<update id="updateBoard" parameterType="Team">
 		update tb_team  
-		   set team_board_title = #{teamBoardTitle},  
+		   set team_board_title = #{teamBoardTitle},
+			   team_no = #{teamNo},  
+			   project_no = #{projectNo},  
 			   team_board_content = #{teamBoardContent}
 		 where team_board_no = #{teamBoardNo}
+		   and user_no = #{userNo}
 	</update>
 
 	<delete id="deleteBoard" parameterType="int">
