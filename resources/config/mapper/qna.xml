@@ -50,6 +50,4 @@
 		  from tb_qna
 		 where qna_no = #{qnaNo}
 	</delete>
-	
-	
 </mapper>
