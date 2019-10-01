@@ -30,14 +30,14 @@
                     <label for="checkbox-1" class="qna_title_1">비트 캠프 지각은 몇시 인가요?</label>
                     <i class="fa fa-lock qna_pd10" style="font-size: 2em" aria-hidden="true"></i>
                     <div class="qna_content_1">
-                        <p>공개 10분전 조회수 10</p>
+                        <p>비공개 10분전 조회수 10</p>
                         <h3>관리자</h3>
                         <p>1교시 수업은 9시 30분 부터 시작이며,  40분 이후로 지각처리 됩니다.</p>
                         <p>2019.8.31. 19:07:00</p>
                         <p>od31**</p>
                         <p>답변 감사합니다.</p>
                         <p>2019.8.31. 19:07:11</p>
-                        <textarea class="qna_text_content_2" name="content" style="resize: none" placeholder="Comment"></textarea>
+                        <input type="text" class="qna_text_content_2" name="comment" style="resize: none" placeholder="Comment" />
                         <button type="submit" class="qna_button_2">댓글</button>
                     </div>
                 </li>
@@ -61,9 +61,9 @@
 
     <ul class="qna_update_title">
     <div>
-      <textarea class="qna_text_title_1" name="title" style="resize: none" placeholder="비트 캠프 지각은 몇시 인가요?"></textarea>
+      <input type="text" class="qna_text_title_1" name="title" style="resize: none" placeholder="비트 캠프 지각은 몇시 인가요?" />
       <input type="checkbox" id="check_0" value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
-      <textarea class="qna_text_content_1" name="content" style="resize: none" placeholder="몇시 부터 지각처리가 되나요?"></textarea>
+      <input type="text" class="qna_text_content_1" name="content" style="resize: none" placeholder="몇시 부터 지각처리가 되나요?" />
       <ul class="qna_count">
         <p>작성시간 : 10분전    조회수 : 7</p>
       </ul>
@@ -77,18 +77,15 @@
 <ul class="qna_delete_1">
   <a href="javascript:void(0)"
   onclick="document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"
-  style="font-weight: bold"></a></p>
+  style="font-weight: bold"></a>
 
           </ul>  
-
-          
-       
            <ul class="qna_board_qna_title">
             <div>
-              <textarea class="qna_text_title" name="title" style="resize: none" placeholder="Title"></textarea>
+              <input type="text" class="qna_text_title" name="title" style="resize: none" placeholder="Title" />
               <input type="checkbox" id="qna_check_2"  value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
-              <textarea class="qna_text_content" name="content" style="resize: none" placeholder="Content"></textarea>
-              <button type="submit" class="qna_button">등록</button></p>
+              <input type="text" class="qna_text_content" name="content" style="resize: none" placeholder="Content" />
+              <button type="submit" class="qna_button">등록</button>
             </div>
           </ul>
 
@@ -96,7 +93,7 @@
               <form method="post" enctype="multipart/form-data">
                 <div><input type="file" class="qna_attatch" name="attach" /></div>
               </form>
-              <textarea class="qna_text_search" name="search" style="resize: none" placeholder="Search"></textarea>
+              <input type="text" class="qna_text_search" name="search" style="resize: none" placeholder="Search" />
               <select name="select" class="qna_select_1">
                   <option value="1">작성자</option>
                   <option value="2">제목</option>
@@ -111,10 +108,7 @@
 
 
     </div>
-    <script>
-  // $(document).ready(alert());
-
-    </script>
+	
       <div id="light" class="qna_white_content"><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none'; document.getElementById('fade').style.display='none'"></a><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none'; document.getElementById('fade').style.display='none'">
               
           <div class="qna_delete_2"><p>삭제 하시겠습니까?</p></div> 
@@ -122,8 +116,9 @@
           <div><button type="submit" class="qna_button_0">확인</button></div>
           <div><button type="submit" class="qna_button_0">취소</button></div>
         </div>
-          </a></div>
+        </div>
         <div id="fade" class="qna_black_overlay"></div>
+        </form>
     </div>
 
 </body>

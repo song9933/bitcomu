@@ -371,15 +371,11 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .popup > * { float: left; }
 .pop_l { margin: 60px 0; width: 640px; height: 360px; }
 .pop_r { height: 480px; width: 310px; }
-.pop_r > *{ padding: 10px; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #e0e0e0; box-sizing: border-box; }
+.pop_r > *{ padding: 15px; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #e0e0e0; box-sizing: border-box; }
 .pop_r > div:nth-child(1) { height: 60px; }
 .pop_r > div:nth-child(2) { height: 300px; }
 .pop_r > div:nth-child(3) { height: 80px; }
 .pop_r > div:nth-child(4) { padding-top: 0; height: 40px; border-bottom: none; }
-.pop_r dl * { display: inline; }
-.pop_r p a { position: absolute; top: 10px; right: 10px; font-size: 1.2rem; }
-
-.online_cls .popup img {position: absolute; background: #333;}
 
 /* upload_form */
 
@@ -944,12 +940,13 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     width: 800px;
     height: 100px;
     margin-left: 165px;
+    margin-top: 5px;
 }
 /*등록 버튼*/
 .qna_button {
     color: rgb(17, 14, 14);
     float: right;
-    margin-left: 0px;
+    margin-top: 5px;
     margin-right: 180px;
     padding: 10px;
     font-size: 20px;
