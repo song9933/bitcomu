@@ -1631,9 +1631,12 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 /* 댓글작성 모달팝업 */
 .sWrapDetail .layer{
   display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0;}
-.sWrapDetail .layer .box{padding:20px 20px 20px;margin:20px;width:500px;background:#fff;position:relative;}
-.sWrapDetail .layer .close{
+.sWrapDetail .layer .box{
+	padding:20px 20px 20px;margin:20px;width:500px;background:#fff;position:relative;
+	border: none;}
+.sWrapDetail .layer .close{  	
   position: relative;
+  border: none;
   float:right; 
   right:20px;bottom:20px;
   display:block;
@@ -1643,6 +1646,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
   margin-left: 5px;
 }
 .sWrapDetail .layer .delete{
+  border: none;
   position: relative;
   float:right; 
   right:20px;bottom:20px;
