@@ -1,7 +1,6 @@
 package kr.co.bitcomu.study.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,24 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.StudyDAO;
-import kr.co.bitcomu.repository.vo.Study;
 
-@WebServlet("/study/studyList.do")
-public class StudyListController extends HttpServlet{
+@WebServlet("/study/studycommentdelete.do")
+public class StudyCommentDeleteController extends HttpServlet {
 	private StudyDAO dao;
-	
-	public StudyListController() {
+
+	public StudyCommentDeleteController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(StudyDAO.class);
 	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Study> list = dao.selectStudyList();
-		req.setAttribute("list", list);
+		dao.deleteComment(Integer.parseInt(req.getParameter("cmtNo")));
+		res.sendRedirect(req.getContextPath() + "/study/studydetail.do?studyPostNo=" + req.getParameter("studyPostNo"));
 		
-		
-		req.getRequestDispatcher("/jsp/study/study_main.jsp").forward(req, res);
 	}
+	
+	
 	
 	
 	

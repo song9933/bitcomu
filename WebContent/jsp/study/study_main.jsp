@@ -35,62 +35,15 @@
 	                <p class="completed">${std.studyRecruitEnabled}</p>
 	                <h2> ${std.studyPostTitle }</h2>
 	                <p class="info">
+	                  <span> ${std.userId}</span>
 	                  <span><fmt:formatDate value="${std.studyRegDt}" pattern="yyyy-MM-dd HH:mm" /></span>
 	                  <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>${std.studyViewCnt }</span>
-	                  <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
+	                  <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>${std.studyCmtCnt}</span>
 	                </p>
 	              </a>
               
               </c:forEach>
-              
-              <!-- 
-              
-              <a class="item" href="./board_detail_study.html">
-                <p class="completed">모집중</p>
-                <h2> 자바 스터디 모집합니다 :)</h2>
-                <p class="info">
-                  <span>19/09/05 20:27</span>
-                  <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>10</span>
-                  <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
-                </p>
-              </a>
-              <a class="item" href=#>
-                  <p class="completed">모집중</p>
-                  <h2> 자바 스터디 모집합니다 :)</h2>
-                  <p class="info">
-                    <span>19/09/05 20:27</span>
-                    <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>10</span>
-                    <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
-                  </p>
-              </a>
-              <a class="item" href=#>
-                  <p class="completed">모집중</p>
-                  <h2> 자바 스터디 모집합니다 :)</h2>
-                  <p class="info">
-                    <span>19/09/05 20:27</span>
-                    <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>10</span>
-                    <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
-                  </p>
-              </a>
-              <a class="item" href=#>
-                  <p class="completed">모집중</p>
-                  <h2> 자바 스터디 모집합니다 :)</h2>
-                  <p class="info">
-                    <span>19/09/05 20:27</span>
-                    <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>10</span>
-                    <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
-                  </p>
-              </a>
-              <a class="item" href=#>
-                  <p class="completed">모집중</p>
-                  <h2> 자바 스터디 모집합니다 :)</h2>
-                  <p class="info">
-                    <span>19/09/05 20:27</span>
-                    <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>10</span>
-                    <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>2</span>
-                  </p>
-              </a> 
-              -->
+             
             </div>
           </div>
         </section>

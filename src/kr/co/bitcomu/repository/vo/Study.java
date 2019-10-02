@@ -3,36 +3,42 @@ package kr.co.bitcomu.repository.vo;
 import java.util.Date;
 
 public class Study {
-	 // 스터디 글 번호 
-    private int studyPostNo;
+	// 스터디 글 번호
+	private int studyPostNo;
 
-    // 회원 번호 
-    private int userNo;
+	// 회원 번호
+	private int userNo;
 
-    // 스터디 모집 여부 
-    private String studyRecruitEnabled;
+	// 스터디 모집 여부
+	private String studyRecruitEnabled;
 
-    // 스터디 글 제목 
-    private String studyPostTitle;
+	// 스터디 글 제목
+	private String studyPostTitle;
 
-    // 스터디 조회 수 
-    private int studyViewCnt;
+	// 스터디 조회 수
+	private int studyViewCnt;
 
-    // 스터디 지역 
-    private String studyLoc;
+	// 스터디 지역
+	private String studyLoc;
 
-    // 스터디 모집 인원 
-    private int studyRecruitMem;
+	// 스터디 모집 인원
+	private int studyRecruitMem;
 
-    // 스터디 모집 분야 
-    private String studyRecruitField;
+	// 스터디 모집 분야
+	private String studyRecruitField;
 
-    // 스터디 글 내용 
-    private String studyPostContent;
+	// 스터디 글 내용
+	private String studyPostContent;
 
-    // 스터디 등록 날짜 
-    private Date studyRegDt;
-
+	// 스터디 등록 날짜
+	private Date studyRegDt;
+	
+	// 회원 아이디
+	private String userId;
+	
+	// 댓글 수
+	private int studyCmtCnt;
+	
 	public int getStudyPostNo() {
 		return studyPostNo;
 	}
@@ -111,5 +117,21 @@ public class Study {
 
 	public void setStudyRegDt(Date studyRegDt) {
 		this.studyRegDt = studyRegDt;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public int getStudyCmtCnt() {
+		return studyCmtCnt;
+	}
+
+	public void setStudyCmtCnt(int studyCmtCnt) {
+		this.studyCmtCnt = studyCmtCnt;
 	}
 }

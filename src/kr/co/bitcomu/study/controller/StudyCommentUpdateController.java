@@ -1,7 +1,6 @@
 package kr.co.bitcomu.study.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,25 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.StudyDAO;
-import kr.co.bitcomu.repository.vo.Study;
+import kr.co.bitcomu.repository.vo.Comment;
 
-@WebServlet("/study/studyList.do")
-public class StudyListController extends HttpServlet{
+@WebServlet("/study/studycommentupdate.do")
+public class StudyCommentUpdateController extends HttpServlet{
 	private StudyDAO dao;
-	
-	public StudyListController() {
+
+	public StudyCommentUpdateController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(StudyDAO.class);
 	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Study> list = dao.selectStudyList();
-		req.setAttribute("list", list);
+		Comment cmt = new Comment();
+		cmt.setCmtNo(Integer.parseInt(req.getParameter("cmtNo")));
+		cmt.setCmtContent(req.getParameter("cmtContent"));
 		
+		dao.updateComment(cmt);
 		
-		req.getRequestDispatcher("/jsp/study/study_main.jsp").forward(req, res);
+		res.sendRedirect(req.getContextPath() + "/study/studydetail.do?studyPostNo=" + req.getParameter("studyPostNo"));
 	}
-	
 	
 	
 }

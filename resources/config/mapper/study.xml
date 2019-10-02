@@ -14,11 +14,30 @@
 		<result column="study_recruit_field" property="studyRecruitField"/>
 		<result column="study_post_content" property="studyPostContent"/>
 		<result column="study_reg_dt" property="studyRegDt"/>
+		<result column="user_id" property="userId"/>
+		<result column="study_cmt_cnt" property="studyCmtCnt"/>
 	</resultMap>
-	
+	<resultMap id="commentMap" type="Comment">
+			<result column="cmt_no" property="cmtNo"/>
+			<result column="user_no" property="userNo"/>
+			<result column="board_post_no" property="boardPostNo"/>
+			<result column="cmt_content" property="cmtContent"/>
+			<result column="cmt_reg_dt" property="cmtRegDt"/>
+			<result column="code_value" property="codeValue"/>
+			<result column="user_id" property="userId"/>
+	</resultMap>
+		
 	<sql id="selectStudy">
-		select study_post_no, user_no, study_recruit_enabled, study_post_title, study_view_cnt, study_loc, study_recruit_mem, study_recruit_field, study_post_content, study_reg_dt    
-			from tb_study
+		select s.study_post_no, s.user_no, 
+				(select user_id from tb_user u 
+						where u.user_no = s.user_no ) as user_id ,
+				s.study_recruit_enabled, s.study_post_title, s.study_view_cnt, s.study_loc, s.study_recruit_mem, 
+				s.study_recruit_field, s.study_post_content, s.study_reg_dt,
+				(select count(*) 
+			    		from tb_comment c
+			    		where code_value = (select code_value from tb_codenm where code_name = '스터디게시판')
+			        	and c.board_post_no = s.study_post_no ) as study_cmt_cnt     
+			from tb_study s
 	</sql>
 	
 	<!-- 스터디게시판 전체목록 조회 -->
@@ -49,8 +68,8 @@
        			 study_loc = #{studyLoc}, 
         		 study_recruit_mem = #{studyRecruitMem}, 
         		 study_recruit_field = #{studyRecruitField}, 
-        		 study_post_content = #{studyPostContent},
-    where study_post_no = #{study_post_no}
+        		 study_post_content = #{studyPostContent}
+    	where study_post_no = #{studyPostNo}
 	</update>
 	
 	<!-- 스터디 게시판 글 삭제 -->
@@ -58,4 +77,46 @@
 		delete from tb_study
 			where study_post_no = #{studyPostNo}
 	</delete>
+	
+	<!-- 스터디게시판 조회수 증가 -->
+	<update id="updateViewCnt" parameterType="int">
+		update tb_study
+			set study_view_cnt = study_view_cnt + 1
+			where study_post_no = #{studyPostNo}
+	</update>
+	
+	<!-- 스터디게시판 댓글 조회 -->
+	<select id="selectCommentList" parameterType="int" resultMap="commentMap" >
+
+		select c.*, (select user_id from tb_user u
+						where user_no = c.user_no ) as user_id 
+						from tb_comment c
+						where board_post_no = #{studyPostNo}
+	</select>
+	
+	<!-- 스터디게시판 댓글 입력 -->
+	<insert id="insertComment" parameterType="Comment">
+		insert into tb_comment (cmt_no, user_no, board_post_no, cmt_content, code_value)
+				values (tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, (select code_value from tb_codenm where code_name = '스터디게시판'))
+	</insert>
+	<!-- 스터디게시판 댓글 수정 -->
+	<update id="updateComment" parameterType="Comment">
+		update tb_comment
+			set cmt_content = #{cmtContent}
+			where cmt_no = #{cmtNo}
+	</update>
+	<!-- 스터디게시판 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+		delete from tb_comment
+			where cmt_no = #{cmtNo}
+	</delete>
+	
+	<!-- 스터디게시판 댓글 수 -->
+	<select id="studyCmtCnt" parameterType="int" resultType="int">
+		
+		select count(*) 
+    		from tb_comment 
+    		where code_value = (select code_value from tb_codenm where code_name = '스터디게시판')
+        	and board_post_no = #{studyPostNo}
+	</select>
 </mapper>

@@ -11,14 +11,15 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.StudyDAO;
+import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Study;
 import kr.co.bitcomu.repository.vo.User;
 
-@WebServlet("/study/studywrite.do")
-public class StudyWriteController extends HttpServlet{
+@WebServlet("/study/studycommentwrite.do")
+public class StudyCommentWriteController extends HttpServlet{
 	private StudyDAO dao;
 
-	public StudyWriteController() {
+	public StudyCommentWriteController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(StudyDAO.class);
 	}
 
@@ -27,19 +28,15 @@ public class StudyWriteController extends HttpServlet{
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
 		
-		Study study = new Study();	
-		study.setUserNo(user.getUserNo());
-		study.setStudyRecruitEnabled(req.getParameter("studyRecruitEnabled"));
-		study.setStudyPostTitle(req.getParameter("studyPostTitle"));
-		study.setStudyLoc(req.getParameter("studyLoc"));
-		study.setStudyRecruitMem(Integer.parseInt(req.getParameter("studyRecruitMem")));
-		study.setStudyRecruitField(req.getParameter("studyRecruitField"));
-		study.setStudyPostContent(req.getParameter("studyPostContent"));
-		
-		dao.insertStudy(study);
+		Comment cmt = new Comment();
 
-		res.sendRedirect(req.getContextPath() + "/study/studyList.do");
+		cmt.setUserNo(user.getUserNo());
+		cmt.setBoardPostNo(Integer.parseInt(req.getParameter("boardPostNo")));
+		//cmt.setCodeValue(Integer.parseInt(req.getParameter("codeValue")));
+		cmt.setCmtContent(req.getParameter("cmtContent"));
 		
+		dao.insertComment(cmt);
+		res.sendRedirect(req.getContextPath() + "/study/studydetail.do?studyPostNo=" + Integer.parseInt(req.getParameter("boardPostNo")));
 	}
 	
 	
