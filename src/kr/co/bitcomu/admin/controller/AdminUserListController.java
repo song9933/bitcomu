@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.UserDAO;
 import kr.co.bitcomu.repository.vo.Page;
+import kr.co.bitcomu.repository.vo.Search;
 import kr.co.bitcomu.util.PageResult;
 
 
@@ -39,19 +40,28 @@ public class AdminUserListController extends HttpServlet {
 		if (sPageList != null) {
 			pageList = Integer.parseInt(sPageList);
 		}
+		Search search = new Search();
+		
+		search.setSearchType(req.getParameter("searchType"));
+		search.setSearchWord(req.getParameter("searchWord"));
+		int count = dao.selectUserAdminCount(search);
+		
+		
 		Page page = new Page(pageNo, pageList);
 		
 		
-		int count = dao.selectUserAdminCount();
+		
 		PageResult pr = new PageResult(pageNo, count);
-		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		// 데이터를 구하고 공유
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", page);
-		map.put("searchType", req.getParameter("searchType"));
-		map.put("searchWord", req.getParameter("searchWord"));
+		map.put("search", search);
+		
+		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		req.setAttribute("userList", dao.selectUserAdmin(map));
+		req.setAttribute("search", search);
+		req.setAttribute("pageList", pageList);
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/admin/admin_user_list.jsp").forward(req, res);
 	}

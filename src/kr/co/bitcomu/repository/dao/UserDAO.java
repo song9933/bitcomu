@@ -3,6 +3,7 @@ package kr.co.bitcomu.repository.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.bitcomu.repository.vo.Search;
 import kr.co.bitcomu.repository.vo.User;
 
 public interface UserDAO {
@@ -11,7 +12,7 @@ public interface UserDAO {
 	void updateUserAdmin(User user);
 	void deleteUserAdmin(List<Integer> list);
 	void deleteAllUserAdmin();
-	int selectUserAdminCount();
+	int selectUserAdminCount(Search search);
 	
 	/* 회원 전용 */
 	User selectOneUser(User user);

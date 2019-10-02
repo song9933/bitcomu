@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.UserDAO;
+import kr.co.bitcomu.util.SendEmail;
 
 @WebServlet("/user/userJoinForm.do")
 public class UserJoinFormController extends HttpServlet {

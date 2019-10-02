@@ -32,11 +32,10 @@
 
             <div class="ns_listlength">
               
-                <select name="list">
+                <select name="changeList" id="changeList">
                     <option value="10" selected>10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
-                    
                 </select>씩 보기
             </div>
   			
@@ -111,15 +110,14 @@
                 </ul>
             </div>
   
-  
           
 
-            
+           
               <ul class="pagination nams">
                 <c:if test="${pr.count ne 0}">
 			  	<c:if test="${pr.prev}">
 			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.beginPage -1}" aria-label="previous">
+			      <a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.beginPage -1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if>" aria-label="previous">
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
@@ -128,13 +126,22 @@
 			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
 			    	<li 
 			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${i}">${i}</a></li>
+			    	><a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${i}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if>">${i}</a></li>
 			    </c:forEach>
 			  	<c:if test="${pr.next}">
 			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.endPage + 1}" aria-label="next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
+<%-- 			      <c:choose> --%>
+<%-- 			      	<c:when test="${empty searchType}"> --%>
+<%-- 				      <a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.endPage + 1}" aria-label="next"> --%>
+<!-- 			        		<span aria-hidden="true">&raquo;</span> -->
+<!-- 			      	  </a> -->
+<%-- 			      	</c:when> --%>
+<%-- 			      	<c:otherwise> --%>
+			      	  <a href="${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.endPage + 1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if>" aria-label="next">
+			        		<span aria-hidden="true">&raquo;</span>
+			      	  </a>
+<%-- 			      	</c:otherwise> --%>
+<%-- 			      </c:choose> --%>
 			    </li>
 			    </c:if>
 		</c:if>
@@ -145,12 +152,11 @@
             
             <div class="ns_search">
                 <select name="searchList" id="searchList">
-                    <option>전체</option>
                     <option value="id">아이디</option>
                     <option value="name">이름</option>
                     
                 </select>
-                <input type="text" name="search" id="search" >
+                <input type="text" name="search" id="searchValue" value="${search.searchWord}">
                 <button type="button" name="searchVal" onclick="doSearchUser()">검색</button>
             </div> 
         </section>  
@@ -176,11 +182,35 @@
 	function doSearchUser() {
 
 		let sList = document.querySelector("#searchList").value;
-		let sValue = document.querySelector("#search").value;
+		let sValue = document.querySelector("#searchValue").value;
 		
 		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.pageNo}&searchType=' + sList + '&searchWord=' + sValue;
 						
 	}
+	
+// 	let optVal = document.querySelectorAll("#searchList option");
+// 	console.log(optVal);
+// 	for (let i = 0; optVal.length; i++) {
+// 		if (optVal[i].value === '${search.searchType}') optVal[i].selected = true;
+// 	}
+	
+// 	let changeVal = document.querySelectorAll("#changeList option");
+// 	for (let i = 0; changeVal.length; i++) {
+// 		if (changeVal[i].value == '${pageList}') changeVal[i].selected = true;
+// 	}
+	
+	let pageList = ${pageList};
+	changeList.addEventListener("change", function (e) {
+		var changeList = document.getElementById("changeList");
+	      
+	   
+	    var selectedValue = changeList.options[yourTestSelect.selectedIndex].value;
+
+		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?pageNo=${pr.pageNo}&searchType=' + sList + '&searchWord=' + sValue + "&pageList=" + selectedValue;
+         
+     });    
+
+	
   </script>
 </body>
 </html>

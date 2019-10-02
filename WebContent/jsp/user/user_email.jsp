@@ -59,7 +59,6 @@
       <div class="w1280 mt100">
 
       </div>
-
     </div>
     <%@include file="/jsp/include/footer.jsp" %>
     
