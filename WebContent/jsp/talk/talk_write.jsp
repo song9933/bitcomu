@@ -46,7 +46,7 @@
     <div class="w1280">
         <section class="content ns_content">
 
-            <h1 class="ns_Title">공지</h1>
+            <h1 class="ns_Title">자유게시판</h1>
 
 
             <!--          
@@ -66,7 +66,7 @@
            
            
            <div class="ns_table_write">
-     <form method='post' action="/bitcomu/notice/write.do" > <!-- enctype = "multipart/form-data"> -->
+     <form method='post' action="/bitcomu/talk/write.do" > <!-- enctype = "multipart/form-data"> -->
 	 	<div>
   		   제목 : <input type='text' name='title' size='70' />	 	
 	 	</div>
@@ -102,7 +102,7 @@
                 </div>
                -->
 
-              <a class="ns_to_list" href="<c:url value="/notice/noticeList.do" />"> 
+              <a class="ns_to_list" href="<c:url value="/talk/talkList.do" />"> 
                 <div> 
                   목록으로
                 </div>

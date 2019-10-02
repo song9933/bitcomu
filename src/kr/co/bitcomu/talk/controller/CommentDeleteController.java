@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.TalkDAO;
+import kr.co.bitcomu.repository.vo.Page;
 
 
-@WebServlet("/board/comment_delete.do")
+@WebServlet("/Talk/comment_delete.do")
 public class CommentDeleteController extends HttpServlet {
 
 	@Override
@@ -21,12 +22,18 @@ public class CommentDeleteController extends HttpServlet {
 		
 		TalkDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TalkDAO.class);
 		
-		int no = Integer.parseInt(request.getParameter("no"));
-		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		String sPageNo = request.getParameter("pageNo");
+		
+		
+		int pageNo = Integer.parseInt(sPageNo);
+		Page page = new Page(pageNo);
+		
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
+		int commentNo = Integer.parseInt(request.getParameter("cmtNo"));
 		
 		dao.deleteComment(commentNo);
 		
-		response.sendRedirect("detail.do?no=" + no);
+		response.sendRedirect("bitcomu/talk_detail.do?postNo="+ postNo + "&pageNo="+ pageNo);
 		
 	}
 }

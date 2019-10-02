@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.NoticeDAO;
 import kr.co.bitcomu.repository.dao.TalkDAO;
+import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.util.PageResult;
@@ -35,11 +36,8 @@ public class DetailTalkController extends HttpServlet {
 		
 		String sPageNo = req.getParameter("pageNo");
 		
-		// 요청 페이지를 1페이지로 변경
+		
 		int pageNo = Integer.parseInt(sPageNo);
-//		if (sPageNo != null) {
-//			pageNo = Integer.parseInt(sPageNo);
-//		}
 		Page page = new Page(pageNo);
 		
 		
@@ -74,17 +72,18 @@ public class DetailTalkController extends HttpServlet {
 		
 		
 		
+		
+		req.setAttribute("comment", dao.selectComment(no));
+		
+		
+		
+		
+		
+
 		RequestDispatcher rd = req.getRequestDispatcher("/jsp/talk/talk_detail.jsp");
 		rd.forward(req, res);
 		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		
 	}
 }

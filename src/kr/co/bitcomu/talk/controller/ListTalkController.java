@@ -17,7 +17,7 @@ import kr.co.bitcomu.util.PageResult;
 @WebServlet("/talk/talkList.do")
 public class ListTalkController extends HttpServlet {
 	
-	private TalkDAO dao;
+	private TalkDAO dao;	
 	
 	public ListTalkController() {
 		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TalkDAO.class);

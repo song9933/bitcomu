@@ -195,6 +195,7 @@
           
         </section>
     </div>
+    <div id="ns_bottom"></div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
 
     <!-- 푸터 -->

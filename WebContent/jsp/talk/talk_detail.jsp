@@ -50,7 +50,7 @@
     <div class="w1280">
         <section class="content ns_content">
 
-            <h1 class="ns_Title">공지</h1>
+            <h1 class="ns_Title">자유게시판</h1>
 
 
             <!--          
@@ -69,9 +69,8 @@
               <ul>
                 <li>
                     <a href="#ns_top"><i class="fas fa-angle-double-up fa-2x"></i></a>
-                    <!--
-                    <i class="far fa-comment fa-2x"></i>
-                    -->
+                    <a href="#ns_cmt"><i class="far fa-comment fa-2x"></i></a>
+                    
                     <a href="#ns_list"><i class="fas fa-align-justify fa-2x"></i></a>
                     <a href="#ns_bottom"><i class="fas fa-angle-double-down fa-2x"></i></a>
                 </li>
@@ -82,11 +81,11 @@
                 <ul class="ns_TableListHead">
                     <li >
                     
-                        <span>${noticeDetail.postNo}</span>
-                        <span>${noticeDetail.title}</span>
-                        <span>${noticeDetail.userId }</span>
-                        <span><fmt:formatDate value="${noticeDetail.regDt}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
-                        <span>조회수${noticeDetail.viewCnt}</span>
+                        <span>${talkDetail.postNo}</span>
+                        <span>${talkDetail.title}</span>
+                        <span>${talkDetail.userId }</span>
+                        <span><fmt:formatDate value="${talkDetail.regDt}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                        <span>조회수${talkDetail.viewCnt}</span>
                     </li>
                     
                 </ul>
@@ -94,27 +93,82 @@
 
                 <ul class="ns_TableDetailBody">
                   <li>
-                    ${noticeDetail.content}
+                    ${talkDetail.content}
                   </li>
                 </ul>
 
             <div id="ns_list"></div>
                 <ul class="ns_TableListBody">
                   
-                  <%@ include file="/jsp/notice/notice_list.jsp" %> 
+                  <%@ include file="/jsp/talk/talk_list.jsp" %> 
                 </ul>
                 
               <div class="ns_go_update"> 
-            <a  href="/bitcomu/updateNoticeForm.do?postNo=${noticeDetail.postNo}"> 
+            <a  href="/bitcomu/updateTalkForm.do?postNo=${talkDetail.postNo}"> 
                	 수정
             </a>
               </div>
-            <a class="ns_go_delete" href="/bitcomu/noticedelete.do?postNo=${noticeDetail.postNo}"> 
+            <a class="ns_go_delete" href="/bitcomu/talkdelete.do?postNo=${talkDetail.postNo}"> 
               <div> 
                	 삭제
               </div>
             </a>
+            
+            <a class="ns_talk_like" href="" >
+            <i class="far fa-thumbs-up fa-3x">추천</i>
+            </a>
+            
+                    <div id="ns_cmt"></div>
+            <div class="ns_coment_list">
+                  <div class="ns_member_coment">
+                  <c:forEach var="c" items="${comment}">
+                  	 <div class="ns_member">${sessionScope.user.userId}
+                  	 <div class="ns_comment">
+                  	 	<pre>${c.cmtContent}</pre>
+                  	 	<a href="">수정</a>
+	                    <a href="">삭제</a>
+                      </div>
+                    </div>
+                  </c:forEach>  
+                  <c:if test="${empty comment}">
+					<li >
+						<span></span>
+						<span >댓글이 없습니다.</span>
+					</li>
+				 </c:if> 
+                    
+                    
+                    
+                    
+                    
+                  <!--   <div class="ns_member">회원
+                      <div class="ns_comment">
+                      	<pre>댓글</pre>
+                      	<a href="">수정</a>
+	                    <a href="">삭제</a>
+                      </div>
+                    </div> -->
+                    
+                    
+                    
+                    
+                    
+                    
+                      <!-- <div class="ns_member">회원
+                        <div class="ns_comment"><pre>대댓글</pre></div>
+                      </div> -->
+                    
+                  </div>
+
+              </div>
+				<form class="ns_comment_write" method="post" action="/bitcomu/talk/comment_regist.do?boardPostNo=${talkDetail.postNo}&pageNo=${pr.pageNo}" >
+                    <input class="ns_comment_write" type="text" name=cmtContent placeholder="댓글을 입력하세요"></li>
+                    <input type="hidden" name="userNo" value="${sessionScope.user.userNo}"/>
+                    <input type="hidden" name="boardPostNo" value="${talkDetail.postNo}"/>
+                  	<button class="ns_comment_do">등록</button>
                 
+       
+				</form>
             </div>
   
   
@@ -174,7 +228,7 @@
                   </li>
                 </ul>
               
-             <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
+             <a class="ns_go_write" href="/bitcomu/jsp/talk/talk_write.jsp">
               <div> 
               	  글쓰기
               </div>
@@ -195,6 +249,7 @@
           
         </section>
     </div>
+    <div id="ns_bottom"></div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
 
     <!-- 푸터 -->

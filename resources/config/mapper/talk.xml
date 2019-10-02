@@ -31,66 +31,70 @@
 	<select id="selectOneTalk" parameterType="int" resultMap="talkMap">
 		select *
 		  from tb_talk
-		 where no = #{no} 
+		 where talk_post_no = #{postNo} 
 	</select>
 	<insert id="insertTalk" parameterType="Talk">
 		insert into tb_talk (
-			no, title, writer, content
+			talk_post_no, talk_post_title, talk_post_content, user_no
 		) values (
-			seq_talk_no.nextval, #{title}, #{writer}, #{content}
+			tb_talk_seq.nextval, #{title},  #{content}, #{userNo}
 		)
 	</insert>
 	<update id="updateViewCnt" parameterType="int">
 		update tb_talk 
-		   set view_cnt = view_cnt + 1
-		 where no = #{no}
+		   set talk_view_cnt = talk_view_cnt + 1
+		 where talk_post_no = #{postNo}
 	</update>
 	<update id="updateTalk" parameterType="Talk">
 		update tb_talk 
-		   set title = #{title}, 
-		       content = #{content}
-		 where no = #{no}
+		   set talk_post_title = #{title}, 
+		       talk_post_content = #{content}
+		 where talk_post_no = #{postNo}
 	</update>
 	<delete id="deleteTalk" parameterType="int">
 		delete 
 		  from tb_talk 
-		 where no = #{no}
+		 where talk_post_no = #{postNo}
 	</delete>
 	
-	<!-- 댓글 파트 ============================================= -->
-	<resultMap id="commentMap" type="comment">
-		<result column="comment_no" property="commentNo" />
-		<result column="no" property="no" />
-		<result column="writer" property="writer" />
-		<result column="content" property="content" />
-		<result column="reg_date" property="regDate" />
+	<!-- 	댓글테이블 이용한 투표 변동 파트 ================================== -->
+	<resultMap id="commentMap" type="Comment">
+		<result column="cmt_no" property="cmtNo" />
+		<result column="user_no" property="userNo" />
+		<result column="board_post_no" property="boardPostNo" />
+		<result column="cmt_content" property="cmtContent" />
+		<result column="cmt_reg_dt" property="cmtRegDt" />
+		<result column="code_value" property="codeValue" />
 	</resultMap>
 	
-	<select id="selectComment" parameterType="int" resultMap="commentMap">
+	<select id="selectComment" parameterType="int" resultMap="commentMap" flushCache="true" useCache="true">
 	    select *
 	      from tb_comment
-	     where no = #{no}
-	     order by comment_no 
+	     where board_post_no = #{no}
+	       and code_value = 1
+	     order by cmt_no 
 	</select>	
 	
 	<insert id="insertComment" parameterType="Comment">
 		insert into tb_comment(
-			comment_no, no, writer, content
+			cmt_no, user_no, board_post_no, cmt_content, code_value
 		) values (
-			seq_comment_no.nextVal, #{no}, #{writer}, #{content}
+			tb_comment_seq.nextVal, #{userNo}, #{boardPostNo}, #{cmtContent}, 1
 		)
 	</insert>	
 			
 	<delete id="deleteComment" parameterType="int">
 	    delete 
 	      from tb_comment
-	     where comment_no = #{commentNo}
+	     where cmt_no = #{cmtNo}
+	       and code_value = 1
 	</delete>	
 	
-	<update id="updateComment" parameterType="comment">
+	<update id="updateComment" parameterType="Comment">
 	    update tb_comment
-	       set content = #{content}
-	     where comment_no = #{commentNo}
+	       set cmt_content = #{cmtContent}
+	     where cmt_no = #{cmtNo}
+	       and code_value = 1
 	</update>
 </mapper>
 

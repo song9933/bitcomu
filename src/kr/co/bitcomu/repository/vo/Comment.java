@@ -10,6 +10,7 @@ public class Comment {
 	private Date cmtRegDt;
 	private int codeValue;
 	private String userId;
+	
 	public int getCmtNo() {
 		return cmtNo;
 	}
