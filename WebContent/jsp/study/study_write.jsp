@@ -5,8 +5,13 @@
 <html lang="ko">
 <head>
   <c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="스터디게시판 | 글쓰기" />
-</c:import> 
+  	<c:param name="msg" value="스터디게시판 | 글쓰기" />
+  </c:import> 
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
 </head>
 <body>
    <div class="wrapper sWrapWrite">
@@ -35,12 +40,18 @@
               </div>
               <div class="section">
                   <h2>모집 인원</h2>
+                <p>
+				  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				</p>
+				<div id="slider-range"></div>
+                <!-- 
                 <div class="checks">
                     <input type="radio" id="srm1" name="studyRecruitMem" value="1" /><label for="srm1">2~5명</label>
                     <input type="radio" id="srm2" name="studyRecruitMem" value="2" /><label for="srm2">6~9명</label>
                     <input type="radio" id="srm3" name="studyRecruitMem" value="3" /><label for="srm3">10~ 명</label>
                     <input type="radio" id="srm4" name="studyRecruitMem" value="4" /><label for="srm4">제한없음</label>
                 </div>
+                 -->
               </div>
               <div class="section">
                   <h2>모집 여부</h2>
@@ -66,16 +77,35 @@
         </section>
     </div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
-
  	<%@include file="/jsp/include/footer.jsp" %>
-    
-    
-
-
   </div>
-  <script>
-  // $(document).ready(alert());
-
+ <script>
+ let i;
+ let j;
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 2,
+      max: 20,
+      values: [ 5, 10 ],
+      slide: function( event, ui ) {
+    	  i = ui.values[ 0 ];
+    	  j = ui.values[ 1 ];
+        $( "#amount" ).val(  ui.values[ 0 ] + "명 - " + ui.values[ 1 ] +"명");
+      }
+    });
+    
+    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+      "명 - " + $( "#slider-range" ).slider( "values", 1 ) +"명");
+  } );
+  
+ // var val1 = $('#slider').slider("option", "value");
+  let arr = $("#amount");
+  console.log(i,j);
+  
+  
+  
+  
   </script>
 </body>
 </html>

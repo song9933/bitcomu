@@ -64,16 +64,17 @@
 
 
 						<a href="#popupDel" class="floating delete">삭제</a>
+						<form method="post" action="<c:url value="/study/studydelete.do"/>">
+						<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
 						<div id="popupDel" class=layer>
 							<div class="box">
 								<p class="text">삭제 하시겠습니까?</p>
-								<a href="#" class="close">닫기</a> <a
-									href="<c:url value="/study/studydelete.do?studyPostNo=${study.studyPostNo}" />"
-									class="delete">삭제</a>
+								<button type="button" onclick="location.href='#'" class="close">닫기</button>
+								<button type="submit" class="delete">삭제</button> 
 							</div>
 						</div>
-						<a
-							href="<c:url value="/study/studyupdateform.do?studyPostNo=${study.studyPostNo}" />"
+						</form>
+						<a href="<c:url value="/study/studyupdateform.do?studyPostNo=${study.studyPostNo}" />"
 							class="floating modify">수정</a>
 
 
@@ -93,8 +94,8 @@
 									<a href="#popupMod">수정</a>
 									<!-- 댓글수정 폼 팝업 -->
 									<form method="post" action="<c:url value="/study/studycommentupdate.do"/>">
-										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> <input
-											type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
+										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
+										<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
 										<div id="popupMod" class=layer>
 											<div class="box">
 												<textarea id="comment" name="cmtContent" cols="30" rows="10">${cmt.cmtContent}</textarea>
@@ -111,6 +112,8 @@
 									<!-- 댓글 삭제 팝업-->	
 									<a href="#popupDelCmt">삭제</a>
 									<form method="post" action="<c:url value="/study/studycommentdelete.do"/>">
+										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
+										<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />									
 									<div id="popupDelCmt" class=layer>
 										<div class="box">
 											<p class="text">삭제 하시겠습니까?</p>
@@ -128,41 +131,7 @@
 							<c:if test="${empty cmtList}">
 								<p></p>
 							</c:if>
-							<!-- 
 
-                    <p class="profile">홍길동</p>
-                    <p class="text">참여하고싶어요~ 어디로 연락드리면되나요?</p>
-                    <div class="info">
-                      <p>09/18 00:39</p>
-                      <a href="#popupMod">수정</a>
-                      <div id="popupMod" class=layer>
-                          <div class="box">
-                            <textarea id="comment" cols="30" rows="10">참여하고싶어요~ 어디로 연락드리면되나요?</textarea>
-                            <a href="#" class="close">닫기</a>
-                            <a href="./board_detail_study.html" class="close">등록</a>
-                          </div>                      
-                        </div>
-                      <a href="#popupDel">삭제</a>
-                   
-                </div>
-                <div class="item child">
-                    <p class="profile">글쓴이</p>
-                    <p class="text">010.1234.5678 로 문자주세요 :)</p>
-                </div>
-            </div>
-            <div class="comments">
-                <div class="item parent">
-                    <p class="profile">글쓴이</p>
-                    <p class="text">아직 모집중입니다 댓글,문자 주세요!</p>
-                    <p class="info">09/18 10:12</p>
-                </div>
-                <div class="item child">
-				 -->
-							<!--  
-              <a href="#popup">대댓글을 입력해주세요</a>
-              -->
-
-							<!-- <textarea id="commentChild" cols="30" rows="10" placeholder="대댓글을 입력해주세요"></textarea> -->
 						</div>
 					</div>
 
