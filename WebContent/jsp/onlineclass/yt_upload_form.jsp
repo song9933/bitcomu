@@ -23,7 +23,7 @@
       <div class="w1280">
           <section class="content new_form clearboth">
             <h2>강의 등록 <span>· UPLOAD</span> </h2>
-            <form action="yt_write.do">
+            <form action="yt_write.do" method="post">
               <div>
                 <table>
                   <tr>
@@ -54,7 +54,8 @@
                         </c:forEach>
                         <option>직접입력</option>
                       </select>
-                      <input type="text" name="inp_yt_sel" placeholder="과목 입력" disabled>
+	                  <input type="text" name="inp_yt_sel" placeholder="과목 입력" disabled>
+<!-- 				  <input type="text" name="inp_yt_sel" placeholder="과목 입력"> -->
                     </td>
                   </tr>
                 </table>

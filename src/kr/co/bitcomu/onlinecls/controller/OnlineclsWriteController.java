@@ -31,24 +31,25 @@ public class OnlineclsWriteController extends HttpServlet{
 		HttpSession session = req.getSession();
 		User user =(User)session.getAttribute("user");
 		ocls.setUserNo(user.getUserNo());
-
+		
 		ocls.setYtTitle(req.getParameter("yt_title"));
 		ocls.setYtContent(req.getParameter("yt_detail"));
 		
 		// 주소는 파라미터만 커팅한다
-//		String targetAddr = req.getParameter("yt_addr");
-//		String[] addr = targetAddr.split("?v=");
-//		String ytAddr = addr[1].split("&")[0];
-		// 아 못해못해 걍 집어 넣어보겠습니다..
-		ocls.setYtAddr("주소처리해야합니다");
+		String targetAddr = req.getParameter("yt_addr");
+		String[] addr = targetAddr.split("\\?v=");
+		String ytAddr = addr[1].split("&")[0];
+		ocls.setYtAddr(ytAddr);
+		
 		// selbox가 null이면 input을 저장
-		if(req.getParameter("yt_sel") == "") {
-			ocls.setYtSubject(req.getParameter("int_yt_sel"));
-		} else {
-			ocls.setYtSubject(req.getParameter("yt_sel"));
-		}
+//		if(req.getParameter("yt_sel") == "") {
+//			ocls.setYtSubject(req.getParameter("inp_yt_sel"));
+//		} else {
+//			ocls.setYtSubject(req.getParameter("yt_sel"));
+//		}
+		String yt_subject = req.getParameter("yt_sel");
 		dao.insertOnlinecls(ocls);
 		
-		req.getRequestDispatcher("/onlineclass/onlineclsList.do").forward(req, res);
+		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + yt_subject);
 	}
 }
