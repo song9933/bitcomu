@@ -19,7 +19,7 @@
 	<select id="selectVote" resultMap="voteMap">
 		  select *
 		  from tb_vote		 
-		 order by vote_notice_enabled desc, vote_reg_dt desc
+		 order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc
 	</select>
 	
 	<select id="selectUserId" parameterType="int" resultType="String">
@@ -63,6 +63,11 @@
 		       vote_anony_enabled = #{voteAnonyEnabled}
 		       vote_close_enabled = #{voteCloseEnabled}
 		       vote_close_dt = #{voteCloseDt}
+		 where VOTE_NO = #{voteNo}
+	</update>
+	<update id="updateVoteCloseEnabled" parameterType="int">
+		update tb_vote 
+		   set vote_close_enabled = 'Y'
 		 where VOTE_NO = #{voteNo}
 	</update>
 	<delete id="deleteVote" parameterType="int">

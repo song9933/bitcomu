@@ -11,9 +11,6 @@
 	List<Comment> cList = (List)request.getAttribute("cList");
 	Map<String,Integer> menuCount = (Map)request.getAttribute("menuCount");
 	%>
-<%
-	session.setAttribute("vote", vote);
-%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -91,9 +88,7 @@
 						<input type="hidden" name="voteNo" value="${vote.voteNo}" />
 						
 						<%-- 참여or미참여 버튼 번경 --%>
-							<c:if test="${user.userNo eq vote.userNo}">
-							<button type="button" id="vote-close" onclick = "location.href=`<c:url value='/vote/closevote.do' />`" class="w3-btn w3-green vote_submit_button">마감하기</button>
-							</c:if>
+							
 						<c:choose>
 							<c:when test="${commentinvote == 'N'}">
 							<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button">투표하기</button>	
@@ -104,6 +99,21 @@
 							</c:when>
 						</c:choose>
 					</form>
+					
+					<%-- 만약 작성자일 경우 마감하기 버튼이 나타나도록한다. 마감이미 되어있다면 나타나지 않는다. --%>
+					<c:if
+						test="${user.userNo eq vote.userNo && vote.voteCloseEnabled eq 'N'}">
+						<form action="<c:url value='/vote/closevote.do' />" method="post">
+							<input type="hidden" name="voteClose" value="${vote.voteNo}" />
+							<button id="vote-close"
+								class="w3-btn w3-deep-orange vote_submit_button">마감하기</button>
+						</form>
+					</c:if>
+
+					<c:if test="${vote.voteCloseEnabled eq 'Y'}">
+						<br><hr><br>
+						<h3>마감된 투표입니다.</h3>
+					</c:if>
 
 				</div>
 		</div>

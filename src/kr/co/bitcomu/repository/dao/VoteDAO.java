@@ -11,8 +11,10 @@ public interface VoteDAO {
 	void insertVote(Vote vote);
 	void updateVoteCount(int voteNo);
 	void updateVote(Vote vote);
+	void updateVoteCloseEnabled(int voteNo);
 	void deleteVote(int voteNo);
 	String selectUserId(int voteNo);
+	
 	/*댓글테이블 이용한 투표 변동파트 시작*/
 	
 	List<Comment> selectVoteIn(int boardPostNo);

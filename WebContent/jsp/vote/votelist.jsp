@@ -17,13 +17,14 @@
 }
 
 .dc_writeform-container {
-	height: 750px;
+	height: 550px;
     overflow: auto;
 }
 
 .vote_plusminus {
 	font-size: 1.6em;
 }
+
 </style>
 <body>
 	<div class="wrapepr">
@@ -70,7 +71,7 @@
 
 								<div>마감 기한을 선택해주세요.</div>
 								<div>
-									<input type="date" name="voteExDate">
+									<input type="datetime-local" name="voteCloseDt" id="voteCurrentTimeValue"/>
 								</div>
 								<br>
 								<div>투표에대한 간략한 설명을 입력해주세요.</div>
@@ -128,6 +129,9 @@
 									</c:if>
 									<c:if test="${v.voteAnonyEnabled eq 'Y'}">
 										<익명>
+									</c:if>
+									<c:if test="${v.voteCloseEnabled eq 'Y'}">
+										<마감>
 									</c:if>
 								<div
 									onclick="location.href='<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">${v.voteTitle}</div>
@@ -196,6 +200,9 @@
 		   var start = new Date().getTime();
 		   while (new Date().getTime() < start + delay);
 		}
+	var cDate = new Date();
+	cDate.setHours(cDate.getHours()+9);
+	document.getElementById("voteCurrentTimeValue").value= cDate.toISOString().slice(0, 16);
 
 
 </script>

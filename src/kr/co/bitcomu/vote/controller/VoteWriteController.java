@@ -88,20 +88,45 @@ public class VoteWriteController extends HttpServlet{
 		}
 		
 		//일단 마감일은 등록일로부터 2일후로 설정
-		Calendar c = Calendar.getInstance();
-		c.add(c.DAY_OF_MONTH, 2);
-		Date twoDaysLater = c.getTime();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-YYYY HH:mm:ss");
-		String after2day = sdf.format(twoDaysLater);
-		//마감일자 설정부분은 자바스크립트 공부한후에 다시하기
-		System.out.println(after2day);
-		vote.setVoteCloseDt(after2day);
 		
-		//투표참여인원숫자
+		/*
+		2019-10-03T20:46
+		자스에서 넘어온 이 문자열을
+		MM-dd-YYYY HH:mm:ss 이렇게 만들어야함
+		*/
+		
+		String fromjs = req.getParameter("voteCloseDt");
+		String year = fromjs.substring(0,4);
+		String month = fromjs.substring(5,7);
+		String day = fromjs.substring(8, 10);
+		String hour = fromjs.substring(11, 13);
+		String minute = fromjs.substring(14,16);
+		String second = "00";
+		
+		StringBuffer sbCloseDt = new StringBuffer();
+		sbCloseDt.append(month + "-" + day + "-" + year + " " + hour + ":" + minute + ":" + second);
+		String closeDt = sbCloseDt.toString();
+		vote.setVoteCloseDt(closeDt);
+		
+//		Calendar c = Calendar.getInstance();
+//		c.add(c.DAY_OF_MONTH, 2);
+//		Date twoDaysLater = c.getTime();
+//		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-YYYY HH:mm:ss");
+//		String after2day = sdf.format(twoDaysLater);
+//		//마감일자 설정부분은 자바스크립트 공부한후에 다시하기
+//		System.out.println(after2day);
+//		vote.setVoteCloseDt(after2day);
+		
+//		투표참여인원숫자
 		
 		dao.insertVote(vote);
 		
 		res.sendRedirect("votelist.do");
 	}
 
+	public static void main(String[] args) {
+		String fromjs = "2019-10-03T20:46";
+//		String year = fromjs.substring(0,4);
+//		System.out.println(year);
+	}
 }
