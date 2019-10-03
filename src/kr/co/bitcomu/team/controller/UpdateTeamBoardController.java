@@ -26,10 +26,11 @@ public class UpdateTeamBoardController extends HttpServlet {
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		User user = (User)session.getAttribute("user");
+//		User user = (User)session.getAttribute("user");
 		Team team = new Team();
-		team.setUserNo(user.getUserNo());
+//		team.setUserNo(user.getUserNo());
 		team.setTeamBoardNo(Integer.parseInt(req.getParameter("teamBoardNo")));
+		team.setTeamNo(Integer.parseInt(req.getParameter("teamNo")));
 		team.setProjectNo(Integer.parseInt(req.getParameter("projectNo")));
 		team.setTeamBoardTitle(req.getParameter("teamBoardTitle"));
 		team.setTeamBoardContent(req.getParameter("teamBoardContent"));

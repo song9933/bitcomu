@@ -78,10 +78,17 @@ div.a_cws {
 
 				<div class="subtabs_cws">
 					<br>
+					<p style="margin-left: 30px;">조 추가/삭제</p>
+					<button type="button" onclick="doAdd();"
+					style="width: 20px; height: 20px; margin-left: 40px;">+</button>
+					
+					<button type="button" onclick="doRemove();"
+					style="width: 20px; height: 20px;">-</button>
+					
 					<div class="a_cws">
 <!-- 					<form class="teamNo_active_cws"  -->
 <%-- 						  action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?teamNo=${teamNo}"> --%>
-						<ul>
+						<ul id="teamtabs_cws">
 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li>
 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=2">2조</a></li>
 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li>
@@ -102,28 +109,42 @@ div.a_cws {
 				</form>
 				<br> <br> <br> <br>
 				<div class="board_cws">
-					<input type="image" src="${pageContext.request.contextPath}/resources/images/top_ar.png"
-						style="border: 1px solid gray; width: 100px; height: 130px; float: right;">
-					<ul>
-						<c:forEach var="t" items="${list}">
-						<li>
-							<a href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${t.teamBoardNo}"
-							style="font-size: 40px"> ${t.teamBoardTitle}</a></li>
-						<br>
-						<li>
-							<h6 style="margin: 0 auto">작성자: ${t.userId}</h6>
-						</li>
-						<li>
-							<h6 style="margin: 0 auto">작성일: <fmt:formatDate pattern="yyyy-MM-dd" value="${t.teamBoardRegDt}" /></h6>
-						</li>
-						<br>
-						<p>--------------------------------------------------------------------</p>
-						<br>
-						</c:forEach>
-					</ul>
-					<br>
 					<progress value="20" max="100"></progress>
 					<h5>진행률: 20%</h5>
+					<br>
+					<ul id="boardList_cws">
+						<c:forEach var="t" items="${list}">
+							<li><input type="image"
+								src="${pageContext.request.contextPath}/resources/images/top_ar.png"
+								style="border: 1px solid gray; width: 100px; height: 130px; float: right;">
+							</li>
+							<li><a
+								href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${t.teamBoardNo}"
+								style="font-size: 40px"> ${t.teamBoardTitle}</a></li>
+							<br>
+							<li>
+								<h6 style="margin: 0 auto">작성자: ${t.userId}</h6>
+							</li>
+							<li>
+								<h6 style="margin: 0 auto">
+									작성일:
+									<fmt:formatDate pattern="yyyy-MM-dd"
+										value="${t.teamBoardRegDt}" />
+								</h6>
+							</li>
+							<c:if test="${sessionScope.user.userNo eq t.userNo}">
+								<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do">
+									<input type="hidden" name="teamBoardNo" value="${t.teamBoardNo}"/>
+									<button>X</button>
+								</form>
+							</c:if>
+							<br>
+							<br>
+							<hr>
+<!-- 							<p>----------------------------------------------------------------------------------------------------</p> -->
+							<br>
+						</c:forEach>
+					</ul>
 					<br>
 				</div>
 
@@ -143,8 +164,6 @@ div.a_cws {
 						</button>
 					</form>
 				</div>
-
-
 			</section>
 		</div>
 		<!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -154,12 +173,44 @@ div.a_cws {
 			<p>Copyright &copy; 비트캠프 All rights reserved.</p>
 		</footer>
 		<!--// 푸터 끝-->
-
-
-
 	</div>
 	<script>
 		// $(document).ready(alert());
+		
+		// 조 추가 / 삭제
+		let teamTab = document.querySelector("#teamtabs_cws");
+		let team = 1;
+		function doAdd() {
+			let liEle = document.createElement("li");
+			let aEle = document.createElement("a");
+			for (let i = 1; i < 10; i++) {
+				team++;
+				aEle.set
+			}
+			aEle.href = `${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${team}`
+			let txtNode = document.createTextNode(`${team}조`);
+			aEle.append(txtNode);
+			liEle.append(aEle);
+			teamTab.append(liEle);
+		}
+		
+		function doDel() {
+			
+		}
+		
+		// 리스트 형식
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
 </body>
 

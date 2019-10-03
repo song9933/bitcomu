@@ -8,6 +8,26 @@
 <c:import url="/jsp/include/head.jsp">
 	<c:param name="msg" value="조별게시판" />
 </c:import>
+<style>
+	.team_comment_cws {
+            margin: 0px;
+            width: 80%;
+            border: 2px solid #345;
+            box-sizing: border-box;
+            position: relative;
+            transition: 1s;
+            height: 100px;
+            overflow: hidden;
+        }
+	.hidden {
+            height: 0px;
+            opacity: 0;
+        }
+    .show {
+        height: 100px;
+        opacity: 1;
+    }
+</style>
 </head>
 
 <body>
@@ -111,25 +131,22 @@
 					</h4>
 					<br>
 					<h3>글내용: ${teamBoard.teamBoardContent}</h3>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br>
+				<br> <br> <br> <br> <br> <br> <br><br> <br> <br>
 			</div>
 
-			<button class="viewcomment_cws">댓글보기(accordion)</button>
-			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdate.do?teamBoardNo=${teamBoard.teamBoardNo}">
+			<button class="viewcomment_cws" >댓글보기(accordion)</button>
+			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do">
+				<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
 				<button class="updatebutton_cws">수정</button>
 			</form>
 			<br> <br> <br>
+			<c:forEach var="t" items="${teamCmt}">
 			<div class="team_comment_cws">
-				<h3 style="padding: 5px;">첫번째 댓글&emsp;&emsp;&emsp;&emsp; 작성자
+				<h3 style="padding: 5px;"> 작성자
 					(yyyy-MM-dd hh:mm:ss)</h3>
 				<h3 style="float: right; margin-top: -27px; margin-right: 8px;">x</h3>
 			</div>
-			<div class="team_comment_cws">
-				<h3 style="padding: 5px;">두번째 댓글&emsp;&emsp;&emsp;&emsp; 작성자
-					(yyyy-MM-dd hh:mm:ss)</h3>
-				<h3 style="float: right; margin-top: -27px; margin-right: 8px;">x</h3>
-			</div>
+			</c:forEach>
 		</div>
 
 		<div>
@@ -145,6 +162,16 @@
 	</div>
 	<script>
 		// $(document).ready(alert());
+		let accordion = document.querySelector(".viewcomment_cws");
+		accordion.addEventListener('click', function(e) {
+			let commentEle = document.querySelector(".team_comment_cws");
+			commentEle.className = "hidden";
+			function viewComment() {
+			commentEle.classList.toggle("hidden");
+			commentEle.classList.toggle("show");
+		}
+		viewComment();
+        });
 	</script>
 </body>
 

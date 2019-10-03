@@ -26,17 +26,12 @@ private TeamDAO dao;
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 게시물 상세 정보 조회하기
 		int no = Integer.parseInt(req.getParameter("teamBoardNo"));
-		/*
-		Board board = dao.selectOneBoard(no); 
-		req.setAttribute("board", board);
-		*/
-		
 		Team t =  dao.selectOneTeamBoard(no);
 		req.setAttribute("teamBoard", t);
-		// 댓글 목록 공유
-//		List<Comment> commentList = dao.selectComment(no);
-//		req.setAttribute("commentList", commentList);
-//		
+		
+		// 댓글
+		req.setAttribute("teamCmt", dao.selectTeamComment(no));
+		
 		RequestDispatcher rd = req.getRequestDispatcher("/jsp/teamboard/team_board_detail.jsp");
 		rd.forward(req, res);
 	}

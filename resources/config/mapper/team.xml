@@ -15,8 +15,11 @@
 	</resultMap>
 
 	<select id="selectTeamBoard" resultMap="teamMap" flushCache="true" useCache="true">
-		select *
-          from tb_team
+		select t.*, (select user_id  
+					   from tb_user u
+                      where u.user_no = t.user_no ) as user_id
+          from tb_team t
+         order by team_board_no desc
 	</select>
 
 	<select id="selectOneTeamBoard" parameterType="int" resultMap="teamMap" flushCache="true" useCache="true">
@@ -27,19 +30,6 @@
 		 where team_board_no = #{teamBoardNo}
 	</select>
 	
-<!-- 	<select id="selectUserId" parameterType="int" resultMap="teamMap" flushCache="true" useCache="true"> -->
-<!-- 		select u.user_id -->
-<!-- 		  from tb_team t -->
-<!-- 		 inner join tb_user u -->
-<!-- 		    on t.user_no = u.user_no -->
-<!-- 		 where team_board_no = #{teamBoardNo} -->
-		 
-<!-- 		select t.*, (select user_id   -->
-<!-- 					   from tb_user u -->
-<!--                       where u.user_no = t.user_no ) as user_id -->
-<!--           from tb_team t; -->
-<!-- 	</select> -->
-
 	<insert id="insertTeamBoard" parameterType="Team">
 		insert into tb_team(
 			team_board_no, project_no, team_no, team_board_title, user_no, team_board_content
@@ -48,17 +38,17 @@
 		)
 	</insert>
 
-	<update id="updateBoard" parameterType="Team">
+	<update id="updateTeamBoard" parameterType="Team">
 		update tb_team  
 		   set team_board_title = #{teamBoardTitle},
-			   team_no = #{teamNo},  
-			   project_no = #{projectNo},  
+			   team_no = #{teamNo}, 
+			   project_no = #{projectNo}, 
 			   team_board_content = #{teamBoardContent}
 		 where team_board_no = #{teamBoardNo}
-		   and user_no = #{userNo}
+<!-- 		   and user_no = #{userNo} -->
 	</update>
 
-	<delete id="deleteBoard" parameterType="int">
+	<delete id="deleteTeamBoard" parameterType="int">
 		delete 
 		  from tb_team 
 		 where team_board_no = #{teamBoardNo}
@@ -66,46 +56,44 @@
 
 <!-- ===댓글================================================= -->
 
-<!-- 	<resultMap id="teamCommentMap" type="TeamComment"> -->
-<!-- 		<result column="user_no" property="userNo" /> -->
-<!-- 		<result column="team_board_no" property="teamBoardNo" /> -->
-<!-- 		<result column="team_board_cmt" property="teamBoardCmt" /> -->
-<!-- 		<result column="team_board_cmt_no" property="teamBoardCmtNo" /> -->
-<!-- 		<result column="team_board_cmt_date" property="teamBoardCmtDate" /> -->
-<!-- 	</resultMap> -->
+	<resultMap id="commentMap" type="Comment">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="board_post_no" property="boardPostNo" />
+		<result column="cmt_no" property="cmtNo" />
+		<result column="cmt_content" property="cmtContent" />
+		<result column="cmt_reg_dt" property="cmtRegDt" />
+		<result column="code_value" property="codeValue" />
+	</resultMap>
 
-<!-- 	<select id="selectTeamComment" parameterType="int" resultMap="teamCommentMap"> -->
-<!-- 		select * -->
-<!-- 		  from board_team_comment -->
-<!-- 		 where no = #{no} -->
-<!-- 		 order by no desc -->
-<!-- 	</select> -->
+	<select id="selectTeamComment" parameterType="int" resultMap="commentMap">
+		select c.*, (select user_id  
+					   from tb_user u
+                      where u.user_no = c.user_no ) as user_id
+          from tb_comment c
+		 where board_post_no = #{teamBoardNo}
+		 order by cmt_no desc
+	</select>
 
-<!-- 	<select id="selectOneComment" parameterType="int" resultMap="teamCommentMap"> -->
-<!-- 		select * -->
-<!-- 		  from board_team_comment -->
-<!-- 		 where comment_no = #{commentNo} -->
-<!-- 	</select> -->
+	<insert id="insertTeamComment" parameterType="Comment">
+		insert into tb_comment(
+			cmt_no, user_no, board_post_no, cmt_content, code_value
+		) values (
+			tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, (select code_value from tb_codenm where code_name = '팀프로젝트게시판')
+		)
+	</insert>
 
-<!-- 	<insert id="insertComment" parameterType="Comment"> -->
-<!-- 		insert into board_team_comment( -->
-<!-- 			no, comment_no, writer, content -->
-<!-- 		) values ( -->
-<!-- 			#{no}, comment_no_seq.nextval, #{writer}, #{content} -->
-<!-- 		) -->
-<!-- 	</insert> -->
+	<update id="updateTeamComment" parameterType="Comment">
+		update tb_comment  
+		   set cmt_content = #{cmtContent}
+		 where cmt_no = #{cmtNo}
+	</update>
 
-<!-- 	<update id="updateComment" parameterType="Comment"> -->
-<!-- 		update board_team_comment   -->
-<!-- 		   set content = #{content} -->
-<!-- 		 where comment_no = #{commentNo} -->
-<!-- 	</update> -->
-
-<!-- 	<delete id="deleteComment" parameterType="int"> -->
-<!-- 		delete  -->
-<!-- 		  from board_team_comment  -->
-<!-- 		 where comment_no = #{commentNo} -->
-<!-- 	</delete> -->
+	<delete id="deleteComment" parameterType="int">
+		delete 
+		  from tb_comment 
+		 where cmt_no = #{cmtNo}
+	</delete>
 	
 <!-- ===파일================================================= -->
 	

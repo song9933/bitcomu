@@ -19,32 +19,37 @@
 
         <h2 class="title_cws"style="text-align: center">
 		<a href="/teamBoardList.do">조별프로젝트 게시판</a></h2>
-        <br>
-        <br>
-        <br>
-        <br>
+        <br><br><br><br>
         <div class="tabs_cws">
-          <ul>
-            <li class="active"><a href="#">1 차</a></li>
-            <li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo='${projectNo}'">2 차</a></li>
-            <li><a href="#">3 차</a></li>
-            <li><a href="#">4 차</a></li>
-          </ul>
-        </div>
-        <br>
-        <br>
+					<ul  class="projectNo_active_cws">
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=1">1 차</a></li>
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=2">2 차</a></li>
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=3">3 차</a></li>
+					</ul>
+				</div>
+				<br> <br>
 
-        <div class="subtabs_cws">
-            <br>
-            <div class="a_cws">
-          <ul>
-              <li><a href="#">1조</a></li>
-              <li><a href="#">2조</a></li>
-              <li class="active"><a href="#">3조</a></li>
-              <li><a href="#">4조</a></li>
-          </ul>
-            </div>
-        </div>
+				<div class="subtabs_cws">
+					<br>
+					<p style="margin-left: 30px;">조 추가/삭제</p>
+					<button type="button" onclick="doAdd();"
+					style="width: 20px; height: 20px; margin-left: 40px;">+</button>
+					
+					<button type="button" onclick="doRemove();"
+					style="width: 20px; height: 20px;">-</button>
+					
+					<div class="a_cws">
+<!-- 					<form class="teamNo_active_cws"  -->
+<%-- 						  action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?teamNo=${teamNo}"> --%>
+						<ul id="teamtabs_cws">
+							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li>
+							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=2">2조</a></li>
+							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li>
+							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=4">4조</a></li>
+						</ul>
+<!-- 					</form> -->
+					</div>
+				</div>
 
 
 
