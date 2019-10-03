@@ -33,7 +33,7 @@ public class AdminUserListController extends HttpServlet {
 		String sPageList = req.getParameter("pageList");
 		// 요청 페이지를 1페이지로 변경
 		int pageNo = 1;
-		int pageList = 10;
+		int pageList = 10; 
 		if (sPageNo != null) {
 			pageNo = Integer.parseInt(sPageNo);
 		}
