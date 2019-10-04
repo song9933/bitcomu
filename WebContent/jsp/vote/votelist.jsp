@@ -38,22 +38,12 @@
 		<div class="w1280 vote_bg">
 			<section class="content">
 				<h2>투표하기</h2>
-				<button type="button"
-					onclick="document.getElementById('writevoteform').style.display='block'"
+				<button type="button" id="writeVoteBtn"
 					class="w3-button w3-round w3-blue dc_writevote">새 투표 등록</button>
 
 				<!-- <button
 					onclick="document.getElementById('dc_modal').style.display='block'"
 					class="w3-btn w3-black">Open Modal</button>
-
-				리스트의 글들을 클릭하면 무조건 온클릭 이벤트가 발생해서 모달이 열리게 해야하고.
-				그 투표글의 타입에 따라 다른 에이아웃의 코드가 분기되서 틀을 잡아야하고.
-				
-				해당 틀의 내용들은 모두 동적으로 DB에서 가져와야함.
-				
-				이를 구현하기 위해선 먼저, 글쓰기를 처리해야하는데, 글쓰기또한 모달에서 실행되어야함.
-				
-				그러면 새투표 등록버튼에서 어떤 모달을 띄우고, 그 모달안에 인풋폼이 들어가야함. -->
 
 
 				<!-- 투표모달창 시작 -->
@@ -207,7 +197,21 @@
 	var cDate = new Date();
 	cDate.setHours(cDate.getHours()+9);
 	document.getElementById("voteCurrentTimeValue").value= cDate.toISOString().slice(0, 16);
+	
+	
+	<%-- 이벤트 리스너 시작 --%>
+	var writeBtn = document.getElementById("writeVoteBtn");
 
+	writeBtn.addEventListener("click", writeVote);  // 선택한 요소에 click 이벤트 리스너를 등록함.
+
+	function writeVote() {
+		console.log('${sessionScope.user}');
+		if('${sessionScope.user}' == null) {
+			alert('투표 등록하기는 로그인후에 이용하실 수 있습니다.');
+		} else {
+			document.getElementById('writevoteform').style.display='block';
+		}
+	}
 
 </script>
 
