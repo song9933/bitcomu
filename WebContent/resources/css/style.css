@@ -928,13 +928,13 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 * { margin: 0; padding: 0; }
 /* 질문과 답변 */
 .qna_title {
-    margin: 20px;
+    margin-left: 170px;
     font-size: 30px;
 }
 .qna_pd10 {
     position: absolute;
     left: 920px;
-    top: 40px; 
+    top: 60px; 
 }
 /* 수정 */
 .qna_updat_1 {
@@ -947,7 +947,17 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     width: 45px;
     height: 20px;
     border-right: 2px solid rgb(112, 111, 111);
-    margin-top: 5px;  
+    margin-top: 30px;  
+    font-size: 20px;
+    font-weight: bold;
+   
+}
+/* 삭제 */
+.qna_delete_1 > a {
+    display: grid;
+    width: 45px;
+    height: 20px;
+    margin-top: 25px;  
     font-size: 20px;
     font-weight: bold;
    
@@ -1175,6 +1185,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 .qna_accordion {
     font-family: Arial, Helvetica, sans-serif; 
     margin: 0 auto;
+    margin-top: 20px;
     border: 1px solid black;
     border-radius: 10px;
     width: 950px;
