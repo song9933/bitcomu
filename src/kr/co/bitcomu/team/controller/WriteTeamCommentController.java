@@ -29,11 +29,11 @@ public class WriteTeamCommentController extends HttpServlet{
 		Comment cmt = new Comment();
 
 		cmt.setUserNo(user.getUserNo());
-		cmt.setBoardPostNo(Integer.parseInt(req.getParameter("boardPostNo")));
+		cmt.setBoardPostNo(Integer.parseInt(req.getParameter("teamBoardNo")));
 		cmt.setCmtContent(req.getParameter("cmtContent"));
 		
 		dao.insertTeamComment(cmt);
-		res.sendRedirect("/team/teamBoardDetail.do?teamBoardNo=" + Integer.parseInt(req.getParameter("teamBoardNo")));
+		res.sendRedirect(req.getContextPath() + "/team/teamBoardDetail.do?teamBoardNo=" + Integer.parseInt(req.getParameter("teamBoardNo")));
 	}
 	
 	

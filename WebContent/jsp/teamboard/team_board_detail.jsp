@@ -9,24 +9,36 @@
 	<c:param name="msg" value="조별게시판" />
 </c:import>
 <style>
-	.team_comment_cws {
-            margin: 0px;
-            width: 80%;
-            border: 2px solid #345;
-            box-sizing: border-box;
-            position: relative;
-            transition: 1s;
-            height: 100px;
-            overflow: hidden;
-        }
-	.hidden {
-            height: 0px;
-            opacity: 0;
-        }
-    .show {
-        height: 100px;
-        opacity: 1;
-    }
+#team_comment_cws {
+	margin-left: 15px;
+	width: 90%;
+	box-sizing: border-box;
+	position: relative;
+ 	transition: 1s;
+	overflow: hidden;
+}
+
+.hidden {
+	height: 0px;
+	opacity: 0;
+}
+
+.show {
+	height: auto;
+	opacity: 1;
+}
+
+.updatebutton_cws {
+	background: none;
+	border: none;
+	color: #75a5d6;
+	width: 90px;
+	height: 30px;
+	font-size: 20px;
+	margin-top: -35px;
+	float: right;
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -134,19 +146,43 @@
 				<br> <br> <br> <br> <br> <br> <br><br> <br> <br>
 			</div>
 
-			<button class="viewcomment_cws" >댓글보기(accordion)</button>
+			<button class="viewcomment_cws" onclick="viewComment()" >댓글보기(accordion)</button>
 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do">
 				<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
 				<button class="updatebutton_cws">수정</button>
 			</form>
-			<br> <br> <br>
-			<c:forEach var="t" items="${teamCmt}">
-			<div class="team_comment_cws">
-				<h3 style="padding: 5px;"> 작성자
-					(yyyy-MM-dd hh:mm:ss)</h3>
-				<h3 style="float: right; margin-top: -27px; margin-right: 8px;">x</h3>
+			<br> <br> 
+<!-- 			<br> -->
+
+
+			<form method="post" action="${pageContext.request.contextPath}/team/teamCommentWrite.do">
+				<p>▶
+				<input type="text" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;">
+				<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}">
+				<input type="hidden" name="userNo" value="${userNo}">
+				<button>작성</button>
+				</p>
+			</form>
+			<br>
+			<div id="team_comment_cws">
+				<c:forEach var="t" items="${teamCmt}">
+					<div style="border: 1px solid black; padding: 5px;">
+						<ul>
+							<li style="width: 400px;">작성자: ${t.userId}&nbsp;&nbsp;내용: ${t.cmtContent}</li>
+<!-- 						</ul> -->
+<!-- 						<ul> -->
+							<li style="margin-top: -23px; float: right; position: relative; padding-right: 40px;">
+								<fmt:formatDate pattern="yyyy-MM-dd" value="${t.cmtRegDt}" /></li>
+							<li style="margin-top: -23px; float: right; position: relative;">
+								<c:if test="${sessionScope.user.userNo eq t.userNo}">
+									<button type="button" class="updatebutton_cws" style="font-size: 13px; margin-right: -27px;">삭제</button>
+								</c:if>
+							</li>
+						</ul>
+					</div>
+					<!-- <h3 style="float: right; margin-top: -27px; margin-right: 8px;">x</h3> -->
+				</c:forEach>
 			</div>
-			</c:forEach>
 		</div>
 
 		<div>
@@ -158,20 +194,19 @@
 				</button>
 			</form>
 
-		</div>
+		</div>	
 	</div>
 	<script>
 		// $(document).ready(alert());
-		let accordion = document.querySelector(".viewcomment_cws");
-		accordion.addEventListener('click', function(e) {
-			let commentEle = document.querySelector(".team_comment_cws");
-			commentEle.className = "hidden";
-			function viewComment() {
+// 		let accordion = document.querySelector(".viewcomment_cws");
+// 		accordion.addEventListener('click', function viewComment() {
+		document.querySelector("#team_comment_cws").className = "hidden";
+		function viewComment() {
+			let commentEle = document.querySelector("#team_comment_cws");
 			commentEle.classList.toggle("hidden");
 			commentEle.classList.toggle("show");
 		}
-		viewComment();
-        });
+		// 		});
 	</script>
 </body>
 
