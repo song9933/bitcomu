@@ -1,7 +1,10 @@
 package kr.co.bitcomu.vote.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +105,55 @@ public class VoteDetailController extends HttpServlet{
 		}
 		}
 		
+		//DB에 저장된 마감일을 자바스크립트에서 받아들일 수 있는 포맷으로 변경해서 넘기기.
+		System.out.println("투표 마감일 : " + vote.getVoteCloseDt());
 		
+		String closeDt = vote.getVoteCloseDt();
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date closeDate = sdf.parse(closeDt);
+			sdf.applyPattern("yyyy/MM/dd/HH:mm:ss");
+			String jsCloseDate = sdf.format(closeDate);
+			System.out.println("자스로 넘기는 스트링 : " + jsCloseDate);
+//			long timeDiff = closeDate.getTime() - new Date().getTime();
+//			long diffToMinutes = timeDiff / (60 * 1000);
+//			System.out.println("시간차를 분단위로 표현 : " + diffToMinutes);
+			req.setAttribute("jsCloseDate", jsCloseDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		// 2019-11-03 18:33:00
+		
+//		let date = new Date('May 16, 2019 17:22:10');
+//		console.log(date); // Thu May 16 2019 17:22:10 GMT+0900 (한국 표준시)
+//
+//		date = new Date('2019/05/16/17:22:10');
+//		console.log(date); // Thu May 16 2019 17:22:10 GMT+0900 (한국 표준시)
+		
+		// 두날짜의 차이 구하기
+		
+		
+		
+//		public void doDiffOfDate(){
+//		    String start = "2015-04-01";
+//		    String end = "2015-05-05";
+//		     
+//		    try {
+//		        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//		        Date beginDate = formatter.parse(start);
+//		        Date endDate = formatter.parse(end);
+//		         
+//		        // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
+//		        long diff = endDate.getTime() - beginDate.getTime();
+//		        long diffDays = diff / (24 * 60 * 60 * 1000);
+//		 
+//		        System.out.println("날짜차이=" + diffDays);
+//		         
+//		    } catch (ParseException e) {
+//		        e.printStackTrace();
+//		    }
+
 		
 		req.getRequestDispatcher("/jsp/vote/votedetail.jsp").forward(req, res);
 	}

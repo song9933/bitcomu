@@ -25,6 +25,10 @@
 	font-size: 1.6em;
 }
 
+.dc_listbox {
+	cursor: pointer;
+}
+
 </style>
 <body>
 	<div class="wrapepr">
@@ -121,7 +125,7 @@
 				<c:choose>
 					<c:when test="${!empty list}">
 						<c:forEach var="v" items="${list}">
-							<div class="w3-panel w3-card-4 w3-round dc_listbox"
+							<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card"
 								onclick="location.href='<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">
 								<p>
 									<c:if test="${v.voteNoticeEnabled eq 'Y'}">

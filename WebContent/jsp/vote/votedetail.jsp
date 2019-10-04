@@ -36,84 +36,89 @@ h2.vote_modal_title {
 }
 
 /*카운트 다운 관련 CSS */
-body {
-	font: normal 13px/20px Arial, Helvetica, sans-serif;
-	word-wrap: break-word;
-	background: #fff;
-	padding-top: 100px
+@import url(https://fonts.googleapis.com/css?family=Oswald:700);
+/* body.dc {
+  margin-top: 35px;
+} */
+.vote_countdown{
+  	text-align: center;
+    color: orangered;
+    font-family: "Oswald";
+    font-weight: 700;
+    font-size: 1.7em;
+    margin: 0 25%;
+    padding: 10px;
 }
 
-.countdown-label {
-	font: thin 15px Arial, sans-serif;
-	color: #65584c;
-	text-align: center;
-	text-transform: uppercase;
-	display: inline-block;
-	letter-spacing: 2px;
-	margin-top: 9px
+/* 툴팁관련 */
+/**
+ * Tooltip Styles
+ */
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
 }
 
-#countdown {
-	box-shadow: 0 1px 2px 0 rgba(1, 1, 1, 0.4);
-	width: 240px;
-	height: 96px;
-	text-align: center;
-	background: #f1f1f1;
-	border-radius: 5px;
-	margin: auto;
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  pointer-events: none;
 }
 
-#countdown #tiles {
-	color: #fff;
-	position: relative;
-	z-index: 1;
-	text-shadow: 1px 1px 0px #ccc;
-	display: inline-block;
-	font-family: Arial, sans-serif;
-	text-align: center;
-	padding: 20px;
-	border-radius: 5px 5px 0 0;
-	font-size: 48px;
-	font-weight: thin;
-	display: block;
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 160px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
-.color-full {
-	background: #53bb74;
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
 }
 
-.color-half {
-	background: #ebc85d;
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
 }
 
-.color-empty {
-	background: #e5554e;
-}
 
-#countdown #tiles>span {
-	width: 70px;
-	max-width: 70px;
-	padding: 18px 0;
-	position: relative;
-}
-
-#countdown .labels {
-	width: 100%;
-	height: 25px;
-	text-align: center;
-	position: absolute;
-	bottom: 8px;
-}
-
-#countdown .labels li {
-	width: 102px;
-	font: bold 15px 'Droid Sans', Arial, sans-serif;
-	color: #f47321;
-	text-shadow: 1px 1px 0px #000;
-	text-align: center;
-	text-transform: uppercase;
-	display: inline-block;
-}
 </style>
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -134,12 +139,14 @@ body {
 				<div class="w3-container w3-card w3-white w3-round vote_detail">
 					<h3>투표상세보기</h3>
 					<i class="fa fa-info-circle" aria-hidden="true"></i>
+
 					<%-- 마감일까지 카운트 다운 출력 시작 --%>
-						<input type="hidden" id="set-time" value="3" />
-						<div id="countdown">
-							<div id='tiles' class="color-full"></div>
-							<div class="countdown-label">마감일까지 남은시간</div>
-						</div><br>
+					<c:if test="${vote.voteCloseEnabled eq 'N'}">
+						<div class="w3-card w3-light-grey w3-round" data-tooltip="마감일까지 남은시간">
+						<h1 id="countdown" class="vote_countdown" ></h1>
+						</div>
+						
+					</c:if>
 					<div class="w3-panel w3-blue">
 						<h2 class="vote_modal_title">${vote.voteTitle}</h2>
 						<c:if test="vote.voteAnonyEnabled">
@@ -285,63 +292,38 @@ body {
 		<%} else {%> nodata(); <%}%>
 		
 		
-		/*마감일까지 카운트다운 타이머 실행 스크립트*/
-		var minutes = $( '#set-time' ).val();
-
-var target_date = new Date().getTime() + ((minutes * 60 ) * 1000); // set the countdown date
-var time_limit = ((minutes * 60 ) * 1000);
-//set actual timer
-setTimeout(
-  function() 
-  {
-    alert( 'done' );
-  }, time_limit );
-
-var days, hours, minutes, seconds; // variables for time units
-
-var countdown = document.getElementById("tiles"); // get tag element
-
-getCountdown();
-
-setInterval(function () { getCountdown(); }, 1000);
-
-function getCountdown(){
-
-	// find the amount of "seconds" between now and target
-	var current_date = new Date().getTime();
-	var seconds_left = (target_date - current_date) / 1000;
-  
-if ( seconds_left >= 0 ) {
-  console.log(time_limit);
-   if ( (seconds_left * 1000 ) < ( time_limit / 2 ) )  {
-     $( '#tiles' ).removeClass('color-full');
-     $( '#tiles' ).addClass('color-half');
-
-		} 
-    if ( (seconds_left * 1000 ) < ( time_limit / 4 ) )  {
-    	$( '#tiles' ).removeClass('color-half');
-    	$( '#tiles' ).addClass('color-empty');
-    }
-  
-	days = pad( parseInt(seconds_left / 86400) );
-	seconds_left = seconds_left % 86400;
-		 
-	hours = pad( parseInt(seconds_left / 3600) );
-	seconds_left = seconds_left % 3600;
-		  
-	minutes = pad( parseInt(seconds_left / 60) );
-	seconds = pad( parseInt( seconds_left % 60 ) );
-
-	// format countdown string + set tag value
-	countdown.innerHTML = "<span>" + hours + ":</span><span>" + minutes + ":</span><span>" + seconds + "</span>"; 
-}
-  
-}
-
-function pad(n) {
-	return (n < 10 ? '0' : '') + n;
-}
-		
+	/*마감일까지 카운트다운 타이머 실행 스크립트*/
+	// set the date we're counting down to
+	var target_date = new Date(`${jsCloseDate}`).getTime();
+ 
+	// variables for time units
+	var days, hours, minutes, seconds;
+ 
+	// get tag element
+	var countdown = document.getElementById("countdown");
+ 
+	// update the tag with id "countdown" every 1 second
+	setInterval(function () {
+ 
+    // find the amount of "seconds" between now and target
+    var current_date = new Date().getTime();
+    var seconds_left = (target_date - current_date) / 1000;
+ 
+    // do some time calculations
+    days = parseInt(seconds_left / 86400);
+    seconds_left = seconds_left % 86400;
+     
+    hours = parseInt(seconds_left / 3600);
+    seconds_left = seconds_left % 3600;
+     
+    minutes = parseInt(seconds_left / 60);
+    seconds = parseInt(seconds_left % 60);
+     
+    // format countdown string + set tag value
+    countdown.innerHTML = days + "일 " + hours + "시간 "
+    + minutes + "분 " + seconds + "초 ";  
+ 
+	}, 1000);
 	</script>
 </body>
 
