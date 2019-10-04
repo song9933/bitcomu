@@ -61,7 +61,7 @@
                         <td>전화번호</td>
                         <td> <select name="userphone1" class="input_box_sj box_phone_sj">
                         	<c:forEach var="phoneNum" items="${mobileList}">
-                            	<option value="${phoneNum}" <c:if test="${phoneNum eq phone[0]}"> selected </c:if>>${phoneNum}</option>
+                            	<option value="${phoneNum.codeName}" <c:if test="${phoneNum.codeName eq phone[0]}"> selected </c:if>>${phoneNum.codeName}</option>
                         	</c:forEach>
                           </select>-
                           <input type="text"

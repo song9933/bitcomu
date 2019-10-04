@@ -21,30 +21,46 @@
     		top: -10px;
     		left: 100px;">
       <li class="sj"><a href="${pageContext.request.contextPath}/admin/adminUserList.do">유저관리</a></li>
-      <li class="sj selected">게시판 관리</a></li>
+      <li class="sj selected"><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do">게시판 관리</a></li>
       </ul>
     </div> 
          <section class="content ns_content">
 			
             <h1 class="ns_Title"></h1>
-
+			
 
 
             <div class="ns_listlength">
-              
+              	게시판 형태 
+                <select name="viewBoard">
+                
+                    <option value="all">전체 게시판</option>
+                    <c:forEach var="boardVal" items="${boardCode}">
+                    	<option value="${boardVal.codeValue}">${boardVal.codeName}</option>
+                    </c:forEach>
+                    
+                </select>
+              	
+              	
                 <select name="viewList">
                     <option value="10" selected>10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
+
                     
                 </select>씩 보기
+                
             </div>
+            
+              
+
   			
      		<div class="ns_table">
-                <ul class="ns_TableListHead ns_TableListHeadByAdmin">
+                <ul class="ns_TableListHead">
                     <li>
-                        <span>유저이름</span>
+                    	<span>유저아이디</span>
                         <span>제목</span>
+                        <span>유저이름</span>
                         <span>날짜</span>
                         <span>게시판형태</span>
                         <span></span>
@@ -62,11 +78,12 @@
                 
 
                 
-                <ul class="ns_TableListBody ns_TableListBodyByAdmin">
+                <ul class="ns_TableListBody">
                 <c:forEach var="board" items="${boardList}">
                   <li>
                       <span>${board.userId}</span>
                       <span>${board.postTitle}</span>
+                      <span>${board.userName}</span>
                       <span><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd"/></span>
                       <span colspan="2">${board.codeName}</span>
                       <span></span>
@@ -121,9 +138,11 @@
             <div class="ns_search">
                 search : 
                 <select name="searchList">
-                    <option value="10" selected>제목 + 내용</option>
-                    <option value="15">제목</option>
-                    <option value="20">내용</option>
+                    <option value="all" selected>제목 + 내용</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="userid">유저아이디</option>
+                    <option value="username">유저이름</option>
                     
                 </select>
                 <input type="text" name="search">
@@ -150,7 +169,44 @@
   </div>
   <script>
   // $(document).ready(alert());
+		let sList = document.querySelector("#searchList").value;
+	let sValue = document.querySelector("#searchValue").value;
+	let optVal = document.querySelectorAll("#searchList > option");
+	let changeList = document.querySelector("#changeList");
+	let doSearchUser = document.querySelector("#doSearchUser");
+	let selectedValue = document.querySelector("#changeList").value;
+	let changeVal = document.querySelectorAll("#changeList > option");
+	for (let i = 0; i < optVal.length; i++) {
+		if (optVal[i].value == '${search.searchType}') {
+			optVal[i].selected = true;
+			sList = optVal[i].value;
+		}
+	}
+	for (let i = 0; i < changeVal.length; i++) {
+		if (changeVal[i].value == '${pageList}') {
+			changeVal[i].selected = true;
+			selectedValue = changeVal[i].value;
+		}
+	}
 	
+	
+	
+	doSearchUser.addEventListener("click", function (e) {
+		sList = document.querySelector("#searchList").value;
+		sValue = document.querySelector("#searchValue").value;
+		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?searchType=' + sList + '&searchWord=' + sValue + '&pageList=' + selectedValue;
+         
+    });    
+
+
+	
+	changeList.addEventListener("change", function (e) {
+		
+	    let selectedValue = changeList.options[changeList.selectedIndex].value;
+
+		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?searchType=' + sList + '&searchWord=' + sValue + "&pageList=" + selectedValue;
+         
+    });    
   </script>
 </body>
 </html>

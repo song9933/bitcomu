@@ -22,6 +22,7 @@
 		<typeAlias alias="Board" type="kr.co.bitcomu.repository.vo.Board" />
 		<typeAlias alias="Qna" type="kr.co.bitcomu.repository.vo.Qna" />
 		<typeAlias alias="Search" type="kr.co.bitcomu.repository.vo.Search" />
+		<typeAlias alias="Code" type="kr.co.bitcomu.repository.vo.Code" />
 		
 	</typeAliases>
 
@@ -48,5 +49,6 @@
 		<mapper resource="config/mapper/notice.xml" />
 		<mapper resource="config/mapper/talk.xml" />
 		<mapper resource="config/mapper/admin.xml" />
+		<mapper resource="config/mapper/code.xml" />
 	</mappers>
 </configuration>

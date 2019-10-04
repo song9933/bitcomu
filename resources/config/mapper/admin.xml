@@ -16,7 +16,7 @@
 	<sql id="pagingEnd">
 	  )
 			    a)
-		 where rnum between #{begin} and #{end}
+		 where rnum between #{page.begin} and #{page.end}
 	</sql>
 	
 	<!-- 페이징 처리 끝 -->
@@ -26,14 +26,21 @@
 	<sql id="selectStudy">
 		select s.user_no, (select user_id  from tb_user u
                     		where u.user_no = s.user_no ) user_id,
+                    		(select user_name  from tb_user u
+                    		where u.user_no = s.user_no ) user_name,
 		 s.study_reg_dt as reg_dt, s.study_post_title as post_title,
+		 				s.study_post_content as post_content,
                      (select code_name from tb_codenm where code_name='스터디게시판') code_name
                 from tb_study s 
 	</sql>
 	
 	<sql id="selectVote">
 		select v.user_no, (select user_id  from tb_user u
-                    		where u.user_no = v.user_no ) user_id, v.vote_reg_dt, v.vote_title,
+                    		where u.user_no = v.user_no ) user_id,
+                    		(select user_name  from tb_user u
+                    		where u.user_no = v.user_no ) user_name,
+                    		 v.vote_reg_dt as reg_dt, v.vote_title as post_title,
+                    		 v.vote_content as post_content,
                      (select code_name from tb_codenm where code_name='투표게시판') code_name
                 from tb_vote v
 	</sql>
@@ -41,7 +48,10 @@
 	<sql id="selectNotice">
 		select n.user_no, (select user_id  from tb_user u
                     	where u.user_no = n.user_no ) user_id,
-		 				n.notice_reg_dt, n.notice_post_title,
+                    	(select user_name  from tb_user u
+                    		where u.user_no = n.user_no ) user_name,
+		 				n.notice_reg_dt as reg_dt, n.notice_post_title as post_title,
+		 				n.notice_post_content as post_content,
                      (select code_name from tb_codenm where code_name='공지게시판') code_name
                 from tb_notice n
 	</sql>
@@ -49,7 +59,10 @@
 	<sql id="selectTeam">
 		select t.user_no, (select user_id  from tb_user u
                     	where u.user_no = t.user_no ) user_id,
-		 				t.team_board_reg_dt, t.team_board_title,
+                    	(select user_name  from tb_user u
+                    		where u.user_no = t.user_no ) user_name,
+		 				t.team_board_reg_dt as reg_dt, t.team_board_title as post_title,
+		 				t.team_board_content as post_content,
                      (select code_name from tb_codenm where code_name='팀프로젝트게시판') code_name
                 from tb_team t
 	</sql>
@@ -57,7 +70,9 @@
 	<sql id="selectYoutube">
 		select y.user_no, (select user_id  from tb_user u
                     	where u.user_no = y.user_no ) user_id,
-		 				y.yt_reg_dt, y.yt_title,
+                    	(select user_name  from tb_user u
+                    		where u.user_no = y.user_no ) user_name,
+		 				y.yt_reg_dt as reg_dt, y.yt_title as post_title, y.yt_content as post_content,
                      (select code_name from tb_codenm where code_name='온라인강의게시판') code_name
                 from tb_youtube y
 	</sql>
@@ -65,7 +80,9 @@
 	<sql id="selectQna">
 		select q.user_no, (select user_id  from tb_user u
                     	where u.user_no = q.user_no ) user_id,
-		 				q.qna_reg_dt, q.qna_title,
+                    	(select user_name  from tb_user u
+                    		where u.user_no = q.user_no ) user_name,
+		 				q.qna_reg_dt as reg_dt, q.qna_title as post_title, q.qna_content as post_content,
                      (select code_name from tb_codenm where code_name='질문답변게시판') code_name
                 from tb_qna q
 	</sql>
@@ -73,7 +90,10 @@
 	<sql id="selectTalk">
 		select tk.user_no, (select user_id  from tb_user u
                     	where u.user_no = tk.user_no ) user_id,
-		 				tk.talk_reg_dt, tk.talk_post_title,
+                    	(select user_name  from tb_user u
+                    		where u.user_no = tk.user_no ) user_name,
+		 				tk.talk_reg_dt as reg_dt, tk.talk_post_title as post_title,
+		 				tk.talk_post_content as post_content,
                      (select code_name from tb_codenm where code_name='자유게시판') code_name
                 from tb_talk tk
 	</sql>
@@ -85,13 +105,15 @@
 	<resultMap type="Board" id="boardMap">
       <result column="user_no" property="userNo"/>
       <result column="user_id" property="userId"/>
+      <result column="user_name" property="userName"/>
       <result column="post_title" property="postTitle"/>
       <result column="reg_dt" property="regDt"/>
       <result column="code_name" property="codeName"/>
     </resultMap>
+    
 
 
-	<select id="selectAllBoards" parameterType="Page" resultMap="boardMap" flushCache="true" useCache="true">
+	<select id="selectAllBoards" parameterType="hashmap" resultMap="boardMap" flushCache="true" useCache="true">
 	     <include refid="pagingStart" />
 	     	select * from (
         		select * from (
@@ -121,11 +143,36 @@
   			    select * from ( 
   			        <include refid="selectTalk" />
   			    order by talk_post_no desc) talk  			        
-	     		) allboard order by reg_dt desc
+	     		)
+	     		<where>
+		      	   <if test="search.searchType != null">
+			      	   <choose>
+			               <when test="search.searchType == 'all'">
+				               	and post_title like '%'|| #{search.searchWord} ||'%'
+				               	or post_content like '%'|| #{search.searchWord} ||'%'
+			               </when>
+			               <when test="search.searchType == 'title'"> 	
+			               	and post_title like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="search.searchType == 'content'"> 	
+			               	and post_content like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="search.searchType == 'userid'"> 	
+			               	and user_id like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="search.searchType == 'username'"> 	
+			               	and user_name like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			            </choose>
+			      	   
+		      	   </if>
+		      	</where>
+	     		 allboard order by reg_dt desc
 	     <include refid="pagingEnd" />
 	</select>
+
 	
-	<select id="selectAllBoardsCount" resultType="int" flushCache="true" useCache="true">
+	<select id="selectAllBoardsCount" resultType="int" parameterType="Search" flushCache="true" useCache="true">
 	     	select count(*) from (
         		select * from (
 	     			<include refid="selectStudy" />
@@ -155,9 +202,135 @@
 	     			<include refid="selectTalk" />
   			    			 ) talk
 	     		) allboard
+	     		<where>
+		      	   <if test="searchType != null">
+			      	   <choose>
+			               <when test="searchType == 'all'">
+				               	and post_title like '%'|| #{search.searchWord} ||'%'
+				               	or post_content like '%'|| #{search.searchWord} ||'%'
+			               </when>
+			               <when test="searchType == 'title'"> 	
+			               	and post_title like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="searchType == 'content'"> 	
+			               	and post_content like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="searchType == 'userid'"> 	
+			               	and user_id like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="searchType == 'username'"> 	
+			               	and user_name like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			            </choose>
+			      	   
+		      	   </if>
+		      	</where>
 	</select>
 	
+	<!-- 게시판 별로 따로보기 쿼리만 짰으니까 구현하세요. -->
 	
+	<select id="selectOneBoard" parameterType="hashmap" resultMap="boardMap" flushCache="true" useCache="true">
+	     <include refid="pagingStart" />
+	     	<choose>
+	     		<when test="codeValue == 1">
+		     		<include refid="selectTalk" />
+	     		</when>
+	     		<when test="codeValue == 2">
+		     		<include refid="selectNotice" />
+	     		</when>
+	     		<when test="codeValue == 3">
+		     		 <include refid="selectYoutube" />
+	     		</when>
+	     		<when test="codeValue == 4">
+		     		<include refid="selectTeam" />  			    
+	     		</when>
+	     		<when test="codeValue == 5">
+		     		<include refid="selectVote" />
+	     		</when>
+	     		<when test="codeValue == 6">
+		     		<include refid="selectStudy" />
+	     		</when>
+	     		<when test="codeValue == 7">
+		     		<include refid="selectQna" />
+	     		</when>
+	     	</choose>
+	     	<where>
+		      	   <if test="search.searchType != null">
+			      	   <choose>
+			               <when test="search.searchType == 'all'">
+				               	and post_title like '%'|| #{search.searchWord} ||'%'
+				               	or post_content like '%'|| #{search.searchWord} ||'%'
+			               </when>
+			               <when test="search.searchType == 'title'"> 	
+			               	and post_title like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="search.searchType == 'content'"> 	
+			               	and post_content like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="search.searchType == 'userid'"> 	
+			               	and user_id like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			               <when test="search.searchType == 'username'"> 	
+			               	and user_name like '%'|| #{search.searchWord} ||'%'  	
+			               </when>
+			            </choose>
+		      	   </if>
+		      	</where>
+	     <include refid="pagingEnd" />
+	</select>
+	
+	<select id="selectOneBoardCount" resultType="int" parameterType="Search" flushCache="true" useCache="true">
+	select count(*)
+	  from
+	     	<choose>
+	     		<when test="codeValue == 1">
+		     		  tb_talk
+	     		</when>
+	     		<when test="codeValue == 2">
+		     		  tb_notice
+	     		</when>
+	     		<when test="codeValue == 3">
+		     		  tb_youtube
+	     		</when>
+	     		<when test="codeValue == 4">
+		     		  tb_team			    
+	     		</when>
+	     		<when test="codeValue == 5">
+		     		  tb_vote
+	     		</when>
+	     		<when test="codeValue == 6">
+		     		  tb_study
+	     		</when>
+	     		<when test="codeValue == 7">
+		     		  tb_qna
+	     		</when>
+	     	</choose>
+	     		
+     		<where>
+	      	   <if test="searchType != null">
+		      	   <choose>
+		               <when test="ssearchType == 'all'">
+			               	and post_title like '%'|| #{search.searchWord} ||'%'
+			               	or post_content like '%'|| #{search.searchWord} ||'%'
+		               </when>
+		               <when test="searchType == 'title'"> 	
+		               	and post_title like '%'|| #{search.searchWord} ||'%'  	
+		               </when>
+		               <when test="searchType == 'content'"> 	
+		               	and post_content like '%'|| #{search.searchWord} ||'%'  	
+		               </when>
+		               <when test="searchType == 'userid'"> 	
+		               	and user_id like '%'|| #{search.searchWord} ||'%'  	
+		               </when>
+		               <when test="searchType == 'username'"> 	
+		               	and user_name like '%'|| #{search.searchWord} ||'%'  	
+		               </when>
+		            </choose>
+		      	   
+	      	   </if>
+	      	</where>
+	</select>
+    
     
 </mapper>	
 

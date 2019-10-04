@@ -59,7 +59,7 @@
                         <td>전화번호</td>
                         <td> <select name="userphone1" class="input_box_sj box_phone_sj">
                         	<c:forEach var="phoneNum" items="${mobileList}">
-                            <option value="${phoneNum}">${phoneNum}</option>
+                            <option value="${phoneNum.codeName}">${phoneNum.codeName}</option>
                         	</c:forEach>
                           </select>-
                           <input type="text"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 독타입.. 중복이여서는 안된다 -->
+<!--파일을 고유하게 이름짓는 것 namespace testMapper1의 이름을 줘야한다 패키지명 같이 줘야한다  -->
+<!-- dao 클래스 위치 ctrl 키 눌러서 경로 확인되는지 .. check-->
+<mapper namespace="kr.co.bitcomu.repository.dao.CodeDAO">
+
+  	<resultMap type="Code" id="codeMap">
+	     <result column="code_group" property="codeGroup"/>
+	     <result column="code_value" property="codeValue"/>
+	     <result column="code_name" property="codeName"/>
+    </resultMap>
+	<!-- 공통코드 -->
+	<select id="selectCode" resultMap="codeMap" parameterType="string" flushCache="true" useCache="true">
+		select code_value, code_name
+		  from tb_codenm
+		 where code_group = #{codeGroup}
+	</select>
+    
+</mapper>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+

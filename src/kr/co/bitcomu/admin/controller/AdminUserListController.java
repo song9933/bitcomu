@@ -51,7 +51,7 @@ public class AdminUserListController extends HttpServlet {
 		
 		
 		
-		PageResult pr = new PageResult(pageNo, count);
+		PageResult pr = new PageResult(pageNo, count, pageList, 5);
 		
 		// 데이터를 구하고 공유
 		Map<String, Object> map = new HashMap<>();

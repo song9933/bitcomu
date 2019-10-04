@@ -12,15 +12,18 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.encrypt.SHA256Password;
+import kr.co.bitcomu.repository.dao.CodeDAO;
 import kr.co.bitcomu.repository.dao.UserDAO;
 import kr.co.bitcomu.repository.vo.User;
 
 @WebServlet("/user/userUpdateForm.do")
 public class UserUpdateFormController extends HttpServlet {
 	UserDAO dao;
+	CodeDAO codedao;
 	/* 로그인 세션 테스트 용 - 테스트 후 삭제 요망 */
 	public UserUpdateFormController() {
 		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(UserDAO.class);
+		this.codedao = MyAppSqlConfig.getSqlSessionInstance().getMapper(CodeDAO.class);
 	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -34,7 +37,7 @@ public class UserUpdateFormController extends HttpServlet {
 		String[] email = user.getUserEmail().split("@");
 		req.setAttribute("phone", phone);
 		req.setAttribute("email", email);
-		req.setAttribute("mobileList", dao.selectMolibeList());
+		req.setAttribute("mobileList", codedao.selectCode("MOBILE_CD"));
 		if (user.getUserGrade() == 1) {
 			req.getRequestDispatcher("/jsp/user/user_modify.jsp").forward(req, res);
 			return;

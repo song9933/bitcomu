@@ -168,12 +168,6 @@
        <include refid="deleteUsers" />
 	 </select>
 	 
-	 <!-- 전화번호 앞자리 조회(공통) -->
-	 <select id="selectMolibeList" resultType="string">
-	 	select code_name
-	 	  from tb_codenm 
-	 	 where code_group = 'MOBILE_CD'
-	 </select>
     
 </mapper>	
 

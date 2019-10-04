@@ -20,6 +20,5 @@ public interface UserDAO {
 	void updateUser(User user);
 	void deleteUser(int userNo);
 	int selectOneUserCheck(int userNo);
-	List<String> selectMolibeList();
 	String selectFindUser(User user);
 }
