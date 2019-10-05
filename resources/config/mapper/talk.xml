@@ -57,10 +57,11 @@
 		 where talk_post_no = #{postNo}
 	</delete>
 	
-	<!-- 	댓글테이블 이용한 투표 변동 파트 ================================== -->
+	<!-- 	댓글테이블  파트 ================================== -->
 	<resultMap id="commentMap" type="Comment">
 		<result column="cmt_no" property="cmtNo" />
 		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
 		<result column="board_post_no" property="boardPostNo" />
 		<result column="cmt_content" property="cmtContent" />
 		<result column="cmt_reg_dt" property="cmtRegDt" />
@@ -68,8 +69,8 @@
 	</resultMap>
 	
 	<select id="selectComment" parameterType="int" resultMap="commentMap" flushCache="true" useCache="true">
-	    select *
-	      from tb_comment
+	    select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+	      from tb_comment n
 	     where board_post_no = #{no}
 	       and code_value = 1
 	     order by cmt_no 

@@ -22,30 +22,9 @@
 <body>
    <div class="wrapepr">
       <!-- 헤더 
-    <div class="w1280">
-      <header>
-        <h1><a href="./index.html"><img src="img/logo.png" alt="비트컴퓨터로고"></a></h1>
-        <ul class="gnb">
-          <li><a href="./notice.html">공지</a></li>
-          <li><a href="#">커뮤니티</a>
-            <ul class="dep2">
-              <li><a href="./board_talk.html">자유게시판</a></li>
-              <li><a href="./board_team.html">조별게시판</a></li>
-              <li><a href="./board_study.html">스터디게시판</a></li>
-            </ul>
-          </li>
-          <li><a href="./qna.html">질문답변</a></li>
-          <li><a href="./vote.html">투표</a></li>
-          <li><a href="./onlineclass.html">온라인강의</a></li>
-        </ul>
-        <ul class="nav">
-          <li><a href="#">로그인</a></li>
-          <li><a href="#">회원가입</a></li>
-        </ul>
-      </header>
-    </div>
-     	헤더 끝 -->
+   
     <%@ include file="/jsp/include/header.jsp"%>
+     	헤더 끝 -->
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
         <section class="content ns_content">
@@ -53,17 +32,7 @@
             <h1 class="ns_Title">자유게시판</h1>
 
 
-            <!--          
-            <div class="ns_listlength">
-              
-                <select name="list">
-                    <option value="10" selected>10개</option>
-                    <option value="15">15개</option>
-                    <option value="20">20개</option>
-                    
-                </select>씩 보기
-            </div>
-          -->
+          
 
             <div class="ns_remote">
               <ul>
@@ -84,7 +53,7 @@
                         <span>${talkDetail.postNo}</span>
                         <span>${talkDetail.title}</span>
                         <span>${talkDetail.userId }</span>
-                        <span><fmt:formatDate value="${talkDetail.regDt}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                        <span><fmt:formatDate value="${talkDetail.regDt}" pattern="MM-dd hh:mm"/></span>
                         <span>조회수${talkDetail.viewCnt}</span>
                     </li>
                     
@@ -115,97 +84,94 @@
             </a>
             
             <a class="ns_talk_like" href="" >
-            <i class="far fa-thumbs-up fa-3x">추천</i>
+            <i class="far fa-thumbs-up fa-3x"></i>
             </a>
             
-                    <div id="ns_cmt"></div>
-            <div class="ns_coment_list">
-                  <div class="ns_member_coment">
-                  <c:forEach var="c" items="${comment}">
-                  	 <div class="ns_member">${sessionScope.user.userId}
+             <%--      <c:forEach var="c" items="${comment}">
+                  	 <div class="ns_member">${c.userId}
                   	 <div class="ns_comment">
-                  	 	<pre>${c.cmtContent}</pre>
+                  	 	<pre>&nbsp; ${c.cmtContent}</pre>
                   	 	<a href="">수정</a>
 	                    <a href="">삭제</a>
                       </div>
                     </div>
-                  </c:forEach>  
-                  <c:if test="${empty comment}">
+                  </c:forEach>   --%>
+                  
+                 <%--  <c:if test="${empty comment}">
 					<li >
 						<span></span>
 						<span >댓글이 없습니다.</span>
 					</li>
-				 </c:if> 
+				 </c:if>  --%>
+                    
+                    
+            <div class="ns_coment_list">
+                  <div class="ns_member_coment">
+                    <div id="ns_cmt"></div>
+                    
+                    <form action="talk/comment_update.do" method="post">
+			<input type="hidden" name="postNo" value="${talkDetail.postNo}" />
+			<input type="hidden" name="cmtNo" value="${param.cmtNo}" />
+			<input type="hidden" name="pageNo" value="${pr.pageNo}" />
+			<%-- <input type="hidden" name="cmtContent" value="${comment.cmtContent}" />		 --%>
+			
+			<table>
+			<c:forEach var="comment" items="${comment}">
+				<c:choose>
+					<c:when test="${param.cmtNo eq comment.cmtNo}">
+						<tr>
+						  <td>${comment.userId}</td>
+						  <td>
+						  	<textarea name="cmtContent" rows="2" cols="60">${comment.cmtContent}</textarea>
+						  </td>
+						  <td colspan="2">
+						  	  <input type="submit" value="수정" />
+						  	  <a href="<c:url value="/talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">취소</a>
+						  </td>
+						</tr>		
+					</c:when>
+					<c:otherwise>
+						<tr>
+						  <td>${comment.userId}</td>
+						  
+						  <td><br/>&nbsp;${comment.cmtContent}</td>
+						  <td>
+						  	  <a href="<c:url value="talk/comment_delete.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">삭제</a>	
+						  	  <a href="<c:url value="talk_detail.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">수정</a>	
+						  </td>
+						  <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" 
+						                      value="${comment.cmtRegDt}"/>
+						  </td>
+					    </tr>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${empty comment}">
+				 <tr>
+				    <td colspan='4'>댓글이 존재하지 않습니다.</td>
+				 </tr>
+			</c:if>	 
+			</table>
+		</form>	
                     
                     
                     
-                    
-                    
-                  <!--   <div class="ns_member">회원
-                      <div class="ns_comment">
-                      	<pre>댓글</pre>
-                      	<a href="">수정</a>
-	                    <a href="">삭제</a>
-                      </div>
-                    </div> -->
-                    
-                    
-                    
-                    
-                    
-                    
-                      <!-- <div class="ns_member">회원
-                        <div class="ns_comment"><pre>대댓글</pre></div>
-                      </div> -->
+                 
                     
                   </div>
 
               </div>
-				<form class="ns_comment_write" method="post" action="/bitcomu/talk/comment_regist.do?boardPostNo=${talkDetail.postNo}&pageNo=${pr.pageNo}" >
+				<form class="ns_comment_write" method="post" action="/bitcomu/talk/comment_regist.do" >
                     <input class="ns_comment_write" type="text" name=cmtContent placeholder="댓글을 입력하세요"></li>
                     <input type="hidden" name="userNo" value="${sessionScope.user.userNo}"/>
                     <input type="hidden" name="boardPostNo" value="${talkDetail.postNo}"/>
+                    <input type="hidden" name="pageNo" value="${pr.pageNo}"/>
                   	<button class="ns_comment_do">등록</button>
-                
-       
 				</form>
             </div>
   
   
-            <!--
-
-              <div class="ns_pasing">
-                <ul>
-                  <li>|맨 앞|<li>
-                    <li>이전|</li>
-                    <li>1 |</li>
-                    <li>2 |</li>
-                    <li>3 |</li>
-                    <li>4 |</li>
-                    <li>5 |</li>
-                    <li>다음|</li>
-                    <li>맨 뒤|</li>
-                  </ul>
-                </div>
-                
-                <ul class="pagination">
-                  <li>
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            -->
+           
 
 
             
@@ -253,12 +219,9 @@
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
 
     <!-- 푸터 -->
-   <!--  <div id="ns_bottom"></div>
-    <footer class="w1280">
-      <p> Copyright &copy; 비트캠프 All rights reserved.</p>
-    </footer> -->
-    <!--// 푸터 끝-->
+  
     <%@ include file="../include/footer.jsp"%> 
+    <!--// 푸터 끝-->
     
 
 

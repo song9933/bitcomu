@@ -13,7 +13,7 @@ import kr.co.bitcomu.repository.dao.TalkDAO;
 import kr.co.bitcomu.repository.vo.Page;
 
 
-@WebServlet("/Talk/comment_delete.do")
+@WebServlet("/talk/comment_delete.do")
 public class CommentDeleteController extends HttpServlet {
 
 	@Override
@@ -33,7 +33,7 @@ public class CommentDeleteController extends HttpServlet {
 		
 		dao.deleteComment(commentNo);
 		
-		response.sendRedirect("bitcomu/talk_detail.do?postNo="+ postNo + "&pageNo="+ pageNo);
+		response.sendRedirect("/bitcomu/talk_detail.do?postNo="+ postNo + "&pageNo="+ pageNo);
 		
 	}
 }
