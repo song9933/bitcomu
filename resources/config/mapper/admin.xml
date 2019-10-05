@@ -24,76 +24,77 @@
 	<!-- 전체 게시판 조회를 위한 쿼리 -->
 
 	<sql id="selectStudy">
-		select s.user_no, (select user_id  from tb_user u
-                    		where u.user_no = s.user_no ) user_id,
+		select s.user_no, s.study_post_no as post_no, (select user_id  from tb_user u
+                    		where u.user_no = s.user_no ) user_id, 
                     		(select user_name  from tb_user u
                     		where u.user_no = s.user_no ) user_name,
 		 s.study_reg_dt as reg_dt, s.study_post_title as post_title,
-		 				s.study_post_content as post_content,
+		 				s.study_post_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='스터디게시판') code_name
                 from tb_study s 
 	</sql>
 	
 	<sql id="selectVote">
-		select v.user_no, (select user_id  from tb_user u
+		select v.user_no, v.vote_no as post_no, (select user_id  from tb_user u
                     		where u.user_no = v.user_no ) user_id,
                     		(select user_name  from tb_user u
                     		where u.user_no = v.user_no ) user_name,
                     		 v.vote_reg_dt as reg_dt, v.vote_title as post_title,
-                    		 v.vote_content as post_content,
+                    		 v.vote_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='투표게시판') code_name
                 from tb_vote v
 	</sql>
 	
 	<sql id="selectNotice">
-		select n.user_no, (select user_id  from tb_user u
+		select n.user_no, n.notice_post_no as post_no, (select user_id  from tb_user u
                     	where u.user_no = n.user_no ) user_id,
                     	(select user_name  from tb_user u
                     		where u.user_no = n.user_no ) user_name,
 		 				n.notice_reg_dt as reg_dt, n.notice_post_title as post_title,
-		 				n.notice_post_content as post_content,
+		 				n.notice_post_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='공지게시판') code_name
                 from tb_notice n
 	</sql>
 	
 	<sql id="selectTeam">
-		select t.user_no, (select user_id  from tb_user u
+		select t.user_no, t.team_board_no as post_no, (select user_id  from tb_user u
                     	where u.user_no = t.user_no ) user_id,
                     	(select user_name  from tb_user u
                     		where u.user_no = t.user_no ) user_name,
 		 				t.team_board_reg_dt as reg_dt, t.team_board_title as post_title,
-		 				t.team_board_content as post_content,
+		 				t.team_board_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='팀프로젝트게시판') code_name
                 from tb_team t
 	</sql>
 	
 	<sql id="selectYoutube">
-		select y.user_no, (select user_id  from tb_user u
+		select y.user_no, y.yt_no as post_no, (select user_id  from tb_user u
                     	where u.user_no = y.user_no ) user_id,
                     	(select user_name  from tb_user u
                     		where u.user_no = y.user_no ) user_name,
 		 				y.yt_reg_dt as reg_dt, y.yt_title as post_title, y.yt_content as post_content,
+		 				y.yt_subject as subject,
                      (select code_name from tb_codenm where code_name='온라인강의게시판') code_name
                 from tb_youtube y
 	</sql>
 	
 	<sql id="selectQna">
-		select q.user_no, (select user_id  from tb_user u
+		select q.user_no, q.qna_no as post_no, (select user_id  from tb_user u
                     	where u.user_no = q.user_no ) user_id,
                     	(select user_name  from tb_user u
                     		where u.user_no = q.user_no ) user_name,
-		 				q.qna_reg_dt as reg_dt, q.qna_title as post_title, q.qna_content as post_content,
+		 				q.qna_reg_dt as reg_dt, q.qna_title as post_title, q.qna_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='질문답변게시판') code_name
                 from tb_qna q
 	</sql>
 	
 	<sql id="selectTalk">
-		select tk.user_no, (select user_id  from tb_user u
+		select tk.user_no, tk.talk_post_no as post_no, (select user_id  from tb_user u
                     	where u.user_no = tk.user_no ) user_id,
                     	(select user_name  from tb_user u
                     		where u.user_no = tk.user_no ) user_name,
 		 				tk.talk_reg_dt as reg_dt, tk.talk_post_title as post_title,
-		 				tk.talk_post_content as post_content,
+		 				tk.talk_post_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='자유게시판') code_name
                 from tb_talk tk
 	</sql>
@@ -104,10 +105,12 @@
 
 	<resultMap type="Board" id="boardMap">
       <result column="user_no" property="userNo"/>
+      <result column="post_no" property="postNo"/>
       <result column="user_id" property="userId"/>
       <result column="user_name" property="userName"/>
       <result column="post_title" property="postTitle"/>
       <result column="reg_dt" property="regDt"/>
+      <result column="subject" property="subject"/>
       <result column="code_name" property="codeName"/>
     </resultMap>
     

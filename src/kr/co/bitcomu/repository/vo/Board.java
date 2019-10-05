@@ -4,27 +4,31 @@ import java.util.Date;
 
 public class Board {
 	private int userNo;
+	private int postNo;
 	private String userId;
 	private String userName;
 	private String postTitle;
 	private String postContent;
 	private Date regDt;
 	private int codeValue;
+	private String subject;
 	private String codeName;
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Board(int userNo, String userId, String userName, String postTitle, String postContent, Date regDt,
-			int codeValue, String codeName) {
+	public Board(int userNo, int postNo, String userId, String userName, String postTitle, String postContent,
+			Date regDt, int codeValue, String subject, String codeName) {
 		super();
 		this.userNo = userNo;
+		this.postNo = postNo;
 		this.userId = userId;
 		this.userName = userName;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
 		this.regDt = regDt;
 		this.codeValue = codeValue;
+		this.subject = subject;
 		this.codeName = codeName;
 	}
 	public int getUserNo() {
@@ -32,6 +36,12 @@ public class Board {
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+	public int getPostNo() {
+		return postNo;
+	}
+	public void setPostNo(int postNo) {
+		this.postNo = postNo;
 	}
 	public String getUserId() {
 		return userId;
@@ -69,6 +79,12 @@ public class Board {
 	public void setCodeValue(int codeValue) {
 		this.codeValue = codeValue;
 	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 	public String getCodeName() {
 		return codeName;
 	}
@@ -77,10 +93,11 @@ public class Board {
 	}
 	@Override
 	public String toString() {
-		return "Board [userNo=" + userNo + ", userId=" + userId + ", userName=" + userName + ", postTitle=" + postTitle
-				+ ", postContent=" + postContent + ", regDt=" + regDt + ", codeValue=" + codeValue + ", codeName="
-				+ codeName + "]";
+		return "Board [userNo=" + userNo + ", postNo=" + postNo + ", userId=" + userId + ", userName=" + userName
+				+ ", postTitle=" + postTitle + ", postContent=" + postContent + ", regDt=" + regDt + ", codeValue="
+				+ codeValue + ", subject=" + subject + ", codeName=" + codeName + "]";
 	}
+	
 	
 
 		

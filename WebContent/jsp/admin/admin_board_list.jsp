@@ -82,10 +82,45 @@
                 <c:forEach var="board" items="${boardList}">
                   <li>
                       <span>${board.userId}</span>
-                      <span>${board.postTitle}</span>
+                     
+                      <span>
+                      
+                      <c:choose>
+                      <c:when test="${board.codeName eq '자유게시판'}">
+                      	  <a target="_blank" href="<c:url value="/talk_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
+                      </c:when>
+                      <c:when test="${board.codeName eq '공지게시판'}">
+                       	  <a target="_blank" href="<c:url value="/notice_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
+                      </c:when>
+                      <c:when test="${board.codeName eq '온라인강의게시판'}">
+                      	<a target="_blank" href="<c:url value="/onlineclass/p.do?no=${board.postNo}&subj=${board.subject}"/>">${board.postTitle}</a>
+                      </c:when>
+                      <c:when test="${board.codeName eq '팀프로젝트게시판'}">
+                      	<a target="_blank" href="<c:url value="/team/teamBoardDetail.do?teamBoardNo=${board.postNo}"/>">${board.postTitle}</a>
+                      </c:when>
+                      <c:when test="${board.codeName eq '투표게시판'}">
+                      	<a target="_blank" href="<c:url value="/vote/votedetail.do?voteNo=${board.postNo}"/>">${board.postTitle}</a>
+                      </c:when>
+                      <c:when test="${board.codeName eq '스터디게시판'}">
+                      	<a target="_blank" href="<c:url value="/study/studydetail.do?studyPostNo=${board.postNo}"/>">${board.postTitle}</a>
+                      </c:when>
+                      <c:when test="${board.codeName eq '질문답변게시판'}">
+                      	<a target="_blank" href="#" >${board.postTitle}</a>
+                      </c:when>
+                      </c:choose>
+                    
+                      
+                      
+                      
+                      
+                      
+                      </span>
+                      
+                      
+                      
                       <span>${board.userName}</span>
                       <span><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd"/></span>
-                      <span colspan="2">${board.codeName}</span>
+                      <span>${board.codeName}</span>
                       <span></span>
 <!--                       <span style="margin-left: 20px;"> -->
 <%--                       <form method="POST" action="<c:url value="/admin/adminUserDelete.do"/>">  --%>
