@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
-import kr.co.bitcomu.repository.dao.StudyDAO;
+import kr.co.bitcomu.repository.dao.TeamDAO;
 
 @WebServlet("/team/teamCommentDelete.do")
 public class DeleteTeamCommentController extends HttpServlet {
-	private StudyDAO dao;
+	private TeamDAO dao;
 
 	public DeleteTeamCommentController() {
-		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(StudyDAO.class);
+		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TeamDAO.class);
 	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		dao.deleteComment(Integer.parseInt(req.getParameter("cmtNo")));
-		res.sendRedirect(req.getContextPath() + "/study/studydetail.do?studyPostNo=" + req.getParameter("studyPostNo"));
+		dao.deleteTeamComment(Integer.parseInt(req.getParameter("cmtNo")));
+		res.sendRedirect(req.getContextPath() + "/team/teamBoardDetail.do?teamBoardNo=" + req.getParameter("teamBoardNo"));
 		
 	}
 	

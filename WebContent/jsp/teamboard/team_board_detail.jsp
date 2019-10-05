@@ -160,28 +160,48 @@
 				<input type="text" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;">
 				<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}">
 				<input type="hidden" name="userNo" value="${userNo}">
-				<button>작성</button>
+				<button>등록</button>
 				</p>
 			</form>
 			<br>
 			<div id="team_comment_cws">
-				<c:forEach var="t" items="${teamCmt}">
-					<div style="border: 1px solid black; padding: 5px;">
+				<form method="post" action="teamBoardUpdate.do">
+					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" />
+					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	
+					<c:forEach var="t" items="${teamCmt}">
+					<div style="border: 1px solid black; padding: 5px; height: 40px;">
 						<ul>
-							<li style="width: 400px;">작성자: ${t.userId}&nbsp;&nbsp;내용: ${t.cmtContent}</li>
-<!-- 						</ul> -->
-<!-- 						<ul> -->
-							<li style="margin-top: -23px; float: right; position: relative; padding-right: 40px;">
-								<fmt:formatDate pattern="yyyy-MM-dd" value="${t.cmtRegDt}" /></li>
-							<li style="margin-top: -23px; float: right; position: relative;">
-								<c:if test="${sessionScope.user.userNo eq t.userNo}">
-									<button type="button" class="updatebutton_cws" style="font-size: 13px; margin-right: -27px;">삭제</button>
-								</c:if>
-							</li>
+						<c:choose>
+							<c:when test="${param.cmtNo eq t.cmtNo}">
+								<li>${t.userId}</li>
+								<li>
+									<input type="text" name="cmtContent" value="${t.cmtContent}"/>
+								</li>
+								<li>
+									<button>수정</button>
+									<button type="button" onclick="teamBoardDetail.do?teamBoardNo=${t.boardPostNo}">취소</button>
+								</li>
+							</c:when>
+								<c:otherwise>
+									<li style="width: 400px;">&nbsp;${t.userId}&nbsp;&nbsp;
+										${t.cmtContent}</li>
+									<li
+										style="float: right; position: relative; margin-top: -25px">
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${t.cmtRegDt}" />
+									</li>
+									<li style="float: right; position: relative;"><c:if
+											test="${sessionScope.user.userNo eq t.userNo}">
+											<a href="${pageContext.request.contextPath}/team/teamBoardDetail.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">수정</a>
+											<a href="${pageContext.request.contextPath}/team/teamCommentDelete.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">삭제</a>
+										</c:if></li>
+
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 					<!-- <h3 style="float: right; margin-top: -27px; margin-right: 8px;">x</h3> -->
 				</c:forEach>
+				</form>
 			</div>
 		</div>
 

@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
-import kr.co.bitcomu.repository.dao.StudyDAO;
+import kr.co.bitcomu.repository.dao.TeamDAO;
 import kr.co.bitcomu.repository.vo.Comment;
 
 @WebServlet("/team/teamCommentUpdate.do")
 public class UpdateTeamCommentController extends HttpServlet{
-	private StudyDAO dao;
+	private TeamDAO dao;
 
 	public UpdateTeamCommentController() {
-		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(StudyDAO.class);
+		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TeamDAO.class);
 	}
 
 	@Override
@@ -26,9 +26,9 @@ public class UpdateTeamCommentController extends HttpServlet{
 		cmt.setCmtNo(Integer.parseInt(req.getParameter("cmtNo")));
 		cmt.setCmtContent(req.getParameter("cmtContent"));
 		
-		dao.updateComment(cmt);
+		dao.updateTeamComment(cmt);
 		
-		res.sendRedirect(req.getContextPath() + "/study/studydetail.do?studyPostNo=" + req.getParameter("studyPostNo"));
+		res.sendRedirect(req.getContextPath() + "/team/teamBoardDetail.do?teamBoardNo=" + req.getParameter("teamBoardNo"));
 	}
 	
 	
