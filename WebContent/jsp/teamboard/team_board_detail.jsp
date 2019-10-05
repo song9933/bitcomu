@@ -165,7 +165,7 @@
 			</form>
 			<br>
 			<div id="team_comment_cws">
-				<form method="post" action="teamBoardUpdate.do">
+				<form method="post" action="teamCommentUpdate.do">
 					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" />
 					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	
 					<c:forEach var="t" items="${teamCmt}">
@@ -173,8 +173,8 @@
 						<ul>
 						<c:choose>
 							<c:when test="${param.cmtNo eq t.cmtNo}">
-								<li>${t.userId}</li>
-								<li>
+								<li style="float: left">${t.userId}</li>
+								<li style="float: left; margin-left:30px;">
 									<input type="text" name="cmtContent" value="${t.cmtContent}"/>
 								</li>
 								<li>
@@ -191,7 +191,7 @@
 									</li>
 									<li style="float: right; position: relative;"><c:if
 											test="${sessionScope.user.userNo eq t.userNo}">
-											<a href="${pageContext.request.contextPath}/team/teamBoardDetail.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">수정</a>
+											<a onclick="viewComment()" href="${pageContext.request.contextPath}/team/teamBoardDetail.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">수정</a>
 											<a href="${pageContext.request.contextPath}/team/teamCommentDelete.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">삭제</a>
 										</c:if></li>
 
@@ -206,7 +206,7 @@
 		</div>
 
 		<div>
-			<form action="/team/teamBoardDetail.do">
+			<form action="/team/teamBoardDetail.do?cmtNo=${cmtNo}&teamBoardNo=${teamBoardNo}">
 				<button class="movetop_cws"
 					style="width: 60px; height: 60px; background-color: #a5a5a5; opacity: .7; border: none">
 					<br> <br> <br> <br>
@@ -222,9 +222,9 @@
 // 		accordion.addEventListener('click', function viewComment() {
 		document.querySelector("#team_comment_cws").className = "hidden";
 		function viewComment() {
-			let commentEle = document.querySelector("#team_comment_cws");
-			commentEle.classList.toggle("hidden");
-			commentEle.classList.toggle("show");
+				let commentEle = document.querySelector("#team_comment_cws");
+				commentEle.classList.toggle("hidden");
+				commentEle.classList.toggle("show");
 		}
 		// 		});
 	</script>
