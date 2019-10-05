@@ -11,6 +11,6 @@ public interface AdminDAO {
 	List<Board> selectAllBoards(Map<String, Object> map);
 	int selectAllBoardsCount(Search search);
 	List<Board> selectOneBoard(Map<String, Object> map);
-	int selectOneBoardCount(Search search);
+	int selectOneBoardCount(Map<String, Object> map);
 	
 }

@@ -31,6 +31,9 @@ public class AdminBoardAllList extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPageNo = req.getParameter("pageNo");
 		String sPageList = req.getParameter("pageList");
+		String codeValue = req.getParameter("codeValue");
+		
+		
 		// 요청 페이지를 1페이지로 변경
 		int pageNo = 1; 
 		int pageList = 10; 
@@ -40,26 +43,48 @@ public class AdminBoardAllList extends HttpServlet {
 		if (sPageList != null) {
 			pageList = Integer.parseInt(sPageList);
 		}
+		
+		Page page = new Page(pageNo, pageList);
 		Search search = new Search();
 		
 		search.setSearchType(req.getParameter("searchType"));
 		search.setSearchWord(req.getParameter("searchWord"));
-		int count = dao.selectAllBoardsCount(search);
+		int count;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		map.put("search", search);
+		
+		if ("all".equals(codeValue) || codeValue == null) {
+			count = dao.selectAllBoardsCount(search);
+		// 하나의 게시판 조회	
+		} else {
+			map.put("codeValue", Integer.parseInt(codeValue));
+			count = dao.selectOneBoardCount(map);
+		}
 		
 		
-		Page page = new Page(pageNo, pageList);
+		
+		
+		
 		
 		
 		
 		PageResult pr = new PageResult(pageNo, count, pageList, 5);
 		
 		// 데이터를 구하고 공유
-		Map<String, Object> map = new HashMap<>();
-		map.put("page", page);
-		map.put("search", search);
+		
 		
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수
-		req.setAttribute("boardList", dao.selectAllBoards(map));
+		
+		// 전체 게시판 조회
+		if ("all".equals(codeValue) || codeValue == null) {
+			req.setAttribute("boardList", dao.selectAllBoards(map));
+		// 하나의 게시판 조회	
+		} else {
+			req.setAttribute("boardList", dao.selectOneBoard(map));			
+		}
+		req.setAttribute("codeValue", codeValue);			
 		req.setAttribute("search", search);
 		req.setAttribute("pageList", pageList);
 		req.setAttribute("boardCode", codedao.selectCode("BOARD_CD"));

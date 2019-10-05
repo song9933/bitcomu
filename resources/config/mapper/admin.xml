@@ -143,13 +143,13 @@
   			    select * from ( 
   			        <include refid="selectTalk" />
   			    order by talk_post_no desc) talk  			        
-	     		)
-	     		<where>
+	     		) allboard
+         	   <where>
 		      	   <if test="search.searchType != null">
 			      	   <choose>
 			               <when test="search.searchType == 'all'">
-				               	and post_title like '%'|| #{search.searchWord} ||'%'
-				               	or post_content like '%'|| #{search.searchWord} ||'%'
+				               	and (post_title like '%'|| #{search.searchWord} ||'%'
+				               	or post_content like '%'|| #{search.searchWord} ||'%')
 			               </when>
 			               <when test="search.searchType == 'title'"> 	
 			               	and post_title like '%'|| #{search.searchWord} ||'%'  	
@@ -166,9 +166,11 @@
 			            </choose>
 			      	   
 		      	   </if>
-		      	</where>
-	     		 allboard order by reg_dt desc
+	      	   </where>
+	     	   order by reg_dt desc
+
 	     <include refid="pagingEnd" />
+
 	</select>
 
 	
@@ -206,20 +208,20 @@
 		      	   <if test="searchType != null">
 			      	   <choose>
 			               <when test="searchType == 'all'">
-				               	and post_title like '%'|| #{search.searchWord} ||'%'
-				               	or post_content like '%'|| #{search.searchWord} ||'%'
+				               	and (post_title like '%'|| #{searchWord} ||'%'
+				               	or post_content like '%'|| #{searchWord} ||'%')
 			               </when>
 			               <when test="searchType == 'title'"> 	
-			               	and post_title like '%'|| #{search.searchWord} ||'%'  	
+			               	and post_title like '%'|| #{searchWord} ||'%'  	
 			               </when>
 			               <when test="searchType == 'content'"> 	
-			               	and post_content like '%'|| #{search.searchWord} ||'%'  	
+			               	and post_content like '%'|| #{searchWord} ||'%'  	
 			               </when>
 			               <when test="searchType == 'userid'"> 	
-			               	and user_id like '%'|| #{search.searchWord} ||'%'  	
+			               	and user_id like '%'|| #{searchWord} ||'%'  	
 			               </when>
 			               <when test="searchType == 'username'"> 	
-			               	and user_name like '%'|| #{search.searchWord} ||'%'  	
+			               	and user_name like '%'|| #{searchWord} ||'%'  	
 			               </when>
 			            </choose>
 			      	   
@@ -231,6 +233,8 @@
 	
 	<select id="selectOneBoard" parameterType="hashmap" resultMap="boardMap" flushCache="true" useCache="true">
 	     <include refid="pagingStart" />
+	     select * from (
+	     
 	     	<choose>
 	     		<when test="codeValue == 1">
 		     		<include refid="selectTalk" />
@@ -254,75 +258,79 @@
 		     		<include refid="selectQna" />
 	     		</when>
 	     	</choose>
-	     	<where>
-		      	   <if test="search.searchType != null">
-			      	   <choose>
-			               <when test="search.searchType == 'all'">
-				               	and post_title like '%'|| #{search.searchWord} ||'%'
-				               	or post_content like '%'|| #{search.searchWord} ||'%'
-			               </when>
-			               <when test="search.searchType == 'title'"> 	
-			               	and post_title like '%'|| #{search.searchWord} ||'%'  	
-			               </when>
-			               <when test="search.searchType == 'content'"> 	
-			               	and post_content like '%'|| #{search.searchWord} ||'%'  	
-			               </when>
-			               <when test="search.searchType == 'userid'"> 	
-			               	and user_id like '%'|| #{search.searchWord} ||'%'  	
-			               </when>
-			               <when test="search.searchType == 'username'"> 	
-			               	and user_name like '%'|| #{search.searchWord} ||'%'  	
-			               </when>
-			            </choose>
-		      	   </if>
-		      	</where>
+	     	)
+      	   <if test="search.searchType != null">
+      	   <where>
+      	   
+	      	   <choose>
+	               <when test="search.searchType == 'all'">
+		               	and (post_title like '%'|| #{search.searchWord} ||'%'
+		               	or post_content like '%'|| #{search.searchWord} ||'%')
+	               </when>
+	               <when test="search.searchType == 'title'"> 	
+	               	and post_title like '%'|| #{search.searchWord} ||'%'  	
+	               </when>
+	               <when test="search.searchType == 'content'"> 	
+	               	and post_content like '%'|| #{search.searchWord} ||'%'  	
+	               </when>
+	               <when test="search.searchType == 'userid'"> 	
+	               	and user_id like '%'|| #{search.searchWord} ||'%'  	
+	               </when>
+	               <when test="search.searchType == 'username'"> 	
+	               	and user_name like '%'|| #{search.searchWord} ||'%'  	
+	               </when>
+	            </choose>
+	        </where>    
+      	   </if>
+	     	order by reg_dt desc
 	     <include refid="pagingEnd" />
+
 	</select>
 	
-	<select id="selectOneBoardCount" resultType="int" parameterType="Search" flushCache="true" useCache="true">
+	<select id="selectOneBoardCount" resultType="int" parameterType="hashmap" flushCache="true" useCache="true">
 	select count(*)
-	  from
+	  from (
 	     	<choose>
 	     		<when test="codeValue == 1">
-		     		  tb_talk
+		     		<include refid="selectTalk" />
 	     		</when>
 	     		<when test="codeValue == 2">
-		     		  tb_notice
+		     		<include refid="selectNotice" />
 	     		</when>
 	     		<when test="codeValue == 3">
-		     		  tb_youtube
+		     		 <include refid="selectYoutube" />
 	     		</when>
 	     		<when test="codeValue == 4">
-		     		  tb_team			    
+		     		<include refid="selectTeam" />  			    
 	     		</when>
 	     		<when test="codeValue == 5">
-		     		  tb_vote
+		     		<include refid="selectVote" />
 	     		</when>
 	     		<when test="codeValue == 6">
-		     		  tb_study
+		     		<include refid="selectStudy" />
 	     		</when>
 	     		<when test="codeValue == 7">
-		     		  tb_qna
+		     		<include refid="selectQna" />
 	     		</when>
 	     	</choose>
-	     		
+	     	)
      		<where>
-	      	   <if test="searchType != null">
+	      	   <if test="search.searchType != null">
 		      	   <choose>
-		               <when test="ssearchType == 'all'">
+		               <when test="search.searchType == 'all'">
 			               	and post_title like '%'|| #{search.searchWord} ||'%'
 			               	or post_content like '%'|| #{search.searchWord} ||'%'
 		               </when>
-		               <when test="searchType == 'title'"> 	
+		               <when test="search.searchType == 'title'"> 	
 		               	and post_title like '%'|| #{search.searchWord} ||'%'  	
 		               </when>
-		               <when test="searchType == 'content'"> 	
+		               <when test="search.searchType == 'content'"> 	
 		               	and post_content like '%'|| #{search.searchWord} ||'%'  	
 		               </when>
-		               <when test="searchType == 'userid'"> 	
+		               <when test="search.searchType == 'userid'"> 	
 		               	and user_id like '%'|| #{search.searchWord} ||'%'  	
 		               </when>
-		               <when test="searchType == 'username'"> 	
+		               <when test="search.searchType == 'username'"> 	
 		               	and user_name like '%'|| #{search.searchWord} ||'%'  	
 		               </when>
 		            </choose>

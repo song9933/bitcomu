@@ -213,7 +213,7 @@
 	
 	changeList.addEventListener("change", function (e) {
 		
-	    let selectedValue = changeList.options[changeList.selectedIndex].value;
+	    selectedValue = changeList.options[changeList.selectedIndex].value;
 
 		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?searchType=' + sList + '&searchWord=' + sValue + "&pageList=" + selectedValue;
          

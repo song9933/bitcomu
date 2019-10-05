@@ -32,7 +32,7 @@
 
             <div class="ns_listlength">
               	게시판 형태 
-                <select name="viewBoard">
+                <select name="viewBoard" id="viewBoard">
                 
                     <option value="all">전체 게시판</option>
                     <c:forEach var="boardVal" items="${boardCode}">
@@ -42,7 +42,7 @@
                 </select>
               	
               	
-                <select name="viewList">
+                <select name="changeList" id="changeList">
                     <option value="10" selected>10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
@@ -111,7 +111,7 @@
                 <c:if test="${pr.count ne 0}">
 			  	<c:if test="${pr.prev}">
 			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.beginPage -1}" aria-label="previous">
+			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.beginPage -1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>" aria-label="previous">
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
@@ -120,11 +120,11 @@
 			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
 			    	<li 
 			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${i}">${i}</a></li>
+			    	><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${i}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>">${i}</a></li>
 			    </c:forEach>
 			  	<c:if test="${pr.next}">
 			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.endPage + 1}" aria-label="next">
+			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.endPage + 1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>" aria-label="next">
 			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </li>
@@ -137,7 +137,7 @@
             
             <div class="ns_search">
                 search : 
-                <select name="searchList">
+                <select name="searchList" id="searchList">
                     <option value="all" selected>제목 + 내용</option>
                     <option value="title">제목</option>
                     <option value="content">내용</option>
@@ -145,7 +145,8 @@
                     <option value="username">유저이름</option>
                     
                 </select>
-                <input type="text" name="search">
+                <input type="text" name="search" id="searchValue" value="${search.searchWord}">
+                <button type="button" id="doSearchUser" name="searchVal">검색</button>
             </div> 
         </section>  
         
@@ -169,23 +170,38 @@
   </div>
   <script>
   // $(document).ready(alert());
-		let sList = document.querySelector("#searchList").value;
-	let sValue = document.querySelector("#searchValue").value;
+	let sList = document.querySelector("#searchList").value;
+	let viewBoardList = document.querySelector("#viewBoard");
+	let viewBoard = document.querySelector("#viewBoard").value;
+	let viewBoardVal = document.querySelectorAll("#viewBoard > option");
 	let optVal = document.querySelectorAll("#searchList > option");
 	let changeList = document.querySelector("#changeList");
+	let sValue = document.querySelector("#searchValue").value;
 	let doSearchUser = document.querySelector("#doSearchUser");
 	let selectedValue = document.querySelector("#changeList").value;
 	let changeVal = document.querySelectorAll("#changeList > option");
+	
 	for (let i = 0; i < optVal.length; i++) {
 		if (optVal[i].value == '${search.searchType}') {
 			optVal[i].selected = true;
 			sList = optVal[i].value;
 		}
 	}
+	
 	for (let i = 0; i < changeVal.length; i++) {
 		if (changeVal[i].value == '${pageList}') {
 			changeVal[i].selected = true;
 			selectedValue = changeVal[i].value;
+		}
+	}
+	
+	for (let i = 0; i < viewBoardVal.length; i++) {
+		console.log(viewBoardVal[i].value);
+// 		console.log('@@@@' + '${codeValue}');
+		if (viewBoardVal[i].value == '${codeValue}') {
+			
+			viewBoardVal[i].selected = true;
+			viewBoard = viewBoardVal[i].value;
 		}
 	}
 	
@@ -194,7 +210,7 @@
 	doSearchUser.addEventListener("click", function (e) {
 		sList = document.querySelector("#searchList").value;
 		sValue = document.querySelector("#searchValue").value;
-		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?searchType=' + sList + '&searchWord=' + sValue + '&pageList=' + selectedValue;
+		location.href='${pageContext.request.contextPath}/admin/boardAllListForm.do?searchType=' + sList + '&searchWord=' + sValue + '&pageList=' + selectedValue + '&codeValue=' + viewBoard;
          
     });    
 
@@ -204,7 +220,15 @@
 		
 	    let selectedValue = changeList.options[changeList.selectedIndex].value;
 
-		location.href='${pageContext.request.contextPath}/admin/adminUserList.do?searchType=' + sList + '&searchWord=' + sValue + "&pageList=" + selectedValue;
+		location.href='${pageContext.request.contextPath}/admin/boardAllListForm.do?searchType=' + sList + '&searchWord=' + sValue + "&pageList=" + selectedValue + '&codeValue=' + viewBoard;
+         
+    });    
+	
+	viewBoardList.addEventListener("change", function (e) {
+		
+		viewBoard = viewBoardList.options[viewBoardList.selectedIndex].value;
+
+		location.href='${pageContext.request.contextPath}/admin/boardAllListForm.do?searchType=' + sList + '&searchWord=' + sValue + "&pageList=" + selectedValue + '&codeValue=' + viewBoard;
          
     });    
   </script>
