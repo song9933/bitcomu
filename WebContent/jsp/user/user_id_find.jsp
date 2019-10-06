@@ -28,11 +28,9 @@
                         <tr>
                           <td>가입된 전화번호</td>
                           <td> <select name="userphone1" class="input_box_sj box_phone_sj">
-                              <option value="010" selected="selected">010</option>
-                              <option value="011">011</option>
-                              <option value="016">016</option>
-                              <option value="018">018</option>
-                              <option value="019">019</option>
+                            <c:forEach var="phoneNum" items="${mobileList}">
+                            	<option value="${phoneNum.codeName}">${phoneNum.codeName}</option>
+                        	</c:forEach>
                             </select>-
                             <input type="text"
                             name="userphone2" class="input_box_sj box_phone_sj">-

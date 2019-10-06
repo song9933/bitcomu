@@ -30,6 +30,6 @@ public class UserLogInController extends HttpServlet {
 		user.setUserId(req.getParameter("id"));
 		user.setUserPass(SHA256Password.LockPassword(req.getParameter("password")));
 		session.setAttribute("user", dao.selectOneUser(user));
-		res.sendRedirect(req.getContextPath() + "/main.do");
+//		res.sendRedirect(req.getContextPath() + "/main.do");
 	}
 }

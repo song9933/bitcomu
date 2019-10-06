@@ -420,7 +420,7 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .popbg, .popup {display: none;}
 
 /* 로그인 폼 페이지 */
-.login_form_wrap { position: absolute; width: 100%; background: #eaeaea; }
+.login_form_wrap { position: absolute; width: 100%; background: #eaeaea; top: -180px; }
 .login_form_wrap .modal-login { width: 350px; margin: 250px auto; color: #636363; }
 .login_form_wrap .modal-login .modal-content { padding: 20px; border-radius: 5px; background: #fff; box-shadow: 1px 1px 5px #484848; }
 .login_form_wrap .modal-login .modal-header { padding: 40px 0; position: relative; }
