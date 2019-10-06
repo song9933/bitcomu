@@ -30,6 +30,7 @@ public interface TalkDAO {
 	void insertComment(Comment comment);
 	void deleteComment(int commentNo);
 	void updateComment(Comment comment);
+	int selectTalkCmtCount();
 }
 
 

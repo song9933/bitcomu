@@ -23,8 +23,8 @@
    <div class="wrapepr">
       <!-- 헤더 
    
-    <%@ include file="/jsp/include/header.jsp"%>
      	헤더 끝 -->
+    <%@ include file="/jsp/include/header.jsp"%>
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
         <section class="content ns_content">
@@ -66,12 +66,16 @@
                   </li>
                 </ul>
 
-            <div id="ns_list"></div>
                 <ul class="ns_TableListBody">
+         		   <div id="ns_list"></div>
                   
                   <%@ include file="/jsp/talk/talk_list.jsp" %> 
                 </ul>
                 
+             
+             
+             <c:choose>
+             <c:when test="${talkDetail.userNo eq sessionScope.user.userNo }">   
               <div class="ns_go_update"> 
             <a  href="/bitcomu/updateTalkForm.do?postNo=${talkDetail.postNo}"> 
                	 수정
@@ -82,6 +86,17 @@
                	 삭제
               </div>
             </a>
+             </c:when>
+             <c:otherwise></c:otherwise>
+             </c:choose>
+            
+            
+            
+            
+            
+            
+            
+            
             
             <a class="ns_talk_like" href="" >
             <i class="far fa-thumbs-up fa-3x"></i>
@@ -106,61 +121,66 @@
                     
                     
             <div class="ns_coment_list">
-                  <div class="ns_member_coment">
-                    <div id="ns_cmt"></div>
-                    
+	            <div class="ns_member_coment">
+   <div id="ns_cmt"></div>
                     <form action="talk/comment_update.do" method="post">
-			<input type="hidden" name="postNo" value="${talkDetail.postNo}" />
-			<input type="hidden" name="cmtNo" value="${param.cmtNo}" />
-			<input type="hidden" name="pageNo" value="${pr.pageNo}" />
-			<%-- <input type="hidden" name="cmtContent" value="${comment.cmtContent}" />		 --%>
-			
-			<table>
-			<c:forEach var="comment" items="${comment}">
-				<c:choose>
-					<c:when test="${param.cmtNo eq comment.cmtNo}">
-						<tr>
-						  <td>${comment.userId}</td>
-						  <td>
-						  	<textarea name="cmtContent" rows="2" cols="60">${comment.cmtContent}</textarea>
-						  </td>
-						  <td colspan="2">
-						  	  <input type="submit" value="수정" />
-						  	  <a href="<c:url value="/talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">취소</a>
-						  </td>
-						</tr>		
-					</c:when>
-					<c:otherwise>
-						<tr>
-						  <td>${comment.userId}</td>
-						  
-						  <td><br/>&nbsp;${comment.cmtContent}</td>
-						  <td>
-						  	  <a href="<c:url value="talk/comment_delete.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">삭제</a>	
-						  	  <a href="<c:url value="talk_detail.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">수정</a>	
-						  </td>
-						  <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" 
-						                      value="${comment.cmtRegDt}"/>
-						  </td>
-					    </tr>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${empty comment}">
-				 <tr>
-				    <td colspan='4'>댓글이 존재하지 않습니다.</td>
-				 </tr>
-			</c:if>	 
-			</table>
-		</form>	
-                    
-                    
-                    
-                 
-                    
-                  </div>
-
+						<input type="hidden" name="postNo" value="${talkDetail.postNo}" />
+						<input type="hidden" name="cmtNo" value="${param.cmtNo}" />
+						<input type="hidden" name="pageNo" value="${pr.pageNo}" />
+						<%-- <input type="hidden" name="cmtContent" value="${comment.cmtContent}" />		 --%>
+						
+						<table>
+							<c:forEach var="comment" items="${comment}">
+							<c:choose>
+							<c:when test="${param.cmtNo eq comment.cmtNo}">
+								<tr>
+								  <td>${comment.userId}</td>
+								  <td>
+								  	<textarea name="cmtContent" rows="2" cols="60">${comment.cmtContent}</textarea>
+								  </td>
+								  <td colspan="2">
+								  	  <input type="submit" value="수정" />
+								  	  <a href="<c:url value="/talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">취소</a>
+								  </td>
+								</tr>		
+							</c:when>
+							<c:otherwise>
+								  <th><h3>&nbsp;${comment.userId}</h3></th>
+								  
+								  <th>
+								 <h6> <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" 
+								                      value="${comment.cmtRegDt}"/></h6>
+								  </th>
+								  
+								  <th>
+								  <c:choose>
+								  <c:when test="${ comment.userNo eq sessionScope.user.userNo}">
+								  	  <a href="<c:url value="talk/comment_delete.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">삭제</a>	
+								  	  <a href="<c:url value="talk_detail.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">수정</a>	
+								  </c:when>
+								  <c:otherwise></c:otherwise>
+								  </c:choose>
+								  </th>
+							    <tr>
+		 						<th></th>
+								<td></td>
+							    <td></td>
+							    <td></td>
+								  <td colspan="3">&emsp;${comment.cmtContent}</td>
+							    </tr>
+							</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<div>페이징 들어갈자리</div>
+						<c:if test="${empty comment}">
+							 <tr>
+							    <td colspan='4'>댓글이 존재하지 않습니다.</td>
+							 </tr>
+						</c:if>	 
+					</table>
+				</form>	
               </div>
+             </div>
 				<form class="ns_comment_write" method="post" action="/bitcomu/talk/comment_regist.do" >
                     <input class="ns_comment_write" type="text" name=cmtContent placeholder="댓글을 입력하세요"></li>
                     <input type="hidden" name="userNo" value="${sessionScope.user.userNo}"/>
@@ -176,29 +196,40 @@
 
             
             
-                <ul class="pagination nams">
-                  <li>
-                    <a href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li>
-                    <a href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
+               <ul class="pagination nams">
+                <c:if test="${pr.count != 0}">
+			  	<c:if test="${pr.prev}">
+			    <li>
+			      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage - 1}" aria-label="previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    </c:if>
+			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+			    	<li 
+			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
+			    	><a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${i}">${i}</a></li>
+			    </c:forEach>
+			  	<c:if test="${pr.next}">
+			    <li>
+			      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage + 1}" aria-label="next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			    </c:if>
+		</c:if>
+		</ul>
               
-             <a class="ns_go_write" href="/bitcomu/jsp/talk/talk_write.jsp">
+             <c:choose>
+            <c:when test="${ not empty sessionScope.user.userNo }">
+            <a class="ns_go_write" href="/bitcomu/jsp/talk/talk_write.jsp"> 
               <div> 
               	  글쓰기
               </div>
             </a>
+            </c:when>
+            <c:otherwise></c:otherwise>
+            </c:choose>
 
             
             

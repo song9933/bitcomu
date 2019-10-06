@@ -123,12 +123,18 @@
 			    </c:if>
 		</c:if>
 		</ul>
-            
+		
+		
+            <c:choose>
+            <c:when test="${ not empty sessionScope.user.userNo }">
             <a class="ns_go_write" href="/bitcomu/jsp/talk/talk_write.jsp"> 
               <div> 
               	  글쓰기
               </div>
             </a>
+            </c:when>
+            <c:otherwise></c:otherwise>
+            </c:choose>
             
             <div class="ns_search">
                 search : 

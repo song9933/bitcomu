@@ -70,6 +70,19 @@ public class DetailTalkController extends HttpServlet {
 		 */
 		
 		
+		// 댓글 페이징
+		int CmtPageNo = 1;
+		if (sPageNo != null) {
+			CmtPageNo = Integer.parseInt(sPageNo);
+		}
+		Page CmtPage = new Page(pageNo);
+		
+		
+		int CmtCount = dao.selectTalkCmtCount();
+		PageResult cpr = new PageResult(CmtPageNo, CmtCount);
+		req.setAttribute("cpr", cpr);  // 전체 댓글 갯수
+		
+		
 		
 		
 		

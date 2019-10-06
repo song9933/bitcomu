@@ -29,8 +29,8 @@
 	
 	
 	<select id="selectOneTalk" parameterType="int" resultMap="talkMap">
-		select *
-		  from tb_talk
+		select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+          from tb_talk n
 		 where talk_post_no = #{postNo} 
 	</select>
 	<insert id="insertTalk" parameterType="Talk">
@@ -69,12 +69,26 @@
 	</resultMap>
 	
 	<select id="selectComment" parameterType="int" resultMap="commentMap" flushCache="true" useCache="true">
-	    select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
-	      from tb_comment n
-	     where board_post_no = #{no}
+	    select *
+	      from (select rownum rnum, a.*
+			      from (
+					    select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+					      from tb_comment n
+					     where board_post_no = #{no}
+					       and code_value = 1
+		     			 order by cmt_no 
+	     							)
+						  a)
+		 where rnum between #{begin} and #{end} 
+	</select>	
+	<select id="selectTalkCmtCount" resultType="int">
+		select count(*)
+		  from tb_comment
+		   where board_post_no = #{no}
 	       and code_value = 1
 	     order by cmt_no 
-	</select>	
+	</select>
+	
 	
 	<insert id="insertComment" parameterType="Comment">
 		insert into tb_comment(
