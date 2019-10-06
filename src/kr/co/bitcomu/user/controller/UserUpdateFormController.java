@@ -38,12 +38,9 @@ public class UserUpdateFormController extends HttpServlet {
 		req.setAttribute("phone", phone);
 		req.setAttribute("email", email);
 		req.setAttribute("mobileList", codedao.selectCode("MOBILE_CD"));
-		if (user.getUserGrade() == 1) {
-			req.getRequestDispatcher("/jsp/user/user_modify.jsp").forward(req, res);
-			return;
-		} else if (user.getUserGrade() == 3) {
-			return;
-		}
+	    req.getRequestDispatcher("/jsp/user/user_modify.jsp").forward(req, res);
+	    
+	    
 	}
 	
 }

@@ -22,7 +22,8 @@
         <ul class="nav">
           <c:choose>
           	<c:when test="${empty sessionScope.user}">
-		          <li><a href='<c:url value="/user/userLoginForm.do"/>'>로그인</a></li>
+          	
+		          <li><a href="javascript:openPop();">로그인</a></li>
 		          <li><a href="<c:url value="/user/userJoinTos.do"/>">회원가입</a></li>
           	</c:when>
           	<c:otherwise>
@@ -40,5 +41,16 @@
           </c:choose>
         </ul>
       </header>
+      <script>
+      function openPop() {
+                  let left = (screen.width - 400) / 2;
+                  let top = (screen.height - 300) / 3;
+                  window.open(
+                      "<c:url value='/user/userLoginForm.do'/>", "로그인페이지", 
+                      "width=400,height=500,left=" + left + ",top=" + top, "status=yes,toolbar=no,menubar=no,location=no");
+      }
+      
+      </script>
+      
     </div>
     <!-- // 헤더 끝-->
