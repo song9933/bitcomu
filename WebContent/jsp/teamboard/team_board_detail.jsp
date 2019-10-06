@@ -39,6 +39,15 @@
 	float: right;
 	cursor: pointer;
 }
+
+#cmt_menu_cws {
+	width: 300px;
+}
+
+#cmt_menu_cws > td {
+	border: 1px solid black;
+}
+
 </style>
 </head>
 
@@ -146,7 +155,7 @@
 				<br> <br> <br> <br> <br> <br> <br><br> <br> <br>
 			</div>
 
-			<button class="viewcomment_cws" onclick="viewComment()" >댓글보기(accordion)</button>
+			<button class="viewcomment_cws" onclick="viewComment()">댓글보기</button>
 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do">
 				<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
 				<button class="updatebutton_cws">수정</button>
@@ -165,6 +174,15 @@
 			</form>
 			<br>
 			<div id="team_comment_cws">
+<!-- 				<div> -->
+<!-- 					<table style="width: 100%"> -->
+<!-- 						<tr id="cmt_menu_cws"> -->
+<!-- 							<td width="15%">작성자</td> -->
+<!-- 							<td width="70%">내용</td> -->
+<!-- 							<td>작성일</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
 				<form method="post" action="teamCommentUpdate.do">
 					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" />
 					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	
@@ -173,18 +191,18 @@
 						<ul>
 						<c:choose>
 							<c:when test="${param.cmtNo eq t.cmtNo}">
-								<li style="float: left">${t.userId}</li>
+								<li style="float: left;">${t.userId}</li>
 								<li style="float: left; margin-left:30px;">
 									<input type="text" name="cmtContent" value="${t.cmtContent}"/>
 								</li>
 								<li>
-									<button>수정</button>
-									<button type="button" onclick="teamBoardDetail.do?teamBoardNo=${t.boardPostNo}">취소</button>
+									<a href="teamBoardDetail.do?teamBoardNo=${t.boardPostNo}" style="float: right;">취소</a>
+									<input type="submit" style="float: right;" value="수정" />
 								</li>
 							</c:when>
 								<c:otherwise>
-									<li style="width: 400px;">&nbsp;${t.userId}&nbsp;&nbsp;
-										${t.cmtContent}</li>
+									<li style="width: 15%;">${t.userId}</li>
+									<li style="width: 70%">${t.cmtContent}</li>
 									<li
 										style="float: right; position: relative; margin-top: -25px">
 										<fmt:formatDate pattern="yyyy-MM-dd" value="${t.cmtRegDt}" />
