@@ -22,13 +22,26 @@
       <section class="qna_content">
         <div>
           <strong class="qna_title">질문 답변</strong>
-
+		</div>
           <div class="qna_accordion vertical">
+          <form method='post' action="/bitcomu/qna/qnaList.do">
             <ul>
                 <li>
                     <input type="checkbox" id="checkbox-1" name="checkbox-accordion" />
                     <label for="checkbox-1" class="qna_title_1">비트 캠프 지각은 몇시 인가요?</label>
                     <i class="fa fa-lock qna_pd10" style="font-size: 2em" aria-hidden="true"></i>
+                    <!-- 수정버튼 -->
+  					<span class="qna_updat_1">
+    					<a href="javascript:void(0)"
+  								onclick="document.getElementById('light_1').style.display='block'; document.getElementById('fade_1').style.display='block'"
+  								style="font-weight: bold">수정</a>
+  					</span>
+  					<!-- 삭제버튼 -->
+  					<span class="qna_delete_1">
+    					<a href="javascript:void(0)"
+  								onclick="document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"
+  								style="font-weight: bold">삭제</a>
+  						</span>               
                     <div class="qna_content_1">
                         <p>비공개 10분전 조회수 10</p>
                         <h3>관리자</h3>
@@ -42,26 +55,17 @@
                     </div>
                 </li>
             </ul>
+            </form>  
         </div>
-  <!-- 수정버튼 -->
-  <p class="qna_updat_1">
-    <a href="javascript:void(0)"
-  onclick="document.getElementById('light_1').style.display='block'; document.getElementById('fade_1').style.display='block'"
-  style="font-weight: bold">수정</a>
-  </p>
-  <!-- 삭제버튼 -->
-  <p class="qna_delete_1">
-    <a href="javascript:void(0)"
-  onclick="document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"
-  style="font-weight: bold">삭제</a>
-  </p>
+  
   
   <div id="light_1" class="qna_white_content_1">
+  <form method='post' action="/bitcomu/qna/qnaUpdate.do">
   	<a href="javascript:void(0)"
     onclick="document.getElementById('light_1').style.display='none'; document.getElementById('fade_1').style.display='none'"></a>
 	
     <div class="qna_update_title">
-      <form method='post' action="/bitcomu/qna/qnaUpdate.do"> 
+       
       <input type="text" class="qna_text_title_1" name="title" style="resize: none" value="${board.title}" />
       <input type="checkbox" id="check_0" value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
       <input type="text" class="qna_text_content_1" name="content" style="resize: none" value="${board.content}" />
@@ -70,8 +74,8 @@
       </ul>
       <div><button type="submit" class="qna_button_update">수정</button></div>
       <div><button onclick="doRef()" class="qna_button_cancle">취소</button></div>
-      </form> 
     </div>
+    </form> 
   </div>
   <div id="fade_1" class="qna_black_overlay_1"></div>
             

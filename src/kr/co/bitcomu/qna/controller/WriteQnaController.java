@@ -30,8 +30,8 @@ public class WriteQnaController extends HttpServlet {
 		
 		Qna q = new Qna();
 			
-		q.setQnaTitle(req.getParameter("title"));
-		q.setQnaContent(req.getParameter("content"));
+		q.setQnaTitle(req.getParameter("qnaTitle"));
+		q.setQnaContent(req.getParameter("qnaContent"));
 		q.setUserNo(user.getUserNo());
 		dao.insertQna(q);
 		res.sendRedirect("qnaList.do");

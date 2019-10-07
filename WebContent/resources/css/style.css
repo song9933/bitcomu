@@ -931,33 +931,42 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     margin-left: 170px;
     font-size: 30px;
 }
-.qna_pd10 {
-    position: absolute;
-    left: 920px;
-    top: 60px; 
-}
+
 /* 수정 */
 .qna_updat_1 {
-    position: absolute;
     left: 950px;
     top: 35px; 
+.qna_pd10 {
+	position: relative;
+	left: 760px;
+	top: -64px;
 }
 .qna_updat_1 > a {
     display: grid;
     width: 45px;
     height: 20px;
     border-right: 2px solid rgb(112, 111, 111);
-    margin-top: 30px;  
+   	margin-top: -88px;  
+    margin-left: 800px; 
     font-size: 20px;
     font-weight: bold;
    
 }
 /* 삭제 */
+.qna_delete_1 {
+	list-style: none;
+    margin: 10px auto;
+    left: 1010px;
+    top: 35px; 
+    margin-top: 5px;
+}
+
 .qna_delete_1 > a {
     display: grid;
     width: 45px;
     height: 20px;
-    margin-top: 25px;  
+    margin-top: -20px;  
+    margin-left: 855px;   
     font-size: 20px;
     font-weight: bold;
    
@@ -1073,15 +1082,6 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 	margin: 20px auto;
 }
 
-.qna_delete_1 {
-	list-style: none;
-    margin: 10px auto;
-    position: absolute;
-    left: 1010px;
-    top: 35px; 
-}
-
-
 /* 삭제 하시겠습니까? 밑줄 위치조정 */
 .qna_delete_2 {
 	list-style: none;
@@ -1095,18 +1095,6 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 	font-weight: bold;
 	
 }
-
-/* 삭제 */
-.qna_delete_1 > a {
-    font-size: 20px;
-    font-weight: bold; 
-}
-
-.qna_delete_1 {
-    margin-top: 5px;
-}
-
-
 
 /* 수정 팝업 */
 .qna_black_overlay_1{
@@ -1216,6 +1204,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     line-height: 16px;
     border-bottom: 2px dashed gray;
     margin-left: 10px;
+    margin-bottom: 34px;
     width: 700px;
     text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
     font-weight: bold;

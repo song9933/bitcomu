@@ -36,13 +36,13 @@
 		insert into tb_qna (
 			qna_no, qna_title, qna_content, user_no
 		) values (
-			tb_qna_seq.nextval, #{title}, #{content}, ${userNo}
+			tb_qna_seq.nextval, #{qnaTitle}, #{qnaContent}, ${userNo}
 		)
 	</insert>
 	<update id="updateQna" parameterType="Qna" >
 		update tb_qna 
-		   set qna_title = #{title}, 
-		       qna_content = #{content}
+		   set qna_title = #{qnaTitle}, 
+		       qna_content = #{qnaContent}
 		 where qna_no = #{qnaNo}
 	</update>
 	<delete id="deleteQna" parameterType="int">
