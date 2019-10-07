@@ -1377,13 +1377,15 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
   vertical-align: top;
 }
 .sWrap .container .list p.completed{
-  margin: 0 4px 12px 0;
-  padding: 0 8px;
-  line-height: 20px;
-  border-radius: 10px;
-  color: rgb(161, 161, 161);
-  font-size: 12px;
-  font-weight: bold
+  	display: inline;
+    margin: 0 4px 12px 0;
+    padding: 0 8px;
+    line-height: 20px;
+    border-radius: 10px;
+    color: rgb(161, 161, 161);
+    background-color: rgb(212, 211, 211);
+    font-size: 12px;
+    font-weight: bold;
 }
 
 
