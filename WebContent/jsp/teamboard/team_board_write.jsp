@@ -106,7 +106,16 @@
           padding: 5px; resize: none">내용을 입력하세요.</textarea>
         </div>
         <br>
-<!--         <input type="file" style="cursor: pointer; width:180px; float: left; margin-left: -120px" onchange="previewImage(this,'View_area')"> -->
+        <input type="file" style="cursor: pointer; width:180px; float: left; margin-left: -120px" onchange="previewImage(this,'View_area')">
+<!-- 		<form action="test05.do" method="post" -->
+<!-- 			  enctype="multipart/form-data"> -->
+<!-- 			<div><input type="text" name="msg"></div> -->
+<!-- 			<div><input type="file" name="attach" multiple/></div> -->
+<!-- 			<div><button>전송</button></div> -->
+<!-- 		</form> -->
+
+
+
 <!--         <input type="image" src="" style="margin-left: 20px;"> -->
         <br>
         <button class="submitbutton_cws" type="submit">등록</button>

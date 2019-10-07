@@ -146,6 +146,8 @@
 					style="width: 600px; height: 300px;">
 			</div>
 			<div class="detailcontent_cws">
+					<h3 style="word-break:break-all;">제목 : ${teamBoard.teamBoardTitle}</h3>
+					<br>
 					<h3>작성자 : ${teamBoard.userId}</h3>
 					<h4 style="float: right; margin-top: -20px; margin-right: 80px;">
 					<fmt:formatDate pattern="yyyy-MM-dd" value="${teamBoard.teamBoardRegDt}" />

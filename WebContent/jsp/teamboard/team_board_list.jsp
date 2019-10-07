@@ -78,6 +78,7 @@ div.a_cws {
 
 				<div class="subtabs_cws">
 					<br>
+					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do">
 					<p style="margin-left: 30px;">조 추가/삭제</p>
 					<button type="button" onclick="doAdd();"
 					style="width: 20px; height: 20px; margin-left: 40px;">+</button>
@@ -85,9 +86,12 @@ div.a_cws {
 					<button type="button" onclick="doRemove();"
 					style="width: 20px; height: 20px;">-</button>
 					
+					<button type="submit" >저장</button>
+					</form>
+					
 					<div class="a_cws">
 <!-- 					<form class="teamNo_active_cws"  -->
-<%-- 						  action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?teamNo=${teamNo}"> --%>
+<%-- 						   --%>
 						<ul id="teamtabs_cws">
 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li>
 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=2">2조</a></li>
@@ -118,9 +122,9 @@ div.a_cws {
 								src="${pageContext.request.contextPath}/resources/images/top_ar.png"
 								style="border: 1px solid gray; width: 100px; height: 130px; float: right;">
 							</li>
-							<li><a
+							<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a
 								href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${t.teamBoardNo}"
-								style="font-size: 40px"> ${t.teamBoardTitle}</a></li>
+								style="font-size: 40px; "> ${t.teamBoardTitle}</a></li>
 							<br>
 							<li>
 								<h6 style="margin: 0 auto">작성자: ${t.userId}</h6>
@@ -132,7 +136,7 @@ div.a_cws {
 										value="${t.teamBoardRegDt}" />
 								</h6>
 							</li>
-							<c:if test="${sessionScope.user.userNo eq t.userNo}">
+							<c:if test="${sessionScope.user.userNo eq t.userNo or sessionScope.user.userGrade eq 3}">
 								<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do">
 									<input type="hidden" name="teamBoardNo" value="${t.teamBoardNo}"/>
 									<button>X</button>
@@ -179,16 +183,13 @@ div.a_cws {
 		
 		// 조 추가 / 삭제
 		let teamTab = document.querySelector("#teamtabs_cws");
-		let team = 1;
+		let team = 4;
 		function doAdd() {
 			let liEle = document.createElement("li");
 			let aEle = document.createElement("a");
-			for (let i = 1; i < 10; i++) {
-				team++;
-				aEle.set
-			}
+			team++;
 			aEle.href = `${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${team}`
-			let txtNode = document.createTextNode(`${team}조`);
+			let txtNode = document.createTextNode(`\${team}조`);
 			aEle.append(txtNode);
 			liEle.append(aEle);
 			teamTab.append(liEle);

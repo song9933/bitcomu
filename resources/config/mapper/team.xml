@@ -6,6 +6,7 @@
 	<resultMap id="teamMap" type="Team">
 		<result column="user_id" property="userId" /> 
 		<result column="user_no" property="userNo" />
+		<result column="user_birth" property="userBirth" />
 		<result column="team_no" property="teamNo" />
 		<result column="project_no" property="projectNo" />
 		<result column="team_board_no" property="teamBoardNo" />
@@ -14,7 +15,12 @@
 		<result column="team_board_reg_dt" property="teamBoardRegDt" />
 	</resultMap>
 
-	<select id="selectTeamBoard" resultMap="teamMap" flushCache="true" useCache="true">
+	<select id="userBirthDday" resultMap="teamMap" flushCache="true" useCache="true">
+		select user_birth
+  		  from tb_user
+	</select>
+
+	<select id="selectTeamBoard" parameterType="int" resultMap="teamMap" flushCache="true" useCache="true">
 		select t.*, (select user_id  
 					   from tb_user u
                       where u.user_no = t.user_no ) as user_id
@@ -52,6 +58,7 @@
 		delete 
 		  from tb_team 
 		 where team_board_no = #{teamBoardNo}
+<!-- 		   and user_no = #{userNo} -->
 	</delete>
 
 <!-- ===댓글================================================= -->
@@ -65,13 +72,14 @@
 		<result column="cmt_reg_dt" property="cmtRegDt" />
 		<result column="code_value" property="codeValue" />
 	</resultMap>
-
+	
 	<select id="selectTeamComment" parameterType="int" resultMap="commentMap">
 		select c.*, (select user_id  
 					   from tb_user u
                       where u.user_no = c.user_no ) as user_id
           from tb_comment c
 		 where board_post_no = #{teamBoardNo}
+		   and code_value = (select code_value from tb_codenm where code_name = '팀프로젝트게시판')
 		 order by cmt_no desc
 	</select>
 
