@@ -638,7 +638,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     .ns_table  > .ns_coment_list > div{
         display: grid;
         grid-template-rows: repeat(1, auto-fit);
-        max-height: 400px;
+        
     }
     .ns_member_coment{
         background: rgb(232, 239, 247)
