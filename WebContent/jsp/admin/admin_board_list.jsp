@@ -8,29 +8,75 @@
 <c:import url="/jsp/include/head.jsp">
 		<c:param name="msg" value="게시판 관리" />
 </c:import> 
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/datatables.min.css">
+ <script src="${pageContext.request.contextPath}/resources/js/datatables.min.js"></script>
+<style>
+
+	thead td:last-child {
+    	text-align: center;
+	}
+	tbody td:last-child {
+    	text-align: center;
+	}
+	table {width: 80%}
+	
+	.pagination>li {
+    	display: inline-block;
+	}
+
+	ul.pagination.nams {
+	    width: 400px;
+	    margin: 10px auto;
+	    display: block;
+	}
+
+	.ns_search {
+	    width: 400px;
+	    display: block;
+	    margin: 0px auto;
+	}
+
+	.ns_listlength {
+		float: right;
+	}
+	.button_box_sj.box_email_sj {
+		width: 160px;
+		height: 30px;
+	}
+	
+</style>
+
+
 </head>
 <body>
    <div class="wrapepr">
      
     <%@ include file="/jsp/include/header.jsp"%>
     <!-- width = 1280px 인 컨텐츠영역-->
-    <div class="w1280" style="
-    position: relative;">
+     <!-- 비주얼이미지 영역 -->
+    <div class="visual">
+      <img src="${pageContext.request.contextPath}/resources/images/main_visual.png" alt="메인비주얼영억">
+    </div>
+    <!-- width = 1280px 인 컨텐츠영역-->
+    <div class="w1280">
+          <section class="content">
        <div class="tab-box sj">
-      <ul class="sj" style="position: absolute;
-    		top: -10px;
-    		left: 100px;">
-      <li class="sj"><a href="${pageContext.request.contextPath}/admin/adminUserList.do">유저관리</a></li>
-      <li class="sj selected"><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do">게시판 관리</a></li>
-      </ul>
-    </div> 
-         <section class="content ns_content">
+	      <ul class="sj">
+	      <li class="sj"><a href="${pageContext.request.contextPath}/admin/adminUserList.do">유저관리</a></li>
+	      <li class="sj selected"><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do">게시판 관리</a></li>
+	      </ul>
+	      
+   		</div> 
 			
-            <h1 class="ns_Title"></h1>
-			
-
+  			<div>
+			  <button type="button" class="button_box_sj box_email_sj" id="delSelBoard">선택 게시판 삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          <button type="button" class="button_box_sj box_email_sj" id="delSelAllBoard">선택 게시판 전체 삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          <button type="button" class="button_box_sj box_email_sj" id="delAllBoard">전체 게시판 삭제</button>
+          	</div>
 
             <div class="ns_listlength">
+            
               	게시판 형태 
                 <select name="viewBoard" id="viewBoard">
                 
@@ -53,91 +99,62 @@
             </div>
             
               
-
-  			
-     		<div class="ns_table">
-                <ul class="ns_TableListHead">
-                    <li>
-                    	<span>유저아이디</span>
-                        <span>제목</span>
-                        <span>유저이름</span>
-                        <span>날짜</span>
-                        <span>게시판형태</span>
-                        <span></span>
-                    </li>
-                    
-                </ul>
-                
-                <c:if test="${empty boardList}">
-				<li>
-					<span></span>
-					<span colspan='4'>등록된 게시글이 없습니다.</span>
-				</li>
-				</c:if>
-                
-                
-
-                
-                <ul class="ns_TableListBody">
-                <c:forEach var="board" items="${boardList}">
-                  <li>
-                      <span>${board.userId}</span>
-                     
-                      <span>
-                      
+			<table id="table_id" class="display">
+			    <thead>
+			        <tr>
+			            <td style="margin: 0 auto; padding: 10px;"><input type="checkbox" id="allChk"/></td>
+			            <td><b>유저아이디</b></td>
+			            <td><b>유저이름</b></td>
+			            <td><b>제목</b></td>
+			            <td><b>등록날짜</b></td>
+			            <td><b>게시판형태</b></td>
+			        </tr>
+			    </thead>
+			    <tbody>
+			    <c:if test="${empty boardList}">
+			    <tr>
+			    <td colspan="5" align="center">등록된 게시글이 없습니다.
+			    </td>
+			    </tr>
+			    </c:if>
+			        <c:forEach var="board" items="${boardList}">
+                  <tr>
+                  	  <td><input type="checkbox" name="delChk" class="delChk" value="${board.postNo}||${board.codeName}"/></td>
+                      <td>${board.userId}</td>
+                      <td>${board.userName}</td>
+                      <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
                       <c:choose>
-                      <c:when test="${board.codeName eq '자유게시판'}">
-                      	  <a target="_blank" href="<c:url value="/talk_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
-                      </c:when>
-                      <c:when test="${board.codeName eq '공지게시판'}">
-                       	  <a target="_blank" href="<c:url value="/notice_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
-                      </c:when>
-                      <c:when test="${board.codeName eq '온라인강의게시판'}">
-                      	<a target="_blank" href="<c:url value="/onlineclass/p.do?no=${board.postNo}&subj=${board.subject}"/>">${board.postTitle}</a>
-                      </c:when>
-                      <c:when test="${board.codeName eq '팀프로젝트게시판'}">
-                      	<a target="_blank" href="<c:url value="/team/teamBoardDetail.do?teamBoardNo=${board.postNo}"/>">${board.postTitle}</a>
-                      </c:when>
-                      <c:when test="${board.codeName eq '투표게시판'}">
-                      	<a target="_blank" href="<c:url value="/vote/votedetail.do?voteNo=${board.postNo}"/>">${board.postTitle}</a>
-                      </c:when>
-                      <c:when test="${board.codeName eq '스터디게시판'}">
-                      	<a target="_blank" href="<c:url value="/study/studydetail.do?studyPostNo=${board.postNo}"/>">${board.postTitle}</a>
-                      </c:when>
-                      <c:when test="${board.codeName eq '질문답변게시판'}">
-                      	<a target="_blank" href="#" >${board.postTitle}</a>
-                      </c:when>
+	                      <c:when test="${board.codeName eq '자유게시판'}">
+	                      	  <a target="_blank" href="<c:url value="/talk_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
+	                      </c:when>
+	                      <c:when test="${board.codeName eq '공지게시판'}">
+	                       	  <a target="_blank" href="<c:url value="/notice_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
+	                      </c:when>
+	                      <c:when test="${board.codeName eq '온라인강의게시판'}">
+	                      	<a target="_blank" href="<c:url value="/onlineclass/p.do?no=${board.postNo}&subj=${board.subject}"/>">${board.postTitle}</a>
+	                      </c:when>
+	                      <c:when test="${board.codeName eq '팀프로젝트게시판'}">
+	                      	<a target="_blank" href="<c:url value="/team/teamBoardDetail.do?teamBoardNo=${board.postNo}"/>">${board.postTitle}</a>
+	                      </c:when>
+	                      <c:when test="${board.codeName eq '투표게시판'}">
+	                      	<a target="_blank" href="<c:url value="/vote/votedetail.do?voteNo=${board.postNo}"/>">${board.postTitle}</a>
+	                      </c:when>
+	                      <c:when test="${board.codeName eq '스터디게시판'}">
+	                      	<a target="_blank" href="<c:url value="/study/studydetail.do?studyPostNo=${board.postNo}"/>">${board.postTitle}</a>
+	                      </c:when>
+	                      <c:when test="${board.codeName eq '질문답변게시판'}">
+	                      	<a target="_blank" href="#" >${board.postTitle}</a>
+	                      </c:when>
                       </c:choose>
-                    
                       
-                      
-                      
-                      
-                      
-                      </span>
-                      
-                      
-                      
-                      <span>${board.userName}</span>
-                      <span><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd"/></span>
-                      <span>${board.codeName}</span>
-                      <span></span>
-<!--                       <span style="margin-left: 20px;"> -->
-<%--                       <form method="POST" action="<c:url value="/admin/adminUserDelete.do"/>">  --%>
-<%--                    			<input type="hidden" name="userNo" value="${member.userNo}"> --%>
-<%--                    			<input type="hidden" name="pageNo" value="${pr.pageNo}"> --%>
-<!--                       		<button type="submit" class="button_box_sj box_email_sj"> -->
-<!--                       				강제 탈퇴 -->
-<!--                       		</button> -->
-<!--                       </form>               -->
-<!--                       </span> -->
+                      <td><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd"/></td>
+                      <td>${board.codeName}</td>
 
-                  </li>
+                  </tr>
                 </c:forEach>
-            
-                </ul>
-            </div>
-  
+			    </tbody>
+			</table>
+
   
           
 
@@ -168,22 +185,22 @@
 		</ul>
             
             
-
+	
             
-            <div class="ns_search">
-                search : 
-                <select name="searchList" id="searchList">
-                    <option value="all" selected>제목 + 내용</option>
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                    <option value="userid">유저아이디</option>
-                    <option value="username">유저이름</option>
-                    
-                </select>
-                <input type="text" name="search" id="searchValue" value="${search.searchWord}">
-                <button type="button" id="doSearchUser" name="searchVal">검색</button>
-            </div> 
-        </section>  
+        <div class="ns_search">
+            search : 
+            <select name="searchList" id="searchList">
+                <option value="all" selected>제목 + 내용</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="userid">유저아이디</option>
+                <option value="username">유저이름</option>
+                
+            </select>
+            <input type="text" name="search" id="searchValue" value="${search.searchWord}">
+            <button type="button" id="doSearchUser" name="searchVal">검색</button>
+        </div> 
+      </section>  
         
         
         
@@ -204,7 +221,23 @@
 
   </div>
   <script>
-  // $(document).ready(alert());
+  
+  JSONObject obj = new JSONObject();
+  
+  
+  
+  
+  $(document).ready( function () {
+	    $('#table_id').DataTable({
+	    	 paging: false,
+	    	 searching: false,
+	    	 ordering:  false,
+	    	 Showing: false,
+	    	 bInfo: false
+	    });
+	   
+	} );
+
 	let sList = document.querySelector("#searchList").value;
 	let viewBoardList = document.querySelector("#viewBoard");
 	let viewBoard = document.querySelector("#viewBoard").value;
@@ -215,6 +248,99 @@
 	let doSearchUser = document.querySelector("#doSearchUser");
 	let selectedValue = document.querySelector("#changeList").value;
 	let changeVal = document.querySelectorAll("#changeList > option");
+	let allChk = document.querySelector("#allChk");
+	let delChk = document.querySelectorAll(".delChk");
+	
+	
+	let delSelBoard = document.querySelector("#delSelBoard");
+	let delSelAllBoard = document.querySelector("#delSelAllBoard");
+	let delAllBoard = document.querySelector("#delAllBoard");
+	
+	delSelBoard.addEventListener("click", (e) => {
+		let flag = true;
+		delChk = document.querySelectorAll(".delChk");
+		let arr = new Array();
+		
+		for (let i =0; i < delChk.length; i++) {
+			if (delChk[i].checked) {
+				flag = false;
+				arr.push(delChk[i].value);
+				console.log(delChk[i].value);
+			}
+		}
+		if (flag) {
+			alert('삭제할 게시판을 선택하세요.');
+			return false;
+		}
+		
+	
+		
+		let result = confirm("정말 선택한 게시판을 삭제하시겠습니까?");
+		if (result) {
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = (e) => {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+							alert("삭제 되었습니다.");
+// 							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+						} else {
+							alert("시스템 오류입니다.")
+						}
+				}
+			};	
+			console.log(arr);
+// 			xhr.open("POST", "userSelectDel.do", true);
+// 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+// 			xhr.send("msg=" + arr);
+		} else {
+			alert("취소되었습니다.");
+		}
+		
+	});
+	
+	
+	delAllBoard.addEventListener("click", (e) => {
+		let flag = true;
+		
+		let result = confirm("정말 전체 유저를 삭제하시겠습니까?");
+		if (result) {
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = (e) => {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+							alert("전체 삭제 되었습니다.");
+// 							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+						} else {
+							alert("시스템 오류입니다.")
+						}
+				}
+			};	
+// 			xhr.open("POST", "userAllDel.do", true);
+// 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+// 			xhr.send();
+		} else {
+			alert("취소되었습니다.");
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	allChk.addEventListener("click", (e) => {
+		for (let i =0; i < delChk.length; i++) {
+			delChk[i].checked = allChk.checked;
+		}
+	});
+	
 	
 	for (let i = 0; i < optVal.length; i++) {
 		if (optVal[i].value == '${search.searchType}') {
@@ -231,7 +357,7 @@
 	}
 	
 	for (let i = 0; i < viewBoardVal.length; i++) {
-		console.log(viewBoardVal[i].value);
+// 		console.log(viewBoardVal[i].value);
 // 		console.log('@@@@' + '${codeValue}');
 		if (viewBoardVal[i].value == '${codeValue}') {
 			

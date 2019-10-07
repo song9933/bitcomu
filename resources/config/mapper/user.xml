@@ -31,7 +31,7 @@
 	  
 	<sql id="deleteUsers">
 		 delete
-	       from tb_user
+	       from tb_user 
 	</sql>  
 
 
