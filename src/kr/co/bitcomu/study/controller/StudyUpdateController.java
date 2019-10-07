@@ -31,7 +31,8 @@ public class StudyUpdateController extends HttpServlet {
 			study.setStudyRecruitField(req.getParameter("studyRecruitField"));
 			study.setStudyPostTitle(req.getParameter("studyPostTitle"));
 			study.setStudyLoc(req.getParameter("studyLoc"));
-			study.setStudyRecruitMem((Integer.parseInt(req.getParameter("studyRecruitMem"))));
+			study.setStudyRecruitMemMin((Integer.parseInt(req.getParameter("studyRecruitMemMin"))));
+			study.setStudyRecruitMemMax((Integer.parseInt(req.getParameter("studyRecruitMemMax"))));
 			study.setStudyPostContent(req.getParameter("studyPostContent"));
 			
 

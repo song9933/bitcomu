@@ -31,7 +31,7 @@
 						<div class="about">
 							<h3>${study.studyLoc}</h3>
 							<h3>${study.studyRecruitField}</h3>
-							<h3>${study.studyRecruitMem}</h3>
+							<h3>${study.studyRecruitMemMin} - ${study.studyRecruitMemMax} 명</h3>
 						</div>
 						<p class="text">${study.studyPostContent}</p>
 					</article>

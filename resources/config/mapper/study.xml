@@ -10,7 +10,8 @@
 		<result column="study_post_title" property="studyPostTitle"/>
 		<result column="study_view_cnt" property="studyViewCnt"/>
 		<result column="study_loc" property="studyLoc"/>
-		<result column="study_recruit_mem" property="studyRecruitMem"/>
+		<result column="study_recruit_mem_min" property="studyRecruitMemMin"/>
+		<result column="study_recruit_mem_max" property="studyRecruitMemMax"/>
 		<result column="study_recruit_field" property="studyRecruitField"/>
 		<result column="study_post_content" property="studyPostContent"/>
 		<result column="study_reg_dt" property="studyRegDt"/>
@@ -31,8 +32,8 @@
 		select s.study_post_no, s.user_no, 
 				(select user_id from tb_user u 
 						where u.user_no = s.user_no ) as user_id ,
-				s.study_recruit_enabled, s.study_post_title, s.study_view_cnt, s.study_loc, s.study_recruit_mem, 
-				s.study_recruit_field, s.study_post_content, s.study_reg_dt,
+				s.study_recruit_enabled, s.study_post_title, s.study_view_cnt, s.study_loc, s.study_recruit_mem_min,
+				s.study_recruit_mem_max, s.study_recruit_field, s.study_post_content, s.study_reg_dt,
 				(select count(*) 
 			    		from tb_comment c
 			    		where code_value = (select code_value from tb_codenm where code_name = '스터디게시판')
@@ -54,10 +55,10 @@
 	
 	<!-- 스터디게시판 글 작성 -->
 	<insert id="insertStudy" parameterType="Study">
-		insert into tb_study (study_post_no, user_no, study_recruit_enabled, study_post_title,  study_loc, study_recruit_mem, 
-							study_recruit_field, study_post_content)
+		insert into tb_study (study_post_no, user_no, study_recruit_enabled, study_post_title,  study_loc, study_recruit_mem_min, 
+							study_recruit_mem_max, study_recruit_field, study_post_content)
 				values (tb_study_seq.nextval, #{userNo}, #{studyRecruitEnabled}, #{studyPostTitle},  #{studyLoc}, 
-						#{studyRecruitMem}, #{studyRecruitField}, #{studyPostContent})
+						#{studyRecruitMemMin},#{studyRecruitMemMax}, #{studyRecruitField}, #{studyPostContent})
 	</insert>
 	
 	<!-- 스터디게시판 글 수정 -->
@@ -66,7 +67,8 @@
    			 set study_recruit_enabled = #{studyRecruitEnabled}, 
       			 study_post_title = #{studyPostTitle},
        			 study_loc = #{studyLoc}, 
-        		 study_recruit_mem = #{studyRecruitMem}, 
+        		 study_recruit_mem_min = #{studyRecruitMemMin}, 
+        		 study_recruit_mem_max = #{studyRecruitMemMax}, 
         		 study_recruit_field = #{studyRecruitField}, 
         		 study_post_content = #{studyPostContent}
     	where study_post_no = #{studyPostNo}
@@ -92,6 +94,7 @@
 						where user_no = c.user_no ) as user_id 
 						from tb_comment c
 						where board_post_no = #{studyPostNo}
+						and code_value = (select code_value from tb_codenm where code_name = '스터디게시판')
 	</select>
 	
 	<!-- 스터디게시판 댓글 입력 -->

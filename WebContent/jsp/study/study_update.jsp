@@ -56,10 +56,15 @@
                 </div>
                 <div class="section">
                  <h2>모집 인원</h2>
- 				 <p>
+                <p>
+				  <!--
 				  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-				 </p>
-				 
+				    -->
+					<span class="studyRecruitMemMin" name="studyRecruitMemMin">${study.studyRecruitMemMin}</span>명~
+					<input type="hidden" name="studyRecruitMemMin" id="studyRecruitMemMin" />
+					<span class="studyRecruitMemMax" name="studyRecruitMemMax">${study.studyRecruitMemMax}</span>명
+					<input type="hidden" name="studyRecruitMemMax" id="studyRecruitMemMax"/>
+				</p>
 				<div id="slider-range"></div>     
                  <!-- 
                   <div class="checks">
@@ -73,7 +78,7 @@
                 <div class="section">
                     <h2>모집 여부</h2>
                   <div class="enabled">
-                    <input type="radio" id="sre1" name="studyRecruitEnabled" value="Y" checked="checked" /><label for="sre1">모집중</label>
+                    <input type="radio" id="sre1" name="studyRecruitEnabled" value="Y" /><label for="sre1">모집중</label>
                     <input type="radio" id="sre2" name="studyRecruitEnabled" value="N" /><label for="sre2">마감</label>
                   </div>  
                 </div>                
@@ -102,29 +107,46 @@
 
   </div>
 <script>
-  $( function() {
+let min = document.querySelector("#studyRecruitMemMin");
+min.value='${study.studyRecruitMemMin}';
+ let max = document.querySelector("#studyRecruitMemMax");
+ max.value='${study.studyRecruitMemMax}';
+ 
+$( function() {
     $( "#slider-range" ).slider({
       range: true,
       min: 2,
       max: 20,
       values: [ 5, 10 ],
       slide: function( event, ui ) {
+    	$(".studyRecruitMemMin").html(ui.values[0]);  
+    	$(".studyRecruitMemMax").html(ui.values[1]);  
+     	min.value = ui.values[0];
+    	max.value = ui.values[1];
         $( "#amount" ).val(  ui.values[ 0 ] + "명 - " + ui.values[ 1 ] +"명");
       }
     });
+    /* 
     $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-      "명 - " + $( "#slider-range" ).slider( "values", 1 ) +"명");
+      "명 - " + $( "#slider-range" ).slider( "values", 1 ) +"명"); */
   } );
   
-  
+ 	// 기존 분야 값 가져오기
   let ele = document.getElementsByClassName("studyRecruitField");
-
   for ( let i=0; i < ele.length ; i++){
 	  if (ele[i].value == '${study.studyRecruitField}') {
 		  ele[i].checked = true;
 	  }
   }
   
+  // 기존 모집여부 가져오기
+  let ele2 = document.getElementsByName("studyRecruitEnabled");
+  for ( let i = 0; i<ele2.length; i++){
+	  if (ele2[i].value == '${study.studyRecruitEnabled}'){
+		  ele2[i].checked = true;
+	  }
+  }
+
   
   </script>
 </body>

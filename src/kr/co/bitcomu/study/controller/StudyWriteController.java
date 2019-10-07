@@ -26,13 +26,13 @@ public class StudyWriteController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
-		
 		Study study = new Study();	
 		study.setUserNo(user.getUserNo());
 		study.setStudyRecruitEnabled(req.getParameter("studyRecruitEnabled"));
 		study.setStudyPostTitle(req.getParameter("studyPostTitle"));
 		study.setStudyLoc(req.getParameter("studyLoc"));
-		study.setStudyRecruitMem(Integer.parseInt(req.getParameter("studyRecruitMem")));
+		study.setStudyRecruitMemMin(Integer.parseInt(req.getParameter("studyRecruitMemMin")));
+		study.setStudyRecruitMemMax(Integer.parseInt(req.getParameter("studyRecruitMemMax")));
 		study.setStudyRecruitField(req.getParameter("studyRecruitField"));
 		study.setStudyPostContent(req.getParameter("studyPostContent"));
 		

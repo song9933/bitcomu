@@ -8,7 +8,7 @@
   	<c:param name="msg" value="스터디게시판 | 글쓰기" />
   </c:import> 
  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
+<!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  
@@ -41,9 +41,15 @@
               <div class="section">
                   <h2>모집 인원</h2>
                 <p>
+				  <!--
 				  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				    -->
+					<span class="studyRecruitMemMin" name="studyRecruitMemMin">5</span>명~
+					<input type="hidden" name="studyRecruitMemMin" id="studyRecruitMemMin" />
+					<span class="studyRecruitMemMax" name="studyRecruitMemMax">10</span>명
+					<input type="hidden" name="studyRecruitMemMax" id="studyRecruitMemMax"/>
 				</p>
-				<div id="slider-range"></div>
+				<div id="slider-range"></div>     
                 <!-- 
                 <div class="checks">
                     <input type="radio" id="srm1" name="studyRecruitMem" value="1" /><label for="srm1">2~5명</label>
@@ -80,8 +86,11 @@
  	<%@include file="/jsp/include/footer.jsp" %>
   </div>
  <script>
- let i;
- let j;
+let min = document.querySelector("#studyRecruitMemMin");
+min.value="5";
+ let max = document.querySelector("#studyRecruitMemMax");
+ max.value="10";
+ 
   $( function() {
     $( "#slider-range" ).slider({
       range: true,
@@ -89,19 +98,21 @@
       max: 20,
       values: [ 5, 10 ],
       slide: function( event, ui ) {
-    	  i = ui.values[ 0 ];
-    	  j = ui.values[ 1 ];
-        $( "#amount" ).val(  ui.values[ 0 ] + "명 - " + ui.values[ 1 ] +"명");
+    	$(".studyRecruitMemMin").text(ui.values[0]);  
+    	$(".studyRecruitMemMax").text(ui.values[1]);  
+    	min.value = ui.values[0];
+    	max.value = ui.values[1];
+  
+        
+    	$( "#amount" ).val(  ui.values[ 0 ] + "명 - " + ui.values[ 1 ] +"명");
       }
     });
-    
+    /* 
     $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-      "명 - " + $( "#slider-range" ).slider( "values", 1 ) +"명");
+      "명 - " + $( "#slider-range" ).slider( "values", 1 ) +"명"); */
   } );
   
- // var val1 = $('#slider').slider("option", "value");
-  let arr = $("#amount");
-  console.log(i,j);
+
   
   
   
