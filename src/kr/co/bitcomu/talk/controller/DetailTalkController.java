@@ -1,7 +1,9 @@
 package kr.co.bitcomu.talk.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,64 +35,50 @@ public class DetailTalkController extends HttpServlet {
 		
 		
 
-		
+		//리스트
 		String sPageNo = req.getParameter("pageNo");
-		
-		
 		int pageNo = Integer.parseInt(sPageNo);
 		Page page = new Page(pageNo);
-		
-		
 		int count = dao.selectTalkCount();
 		PageResult pr = new PageResult(pageNo, count);
-		req.setAttribute("pr", pr);  // 전체 게시물 갯수
-		
+		req.setAttribute("pr", pr);  // 전체 게시물 갯수	
 		// 데이터를 구하고 공유
 		req.setAttribute("talk", dao.selectTalk(page));
 		
 		
 		
-
-		
-		
-		
 		// 게시물 상세 정보 조회하기
 		int no = Integer.parseInt(req.getParameter("postNo"));
-		dao.updateViewCnt(no);
-		/*
-		Board board = dao.selectOneBoard(no); 
-		req.setAttribute("board", board);
-		*/
+		dao.updateViewCnt(no);//조회수
 		req.setAttribute("talkDetail", dao.selectOneTalk(no));
 		
-		// 댓글 목록 공유
-		/*
-		 * List<Comment> commentList = dao.selectComment(no);
-		 * req.setAttribute("commentList", commentList);
-		 */
+		/* req.setAttribute("likeCount", dao.selectTalkLikeCount(no)); */
 		
+		
+
+		
+
 		
 		// 댓글 페이징
-		int CmtPageNo = 1;
-		if (sPageNo != null) {
-			CmtPageNo = Integer.parseInt(sPageNo);
+		String cPageNo = req.getParameter("CmtPageNo");
+		
+		int cmtPageNo = 1;
+		if (cPageNo != null) {
+			cmtPageNo = Integer.parseInt(cPageNo);
 		}
-		Page CmtPage = new Page(pageNo);
+		Page cmtPage = new Page(cmtPageNo);
 		
 		
-		int CmtCount = dao.selectTalkCmtCount();
-		PageResult cpr = new PageResult(CmtPageNo, CmtCount);
+		int cmtCount = dao.selectTalkCmtCount(no);
+		PageResult cpr = new PageResult(cmtPageNo, cmtCount);
 		req.setAttribute("cpr", cpr);  // 전체 댓글 갯수
 		
-		
-		
-		
-		
-		req.setAttribute("comment", dao.selectComment(no));
-		
-		
-		
-		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardPostNo", no);
+		map.put("cmtPage", cmtPage);
+
+		//뎃글 목록
+		req.setAttribute("comment", dao.selectComment(map));
 		
 
 		RequestDispatcher rd = req.getRequestDispatcher("/jsp/talk/talk_detail.jsp");

@@ -10,6 +10,8 @@
 		<result column="user_no" property="userNo" />
 		<result column="talk_view_cnt" property="viewCnt" />
 		<result column="talk_reg_dt" property="regDt" />
+		<result column="talk_like_cnt" property="likeCnt" />
+		
 	</resultMap>
 	<select id="selectTalk" parameterType="Page" resultMap="talkMap">
 		select *
@@ -45,6 +47,11 @@
 		   set talk_view_cnt = talk_view_cnt + 1
 		 where talk_post_no = #{postNo}
 	</update>
+	<update id="updateLikeCnt" parameterType="int">
+		update tb_talk 
+		   set talk_like_cnt = talk_like_cnt + 1
+		 where talk_post_no = #{postNo}
+	</update>
 	<update id="updateTalk" parameterType="Talk">
 		update tb_talk 
 		   set talk_post_title = #{title}, 
@@ -68,18 +75,18 @@
 		<result column="code_value" property="codeValue" />
 	</resultMap>
 	
-	<select id="selectComment" parameterType="int" resultMap="commentMap" flushCache="true" useCache="true">
+	<select id="selectComment" parameterType="hashmap" resultMap="commentMap" flushCache="true" useCache="true">
 	    select *
 	      from (select rownum rnum, a.*
 			      from (
 					    select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
 					      from tb_comment n
-					     where board_post_no = #{no}
+					     where board_post_no = #{boardPostNo}
 					       and code_value = 1
 		     			 order by cmt_no 
 	     							)
 						  a)
-		 where rnum between #{begin} and #{end} 
+		 where rnum between #{cmtPage.begin} and #{cmtPage.end} 
 	</select>	
 	<select id="selectTalkCmtCount" resultType="int">
 		select count(*)
@@ -111,6 +118,27 @@
 	     where cmt_no = #{cmtNo}
 	       and code_value = 1
 	</update>
+	
+	
+	<!--추천 -->
+	<resultMap type="Like" id="likeMap">
+		<result column="board_post_no" property="boardPsotNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="code_value" property="codeValue"/>
+	</resultMap>
+	<select id="selectTalkLikeCount" parameterType="int" resultType="int">
+		select count(*)
+		  from tb_like
+		 where board_post_no = #{postNo}
+		   and code_value = 1
+	</select>
+	<insert id="insertTalkLikeCount" parameterType="hashmap">
+		insert into tb_like(
+			board_post_no, user_no, code_value
+		)values(
+			#{boardPostNo}, #{userNo}, 1
+		)
+	</insert>
 </mapper>
 
 

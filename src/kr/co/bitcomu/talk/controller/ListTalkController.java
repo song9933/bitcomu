@@ -45,6 +45,8 @@ public class ListTalkController extends HttpServlet {
 		
 		// 데이터를 구하고 공유
 		req.setAttribute("talk", dao.selectTalk(page));
+		
+		
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/talk/talk.jsp").forward(req, res);
 	}

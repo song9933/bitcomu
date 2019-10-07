@@ -23,6 +23,7 @@
 		<typeAlias alias="Qna" type="kr.co.bitcomu.repository.vo.Qna" />
 		<typeAlias alias="Search" type="kr.co.bitcomu.repository.vo.Search" />
 		<typeAlias alias="Code" type="kr.co.bitcomu.repository.vo.Code" />
+		<typeAlias alias="Like" type="kr.co.bitcomu.repository.vo.Like" />
 		
 	</typeAliases>
 

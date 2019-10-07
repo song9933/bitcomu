@@ -96,10 +96,11 @@
             
             
             
+            <a class="ns_talk_like" href="/bitcomu/talk/like_update.do?postNo=${talkDetail.postNo}&userNo=${sessionScope.user.userNo}&pageNo=${pr.pageNo}" >
+           
             
+           	 <i class="far fa-thumbs-up fa-3x">${talkDetail.likeCnt}</i>
             
-            <a class="ns_talk_like" href="" >
-            <i class="far fa-thumbs-up fa-3x"></i>
             </a>
             
              <%--      <c:forEach var="c" items="${comment}">
@@ -119,10 +120,10 @@
 					</li>
 				 </c:if>  --%>
                     
-                    
             <div class="ns_coment_list">
+            <div id="ns_cmt"></div>
 	            <div class="ns_member_coment">
-   <div id="ns_cmt"></div>
+   															
                     <form action="talk/comment_update.do" method="post">
 						<input type="hidden" name="postNo" value="${talkDetail.postNo}" />
 						<input type="hidden" name="cmtNo" value="${param.cmtNo}" />
@@ -161,26 +162,66 @@
 								  <c:otherwise></c:otherwise>
 								  </c:choose>
 								  </th>
-							    <tr>
-		 						<th></th>
-								<td></td>
-							    <td></td>
-							    <td></td>
-								  <td colspan="3">&emsp;${comment.cmtContent}</td>
-							    </tr>
+			 						<th></th>
+								    <tr>
+									<td></td>
+								    <td></td>
+								    <td></td>
+									  <td colspan="3">&emsp;${comment.cmtContent}</td>
+								    </tr>
 							</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<div>페이징 들어갈자리</div>
+					
 						<c:if test="${empty comment}">
 							 <tr>
 							    <td colspan='4'>댓글이 존재하지 않습니다.</td>
 							 </tr>
 						</c:if>	 
+				<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				
+				<td >
+				
+	             <div>
+	             <ul class="pagination cmt_nams">
+					      	 <c:if test="${cpr.count != 0}">
+							  	<c:if test="${cpr.prev}">
+							    <li>
+							      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}&CmtPageNo=${cpr.endPage - 1}" aria-label="previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+							    </c:if>
+							    <c:forEach var="i" begin="${cpr.beginPage}" end="${cpr.endPage}">
+									<li <c:if test="${cpr.pageNo == i}">class="active"</c:if>>
+										<a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}&CmtPageNo=${i}">${i}</a>
+									</li>
+							    </c:forEach>
+							  	<c:if test="${cpr.next}">
+							    <li>
+							      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}&CmtPageNo=${cpr.endPage + 1}" aria-label="next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </li>
+							    </c:if>
+							</c:if>
+					</ul>
+					</div>
+				</td>
+				
+				</tr>
 					</table>
-				</form>	
-              </div>
+					</form>	
+	              </div>
              </div>
+             
+             
+             
+             
+             
 				<form class="ns_comment_write" method="post" action="/bitcomu/talk/comment_regist.do" >
                     <input class="ns_comment_write" type="text" name=cmtContent placeholder="댓글을 입력하세요"></li>
                     <input type="hidden" name="userNo" value="${sessionScope.user.userNo}"/>
@@ -190,7 +231,7 @@
 				</form>
             </div>
   
-  
+  			
            
 
 

@@ -10,6 +10,7 @@
 package kr.co.bitcomu.repository.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Page;
@@ -26,11 +27,17 @@ public interface TalkDAO {
 	int selectTalkCount();
 	
 	/* 댓글 파트 시작 ========================================= */
-	List<Comment> selectComment(int no);
+	List<Comment> selectComment(Map<String, Object> map);
 	void insertComment(Comment comment);
 	void deleteComment(int commentNo);
 	void updateComment(Comment comment);
-	int selectTalkCmtCount();
+	int selectTalkCmtCount(int no);
+	
+	
+	// 추천
+	void updateLikeCnt(int no);
+	int selectTalkLikeCount(int no);
+	void insertTalkLikeCount(Map<String, Object> map);
 }
 
 
