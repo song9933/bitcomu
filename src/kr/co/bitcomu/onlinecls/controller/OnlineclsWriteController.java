@@ -1,6 +1,8 @@
 package kr.co.bitcomu.onlinecls.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +37,7 @@ public class OnlineclsWriteController extends HttpServlet{
 		ocls.setYtTitle(req.getParameter("yt_title"));
 		ocls.setYtContent(req.getParameter("yt_detail"));
 		
-		// 주소는 파라미터만 커팅한다
+		// 주소는 첫번째 파라미터만 커팅한다
 		String targetAddr = req.getParameter("yt_addr");
 		String[] addr = targetAddr.split("\\?v=");
 		String ytAddr = addr[1].split("&")[0];
@@ -48,8 +50,13 @@ public class OnlineclsWriteController extends HttpServlet{
 //			ocls.setYtSubject(req.getParameter("yt_sel"));
 //		}
 		String yt_subject = req.getParameter("yt_sel");
-		dao.insertOnlinecls(ocls);
+		ocls.setYtSubject(yt_subject);
+		int result = dao.insertOnlinecls(ocls);
 		
-		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + yt_subject);
+//		System.out.println("insert결과::" + result);
+		
+		// url에서 과목명이 깨지는것 처리
+		yt_subject = URLEncoder.encode(yt_subject, "utf-8");
+		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + yt_subject + "&resultC=" + result);
 	}
 }

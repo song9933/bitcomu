@@ -144,7 +144,9 @@ int yt_no = 0;
       </div>
       <div class="pop_r">
           <div>
-          	<p>${ ocls.ytTitle }<a href="javascript:openPop()">···</a></p>
+	          <c:if test="${ sessionScope.user.userGrade eq 3 || sessionScope.user.userNo == ocls.userNo }">
+				<p>${ ocls.ytTitle }<a href="javascript:openPop()">···</a></p>
+	          </c:if>
             <dl>
               <dt><i class="fa fa-user-circle" aria-hidden="true"></i></dt>
 <!--          <dd>${ ocls.userNo }</dd> -->
@@ -171,11 +173,11 @@ int yt_no = 0;
       </div>
       <div class="pop_layer hidden">
       	<ul>
-<!--   		<li><a href="${ pageContext.request.contextPath }/onlineclass/updateform.do">수정</a></li> -->
-<!--   		<li><a href="${ pageContext.request.contextPath }/onlineclass/delete.do" class="red">삭제</a></li> -->
-<form>
-	<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/updateform.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'">수정</li>		
-</form>
+      	<c:if test="${ sessionScope.user.userNo eq ocls.userNo }">
+			<form>
+				<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/updateform.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'">수정</li>		
+			</form>
+      	</c:if>
 <form>
 	<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/delete.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'" class="red">삭제</li>
 </form>

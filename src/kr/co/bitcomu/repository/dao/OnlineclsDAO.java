@@ -12,11 +12,11 @@ public interface OnlineclsDAO {
 	// 해당과목 해당 온라인강의 상세 조회
 	Onlinecls selectOneOnlinecls(int ytNo);
 	// 온라인강의 등록
-	void insertOnlinecls(Onlinecls oncls);
+	int insertOnlinecls(Onlinecls oncls);
 	// 온라인강의 수정
-	void updateOnlinecls(Onlinecls oncls);
+	int updateOnlinecls(Onlinecls oncls);
 	// 온라인강의 삭제
-	void deleteOnlinecls(int no);
+	int deleteOnlinecls(int no);
 	// 회원 아이디 조회
 	String selectUserId(int ytNo);
 }

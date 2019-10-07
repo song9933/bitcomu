@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.OnlineclsDAO;
+import kr.co.bitcomu.repository.vo.Onlinecls;
 
 @WebServlet("/onlineclass/updateform.do")
 public class OnlineclsUpdateFormController extends HttpServlet{
@@ -25,9 +26,11 @@ public class OnlineclsUpdateFormController extends HttpServlet{
 		req.setAttribute("subject", subject);
 		
 		// 온라인강의객체 하나 선택하기 위해 ytNo를 넘긴다
-		int ytNo = Integer.parseInt(req.getParameter("yt_no"));
-		req.setAttribute("no", ytNo);
+		int ytNo = Integer.parseInt(req.getParameter("yt_no"));		
+		// 수정할 온라인강의객체를 온라인강의번호로 선택하여 조회
+		Onlinecls oncls = dao.selectOneOnlinecls(ytNo);
+		req.setAttribute("oncls", oncls);
 		
-		req.getRequestDispatcher("/onlineclass/yt_update_form.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/onlineclass/yt_update_form.jsp").forward(req, res);
 	}
 }

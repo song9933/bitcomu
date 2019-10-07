@@ -107,9 +107,11 @@ int yt_no = 0;
                 </div>
               </div>
           </div>
-          <div class="btn_r">
-            <a href="${ pageContext.request.contextPath }/onlineclass/ytwriteform.do">강의 등록하기 </a>
-          </div>
+          <c:if test="${sessionScope.user.userGrade eq 3}"> 
+	          <div class="btn_r">
+	            <a href="${ pageContext.request.contextPath }/onlineclass/ytwriteform.do?subj=${subject}">강의 등록하기 </a>
+	          </div>
+          </c:if>
         </section>
     </div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->

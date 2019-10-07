@@ -125,9 +125,11 @@ int yt_no = 0;
                 </div> -->
               </div>
           </div>
-          <div class="btn_r">
-            <a href="${ pageContext.request.contextPath }/onlineclass/ytwriteform.do?subj=${subject}">강의 등록하기 </a>
-          </div>
+          <c:if test="${sessionScope.user.userGrade eq 3}"> 
+	          <div class="btn_r">
+	            <a href="${ pageContext.request.contextPath }/onlineclass/ytwriteform.do?subj=${subject}">강의 등록하기 </a>
+	          </div>
+          </c:if>
         </section>
     </div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -171,6 +173,16 @@ int yt_no = 0;
     <!-- //팝업 끝 -->
   </div>
   <script>
+  
+  if ('${ resultC }' == 1) {
+	  alert('등록되었습니다');
+  }
+  if ('${ resultU }' == 1) {
+	  alert('수정되었습니다');
+  }
+  if ('${ resultD }' == 1) {
+	  alert('삭제되었습니다');
+  }
     $(document).ready(function(){
       $('.online_cls .tab li').on('click', function() {
         $(this).toggleClass('on');

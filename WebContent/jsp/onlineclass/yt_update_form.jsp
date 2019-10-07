@@ -22,31 +22,34 @@
       <!-- width = 1280px 인 컨텐츠영역-->
       <div class="w1280">
           <section class="content new_form clearboth">
-            <h2>강의 등록 <span>· UPLOAD</span> </h2>
-            <form action="yt_write.do" method="post">
+            <h2>강의 수정 <span></h2>
+            <form action="update.do" method="post">
+           	  <input type="hidden" name="ytNo" value="${ oncls.ytNo }"/>
               <div>
                 <table>
                   <tr>
                     <th>제목</th>
                     <td>
-                      <input type="text" name="yt_title">
+                      <input type="text" name="yt_title" value="${ oncls.ytTitle }">
                     </td>
                   </tr>
                   <tr>
                     <th>내용</th>
                     <td>
-                      <textarea name="yt_detail" cols="160" rows="10" style="resize: none"></textarea>
+                      <textarea name="yt_detail" cols="160" rows="10" style="resize: none">${ oncls.ytContent }</textarea>
                     </td>
                   </tr>
                   <tr>
                     <th>영상주소</th>
                     <td>
-                      <input type="text" name="yt_addr" placeholder="youtobe영상 주소를 입력하세요.">
+                      <input type="text" name="yt_addr" value="https://www.youtube.com/watch?v=${ oncls.ytAddr }" readonly> 
                     </td>
                   </tr>
                   <tr>
                     <th>분류</th>
                     <td>
+                    <input type="text" name="yt_subject" value="${ subject }" readonly/>
+<%-- 
                       <select name="yt_sel" class="yt_sel">
                         <option>과목선택</option>
                         <c:forEach var="subject" items="${ sList }">
@@ -56,7 +59,7 @@
                       </select>
 	                  <input type="text" name="inp_yt_sel" placeholder="과목 입력" disabled>
 <!-- 				  <input type="text" name="inp_yt_sel" placeholder="과목 입력"> -->
-                    </td>
+--%>                    </td>
                   </tr>
                 </table>
               </div>

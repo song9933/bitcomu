@@ -34,6 +34,11 @@ public class OnlineclsListController extends HttpServlet{
 		List<Onlinecls> sList = dao.selectOnlineclsSubject();
 		req.setAttribute("sList", sList);
 		
+		// 삽입, 수정, 삭제 결과값에 따른 alert창 처리를 위함
+		req.setAttribute("resultC", req.getParameter("resultC"));
+		req.setAttribute("resultU", req.getParameter("resultU"));
+		req.setAttribute("resultD", req.getParameter("resultD"));
+		
 		req.getRequestDispatcher("/jsp/onlineclass/onlinecls_list.jsp").forward(req, res);
 	}
 }
