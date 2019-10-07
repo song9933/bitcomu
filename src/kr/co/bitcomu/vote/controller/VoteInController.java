@@ -60,6 +60,8 @@ public class VoteInController extends HttpServlet{
 			String convertedChoice = sb.toString();	
 			comment.setCmtContent(convertedChoice);
 			comment.setCodeValue(dao.selectCodeValueVote());
+			int voteNo = Integer.parseInt(req.getParameter("voteNo"));
+			dao.updateVoteInCount(voteNo);
 			dao.insertVoteIn(comment);
 		}
 		
