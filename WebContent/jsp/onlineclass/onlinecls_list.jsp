@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/jsp/include/taglib.jsp" %>
 <%
-int yt_no = 0;
+int yt_no1 = 0;
+int yt_no2 = 0;
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -59,7 +60,7 @@ int yt_no = 0;
 	                  <div class="imgBox">
 	                      <img src="https://img.youtube.com/vi/${ subject.ytAddr }/0.jpg">
 	                  </div>
-	                  <span><%= ++yt_no %></span>
+	                  <span><%= ++yt_no1 %></span>
 	                  <div class="ifrInfo">
 	                    <h5>${ subject.ytSubject }</h5>
 	                  </div>
@@ -82,7 +83,7 @@ int yt_no = 0;
  						<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/p.do?no=${ ocls.ytNo }&subj=${ocls.ytSubject }'">
 <!-- 						<div class="ifrBox"> -->
 							<iframe src="https://www.youtube.com/embed/${ ocls.ytAddr }" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-							<span><%= ++yt_no %></span>
+							<span><%= ++yt_no2 %></span>
 							<div class="ifrInfo">
 								<h5>${ ocls.ytTitle }</h5>
 								<p>강의시간 36:24</p>

@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.bitcomu.repository.dao.OnlineclsDAO">
 
-
+<!-- 온라인강의 맵 resultMap -->
 <resultMap type="Onlinecls" id="onlineclsMap">
 	<result column="yt_no" property="ytNo" />
 	<result column="user_no" property="userNo" />
@@ -15,6 +15,16 @@
 	<result column="yt_view_cnt" property="ytViewCnt" />
 	<result column="yt_like_cnt" property="ytLike" />
 </resultMap>
+<!-- 댓글 맵 resultMap -->
+<resultMap type="Comment" id="cmtMap">
+	<result column="CMT_NO" property="cmtNo" />
+	<result column="USER_NO" property="userNo" />
+	<result column="BOARD_POST_NO" property="boardPostNo" />
+	<result column="CMT_CONTENT" property="cmtContent" />
+	<result column="CMT_REG_DT" property="cmtRegDt" />
+	<result column="CODE_VALUE" property="codeValue" />
+</resultMap>
+<!-- 온라인강의 -->
 <!-- 회원번호로 조인해 회원아이디 조회 -->
 <select id="selectUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
 	select (select user_id from tb_user u
@@ -66,6 +76,24 @@
 	  from tb_youtube
 	 where yt_no = #{ytNo}
 </delete>
+<!-- // 온라인강의 -->
+
+<!-- 댓글 -->
+<!-- 댓글 작성자 조회 -->
+<select id="selectCmtUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
+	select (select user_id from tb_user u
+			 where c.user_no = u.user_no) as user_id
+	  from tb_comment c
+	 where BOARD_POST_NO = #{no} and CODE_VALUE = (select code_value from tb_codenm where code_name='온라인강의게시판')
+</select>
+<!-- 전체 댓글 리스트 조회 -->
+<select id="selectComment" resultMap="cmtMap" parameterType="int" flushCache="true" useCache="true">
+	select * 
+	  from tb_comment
+	 where BOARD_POST_NO = #{ytNo} and CODE_VALUE = (select code_value from tb_codenm where code_name='온라인강의게시판')
+</select>
+	
+<!-- // 댓글 -->
 </mapper>
 <!--
 검색은
@@ -75,3 +103,4 @@ select *
   
 
  -->
+ 

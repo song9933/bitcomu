@@ -144,9 +144,11 @@ int yt_no = 0;
       </div>
       <div class="pop_r">
           <div>
-	          <c:if test="${ sessionScope.user.userGrade eq 3 || sessionScope.user.userNo == ocls.userNo }">
-				<p>${ ocls.ytTitle }<a href="javascript:openPop()">···</a></p>
-	          </c:if>
+			<p>${ ocls.ytTitle }
+				<c:if test="${ sessionScope.user.userGrade eq 3 || sessionScope.user.userNo == ocls.userNo }">
+					<a href="javascript:openPop()">···</a>
+				</c:if>
+			</p>
             <dl>
               <dt><i class="fa fa-user-circle" aria-hidden="true"></i></dt>
 <!--          <dd>${ ocls.userNo }</dd> -->
@@ -158,6 +160,59 @@ int yt_no = 0;
             	${ ocls.ytContent }
             </p>
           </div>
+          <!-- 댓글  -->
+			<div id="commentList2">
+				<form action="comment_update.do" method="post">
+					<input type="hidden" name="no" value="${board.no}" />
+					<input type="hidden" name="commentNo" value="${param.commentNo}" />	
+<!-- 				<ul id="commentList">
+ 							
+					</ul>
+					-->
+					<table id="commentList">
+					
+					</table>
+					<%--	
+					<table>
+						<c:forEach var="comment" items="${commentList}">
+							<c:choose>
+								<c:when test="${param.commentNo eq comment.commentNo}">
+									<tr>
+										<td>${comment.writer}</td>
+										<td>
+											<textarea name="content" rows="2" cols="60">${comment.content}</textarea>
+										</td>
+										<td colspan="2">
+											<input type="submit" value="수정" />
+											<a href="detail.do?no=${comment.no}">취소</a>
+										</td>
+									</tr>		
+								</c:when>
+								<c:otherwise>
+									<tr>
+										<td>${comment.writer}</td>
+										<td>${comment.content}</td>
+										<td>
+											<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${comment.regDate}"/>
+										</td>
+										<td>
+											<a href="comment_delete.do?commentNo=${comment.commentNo}&no=${comment.no}">삭제</a>	
+											<a href="detail.do?commentNo=${comment.commentNo}&no=${comment.no}">수정</a>	
+										</td>
+									 </tr>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${empty commentList}">
+							<tr>
+								<td colspan='4'>댓글이 존재하지 않습니다.</td>
+							</tr>
+						</c:if>	 
+					</table>
+					 --%>
+				</form>
+			</div>
+          <!-- //댓글 -->
           <div class="socialbox">
               <i class="fa fa-heart-o" aria-hidden="true"></i>
               <!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
@@ -166,9 +221,10 @@ int yt_no = 0;
               <p><fmt:formatDate pattern="yyyy.MM.dd" value="${ ocls.ytRegDt }"/></p>
 
           </div> 
-          <div class="comment">
-            <textarea style="resize: none" placeholder="댓글 달기..."></textarea>
-          </div>
+          <form method="post" action="">
+            <textarea name="cmtdetail" style="resize: none" placeholder="댓글 달기..."></textarea>
+            <button>전송</button>
+          </form>
 
       </div>
       <div class="pop_layer hidden">
@@ -191,6 +247,7 @@ int yt_no = 0;
     <!-- //팝업 끝 -->
   </div>
   <script>
+  // 팝업
   let popEle1 = document.querySelector('.popup');
   let popEle2 = document.querySelector('.pop_layer');
   	function openPop(){
@@ -208,8 +265,10 @@ int yt_no = 0;
         $(this).siblings().toggleClass('on');
       });
     });
-    
-
+    // ---------- 팝업 끝 ----------
+    // 게시판번호 외부스크립트로 보내기
+    let no = ${ ocls.ytNo };
   </script>
+  <script src="${pageContext.request.contextPath}/resources/js/bitcomu.js"></script>
 </body>
 </html>
