@@ -372,13 +372,12 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .popup { display: block; }
 .popup > * { float: left; }
 .pop_l { margin: 60px 0; width: 640px; height: 360px; }
-.pop_r { height: 210px; width: 310px; }
+.pop_r { height: 480px; width: 310px; }
 .pop_r > *{ padding: 10px; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #e0e0e0; box-sizing: border-box; }
 .pop_r > div:nth-child(1) { height: 60px; }
-.pop_r > div:nth-child(2) { height: 100%; }
-.pop_r > div:nth-child(3) { overflow: auto; padding-right: 40px; height: 80px; }
-.pop_r > div:nth-child(3) b { margin-right: 10px; }
-.pop_r > form { padding-top: 0; height: 40px; border-bottom: none; }
+.pop_r > div:nth-child(2) { height: 300px; }
+.pop_r > div:nth-child(3) { height: 80px; }
+.pop_r > div:nth-child(4) { padding-top: 0; height: 40px; border-bottom: none; }
 .pop_r dl * { display: inline; }
 .pop_r p a { position: absolute; top: 10px; right: 10px; font-size: 1.2rem; }
 
@@ -441,6 +440,7 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .login_form_wrap .modal-login .btn:hover, .modal-login .btn:focus { background: #45aba6; outline: none; }
 .login_form_wrap .modal-footer { padding: 15px; text-align: right; border-top: 1px solid #e5e5e5; }
 .login_form_wrap .modal-footer a:hover { text-decoration: underline; }
+/* 지인 끝 */; }
 /* 지인 끝 */
 
 
@@ -932,6 +932,27 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     margin-left: 170px;
     font-size: 30px;
 }
+.qna_title_1 {
+	font-family: Arial, Helvetica, sans-serif; 
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 950px;
+    height: 50px;
+    margin-left: 10px;
+    margin-bottom: 34px;
+    width: 700px;
+    padding-bottom: 20px;
+    line-height: 16px;
+    border-bottom: 2px dashed gray;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    font-size: 20px;
+}
+
 
 /* 수정 */
 .qna_updat_1 {
@@ -1134,6 +1155,9 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     margin-left: 20px;
     cursor:pointer;
 }
+.qna_update_attatch {
+	margin-left: 20px;
+}
 /*수정 버튼*/
 .qna_button_update {
     color: rgb(17, 14, 14);
@@ -1191,8 +1215,8 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 
 .qna_accordion ul {
     list-style:none;
-    margin:0;
-    padding:0;    
+    margin: 0;
+    padding: 0;    
 }
 .qna_accordion li {
     margin: 0;
@@ -1211,7 +1235,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
     font-weight: bold;
     cursor: pointer;
-    text-transform:uppercase;
+    text-transform: uppercase;
     -webkit-transition: all .2s ease-out;
     -moz-transition: all .2s ease-out;
     font-size: 20px;

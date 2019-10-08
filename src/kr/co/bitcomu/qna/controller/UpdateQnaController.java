@@ -29,8 +29,8 @@ public class UpdateQnaController extends HttpServlet {
 		// 파라미터 정보를 읽어 데이터베이스에 저장하기
 		Qna qna = new Qna();
 		qna.setQnaNo(Integer.parseInt(request.getParameter("qnaNo")));
-		qna.setQnaTitle(request.getParameter("title"));
-		qna.setQnaContent(request.getParameter("content"));
+		qna.setQnaTitle(request.getParameter("qnaTitle"));
+		qna.setQnaContent(request.getParameter("qnaContent"));
 		qna.setUserNo(Integer.parseInt(request.getParameter("userNo")));
 		dao.updateQna(qna);
 		

@@ -15,8 +15,7 @@ import kr.co.bitcomu.repository.vo.Qna;
 import kr.co.bitcomu.repository.vo.User;
 
 
-
-@WebServlet("/qna/write.do")
+@WebServlet("/qna/qnaWrite.do")
 public class WriteQnaController extends HttpServlet {
 	private QnaDAO dao;
 	public WriteQnaController() {

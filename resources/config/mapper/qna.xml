@@ -4,8 +4,9 @@
 
 <mapper namespace="kr.co.bitcomu.repository.dao.QnaDAO">
 	<resultMap type="Qna" id="qnaMap">
-		<result column="qna_no" property="qnaNo"/>
-		<result column="user_no" property="userNo"/>
+		<result column="qna_no" property="qnaNo" />
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
 		<result column="qna_title" property="qnaTitle" />
 		<result column="qna_content" property="qnaContent" />
 		<result column="qna_public_enabled" property="qnaPublicEnabled" />
@@ -39,7 +40,7 @@
 			tb_qna_seq.nextval, #{qnaTitle}, #{qnaContent}, ${userNo}
 		)
 	</insert>
-	<update id="updateQna" parameterType="Qna" >
+	<update id="updateQna" parameterType="Qna">
 		update tb_qna 
 		   set qna_title = #{qnaTitle}, 
 		       qna_content = #{qnaContent}

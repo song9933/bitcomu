@@ -6,6 +6,7 @@ public class Qna {
 	
 	private int qnaNo;  // qna 글 번호
 	private int userNo; // 유저 번호
+	private String userId; // user id
 	private String qnaTitle; // qna 제목
 	private String qnaContent; // qna 내용
 	private String qnaPublicEnabled; // qna 공개 여부
@@ -23,6 +24,12 @@ public class Qna {
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getQnaTitle() {
 		return qnaTitle;
@@ -54,8 +61,6 @@ public class Qna {
 	public void setQnaRegDt(Date qnaRegDt) {
 		this.qnaRegDt = qnaRegDt;
 	}
-	
-	
 	
 	
 }
