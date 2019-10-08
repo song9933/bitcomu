@@ -222,7 +222,16 @@
   </div>
   <script>
   
-  JSONObject obj = new JSONObject();
+//   JSONObject obj = new JSONObject();
+  
+  let talkList = new Array();
+  let noticeList = new Array();
+  let onlineList = new Array();
+  let teamList = new Array();
+  let voteList = new Array();
+  let studyList = new Array();
+  let qnaList = new Array();
+  
   
   
   
@@ -259,21 +268,35 @@
 	delSelBoard.addEventListener("click", (e) => {
 		let flag = true;
 		delChk = document.querySelectorAll(".delChk");
-		let arr = new Array();
+		
 		
 		for (let i =0; i < delChk.length; i++) {
 			if (delChk[i].checked) {
+				let result = delChk[i].value.split("||");
+				if (result[1] == '자유게시판') talkList.push(result[0]);
+ 				else if (result[1] == '공지게시판') noticeList.push(result[0]);
+				else if (result[1] == '온라인강의게시판') onlineList.push(result[0]);
+				else if (result[1] == '팀프로젝트게시판') teamList.push(result[0]);
+				else if (result[1] == '투표게시판') voteList.push(result[0]);
+			    else if (result[1] == '스터디게시판') studyList.push(result[0]);
+				else if (result[1] == '질문답변게시판') qnaList.push(result[0]);	
 				flag = false;
-				arr.push(delChk[i].value);
-				console.log(delChk[i].value);
 			}
 		}
 		if (flag) {
 			alert('삭제할 게시판을 선택하세요.');
 			return false;
 		}
+		let jsonData = {};
+		if (talkList.length > 0) jsonData["1"] = talkList;
+		if (noticeList.length > 0) jsonData["2"] = noticeList;
+		if (onlineList.length > 0) jsonData["3"] = onlineList;
+		if (teamList.length > 0) jsonData["4"] = teamList;
+		if (voteList.length > 0) jsonData["5"] = voteList;
+		if (studyList.length > 0) jsonData["6"] = studyList;
+		if (qnaList.length > 0) jsonData["7"] = qnaList;
 		
-	
+		console.log(jsonData);
 		
 		let result = confirm("정말 선택한 게시판을 삭제하시겠습니까?");
 		if (result) {
@@ -284,14 +307,14 @@
 							alert("삭제 되었습니다.");
 // 							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
 						} else {
-							alert("시스템 오류입니다.")
+							alert("시스템 오류입니다. 다시 시도해 주세요.")
 						}
 				}
 			};	
-			console.log(arr);
-// 			xhr.open("POST", "userSelectDel.do", true);
-// 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-// 			xhr.send("msg=" + arr);
+// 			console.log(arr);
+			xhr.open("POST", "boardSelectDel.do", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("data=" + JSON.stringify(jsonData));
 		} else {
 			alert("취소되었습니다.");
 		}

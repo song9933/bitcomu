@@ -284,7 +284,7 @@
 							alert("전체 삭제 되었습니다.");
 							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
 						} else {
-							alert("시스템 오류입니다.")
+							alert("시스템 오류입니다. 다시 시도해 주세요.")
 						}
 				}
 			};	
