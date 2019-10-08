@@ -14,7 +14,7 @@ import kr.co.bitcomu.repository.dao.TalkDAO;
 
 
 
-@WebServlet("/talkdelete.do")
+@WebServlet("/talk/talkdelete.do")
 public class DeleteTalkController extends HttpServlet {
 	
 	private TalkDAO dao;

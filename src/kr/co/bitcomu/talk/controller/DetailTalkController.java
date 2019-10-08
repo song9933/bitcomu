@@ -21,7 +21,7 @@ import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.util.PageResult;
 
-@WebServlet("/talk_detail.do")
+@WebServlet("/talk/talk_detail.do")
 public class DetailTalkController extends HttpServlet {
 
 	private TalkDAO dao;

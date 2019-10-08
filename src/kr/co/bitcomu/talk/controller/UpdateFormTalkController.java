@@ -16,7 +16,7 @@ import kr.co.bitcomu.repository.vo.User;
 
 
 
-@WebServlet("/updateTalkForm.do")
+@WebServlet("/talk/updateTalkForm.do")
 public class UpdateFormTalkController extends HttpServlet {
 
 	private TalkDAO dao;

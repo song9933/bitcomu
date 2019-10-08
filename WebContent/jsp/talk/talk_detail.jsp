@@ -96,10 +96,10 @@
             
             
             
-            <a class="ns_talk_like" href="/bitcomu/talk/like_update.do?postNo=${talkDetail.postNo}&userNo=${sessionScope.user.userNo}&pageNo=${pr.pageNo}" >
+            <a class="ns_talk_like" href="#" onclick="likeUpdateAjax(${talkDetail.postNo}, ${sessionScope.user.userNo}, ${pr.pageNo})">
            
             
-           	 <i class="far fa-thumbs-up fa-3x">${talkDetail.likeCnt}</i>
+           	 <i class="far fa-thumbs-up fa-3x" id="likeUpdate">${talkDetail.likeCnt}</i>
             
             </a>
             
@@ -298,9 +298,11 @@
 
 
   </div>
-  <script>
+  
+ 
+  <script src="<c:url value='/resources/js/like.js' />">
   // $(document).ready(alert());
-
+	
   </script>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class CommentUpdateController extends HttpServlet {
 		comment.setCmtNo(Integer.parseInt(request.getParameter("cmtNo")));
 		dao.updateComment(comment);
 		
-		response.sendRedirect("/bitcomu/talk_detail.do?postNo=" + Integer.parseInt(request.getParameter("postNo")) 
+		response.sendRedirect("/bitcomu/talk/talk_detail.do?postNo=" + Integer.parseInt(request.getParameter("postNo")) 
 												  + "&pageNo=" + Integer.parseInt(request.getParameter("pageNo")) 
 												
  					);
