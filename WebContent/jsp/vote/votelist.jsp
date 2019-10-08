@@ -64,12 +64,12 @@
 
 								<div>마감 기한을 선택해주세요.</div>
 								<div>
-									<input type="datetime-local" name="voteCloseDt" id="voteCurrentTimeValue"/>
+									<input type="datetime-local" name="voteCloseDt" id="vote-close-dt"/>
 								</div>
 								<br>
 								<div>투표에대한 간략한 설명을 입력해주세요.</div>
 								<textarea class="w3-input" placeholder="투표에 대한 기본 설명입력.."
-									name="voteContent"></textarea>
+									name="voteContent" id="vote-content"></textarea>
 
 								<br>
 								<div>중복체크 가능여부 설정(체크박스로 변경)</div>
@@ -78,13 +78,13 @@
 
 								<div>
 								<div><h3>투표 선택지1의 이름.
-									<input class="w3-input" type="text" placeholder="선택지 이름을 입력하세요"
-									name="menu" value="1"> <br>
+									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
+									name="menu"> <br>
 								</h3></div>
 								
 								<div><h3>투표 선택지2의 이름.
-									<input class="w3-input" type="text" placeholder="선택지 이름을 입력하세요"
-									name="menu" value="2"> <i class="fa fa-plus-square vote_plusminus" onclick="vote_add()" aria-hidden="true"></i> <br>
+									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
+									name="menu"> <i class="fa fa-plus-square vote_plusminus" onclick="vote_add()" aria-hidden="true"></i> <br>
 								</h3></div>
 								
 								<div id="vote_tg"></div>
@@ -165,10 +165,10 @@
 		title.innerText = `투표 선택지\${index}의 이름.`;
 		let input = document.createElement("input");
 		input.setAttribute("type","text");
-		input.setAttribute("class", "w3-input")
+		input.setAttribute("class", "w3-input vote_menu")
 		input.setAttribute("placeholder", "선택지 이름을 입력하세요");
 		input.setAttribute("name", "menu");
-		input.setAttribute("value", `\${index}`);
+// 		input.setAttribute("value", `\${index}`);
 		let plusbtn = document.createElement("i");
 		plusbtn.setAttribute("class",`fa fa-plus-square vote_plusminus`);
 		plusbtn.setAttribute("onclick",`vote_add()`);
@@ -195,7 +195,7 @@
 		}
 	var cDate = new Date();
 	cDate.setHours(cDate.getHours()+9);
-	document.getElementById("voteCurrentTimeValue").value= cDate.toISOString().slice(0, 16);
+	document.getElementById("vote-close-dt").value= cDate.toISOString().slice(0, 16);
 	
 	
 	<%-- 이벤트 리스너 시작 --%>
@@ -216,10 +216,30 @@
 
 function validate(){
 	let writeFormTitle = document.getElementById("dc-form-title");
-	if (writeFormTitle.value == null){
+	if (document.getElementById("dc-form-title").value == ""){
 		alert("제목을 입력해주세요.");
 		return false;
 	}
+	var date = new Date();
+	date.setMinutes(date.getMinutes()+3);
+	if (document.getElementById("vote-close-dt").value < date.value){
+		alert("마감기한은 현재시간보다 최소 3분 이후로 설정하셔야 합니다.");
+		return false;
+	}
+	if (document.querySelector("#vote-content").value.length == 0){
+		alert("설명을 입력해주세요.");
+		return false;
+	}
+	
+	let menu = document.getElementsByClassName("vote_menu");
+	console.log(menu);
+	for (let i = 0; i < menu.length; i++){
+		if(menu[i].value.length == 0){
+			alert("선택지이름을 입력해주세요.");
+			return false;
+		}	
+	}
+	
 
 }
 </script>

@@ -9,7 +9,7 @@ public interface VoteDAO {
 	List<Vote> selectVote();
 	Vote selectOneVote(int voteNo);
 	void insertVote(Vote vote);
-	void updateVoteInCount(int voteNo);
+	void updateVoteInCnt(int voteNo);
 	void updateVote(Vote vote);
 	void updateVoteCloseEnabled(int voteNo);
 	void deleteVote(int voteNo);

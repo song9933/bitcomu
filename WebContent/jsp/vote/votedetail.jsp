@@ -20,6 +20,11 @@
 	</c:import>
 
 	<style>
+.vote_btn {
+	float: left;
+	margin-right: 5px;
+}
+
 .vote_detail {
 	width: 550px;
 	margin: 20px auto;
@@ -179,17 +184,19 @@ h2.vote_modal_title {
 								</c:forEach>
 							</c:when>
 						</c:choose>
-						<input type="hidden" name="voteNo" value="${vote.voteNo}" />
 						
 						<%-- 참여or미참여 버튼 번경 --%>
 							
 						<c:choose>
 							<c:when test="${commentinvote == 'N'}">
-							<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button">투표하기</button>	
+						<input type="hidden" name="voteNo" value="${vote.voteNo}" />
+							<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button vote_btn">투표하기</button>	
 							</c:when>
 							<c:when test="${commentinvote == 'Y'}">
-								<button id="vote-in" type="butten" disabled class="w3-btn w3-green vote_submit_button">참여한투표</button>
+								<button id="vote-in" type="butten" disabled class="w3-btn w3-green vote_submit_button vote_btn">참여한투표</button>
+								<br><br>
 								<div>나의 선택 : ${userContent}</div>
+								
 							</c:when>
 						</c:choose>
 					</form>
@@ -200,12 +207,24 @@ h2.vote_modal_title {
 						<form action="<c:url value='/vote/closevote.do' />" method="post">
 							<input type="hidden" name="voteClose" value="${vote.voteNo}" />
 							<button id="vote-close"
-								class="w3-btn w3-deep-orange vote_submit_button">마감하기</button>
+								class="w3-btn w3-deep-orange vote_submit_button vote_btn">마감하기</button>
 						</form>
 					</c:if>
+					
+					<%-- 만약 작성자일 경우 삭제하기 버튼이 나타나도록한다.--%>
+					<c:if
+						test="${user.userNo eq vote.userNo}">
+						<form action="<c:url value='/vote/votedelete.do' />" method="post">
+							<input type="hidden" name="voteDelete" value="${vote.voteNo}" />
+							<button id="vote-delete"
+								class="w3-btn w3-indigo vote_submit_button vote_btn">삭제하기</button><br>
+						</form>
+					</c:if>
+					
+					
 
 					<c:if test="${vote.voteCloseEnabled eq 'Y'}">
-						<br><hr><br>
+						<br><br><hr><br>
 						<h3>마감된 투표입니다.</h3>
 					</c:if>
 
