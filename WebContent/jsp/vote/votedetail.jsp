@@ -136,6 +136,12 @@ h2.vote_modal_title {
 		<!-- width = 1280px 인 컨텐츠영역-->
 		<div class="w1280">
 			<section class="content">
+				<!-- breadcrumbs 위치 -->
+				<div>
+					<h4 style="text-align: center; color: gray;">현재위치 : 투표하기 - ${vote.voteTitle}</h4>
+				</div>
+				
+			
 				<div class="w3-container w3-card w3-white w3-round vote_detail">
 				<!-- 차트 그리기 시작점 -->
 				<div id="bar_chart_div"></div>
