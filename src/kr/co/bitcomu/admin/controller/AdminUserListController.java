@@ -49,7 +49,7 @@ public class AdminUserListController extends HttpServlet {
 		
 		Page page = new Page(pageNo, pageList);
 		
-		
+	
 		
 		PageResult pr = new PageResult(pageNo, count, pageList, 5);
 		

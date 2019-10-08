@@ -51,6 +51,7 @@
 </head>
 <body>
    <div class="wrapepr">
+
      
     <%@ include file="/jsp/include/header.jsp"%>
     <!-- width = 1280px 인 컨텐츠영역-->
@@ -92,8 +93,6 @@
                     <option value="10" selected>10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
-
-                    
                 </select>씩 보기
                 
             </div>
@@ -222,7 +221,6 @@
   </div>
   <script>
   
-//   JSONObject obj = new JSONObject();
   
   let talkList = new Array();
   let noticeList = new Array();
@@ -273,13 +271,13 @@
 		for (let i =0; i < delChk.length; i++) {
 			if (delChk[i].checked) {
 				let result = delChk[i].value.split("||");
-				if (result[1] == '자유게시판') talkList.push(result[0]);
- 				else if (result[1] == '공지게시판') noticeList.push(result[0]);
-				else if (result[1] == '온라인강의게시판') onlineList.push(result[0]);
-				else if (result[1] == '팀프로젝트게시판') teamList.push(result[0]);
-				else if (result[1] == '투표게시판') voteList.push(result[0]);
-			    else if (result[1] == '스터디게시판') studyList.push(result[0]);
-				else if (result[1] == '질문답변게시판') qnaList.push(result[0]);	
+				if (result[1] == '자유게시판') talkList.push(parseInt(result[0]));
+ 				else if (result[1] == '공지게시판') noticeList.push(parseInt(result[0]));
+				else if (result[1] == '온라인강의게시판') onlineList.push(parseInt(result[0]));
+				else if (result[1] == '팀프로젝트게시판') teamList.push(parseInt(result[0]));
+				else if (result[1] == '투표게시판') voteList.push(parseInt(result[0]));
+			    else if (result[1] == '스터디게시판') studyList.push(parseInt(result[0]));
+				else if (result[1] == '질문답변게시판') qnaList.push(parseInt(result[0]));	
 				flag = false;
 			}
 		}
@@ -311,7 +309,7 @@
 						}
 				}
 			};	
-// 			console.log(arr);
+			console.log(jsonData);
 			xhr.open("POST", "boardSelectDel.do", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.send("data=" + JSON.stringify(jsonData));
