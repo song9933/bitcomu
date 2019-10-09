@@ -18,11 +18,11 @@ import kr.co.bitcomu.repository.vo.User;
 public class VoteInUpdateController extends HttpServlet{
 	
 	VoteDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(VoteDAO.class);
-
+	int voteNo;
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		
+		System.out.println();
 		//로그인한 유저정보를 얻어오기 위해 세션을 호출
 		HttpSession session = req.getSession();
 		//조건에 맞는 임시 코멘트 객체를 만들기 시작
@@ -42,9 +42,9 @@ public class VoteInUpdateController extends HttpServlet{
 			//이 두가지 정보를 이용해서 1개의 코멘트를 확정지어 셀렉
 			
 			Comment realCom = dao.selectOneVoteIn(comment);
-			
+			System.out.println("realCom 투스트링값 : " + realCom.toString());
 			//이녀석의 코멘트 콘텐츠를 바꿔줘야함.
-			
+			System.out.println("리얼콤의 콘텐츠의 변화전 투스트링 값 :" + realCom.getCmtContent());
 			//유저가 선택한 정보값을 받아오기 위해 파라미터에서 배열을 받아옴.
 			String[] choice = req.getParameterValues("choice");
 			System.out.println(choice.toString());
@@ -55,14 +55,15 @@ public class VoteInUpdateController extends HttpServlet{
 			}
 			String convertedChoice = sb.toString();	
 			realCom.setCmtContent(convertedChoice);
+			System.out.println("리얼콤의 콘텐츠의 변화된 투스트링값 :" + realCom.getCmtContent());
 			dao.updateVoteIn(realCom);
 			
 			//이 결과를 받아서 처리할 디테일을 위한 정보 담아 넘기기 작업.
-			int voteNo = Integer.parseInt(req.getParameter("voteNo"));
-			req.setAttribute("voteNo", voteNo);
+			voteNo = Integer.parseInt(req.getParameter("voteNo"));
+//			req.setAttribute("voteNo", voteNo);
 		}
 		
-		req.getRequestDispatcher("/jsp/vote/votedetail.do").forward(req, res);
+		res.sendRedirect("votedetail.do?voteNo=" + voteNo);
 	}
 
 	

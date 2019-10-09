@@ -116,8 +116,13 @@
 	where code_group = 'BOARD_CD' 
 	and code_name = '투표게시판'
 	</select>
-	<select id="selectOneVoteIn" parameterType="Comment" resultType="Comment">
-	    select *
+	
+	<!-- 1개만 무조건 가져오는 쿼리 -->
+	<select id="selectOneVoteIn" parameterType="Comment" resultMap="commentMap">
+	select *
+	from
+	(
+	 select *
 	      from tb_comment
 	     where user_no = #{userNo}
 	       and board_post_no = #{boardPostNo}
@@ -125,6 +130,10 @@
                   	  		   from tb_codenm
                    	  		  where code_group = 'BOARD_CD' 
                      		    and code_name = '투표게시판')
+      order by cmt_reg_dt desc
+	)
+	where rownum = 1
+	
 	</select>
 	
 	<insert id="insertVoteIn" parameterType="Comment">

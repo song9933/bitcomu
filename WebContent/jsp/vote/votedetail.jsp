@@ -207,8 +207,9 @@ h2.vote_modal_title {
 							onclick="javascript: form.action=`<c:url value='/vote/votein.do'/>`;">투표하기</button>	
 							</c:when>
 							<c:when test="${commentinvote == 'Y'}">
-								<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button vote_btn
-								onclick="javascript: form.action=<c:url value='/vote/updatevotein.do' />;">다시투표하기</button>
+							<input type="hidden" name="voteNo" value="${vote.voteNo}" />
+								<button id="vote-in-update" type="submit" class="w3-btn w3-green vote_submit_button vote_btn"
+								onclick="javascript: form.action=`<c:url value='/vote/updatevotein.do' />`;">다시투표하기</button>
 								<br><br>
 								<div>나의 선택 : ${userContent}</div>
 								
