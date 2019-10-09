@@ -6,12 +6,13 @@
 	<resultMap type="Qna" id="qnaMap">
 		<result column="qna_no" property="qnaNo" />
 		<result column="user_no" property="userNo" />
-		<result column="user_id" property="userId" />
+   		<result column="user_id" property="userId" />
 		<result column="qna_title" property="qnaTitle" />
 		<result column="qna_content" property="qnaContent" />
 		<result column="qna_public_enabled" property="qnaPublicEnabled" />
 		<result column="qna_like_cnt" property="qnaLikeCnt" />
 		<result column="qna_reg_dt" property="qnaRegDt" />
+		<result column="qna_view_cnt" property="qnaViewCnt" />
 	</resultMap>
 	
 	<select id="selectQna" parameterType="Page" resultMap="qnaMap">
@@ -33,6 +34,31 @@
                             from tb_qna q
 		 where qna_no = #{qnaNo} 
 	</select>
+	<!-- search 부분
+		<where>
+	    	<if test="search.searchType != null">
+		    	<choose>
+		        	<when test="search.searchType == 'all'">
+			              and post_title like '%'|| #{search.searchWord} ||'%'
+			              or post_content like '%'|| #{search.searchWord} ||'%'
+		            </when>
+		            <when test="search.searchType == 'title'"> 	
+		               	  and post_title like '%'|| #{search.searchWord} ||'%'  	
+		            </when>
+		            <when test="search.searchType == 'content'"> 	
+		               	  and post_content like '%'|| #{search.searchWord} ||'%'  	
+		            </when>
+		            <when test="search.searchType == 'userid'"> 	
+		               	  and user_id like '%'|| #{search.searchWord} ||'%'  	
+		            </when>
+		            <when test="search.searchType == 'username'"> 	
+		               	  and user_name like '%'|| #{search.searchWord} ||'%'  	
+		            </when>
+		         </choose>	      	   
+	      	  </if>
+	     </where>
+	       -->
+	<!-- qna게시판 글 작성 -->
 	<insert id="insertQna" parameterType="Qna">
 		insert into tb_qna (
 			qna_no, qna_title, qna_content, user_no
@@ -40,15 +66,57 @@
 			tb_qna_seq.nextval, #{qnaTitle}, #{qnaContent}, ${userNo}
 		)
 	</insert>
+	<!-- qna게시판 글 수정 -->
 	<update id="updateQna" parameterType="Qna">
 		update tb_qna 
 		   set qna_title = #{qnaTitle}, 
 		       qna_content = #{qnaContent}
 		 where qna_no = #{qnaNo}
 	</update>
+	<update id="updateQnaViewCnt" parameterType="int">
+		update tb_qna 
+		   set qna_view_cnt = qna_view_cnt + 1
+		 where qna_no = #{qnaNo}
+	</update>
+	<!-- qna게시판 글 삭제 -->
 	<delete id="deleteQna" parameterType="int">
 		delete 
 		  from tb_qna
 		 where qna_no = #{qnaNo}
 	</delete>
+	
+	<resultMap id="commentMap" type="Comment">
+		<result column="cmt_no" property="cmtNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="board_post_no" property="boardPostNo"/>
+		<result column="cmt_content" property="cmtContent"/>
+		<result column="cmt_reg_dt" property="cmtRegDt"/>
+		<result column="code_value" property="codeValue"/>
+		<result column="user_id" property="userId"/>
+	</resultMap>
+	
+	<!-- 댓글 입력 -->
+	<insert id="insertComment" parameterType="Comment">
+		insert into tb_comment (cmt_no, user_no, board_post_no, cmt_content, code_value)
+				values (tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, (select code_value from tb_codenm where code_name = '질문답변게시판'))
+	</insert>
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="Comment">
+		update tb_comment
+			set cmt_content = #{cmtContent}
+			where cmt_no = #{cmtNo}
+	</update>
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+		delete from tb_comment
+			where cmt_no = #{cmtNo}
+	</delete>
+	<!-- 댓글 수 -->
+	<select id="qnaCmtCnt" parameterType="int" resultType="int">
+		select count(*) 
+    		from tb_comment 
+    		where code_value = (select code_value from tb_codenm where code_name = '질문답변게시판')
+        	and board_post_no = #{qnaNo}
+	</select>
+	
 </mapper>

@@ -6,12 +6,13 @@ public class Qna {
 	
 	private int qnaNo;  // qna 글 번호
 	private int userNo; // 유저 번호
-	private String userId; // user id
+	private String userId; // 유저 id
 	private String qnaTitle; // qna 제목
 	private String qnaContent; // qna 내용
 	private String qnaPublicEnabled; // qna 공개 여부
 	private int qnaLikeCnt; // qna 좋아요 수
 	private Date qnaRegDt; // qna 등록 날짜
+	private int qnaViewCnt; // qna 조회 수
 	
 	public int getQnaNo() {
 		return qnaNo;
@@ -61,6 +62,11 @@ public class Qna {
 	public void setQnaRegDt(Date qnaRegDt) {
 		this.qnaRegDt = qnaRegDt;
 	}
-	
+	public int getQnaViewCnt() {
+		return qnaViewCnt;
+	}
+	public void setQnaViewCnt(int qnaViewCnt) {
+		this.qnaViewCnt = qnaViewCnt;
+	}
 	
 }

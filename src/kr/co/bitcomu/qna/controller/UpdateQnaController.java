@@ -14,7 +14,7 @@ import kr.co.bitcomu.repository.dao.QnaDAO;
 import kr.co.bitcomu.repository.vo.Qna;
 import kr.co.bitcomu.repository.vo.User;
 
-@WebServlet("/qnaUpdate.do")
+@WebServlet("/qna/qnaUpdate.do")
 public class UpdateQnaController extends HttpServlet {
 	
 	private QnaDAO dao;
@@ -31,7 +31,7 @@ public class UpdateQnaController extends HttpServlet {
 		qna.setQnaNo(Integer.parseInt(request.getParameter("qnaNo")));
 		qna.setQnaTitle(request.getParameter("qnaTitle"));
 		qna.setQnaContent(request.getParameter("qnaContent"));
-		qna.setUserNo(Integer.parseInt(request.getParameter("userNo")));
+	 // qna.setUserNo(Integer.parseInt(request.getParameter("userNo")));
 		dao.updateQna(qna);
 		
 		res.sendRedirect("/bitcomu/qna/qnaList.do");
