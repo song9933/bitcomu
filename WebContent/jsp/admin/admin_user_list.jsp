@@ -174,8 +174,7 @@
 			    </c:if>
 		</c:if>
 		</ul>
-            
-            
+      
             <div class="ns_search">
                 <select name="searchList" id="searchList">
                 
