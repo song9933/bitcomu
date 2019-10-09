@@ -51,7 +51,7 @@ h2.vote_modal_title {
     font-family: "Oswald";
     font-weight: 700;
     font-size: 1.7em;
-    margin: 0 25%;
+    margin: 0 16%;
     padding: 10px;
 }
 
@@ -283,6 +283,7 @@ h2.vote_modal_title {
 			var barChartOption = {
 				bars: 'vertical',
 				height: 260,
+				hAxis: {format: '0'},
 				width: '100%',
 				legend: { position: "top" },
 				isStacked: false,
@@ -305,6 +306,12 @@ h2.vote_modal_title {
 			};
 
 			var chart = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
+			
+			
+			//천단위마다 ,찍기.
+			var formatter = new google.visualization.NumberFormat({pattern: '###,###'});
+    	  	  formatter.format(data, 1);
+			
 
 			chart.draw(data, barChartOption);
 			//반응형 그래프 출력
@@ -356,7 +363,7 @@ h2.vote_modal_title {
      
     // format countdown string + set tag value
     countdown.innerHTML = days + "일 " + hours + "시간 "
-    + minutes + "분 " + seconds + "초 ";  
+    + minutes + "분 " + seconds + "초 남음..";  
  
 	}, 1000);
 	</script>
