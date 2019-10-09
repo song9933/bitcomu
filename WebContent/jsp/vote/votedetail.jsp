@@ -201,12 +201,12 @@ h2.vote_modal_title {
 						<%-- 참여or미참여 버튼 번경 --%>
 							
 						<c:choose>
-							<c:when test="${commentinvote == 'N'}">
+							<c:when test="${commentinvote == 'N' && vote.voteCloseEnabled eq 'N'}">
 						<input type="hidden" name="voteNo" value="${vote.voteNo}" />
 							<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button vote_btn"
 							onclick="javascript: form.action=`<c:url value='/vote/votein.do'/>`;">투표하기</button>	
 							</c:when>
-							<c:when test="${commentinvote == 'Y'}">
+							<c:when test="${commentinvote == 'Y' && vote.voteCloseEnabled eq 'N'}">
 							<input type="hidden" name="voteNo" value="${vote.voteNo}" />
 								<button id="vote-in-update" type="submit" class="w3-btn w3-green vote_submit_button vote_btn"
 								onclick="javascript: form.action=`<c:url value='/vote/updatevotein.do' />`;">다시투표하기</button>
