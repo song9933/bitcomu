@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.TeamDAO;
+import kr.co.bitcomu.repository.vo.Team;
 
 @WebServlet("/team/teamBoardList.do")
 public class ListTeamBoardController extends HttpServlet {
@@ -21,6 +22,11 @@ public class ListTeamBoardController extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		int no = req.getParameter("codeValue") == null ? dao.selectTeamCode() : Integer.parseInt(req.getParameter("codeValue"));
+		
+		if (req.getParameter("codeValue") != null) {
+			dao.updateTeamCode(no);
+		}
 		int projectNo = 1;
 		if (req.getParameter("projectNo") != null) {
 			projectNo = Integer.parseInt(req.getParameter("projectNo"));
@@ -32,7 +38,9 @@ public class ListTeamBoardController extends HttpServlet {
 		req.setAttribute("projectNo", projectNo);
 		req.setAttribute("teamNo", teamNo);
 		req.setAttribute("list", dao.selectTeamBoard());
+		req.setAttribute("codeValue", dao.selectTeamCode());
 		req.getRequestDispatcher("/jsp/teamboard/team_board_list.jsp").forward(req, res);
+	
 	}
 	
 }

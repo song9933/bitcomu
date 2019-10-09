@@ -20,4 +20,9 @@ public interface TeamDAO {
 	void insertTeamComment(Comment teamComment);
 	void deleteTeamComment(int commentNo);
 	void updateTeamComment(Comment teamComment);
+	
+	/* 조 갯수 조절 ========================================== */
+	
+	int selectTeamCode();
+	int updateTeamCode(int no);
 }

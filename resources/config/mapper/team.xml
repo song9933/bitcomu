@@ -6,15 +6,28 @@
 	<resultMap id="teamMap" type="Team">
 		<result column="user_id" property="userId" /> 
 		<result column="user_no" property="userNo" />
-		<result column="user_birth" property="userBirth" />
+		<result column="user_birth" property="userBirth"/>
 		<result column="team_no" property="teamNo" />
+		<result column="code_value" property="codeValue"/>
 		<result column="project_no" property="projectNo" />
 		<result column="team_board_no" property="teamBoardNo" />
 		<result column="team_board_title" property="teamBoardTitle" />
 		<result column="team_board_content" property="teamBoardContent" />
 		<result column="team_board_reg_dt" property="teamBoardRegDt" />
 	</resultMap>
-
+	
+	<select id="selectTeamCode" resultType="int" flushCache="true" useCache="true">
+		select code_value
+		  from tb_codenm
+		 where code_name = '팀갯수'
+	</select>
+	
+	<update id="updateTeamCode" parameterType="Team">
+		update tb_codenm  
+		   set code_value = #{codeValue}
+		 where code_name = '팀갯수'
+	</update>
+	
 	<select id="userBirthDday" resultMap="teamMap" flushCache="true" useCache="true">
 		select user_birth
   		  from tb_user
