@@ -116,10 +116,15 @@
 	where code_group = 'BOARD_CD' 
 	and code_name = '투표게시판'
 	</select>
-	<select id="selectOneVoteIn" parameterType="int" resultType="Comment">
+	<select id="selectOneVoteIn" parameterType="Comment" resultType="Comment">
 	    select *
 	      from tb_comment
-	     where cmt_no = #{cmtNo}
+	     where user_no = #{userNo}
+	       and board_post_no = #{boardPostNo}
+	       and code_value = (select code_value
+                  	  		   from tb_codenm
+                   	  		  where code_group = 'BOARD_CD' 
+                     		    and code_name = '투표게시판')
 	</select>
 	
 	<insert id="insertVoteIn" parameterType="Comment">

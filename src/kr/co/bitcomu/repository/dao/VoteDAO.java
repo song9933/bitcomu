@@ -18,7 +18,7 @@ public interface VoteDAO {
 	/*댓글테이블 이용한 투표 변동파트 시작*/
 	
 	List<Comment> selectVoteIn(int boardPostNo);
-	Comment selectOneVoteIn(int cmtNo);
+	Comment selectOneVoteIn(Comment comment);
 	void insertVoteIn(Comment comment);
 	void deleteVoteIn(int cmtNo);
 	void updateVoteIn(Comment comment);

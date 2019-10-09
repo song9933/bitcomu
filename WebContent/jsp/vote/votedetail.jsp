@@ -167,7 +167,14 @@ h2.vote_modal_title {
 						<p>${vote.voteContent}</p>
 						<br>
 					</div>
-					<form action="<c:url value='/vote/votein.do' />">
+					
+<!-- 					<form method="post" name="form"> -->
+<!-- 						<input type="submit" value="update" -->
+<!-- 							onclick="javascript: form.action='/manage/update';" /> -->
+<!-- 						<input type="submit" value="delete" -->
+<!-- 							onclick="javascript: form.action=<c:url value='/vote/votein.do' />;" /> -->
+					<!-- 메인 투표 폼 컨텐츠 시작 -->
+					<form method="post" name="form" >
 					<c:choose>
 						<c:when test="${user.userNo eq vote.userNo}"></c:when>
 					</c:choose>
@@ -196,10 +203,12 @@ h2.vote_modal_title {
 						<c:choose>
 							<c:when test="${commentinvote == 'N'}">
 						<input type="hidden" name="voteNo" value="${vote.voteNo}" />
-							<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button vote_btn">투표하기</button>	
+							<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button vote_btn"
+							onclick="javascript: form.action=`<c:url value='/vote/votein.do'/>`;">투표하기</button>	
 							</c:when>
 							<c:when test="${commentinvote == 'Y'}">
-								<button id="vote-in" type="butten" disabled class="w3-btn w3-green vote_submit_button vote_btn">참여한투표</button>
+								<button id="vote-in" type="submit" class="w3-btn w3-green vote_submit_button vote_btn
+								onclick="javascript: form.action=<c:url value='/vote/updatevotein.do' />;">다시투표하기</button>
 								<br><br>
 								<div>나의 선택 : ${userContent}</div>
 								

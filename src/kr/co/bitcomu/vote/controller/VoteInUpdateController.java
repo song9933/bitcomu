@@ -14,45 +14,37 @@ import kr.co.bitcomu.repository.dao.VoteDAO;
 import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.User;
 
-@WebServlet("/vote/votein.do")
-public class VoteInController extends HttpServlet{
-	private VoteDAO dao;
+@WebServlet("/vote/updatevotein.do")
+public class VoteInUpdateController extends HttpServlet{
 	
-	//조건문을 들어갔다가 변화된 변수값을 가져오기 위해 멤버변수 하나 만들어둠.
-	int voteNo;
-	public VoteInController() {
-		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(VoteDAO.class);
-	}
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		super.doGet(req, res);
-	}
+	VoteDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(VoteDAO.class);
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		super.doPost(req, res);
-	}
-
-	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		
 		//로그인한 유저정보를 얻어오기 위해 세션을 호출
 		HttpSession session = req.getSession();
-		//코멘트를 넣기 위해 코멘트객체 생성
+		//조건에 맞는 임시 코멘트 객체를 만들기 시작
 		Comment comment = new Comment();
 		
 		//세션으로부터 유저를 받아서 유저 객체 넣음.
 		User user = (User)session.getAttribute("user");
-		
-		
 		//투표참여 상황은 로그인이 안되어 있을리는 없지만 안전하게 널금지 처리.
 		if(user != null) {// 메인 정보입력 시작.
-			//코멘트넘버는 자동입력이므로 셋팅할 필요없고
 			//로그인한 유저정보 얻어와서 코멘트 유저넘버에 넣음
 			comment.setUserNo(user.getUserNo());
 			//boardPostNo는 현재 조회중인 투표글의 글번호 동일하게 설정해야함.
 			//그러면 현재 이곳에 방금 폼에서 클릭한 그 상세투표화면의 투표번호를 받아와야함.
 			//디테일 jsp에 설정된 히든 인풋에서 voteNo 파라미터의 값을 받아온다.
 			comment.setBoardPostNo(Integer.parseInt(req.getParameter("voteNo")));
+			
+			//이 두가지 정보를 이용해서 1개의 코멘트를 확정지어 셀렉
+			
+			Comment realCom = dao.selectOneVoteIn(comment);
+			
+			//이녀석의 코멘트 콘텐츠를 바꿔줘야함.
+			
 			//유저가 선택한 정보값을 받아오기 위해 파라미터에서 배열을 받아옴.
 			String[] choice = req.getParameterValues("choice");
 			System.out.println(choice.toString());
@@ -62,17 +54,16 @@ public class VoteInController extends HttpServlet{
 				sb.append(c + "★");
 			}
 			String convertedChoice = sb.toString();	
-			comment.setCmtContent(convertedChoice);
-			comment.setCodeValue(dao.selectCodeValueVote());
-			voteNo = Integer.parseInt(req.getParameter("voteNo"));
-			System.out.println(voteNo);
-			dao.updateVoteInCnt(voteNo);
-			dao.insertVoteIn(comment);
+			realCom.setCmtContent(convertedChoice);
+			dao.updateVoteIn(realCom);
+			
+			//이 결과를 받아서 처리할 디테일을 위한 정보 담아 넘기기 작업.
+			int voteNo = Integer.parseInt(req.getParameter("voteNo"));
 			req.setAttribute("voteNo", voteNo);
 		}
 		
-//		req.getRequestDispatcher("/jsp/vote/votedetail.do").forward(req, res);
-		res.sendRedirect("votedetail.do?voteNo=" + voteNo);
+		req.getRequestDispatcher("/jsp/vote/votedetail.do").forward(req, res);
 	}
+
 	
 }

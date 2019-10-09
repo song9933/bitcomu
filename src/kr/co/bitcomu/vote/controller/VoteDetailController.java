@@ -40,7 +40,18 @@ public class VoteDetailController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		int voteNo = Integer.parseInt(req.getParameter("voteNo"));
+		
+		//디테일이 리스트에서 클릭해서 들어왔는지, 투표하기나 업데이트하기 한후에 뿌려주는지에 따라 voteNo를 받아오는 방식이 분기된다.
+		//이걸 판단하는 기준은 getAttribute를 해서 null이 넘어왔다면 투표하기나 재투표하기로 뿌려주는 상황이 아니라는 것이고
+		//null 넘어오지 않았다면 넘어온 voteNo를 그대로 사용하면 된다. 사실 모든 경우의수를 따지니까 굳이 복잡하게 생각할 필요도 없다.
+		//그냥 null넘어오면 설정못했으니까 파라미터에서 얻고, 제대로 넘어왔다면 그냥 그걸로 사용하면 그만인셈.
+		int voteNo;
+		if(req.getAttribute("voteNo") != null) {
+			voteNo = Integer.parseInt((String)req.getAttribute("voteNo"));
+		} else {
+			voteNo = Integer.parseInt(req.getParameter("voteNo"));
+		}
+
 		Vote vote = dao.selectOneVote(voteNo);
 		int boardPostNo = voteNo;
 		List<Comment> cList = dao.selectVoteIn(boardPostNo);
@@ -122,38 +133,6 @@ public class VoteDetailController extends HttpServlet{
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		// 2019-11-03 18:33:00
-		
-//		let date = new Date('May 16, 2019 17:22:10');
-//		console.log(date); // Thu May 16 2019 17:22:10 GMT+0900 (한국 표준시)
-//
-//		date = new Date('2019/05/16/17:22:10');
-//		console.log(date); // Thu May 16 2019 17:22:10 GMT+0900 (한국 표준시)
-		
-		// 두날짜의 차이 구하기
-		
-		
-		
-//		public void doDiffOfDate(){
-//		    String start = "2015-04-01";
-//		    String end = "2015-05-05";
-//		     
-//		    try {
-//		        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		        Date beginDate = formatter.parse(start);
-//		        Date endDate = formatter.parse(end);
-//		         
-//		        // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
-//		        long diff = endDate.getTime() - beginDate.getTime();
-//		        long diffDays = diff / (24 * 60 * 60 * 1000);
-//		 
-//		        System.out.println("날짜차이=" + diffDays);
-//		         
-//		    } catch (ParseException e) {
-//		        e.printStackTrace();
-//		    }
-
 		
 		req.getRequestDispatcher("/jsp/vote/votedetail.jsp").forward(req, res);
 	}
