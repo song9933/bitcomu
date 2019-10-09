@@ -35,7 +35,7 @@ public class UpdateTeamBoardController extends HttpServlet {
 		team.setTeamBoardTitle(req.getParameter("teamBoardTitle"));
 		team.setTeamBoardContent(req.getParameter("teamBoardContent"));
 		dao.updateTeamBoard(team);
-
+		
 		res.sendRedirect("teamBoardList.do");
 	}
 }

@@ -176,15 +176,6 @@
 			</form>
 			<br>
 			<div id="team_comment_cws">
-<!-- 				<div> -->
-<!-- 					<table style="width: 100%"> -->
-<!-- 						<tr id="cmt_menu_cws"> -->
-<!-- 							<td width="15%">작성자</td> -->
-<!-- 							<td width="70%">내용</td> -->
-<!-- 							<td>작성일</td> -->
-<!-- 						</tr> -->
-<!-- 					</table> -->
-<!-- 				</div> -->
 				<form method="post" action="teamCommentUpdate.do">
 					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" />
 					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	
@@ -206,11 +197,11 @@
 									<li style="width: 15%;">${t.userId}</li>
 									<li style="width: 70%">${t.cmtContent}</li>
 									<li
-										style="float: right; position: relative; margin-top: -25px">
+										style="float: right; position: relative; margin-top: -50px;">
 										<fmt:formatDate pattern="yyyy-MM-dd" value="${t.cmtRegDt}" />
 									</li>
-									<li style="float: right; position: relative;"><c:if
-											test="${sessionScope.user.userNo eq t.userNo}">
+									<li style="float: right; position: relative; margin-top: -25px;">
+										<c:if test="${sessionScope.user.userNo eq t.userNo or sessionScope.user.userGrade eq 3}">
 											<a onclick="viewComment()" href="${pageContext.request.contextPath}/team/teamBoardDetail.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">수정</a>
 											<a href="${pageContext.request.contextPath}/team/teamCommentDelete.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">삭제</a>
 										</c:if></li>

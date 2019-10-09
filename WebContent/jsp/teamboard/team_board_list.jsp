@@ -78,25 +78,27 @@ div.a_cws {
 
 				<div class="subtabs_cws">
 					<br>
-					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do">
-					<p style="margin-left: 30px;">조 추가/삭제</p>
-					<button type="button" onclick="doAdd();"
-					style="width: 20px; height: 20px; margin-left: 40px;">+</button>
+					<form method="post" name="sendForm" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}">
+						<input type='hidden' id="codeValue" name="codeValue" value="${codeValue}">
+						
+						<p style="margin-left: 30px;">조 추가/삭제</p>
+						<button type="button" onclick="doAdd();"
+							style="width: 20px; height: 20px; margin-left: 40px;">+</button>
 					
-					<button type="button" onclick="doRemove();"
-					style="width: 20px; height: 20px;">-</button>
-					
-					<button type="submit" >저장</button>
+						<button type="button" onclick="doDel();"
+							style="width: 20px; height: 20px;">-</button>
+					 
+<!-- 						<button type="submit">저장</button> -->
+						<button type="button" onclick="sendTeam();">저장</button>
 					</form>
 					
 					<div class="a_cws">
 <!-- 					<form class="teamNo_active_cws"  -->
 <%-- 						   --%>
 						<ul id="teamtabs_cws">
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li>
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=2">2조</a></li>
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li>
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=4">4조</a></li>
+<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li> --%>
+<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li> --%>
+<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=4">4조</a></li> --%>
 						</ul>
 <!-- 					</form> -->
 					</div>
@@ -183,35 +185,50 @@ div.a_cws {
 		
 		// 조 추가 / 삭제
 		let teamTab = document.querySelector("#teamtabs_cws");
-		let team = 4;
+		let team = ${codeValue};
+		for (let i = 1; i <= team; i++) {
+			let liEle = document.createElement("li");
+			let aEle = document.createElement("a");
+	
+			aEle.href = `${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=\${i}`
+			let txtNode = document.createTextNode(`\${i}조`);
+			aEle.append(txtNode);
+			liEle.append(aEle);
+			liEle.setAttribute("id", `team\${i}`);
+			teamTab.append(liEle);
+		}
+
 		function doAdd() {
 			let liEle = document.createElement("li");
 			let aEle = document.createElement("a");
+
 			team++;
-			aEle.href = `${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${team}`
+			aEle.href = `${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=\${team}`
 			let txtNode = document.createTextNode(`\${team}조`);
 			aEle.append(txtNode);
 			liEle.append(aEle);
+			liEle.setAttribute("id", `team\${team}`);
 			teamTab.append(liEle);
 		}
-		
+
 		function doDel() {
-			
+			console.log(`#team\${team}`);
+			let delEle = document.querySelector(`#team\${team}`);
+			console.log(delEle);
+			delEle.remove();
+			team--;
+
 		}
 		
+		function sendTeam() {
+			let inputEle = document.querySelector("#codeValue");
+			inputEle.value = team;
+			
+			let form = document.sendForm;
+		    form.submit();
+		}
+
 		// 리스트 형식
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	</script>
 </body>
 
