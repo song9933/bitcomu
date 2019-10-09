@@ -20,33 +20,24 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.AdminDAO;
 import kr.co.bitcomu.util.HashMapDeserializer;
 
-@WebServlet("/admin/boardSelectDel.do")
-public class AdminBoardSelDelAjaxController extends HttpServlet{
+@WebServlet("/admin/boardSelectAllDel.do")
+public class AdminBoardSelAllDelAjaxController extends HttpServlet{
 	private AdminDAO dao;
 	
-	public AdminBoardSelDelAjaxController() {
+	public AdminBoardSelAllDelAjaxController() {
 		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(AdminDAO.class);
 	}
 	
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
-		Gson gson = new GsonBuilder().registerTypeAdapter(HashMap.class, new HashMapDeserializer()).create();
-		Map<String, List<Integer>> list = gson.fromJson(req.getParameter("data"), new TypeToken<Map<String, List<Integer>>>() {}.getType());
-		
-//		for(Map.Entry<String, List<Integer>> entry : list.entrySet()) {
-//			for (Integer i : entry.getValue()) {
-//				System.out.println("key => " + entry.getKey());
-//				System.out.println("value => " + i);
-//			}
-//		}
+
 		
 		
 		PrintWriter out = res.getWriter();
 		
 		try {
-			dao.delSelBoard(list);
+			dao.delSelAllBoard(Integer.parseInt(req.getParameter("delSelAllBoard")));
 			out.println("success");
 		} catch (Exception e) {
 			e.printStackTrace();

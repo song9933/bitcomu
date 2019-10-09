@@ -12,5 +12,8 @@ public interface AdminDAO {
 	int selectAllBoardsCount(Search search);
 	List<Board> selectOneBoard(Map<String, Object> map);
 	int selectOneBoardCount(Map<String, Object> map);
+	void delSelBoard(Map<String, List<Integer>> list);
+	void delSelAllBoard(int delBoardTypeNo);
+	void delAllBoard();
 	
 }

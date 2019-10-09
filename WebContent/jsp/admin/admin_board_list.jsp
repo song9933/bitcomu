@@ -303,7 +303,7 @@
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
 							alert("삭제 되었습니다.");
-// 							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+							location.href = '${pageContext.request.contextPath}/admin/boardAllListForm.do?searchType=' + sList + '&searchWord=' + sValue + '&pageList=' + selectedValue + '&codeValue=' + viewBoard;
 						} else {
 							alert("시스템 오류입니다. 다시 시도해 주세요.")
 						}
@@ -320,25 +320,53 @@
 	});
 	
 	
-	delAllBoard.addEventListener("click", (e) => {
+	delSelAllBoard.addEventListener("click", (e) => {
 		let flag = true;
+		if(viewBoard == 'all') {
+			alert("삭제할 게시판을 선택 후 삭제 버튼을 눌러주세요.");
+			return false;
+		}
 		
-		let result = confirm("정말 전체 유저를 삭제하시겠습니까?");
+		let result = confirm("정말 선택한 게시판 전체를 삭제하시겠습니까?");
 		if (result) {
 			let xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = (e) => {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
-							alert("전체 삭제 되었습니다.");
-// 							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+							alert("선택한 게시판이 전체 삭제 되었습니다.");
+							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
 						} else {
 							alert("시스템 오류입니다.")
 						}
 				}
 			};	
-// 			xhr.open("POST", "userAllDel.do", true);
-// 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-// 			xhr.send();
+			xhr.open("POST", "boardSelectAllDel.do", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("delSelAllBoard=" + viewBoard);
+		} else {
+			alert("취소되었습니다.");
+		}
+		
+	});
+	
+	
+	delAllBoard.addEventListener("click", (e) => {
+		let result = confirm("정말 선택한 게시판 전체를 삭제하시겠습니까?");
+		if (result) {
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = (e) => {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+							alert("선택한 게시판이 전체 삭제 되었습니다.");
+							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+						} else {
+							alert("시스템 오류입니다.")
+						}
+				}
+			};	
+			xhr.open("POST", "boardAllDel.do", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("data=allDelete");
 		} else {
 			alert("취소되었습니다.");
 		}
