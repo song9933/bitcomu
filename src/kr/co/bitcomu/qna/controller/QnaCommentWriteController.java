@@ -26,7 +26,7 @@ public class QnaCommentWriteController extends HttpServlet{
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
-		
+		req.setAttribute("user", user);
 		Comment cmt = new Comment();
 
 		cmt.setUserNo(user.getUserNo());

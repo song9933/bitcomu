@@ -23,7 +23,7 @@
 							<!-- 댓글작성 폼 -->
 								<form method="post" action="<c:url value="/qna/qnacommentwrite.do"/>">
 							<div id="popup" class="layer">
-									<input type="hidden" name="boardPostNo" value="${b.qnaNo}" />
+									<input type="hidden" name="boardPostNo" value="${qna.qnaNo}" />
 									<div class="box clearboth">
 										<textarea id="comment" name="cmtContent" cols="30" rows="10"
 											placeholder="댓글을 입력해주세요"></textarea>
@@ -52,11 +52,12 @@
 										<fmt:formatDate value="${cmt.cmtRegDt}"
 											pattern="yyyy-MM-dd HH:mm" />
 									</p>
+									<c:if test="${sessionScope.user.userNo eq cmt.userNo}" > 
 									<a href="#popupMod">수정</a>
 									<!-- 댓글수정 폼 팝업 -->
 									<form method="post" action="<c:url value="/qna/qnacommentupdate.do"/>">
 										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-										<input type="hidden" name="qnaNo" value="${b.qnaNo}" />
+										<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
 										<div id="popupMod" class=layer>
 											<div class="box">
 												<textarea id="comment" name="cmtContent" cols="30" rows="10">${cmt.cmtContent}</textarea>
@@ -74,7 +75,7 @@
 									<a href="#popupDelCmt">삭제</a>
 									<form method="post" action="<c:url value="/qna/qnacommentdelete.do"/>">
 										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-										<input type="hidden" name="qnaNo" value="${b.qnaNo}" />									
+										<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />									
 									<div id="popupDelCmt" class=layer>
 										<div class="box">
 											<p class="text">삭제 하시겠습니까?</p>
@@ -87,6 +88,7 @@
 										</div>
 									</div>
 									</form>
+									</c:if>
 								</div>
 							</c:forEach>
 							<c:if test="${empty cmtList}">
