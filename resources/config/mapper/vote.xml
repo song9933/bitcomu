@@ -22,6 +22,16 @@
 		 order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc
 	</select>
 	
+	<select id="selectVoteN" parameterType="int" resultMap="voteMap">
+	
+		 select *
+		 from tb_vote
+		 <![CDATA[ 
+		 where rownum <= #{rnum} ]]>
+		 order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc
+		 
+	</select>
+	
 	<select id="selectUserId" parameterType="int" resultType="String">
 		  select (select user_id  
           from tb_user u
@@ -133,7 +143,6 @@
       order by cmt_reg_dt desc
 	)
 	where rownum = 1
-	
 	</select>
 	
 	<insert id="insertVoteIn" parameterType="Comment">
