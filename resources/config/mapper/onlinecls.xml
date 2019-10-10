@@ -94,6 +94,13 @@
 	 where BOARD_POST_NO = #{ytNo} and CODE_VALUE = (select code_value from tb_codenm where code_name='온라인강의게시판')
 	 order by cmt_no desc
 </select>
+<insert id="insertComment" parameterType="Comment">
+	insert into tb_comment (
+		cmt_no, user_no, board_post_no, cmt_content, code_value
+	) values (
+		tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, (select code_value from tb_codenm where code_name='온라인강의게시판')
+	)
+</insert>
 	
 <!-- // 댓글 -->
 </mapper>

@@ -221,7 +221,7 @@ int yt_no = 0;
               <p><fmt:formatDate pattern="yyyy.MM.dd" value="${ ocls.ytRegDt }"/></p>
 
           </div> 
-          <form name="crForm" method="post" action="" onsubmit="return " class="clearboth">
+          <form name="crForm" method="post" onsubmit="return commentRegistAjax();" class="clearboth">
             <textarea name="cmtdetail" style="resize: none" placeholder="댓글 달기..."></textarea>
             <button>전송</button>
           </form>
@@ -241,6 +241,22 @@ int yt_no = 0;
       		<li><a href="javascript:closePop()">취소</a></li>
       	</ul>
       </div>
+      <!-- 댓글 수정 삭제 팝업 -->
+      <div class="cmt_pop_layer hidden">
+      	<ul>
+      	<c:if test="${ sessionScope.user.userNo eq ocls.userNo }">
+			<form>
+				<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/updateform.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'">수정</li>		
+			</form>
+      	</c:if>
+<form>
+	<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/cmt_delete.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'" class="red">삭제</li>
+</form>
+			
+      		<li><a href="javascript:closePop2()">취소</a></li>
+      	</ul>
+      </div>
+      <!-- //댓글 수정 삭제 팝업 -->
       <a href="${ pageContext.request.contextPath }/onlineclass/onlineclsList.do?subj=${ocls.ytSubject }"><img src="${ pageContext.request.contextPath }/resources/images/icon_closeW.png" alt="팝업닫기"/></a>
       
     </div>
@@ -250,14 +266,22 @@ int yt_no = 0;
   // 팝업
   let popEle1 = document.querySelector('.popup');
   let popEle2 = document.querySelector('.pop_layer');
+  let popEle3 = document.querySelector('.cmt_pop_layer');
   	function openPop(){
-  		
   		popEle1.classList.toggle('opacbox');
   		popEle2.classList.toggle('hidden');
   	}
   	function closePop(){
   		popEle1.classList.toggle('opacbox');
   		popEle2.classList.toggle('hidden');
+  	}
+  	function openPop2() {
+  		popEle1.classList.toggle('opacbox');
+  		popEle3.classList.toggle('hidden');
+  	}
+  	function openPop(){
+  		popEle1.classList.toggle('opacbox');
+  		popEle3.classList.toggle('hidden');
   	}
     $(document).ready(function(){
       $('.online_cls .tab li').on('click', function() {
@@ -268,7 +292,8 @@ int yt_no = 0;
     // ---------- 팝업 끝 ----------
     // 게시판번호 외부스크립트로 보내기
     let no = ${ ocls.ytNo };
+    let userNo = ${sessionScope.user.userNo};
   </script>
-  <script src="${pageContext.request.contextPath}/resources/js/bitcomu.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/onlinecls.js"></script>
 </body>
 </html>

@@ -17,7 +17,7 @@ function commentListAjax() {
 			}
 		}
 	};
-	xhr.open("GET", "comment_list.do?no=" + no, true);
+	xhr.open("GET", `comment_list.do?no=${no}`, true);
 	xhr.send();
 };
 
@@ -30,14 +30,16 @@ function commentRegistAjax() {
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {}
-			makeCommentList(JSON.parse(xhr.responseText));
+			if (xhr.status == 200) {
+				makeCommentList(JSON.parse(xhr.responseText));
+				console.log(JSON.parse(xhr.responseText));
+			}
 		}
 	};
-	xhr.open("POST", "ajax_comment_regist.do");
-	let f = document.crForm;
+	xhr.open("POST", "cmt_reg.do", true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send(`no=${no}&user=${sessionScope.user.userNo}&cmtDetail=${f.cmtdetail.value}`);
+	let f = document.crForm;
+	xhr.send(`no=${no}&user=${userNo}&cmtDetail=${f.cmtdetail.value}`);
 	f.cmtdetail.value="";
 	return false;
 }
@@ -52,7 +54,7 @@ function makeCommentList(list) {
 	console.log(list.cmt.length);
 	if (list.cmt.length == 0) {
 		html += '<tr><td>등록된 댓글이 없습니다</td></tr>';
-		commetListEle.innerHTML += html;
+		commentListEle.innerHTML += html;
 		return;
 	}
 	for (let i = 0; i < list.cmt.length; i++) {
@@ -60,7 +62,7 @@ function makeCommentList(list) {
 		html += `<tr>
 		<td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
 		<td><b>${list.cmtUser[i]}</b></td>
-		<td>${list.cmt[i].cmtContent}</td>
+		<td>${list.cmt[i].cmtContent}<a href="javascript:openPop2()" class="hidden">···</a></td>
 		</tr>`;				
 	}
 	commentList.innerHTML += html;
