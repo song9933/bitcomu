@@ -15,11 +15,11 @@ import kr.co.bitcomu.repository.vo.Qna;
 import kr.co.bitcomu.repository.vo.User;
 
 @WebServlet("/qna/qnaUpdate.do")
-public class UpdateQnaController extends HttpServlet {
+public class QnaUpdateController extends HttpServlet {
 	
 	private QnaDAO dao;
 	
-	public UpdateQnaController() {
+	public QnaUpdateController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
 	}
 	

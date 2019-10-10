@@ -12,11 +12,11 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
 
 @WebServlet("/qna/qnaDelete.do")
-public class DeleteQnaController extends HttpServlet {
+public class QnaDeleteController extends HttpServlet {
 	
 	private QnaDAO dao;
 	
-	public DeleteQnaController() {
+	public QnaDeleteController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
 	}
 	

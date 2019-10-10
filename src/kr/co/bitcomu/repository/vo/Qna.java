@@ -13,6 +13,7 @@ public class Qna {
 	private int qnaLikeCnt; // qna 좋아요 수
 	private Date qnaRegDt; // qna 등록 날짜
 	private int qnaViewCnt; // qna 조회 수
+	private int qnaCmtCnt; // qna 댓글 수
 	
 	public int getQnaNo() {
 		return qnaNo;
@@ -68,5 +69,12 @@ public class Qna {
 	public void setQnaViewCnt(int qnaViewCnt) {
 		this.qnaViewCnt = qnaViewCnt;
 	}
+	public int getQnaCmtCnt() {
+		return qnaCmtCnt;
+	}
+	public void setQnaCmtCnt(int qnaCmtCnt) {
+		this.qnaCmtCnt = qnaCmtCnt;
+	}
+	
 	
 }

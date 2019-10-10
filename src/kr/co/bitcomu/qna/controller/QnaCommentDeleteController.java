@@ -20,9 +20,9 @@ public class QnaCommentDeleteController extends HttpServlet {
 	}
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		dao.deleteComment(Integer.parseInt(req.getParameter("cmtNo")));
-//		res.sendRedirect(req.getContextPath() + "/study/studydetail.do?studyPostNo=" + req.getParameter("studyPostNo"));
+		res.sendRedirect(req.getContextPath() + "/qna/qnadetail.do?qnaNo=" + req.getParameter("qnaNo"));
 		
 	}
 	

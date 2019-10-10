@@ -13,28 +13,70 @@
 		<result column="qna_like_cnt" property="qnaLikeCnt" />
 		<result column="qna_reg_dt" property="qnaRegDt" />
 		<result column="qna_view_cnt" property="qnaViewCnt" />
+		<result column="qna_cmt_cnt" property="qnaCmtCnt"/>
 	</resultMap>
 	
 	<select id="selectQna" parameterType="Page" resultMap="qnaMap">
-	   select *
+	    select *
 	      from (select rownum rnum, a.*
-			      from ( select q.*, (select user_id  from tb_user u where u.user_no = q.user_no ) as user_id 
+			      from ( 
+					      select q.*, (select user_id  from tb_user u where u.user_no = q.user_no ) as user_id 
                             from tb_qna q
 						   order by qna_no desc
 						  )
 						  a)
 		 where rnum between #{begin} and #{end}  			 
 	</select>
+	
+	<select id="selectQnaCnt" resultType="int">
+		select count(*)
+		  from tb_qna
+	</select>
+	
+	<!-- qna게시판 게시글 조회 -->
+	<select id="selectOneQna" parameterType="int" resultMap="qnaMap">
+		select q.*, (select user_id  from tb_user u where u.user_no = q.user_no ) as user_id 
+                            from tb_qna q
+			where qna_no = #{qnaNo}
+	</select>
+	
+	<!-- qna게시판 글 작성 -->
+	<insert id="insertQna" parameterType="Qna">
+		insert into tb_qna (
+			qna_no, qna_title, qna_content, user_no
+		) values (
+			tb_qna_seq.nextval, #{qnaTitle}, #{qnaContent}, ${userNo}
+		)
+	</insert>
+	
+	<!-- qna게시판 글 수정 -->
+	<update id="updateQna" parameterType="Qna">
+		update tb_qna 
+		   set qna_title = #{qnaTitle}, 
+		       qna_content = #{qnaContent}
+		 where qna_no = #{qnaNo}
+	</update>
+
+	<!-- qna게시판 글 삭제 -->
+	<delete id="deleteQna" parameterType="int">
+		delete 
+		  from tb_qna
+		 where qna_no = #{qnaNo}
+	</delete>
+	
+	<!-- qna게시판 조회수 증가 -->
+	<update id="updateQnaViewCnt" parameterType="int">
+		update tb_qna 
+		   set qna_view_cnt = qna_view_cnt + 1
+		 where qna_no = #{qnaNo}
+	</update>
+	<!--  
 	<select id="selectQnaCount" resultType="int">
 		select count(*)
 		  from tb_qna
 	</select>
-	<select id="selectOneQna" parameterType="int" resultMap="qnaMap">
-		select q.*, (select user_id  from tb_user u where u.user_no = q.user_no ) as user_id 
-                            from tb_qna q
-		 where qna_no = #{qnaNo} 
-	</select>
-	<!-- search 부분
+	-->
+	<!-- <search 기능>
 		<where>
 	    	<if test="search.searchType != null">
 		    	<choose>
@@ -58,33 +100,6 @@
 	      	  </if>
 	     </where>
 	       -->
-	<!-- qna게시판 글 작성 -->
-	<insert id="insertQna" parameterType="Qna">
-		insert into tb_qna (
-			qna_no, qna_title, qna_content, user_no
-		) values (
-			tb_qna_seq.nextval, #{qnaTitle}, #{qnaContent}, ${userNo}
-		)
-	</insert>
-	<!-- qna게시판 글 수정 -->
-	<update id="updateQna" parameterType="Qna">
-		update tb_qna 
-		   set qna_title = #{qnaTitle}, 
-		       qna_content = #{qnaContent}
-		 where qna_no = #{qnaNo}
-	</update>
-	<update id="updateQnaViewCnt" parameterType="int">
-		update tb_qna 
-		   set qna_view_cnt = qna_view_cnt + 1
-		 where qna_no = #{qnaNo}
-	</update>
-	<!-- qna게시판 글 삭제 -->
-	<delete id="deleteQna" parameterType="int">
-		delete 
-		  from tb_qna
-		 where qna_no = #{qnaNo}
-	</delete>
-	
 	<resultMap id="commentMap" type="Comment">
 		<result column="cmt_no" property="cmtNo"/>
 		<result column="user_no" property="userNo"/>
@@ -94,6 +109,16 @@
 		<result column="code_value" property="codeValue"/>
 		<result column="user_id" property="userId"/>
 	</resultMap>
+	
+	<!-- 댓글 조회 -->
+	<select id="selectCommentList" parameterType="int" resultMap="commentMap" >
+
+		select c.*, (select user_id from tb_user u
+						where user_no = c.user_no ) as user_id 
+						from tb_comment c
+						where board_post_no = #{qnaNo}
+						and code_value = (select code_value from tb_codenm where code_name = '질문답변게시판')
+	</select>
 	
 	<!-- 댓글 입력 -->
 	<insert id="insertComment" parameterType="Comment">

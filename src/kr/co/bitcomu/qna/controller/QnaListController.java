@@ -1,6 +1,7 @@
 package kr.co.bitcomu.qna.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,23 +13,22 @@ import javax.servlet.http.HttpSession;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
 import kr.co.bitcomu.repository.vo.Page;
-import kr.co.bitcomu.repository.vo.User;
+import kr.co.bitcomu.repository.vo.Qna;
 import kr.co.bitcomu.util.PageResult;
 
 @WebServlet("/qna/qnaList.do")
-public class ListQnaController extends HttpServlet {
+public class QnaListController extends HttpServlet {
 	
 	private QnaDAO dao;
 	
-	public ListQnaController() {
+	public QnaListController() {
 		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
 	}
 
-	public void service(HttpServletRequest req, HttpServletResponse res) 
-	
-			throws ServletException, IOException {
+	public void service(HttpServletRequest req, HttpServletResponse res)
+		   throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String sPageNo = req.getParameter("qnaNo");
+		String sPageNo = req.getParameter("pageNo");
 		
 		// 요청 페이지를 1페이지로 변경
 		int pageNo = 1;
@@ -38,8 +38,8 @@ public class ListQnaController extends HttpServlet {
 		Page page = new Page(pageNo);
 		
 		
-		int count = dao.selectQnaCount();
-		PageResult pr = new PageResult(pageNo, count);
+		int cnt = dao.selectQnaCnt();
+		PageResult pr = new PageResult(pageNo, cnt);
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		

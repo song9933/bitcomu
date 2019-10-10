@@ -23,19 +23,19 @@ public class QnaCommentWriteController extends HttpServlet{
 	}
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
 		
 		Comment cmt = new Comment();
 
 		cmt.setUserNo(user.getUserNo());
-		cmt.setBoardPostNo(Integer.parseInt(req.getParameter("qnaNo")));
+		cmt.setBoardPostNo(Integer.parseInt(req.getParameter("boardPostNo")));
 		//cmt.setCodeValue(Integer.parseInt(req.getParameter("codeValue")));
 		cmt.setCmtContent(req.getParameter("cmtContent"));
 		
 		dao.insertComment(cmt);
-//		res.sendRedirect(req.getContextPath() + "/study/studydetail.do?studyPostNo=" + Integer.parseInt(req.getParameter("boardPostNo")));
+		res.sendRedirect(req.getContextPath() + "/qna/qnadetail.do?qnaNo=" + Integer.parseInt(req.getParameter("boardPostNo")));
 	}
 	
 	

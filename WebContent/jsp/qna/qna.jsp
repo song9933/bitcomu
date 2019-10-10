@@ -41,15 +41,19 @@
 					  style="font-weight: bold">삭제</a>
 				   </span>
     		 <div class="qna_content_1" id="${b.qnaNo}">
+    		 	
                         <p>공개여부 ${b.qnaPublicEnabled} 조회수 ${b.qnaViewCnt}</p>
                         <p>${b.userId}</p>
                         <p>${b.qnaContent}</p>
                         <p><fmt:formatDate value="${b.qnaRegDt}" pattern="yyyy-MM-dd hh:mm"/></p>
+              
                         <input type="text" class="qna_text_content_2" name="comment" style="resize: none" placeholder="Comment" />
                         <button type="submit" class="qna_button_2">댓글</button>
-              </div>                	
+             	
+             </div>                	
     	</form>
     	</div>
+   
     	<!-- 삭제 팝업 -->
       <div id="light" class="qna_white_content">
       	<form method='post' action="/bitcomu/qna/qnaDelete.do" >
@@ -105,7 +109,6 @@
          </div>
           <div class="qna_search">
               <input type="text" class="qna_text_search" name="search" style="resize: none" placeholder="Search" vlaue="${search.searchWord}" />
-              <
               <select name="select" class="qna_select_1">
                   <option value="1">작성자</option>
                   <option value="2">제목</option>

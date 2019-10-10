@@ -11,30 +11,35 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
+import kr.co.bitcomu.repository.vo.Qna;
 import kr.co.bitcomu.repository.vo.User;
 
-@WebServlet("/qna/updateQnaForm.do")
-public class UpdateFormQnaController extends HttpServlet {
 
+@WebServlet("/qna/qnaWrite.do")
+public class QnaWriteController extends HttpServlet {
 	private QnaDAO dao;
 	
-	public UpdateFormQnaController() {
-		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
+	public QnaWriteController() {
+		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
 	}
 	
-	@Override
-	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+	public void service(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
 		req.setAttribute("user", user);
+		Qna q = new Qna();
+		q.setUserNo(user.getUserNo());	
+		q.setQnaTitle(req.getParameter("qnaTitle"));
+		q.setQnaContent(req.getParameter("qnaContent"));
 		
-		req.setAttribute(
-			"board", dao.selectOneQna(Integer.parseInt(req.getParameter("qnaNo")))
-		);
-		req.getRequestDispatcher("/jsp/qna/qna.jsp").forward(req, res);
+		dao.insertQna(q);
+		res.sendRedirect("qnaList.do");
 	}
 }
+
+
+
 
 
 
