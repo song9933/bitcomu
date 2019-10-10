@@ -52,6 +52,9 @@ public class AdminBoardAllList extends HttpServlet {
 		int count;
 		
 		Map<String, Object> map = new HashMap<>();
+		
+		page.getBegin();
+		page.getEnd();
 		map.put("page", page);
 		map.put("search", search);
 		

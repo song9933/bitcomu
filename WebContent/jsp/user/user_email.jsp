@@ -7,6 +7,21 @@
   <c:import url="/jsp/include/head.jsp">
 		<c:param name="msg" value="이메일인증" />
 </c:import> 
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Oswald:700);
+.vote_countdown{
+  	text-align: center;
+    color: orangered;
+    font-family: "Oswald";
+    font-weight: 700;
+    font-size: 1.7em;
+    padding: 10px;
+}
+
+</style>
+
+
 </head>
 <body>
    <div class="wrapepr email_wrap">
@@ -32,17 +47,19 @@
                     <span><strong><i class="fa fa-arrow-circle-right" aria-hidden="true" style="color: #ffa500"></i></text>이메일 주소를 입력해 주세요.</strong> </span><br/>
                     <span>
                     <input type="text"
-                    name="emailAuth" class="input_box_sj box_default_sj" placeholder="인증할 이메일 주소를 입력하세요">
-                    <button type="submit" class="button_box_sj">전송</button>
+                    name="emailAuth" id="emailAuth" class="input_box_sj box_default_sj" placeholder="인증할 이메일 주소를 입력하세요">
+                    <button type="button" id="emailSend" class="button_box_sj">전송</button>
                   </span>
                   
                   </div>
                   
                     
                 <div class="board_box_sj box_detail_sj"><span><strong><i class="fa fa-arrow-circle-right" aria-hidden="true" style="color: #ffa500"></i></text>이메일에서 받은 인증번호를 입력해 주세요.</strong> </span><br/>
-                  <span>
+   				<span>
                     <input type="text"
-                  name="emailAuth" class="input_box_sj box_default_sj" placeholder="인증번호를 입력하세요"><button class="button_box_sj display_none_sj" style=>3:00</button></span>
+                  name="emailAuth" class="input_box_sj box_default_sj" id="emailAuthResult" placeholder="인증번호를 입력하세요"/></span>
+						<span id="countdown" class="vote_countdown" >3:00</span>
+                  
                 </div>
                 <div class="board_box_sj box_detail_sj">
                   <button type="submit" class="button_box_sj box_email_sj">회원가입</button><span class="margin_sj"></span>
@@ -66,7 +83,76 @@
 
   </div>
   <script>
-  // $(document).ready(alert());
+  
+  	  let joinFlag = false;
+  
+	  let emailSend = document.querySelector("#emailSend");
+	  
+	  emailSend.addEventListener("click", (e) => {
+		  
+		  let emailAuth = document.querySelector("#emailAuth").value;
+		  if (emailAuth.length == 0) {
+			  alert("제대로 된 이메일 주소를 입력해주세요.");
+			  return;
+		  }
+		  
+		  
+		  let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = (e) => {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						let result = xhr.responseText.trim();
+						if (result == 'Invalid Addresses') {
+							alert("이메일 형식이 맞지 않습니다.");
+							return;
+						} else if (result == 'error') {
+							alert("시스템 오류입니다.");
+							return;
+						}
+						callbackResult(result);
+						
+					}
+
+				}
+			};	
+			xhr.open("POST", "userEmailAuth.do", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("emailAddr=" + emailAuth);
+	  });
+	  
+	  function callbackResult(result) {
+		 return result;
+	  }
+	  
+	  
+	  
+	  
+
+	  	  
+		
+		
+
+		function startTimer(duration, display) {
+		    var timer = duration, minutes, seconds;
+		    setInterval(function () {
+		        minutes = parseInt(timer / 60, 10);
+		        seconds = parseInt(timer % 60, 10);
+
+		        minutes = minutes < 10 ? "0" + minutes : minutes;
+		        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+// 		        display.textContent = minutes + ":" + seconds;
+		        countdown.innerHTML = minutes + ":" + seconds;  
+		        if (--timer < 0) {
+		            timer = duration;
+		        }
+		    }, 1000);
+		}
+		function callTimer () {
+		    var fiveMinutes = 60 * 3,
+		    countdown = document.getElementById("countdown");
+		    startTimer(fiveMinutes, countdown);
+		};
 
   </script>
 </body>

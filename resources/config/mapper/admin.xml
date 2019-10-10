@@ -31,7 +31,7 @@
 		 s.study_reg_dt as reg_dt, s.study_post_title as post_title,
 		 				s.study_post_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='스터디게시판') code_name
-                from tb_study_copy s 
+                from tb_study s 
 	</sql>
 	
 	<sql id="selectVote">
@@ -42,7 +42,7 @@
                     		 v.vote_reg_dt as reg_dt, v.vote_title as post_title,
                     		 v.vote_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='투표게시판') code_name
-                from tb_vote_copy v
+                from tb_vote v
 	</sql>
 	
 	<sql id="selectNotice">
@@ -53,7 +53,7 @@
 		 				n.notice_reg_dt as reg_dt, n.notice_post_title as post_title,
 		 				n.notice_post_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='공지게시판') code_name
-                from tb_notice_copy n
+                from tb_notice n
 	</sql>
 	
 	<sql id="selectTeam">
@@ -64,7 +64,7 @@
 		 				t.team_board_reg_dt as reg_dt, t.team_board_title as post_title,
 		 				t.team_board_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='팀프로젝트게시판') code_name
-                from tb_team_copy t
+                from tb_team t
 	</sql>
 	
 	<sql id="selectYoutube">
@@ -75,7 +75,7 @@
 		 				y.yt_reg_dt as reg_dt, y.yt_title as post_title, y.yt_content as post_content,
 		 				y.yt_subject as subject,
                      (select code_name from tb_codenm where code_name='온라인강의게시판') code_name
-                from tb_youtube_copy y
+                from tb_youtube y
 	</sql>
 	
 	<sql id="selectQna">
@@ -85,7 +85,7 @@
                     		where u.user_no = q.user_no ) user_name,
 		 				q.qna_reg_dt as reg_dt, q.qna_title as post_title, q.qna_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='질문답변게시판') code_name
-                from tb_qna_copy q
+                from tb_qna q
 	</sql>
 	
 	<sql id="selectTalk">
@@ -96,7 +96,7 @@
 		 				tk.talk_reg_dt as reg_dt, tk.talk_post_title as post_title,
 		 				tk.talk_post_content as post_content, null as subject,
                      (select code_name from tb_codenm where code_name='자유게시판') code_name
-                from tb_talk_copy tk
+                from tb_talk tk
 	</sql>
 	
 	<!-- 전체 게시판 조회를 위한 쿼리 끝 -->
@@ -121,16 +121,8 @@
     	    DELETE
 					FROM ${tableType}
 					
-			<where>
-				<choose>
-					<when test="postNoVal == try">
-						(code_value, board_post_no) in (
-					</when>
-					<when test="postNoVal == selAll">
-						code_value = 
-					</when>
-				</choose>
-			</where>		
+					${postNoVal}
+		
 					   
     </sql>
     <sql id="commonColumnDelEnd">
@@ -140,15 +132,14 @@
     <sql id="boardColumnDelStart">
     delete 
 		  from ${tableName}
-		  <if test="boardColumn != ''">
-		 		where ${boardColumn} in (
-		  </if>
+		  ${boardColumn}
+		 		
     </sql>
 	
 	<sql id="loopData">
 		<foreach item="value" index="key" collection="_parameter.entrySet()" separator=",">
 	    	<foreach item="items" collection="value" open="("  separator="),(" close=")">
-	    	${key}, ${items} 
+	    	#{key}, #{items} 
 	   		</foreach>
    		</foreach>
 	</sql>
@@ -156,7 +147,7 @@
 	
 	<sql id="loopData2">
 		<foreach item="items" collection="value" separator=",">
-					    	${items} 
+					    	#{items} 
 		</foreach>
 	</sql>
 	<!-- 삭제 쿼리 끝 -->
@@ -175,7 +166,7 @@
     
 
 
-	<select id="selectAllBoards" parameterType="hashmap" resultMap="boardMap" flushCache="true" useCache="true">
+	<select id="selectAllBoards" parameterType="Page" resultMap="boardMap" flushCache="true" useCache="true">
 	     <include refid="pagingStart" />
 	     	select * from (
         		select * from (
@@ -406,8 +397,8 @@
     	<include refid="procedureMakeStart" />
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_comment_copy"/>
-    		<property name="postNoVal" value="try"/>
+    		<property name="tableType" value="tb_comment"/>
+    		<property name="postNoVal" value="where (code_value, board_post_no) in ("/>
     	</include>
     	
     	<include refid="loopData"/>
@@ -415,8 +406,8 @@
     	<include refid="commonColumnDelEnd" />
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_like_copy"/>
-    		<property name="postNoVal" value="try"/>
+    		<property name="tableType" value="tb_like"/>
+    		<property name="postNoVal" value="where (code_value, board_post_no) in ("/>
     	</include>
     	
     	<include refid="loopData"/>
@@ -424,8 +415,8 @@
     	<include refid="commonColumnDelEnd" />
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_file_copy"/>
-    		<property name="postNoVal" value="try"/>
+    		<property name="tableType" value="tb_file"/>
+    		<property name="postNoVal" value="where (code_value, board_post_no) in ("/>
     	</include>
     	
     	<include refid="loopData"/>
@@ -437,62 +428,61 @@
     		<choose>
 	    		<when test="key == 1">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_talk_copy"/>
-			            <property name="boardColumn" value="talk_post_no"/>
+			            <property name="tableName" value="tb_talk"/>
+			            <property name="boardColumn" value="where talk_post_no in ("/>
 	        	  </include>	
 	        	  <include refid="loopData2" />
 	        	  <include refid="commonColumnDelEnd" />
 	    		</when>
 	    		<when test="key == 2">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_notice_copy"/>
-			            <property name="boardColumn" value="notice_post_no"/>
+			            <property name="tableName" value="tb_notice"/>
+			            <property name="boardColumn" value="where notice_post_no in ("/>
 	        	  </include>
 	        	  <include refid="loopData2" />
 	        	  <include refid="commonColumnDelEnd" />	
 	    		</when>
 	    		<when test="key == 3">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_youtube_copy"/>
-			            <property name="boardColumn" value="yt_no"/>
+			            <property name="tableName" value="tb_youtube"/>
+			            <property name="boardColumn" value="where yt_no in ("/>
 	        	  </include>
 	        	  <include refid="loopData2" />
 	        	  <include refid="commonColumnDelEnd" />	
 	    		</when>
 	    		<when test="key == 4">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_team_copy"/>
-			            <property name="boardColumn" value="team_board_no"/>
+			            <property name="tableName" value="tb_team"/>
+			            <property name="boardColumn" value="where team_board_no in ("/>
 	        	  </include>
 	        	  <include refid="loopData2" />
 	        	  <include refid="commonColumnDelEnd" />	
 	    		</when>
 	    		<when test="key == 5">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_vote_copy"/>
-			            <property name="boardColumn" value="vote_no"/>
+			            <property name="tableName" value="tb_vote"/>
+			            <property name="boardColumn" value="where vote_no in ("/>
 	        	  </include>
 	        	  <include refid="loopData2" />
 	        	  <include refid="commonColumnDelEnd" />	
 	    		</when>
 	    		<when test="key == 6">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_study_copy"/>
-			            <property name="boardColumn" value="study_post_no"/>
+			            <property name="tableName" value="tb_study"/>
+			            <property name="boardColumn" value="where study_post_no in ("/>
 	        	  </include>
 	        	  <include refid="loopData2" />
 	        	  <include refid="commonColumnDelEnd" />	
 	    		</when>
 	    		<when test="key == 7">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_qna_copy"/>
-			            <property name="boardColumn" value="qna_no"/>
+			            <property name="tableName" value="tb_qna"/>
+			            <property name="boardColumn" value="where qna_no in ("/>
 	        	  </include>
 	        	  <include refid="loopData2" />
 	        	  <include refid="commonColumnDelEnd" />	
 	    		</when>
 	   		</choose>
-				
    		</foreach>
     	
     	<include refid="procedureMakeEnd" />
@@ -509,67 +499,72 @@
 		<include refid="procedureMakeStart" />
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_comment_copy"/>
-    		<property name="postNoVal" value="selAll"/>
+    		<property name="tableType" value="tb_comment"/>
+    		<property name="postNoVal" value="where code_value ="/>
     	</include>
     	#{delBoardTypeNo};
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_like_copy"/>
-    		<property name="postNoVal" value="selAll"/>
+    		<property name="tableType" value="tb_like"/>
+    		<property name="postNoVal" value="where code_value ="/> 
     	</include>
     	#{delBoardTypeNo};
     	
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_file_copy"/>
-    		<property name="postNoVal" value="selAll"/>
+    		<property name="tableType" value="tb_file"/>
+    		<property name="postNoVal" value="where code_value ="/>
     	</include>
     	#{delBoardTypeNo};
-    	
-    	
     	
     	<choose>
     	
 	    		<when test="delBoardTypeNo == 1">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_talk_copy"/>
+			            <property name="tableName" value="tb_talk"/>
+			            <property name="boardColumn" value=""/>
 	        	  </include>	
 
 	    		</when>
 	    		<when test="delBoardTypeNo == 2">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_notice_copy"/>
+			            <property name="tableName" value="tb_notice"/>
+			            <property name="boardColumn" value=""/>
 	        	  </include>
 	        	 	
 	    		</when>
 	    		<when test="delBoardTypeNo == 3">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_youtube_copy"/>
+			            <property name="tableName" value="tb_youtube"/>
+			            <property name="boardColumn" value=""/>
 	        	  </include>
 
 	    		</when>
 	    		<when test="delBoardTypeNo == 4">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_team_copy"/>
+			            <property name="tableName" value="tb_team"/>
+			            <property name="boardColumn" value=""/>
 	        	  </include>
 
 	    		</when>
 	    		<when test="delBoardTypeNo == 5">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_vote_copy"/>
+			            <property name="tableName" value="tb_vote"/>
+			            <property name="boardColumn" value=""/>
 	        	  </include>
 
 	    		</when>
 	    		<when test="delBoardTypeNo == 6">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_study_copy"/>
+			            <property name="tableName" value="tb_study"/>
+			            <property name="boardColumn" value=""/>
 	        	  </include>
 
 	    		</when>
 	    		<when test="delBoardTypeNo == 7">
 	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_qna_copy"/>
+			            <property name="tableName" value="tb_qna"/>
+			            <property name="boardColumn" value=""/>
 	        	  </include>
 
 	    		</when>
@@ -587,50 +582,50 @@
 		<include refid="procedureMakeStart" />
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_comment_copy"/>
+    		<property name="tableType" value="tb_comment"/>
     	</include>
     	;
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_like_copy"/>
+    		<property name="tableType" value="tb_like"/>
     	</include>
     	;
     	
     	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_file_copy"/>
+    		<property name="tableType" value="tb_file"/>
     	</include>
     	;
     	
 	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_talk_copy"/>
+         	<property name="tableName" value="tb_talk"/>
    	  	</include>	
 		;
 
 	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_notice_copy"/>
+         	<property name="tableName" value="tb_notice"/>
    	  	</include>
 		;
 	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_youtube_copy"/>
+         	<property name="tableName" value="tb_youtube"/>
    	  	</include>
 		;
 
 	 	 <include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_team_copy"/>
+         	<property name="tableName" value="tb_team"/>
    	  	</include>
 		;
 	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_vote_copy"/>
+         	<property name="tableName" value="tb_vote"/>
    	  	</include>
 		;
 
 	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_study_copy"/>
+         	<property name="tableName" value="tb_study"/>
    	  	</include>
 
 		;
 
 	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_qna_copy"/>
+         	<property name="tableName" value="tb_qna"/>
    	  	</include>
 		;
     	<include refid="procedureMakeEnd" />

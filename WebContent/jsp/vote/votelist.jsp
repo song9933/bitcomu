@@ -27,6 +27,15 @@
 
 .dc_listbox {
 	cursor: pointer;
+    width: 40%;
+    margin: 43px auto;
+    height: 242px;
+    padding: 40px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 2.5em;
+    color: black;
+    background-color: #fff20708;
 }
 
 .vote_h1 {
@@ -108,10 +117,13 @@
 					</div>
 				</div>
 				<!-- 투표모달창 끝 -->
-
-
+				
+				
+				<!-- 무한스크롤을 위한 표시장소 -->
+				<div class='vote_two'>top</div>
+				<div class='vote_on'>bottom<div class='vote_inner'></div></div>
 				<%-- 투표 리스트 출력시작 --%>
-				<c:choose>
+				<%-- <c:choose>
 					<c:when test="${!empty list}">
 						<c:forEach var="v" items="${list}">
 							<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card"
@@ -142,10 +154,9 @@
 							<p>등록된 투표가 없습니다.</p>
 						</div>
 					</c:otherwise>
-				</c:choose>
+				</c:choose> --%>
 				<%-- 투표 리스트 출력 끝 --%>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
+<!-- 				<br> <br> <br> <br> <br> <br> <br> -->
 
 			</section>
 		</div>
@@ -239,9 +250,162 @@ function validate(){
 			return false;
 		}	
 	}
-	
-
 }
+
+/* 무한스크롤 스크립트 시작 */
+let list;
+let page = 1;
+function voteListAjax() {
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+				list = JSON.parse(xhr.responseText);
+				// makeCommentList(list);
+				if(list.length == 0){
+					page--;
+				} else {
+				loadMore(list);
+				}
+			}
+		}
+	};
+	xhr.open("GET", "/bitcomu/vote/votelistajax.do?pageno="+page, true);
+	xhr.send();
+}
+voteListAjax();
+
+function loadMore(list) {
+	console.log(list.length);
+		let okok = document.querySelector(".vote_inner");
+		console.log(okok);
+		for(var i = 0; i < list.length; i++){
+			let vote = list[i];
+			let notice = "";
+			console.log(vote.voteNoticeEnabled);
+			if(vote.voteNoticeEnabled == 'Y') {
+				notice = "<공지>";
+			}
+			let annoy = "";
+			if(vote.voteAnonyEnabled == 'Y') {
+				annoy = "<익명>";	
+			}
+			let close = "";
+			if(vote.voteCloseEnabled == 'Y'){
+				close = "<마감>";
+			}
+			document.querySelector(".vote_inner").innerHTML += 
+		`<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card" 
+			onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">
+			<p>
+				\${notice} \${annoy} \${close}				
+			<div
+				onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">\${vote.voteTitle}</div>
+			</p>
+			<p>
+				글쓴이 : \${vote.userId}<br>
+				\${vote.voteRegDt}
+			</p>
+		</div>`;
+		}
+}	
+// window.onload = loadMore();
+
+/* document.querySelector('.vote_on').scroll(function () {
+	  	console.log("1" + page);
+  var top = document.querySelector('.vote_on').scrollTop();
+  document.querySelector('.vote_two').html(
+		  "top: "+top+" diff: " + 
+		  (document.querySelector(".vote_inner").height() - document.querySelector(".vote_on").height()));
+  if (top >= document.querySelector(".vote_inner").height() - document.querySelector(".vote_on").height()) {
+	  document.querySelector('.vote_two').append("bottom");
+	  	console.log("2" + page);
+    	page++;
+    	voteListAjax();
+  }
+}); */
+
+$(window).on("scroll", function() {
+	var scrollHeight = $(document).height();
+	var scrollPosition = $(window).height() + $(window).scrollTop();		
+
+	$("#scrollHeight").text(scrollHeight);
+	$("#scrollPosition").text(scrollPosition);
+	$("#bottom").text(scrollHeight - scrollPosition);
+
+	if (scrollPosition > scrollHeight - 200) {			
+		//todo
+		page++;
+    	voteListAjax();
+	}
+});
+
+
+/* function makeVoteList(list) {
+	let voteList = document.getElementById("voteList");
+	let html = "";
+	if(list.length != 0){
+		for (let i = 0; i < list.length; i++) {
+		let vote = list[i];
+		html += `
+			<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card"
+			onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=${vote.voteNo}'">
+			<p>
+				if(${vote.voteNoticeEnabled} == 'Y') <공지>
+				if(${vote.voteAnonyEnabled} == 'Y') <익명>
+				if(${vote.voteCloseEnabled} == 'Y') <마감>
+			<div
+				onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=${vote.voteNo}" />'">${vote.voteTitle}</div>
+			</p>
+			<p>
+				글쓴이 : ${vote.userId}<br>
+				${v.voteRegDt}
+			</p>
+		</div>
+	    `;
+		} 
+	}
+	else {
+		html += `<div class="w3-panel w3-card-4 w3-round dc_listbox">
+		<p>등록된 투표가 없습니다.</p>
+		</div>`;
+	}
+	// commentList.innerHTML = html;
+} */
+
+
+
+/* 콜백함수의 예 */
+/* function getData() {
+	var tableData;
+	$.get('https://domain.com/products/1', function (response) {
+		tableData = response;
+	});
+	return tableData;
+}
+
+console.log(getData()); // undefined
+
+
+
+function getData(callbackFunc) {
+	$.get('https://domain.com/products/1', function (response) {
+		callbackFunc(response); // 서버에서 받은 데이터 response를 callbackFunc() 함수에 넘겨줌
+	});
+}
+
+getData(function (tableData) {
+	console.log(tableData); // $.get()의 response 값이 tableData에 전달됨
+}); */
+
+
+
+
+
+
+
+
+
 </script>
 
 </html>

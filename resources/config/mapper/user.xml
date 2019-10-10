@@ -31,7 +31,7 @@
 	  
 	<sql id="deleteUsers">
 		 delete
-	       from tb_user 
+	       from tb_user
 	</sql>  
 
 
@@ -51,7 +51,7 @@
       	   <include refid="pagingStart" />
 	      	  <include refid="selectUsers" />
 	      	    <where>
-		      	   user_id != 'admin'
+		      	   user_id != 'admin' 
 		      	   <if test="search.searchType != null">
 			      	   <choose>
 			               <when test="search.searchType == 'id'">

@@ -7,6 +7,7 @@ import kr.co.bitcomu.repository.vo.Vote;
 
 public interface VoteDAO {
 	List<Vote> selectVote();
+	List<Vote> selectVoteN(int rnum);
 	Vote selectOneVote(int voteNo);
 	void insertVote(Vote vote);
 	void updateVoteInCnt(int voteNo);
