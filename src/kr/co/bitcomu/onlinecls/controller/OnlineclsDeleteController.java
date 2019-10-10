@@ -13,10 +13,10 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.OnlineclsDAO;
 
 @WebServlet("/onlineclass/delete.do")
-public class DeleteOnlineclsController extends HttpServlet{
+public class OnlineclsDeleteController extends HttpServlet{
 	private OnlineclsDAO dao;
 	
-	public DeleteOnlineclsController() {
+	public OnlineclsDeleteController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(OnlineclsDAO.class);
 	}
 	

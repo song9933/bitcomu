@@ -85,12 +85,14 @@
 			 where c.user_no = u.user_no) as user_id
 	  from tb_comment c
 	 where BOARD_POST_NO = #{no} and CODE_VALUE = (select code_value from tb_codenm where code_name='온라인강의게시판')
+	 order by cmt_no desc
 </select>
 <!-- 전체 댓글 리스트 조회 -->
 <select id="selectComment" resultMap="cmtMap" parameterType="int" flushCache="true" useCache="true">
 	select * 
 	  from tb_comment
 	 where BOARD_POST_NO = #{ytNo} and CODE_VALUE = (select code_value from tb_codenm where code_name='온라인강의게시판')
+	 order by cmt_no desc
 </select>
 	
 <!-- // 댓글 -->

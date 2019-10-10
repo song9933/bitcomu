@@ -221,7 +221,7 @@ int yt_no = 0;
               <p><fmt:formatDate pattern="yyyy.MM.dd" value="${ ocls.ytRegDt }"/></p>
 
           </div> 
-          <form method="post" action="">
+          <form name="crForm" method="post" action="" onsubmit="return " class="clearboth">
             <textarea name="cmtdetail" style="resize: none" placeholder="댓글 달기..."></textarea>
             <button>전송</button>
           </form>
