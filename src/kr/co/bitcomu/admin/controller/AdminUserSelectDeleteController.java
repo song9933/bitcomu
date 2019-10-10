@@ -1,6 +1,7 @@
 package kr.co.bitcomu.admin.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,13 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.UserDAO;
-import kr.co.bitcomu.repository.vo.Page;
-import kr.co.bitcomu.repository.vo.User;
-import kr.co.bitcomu.util.PageResult;
 
 
 @WebServlet("/admin/userSelectDel.do")
@@ -36,7 +33,25 @@ public class AdminUserSelectDeleteController extends HttpServlet {
 		for (String as : asList) {
 			list.add(Integer.parseInt(as));
 		}
-		dao.deleteUserAdmin(list);
+		
+		PrintWriter out = res.getWriter();
+		
+		try {
+			dao.deleteUserAdmin(list);
+			out.println("success");
+		}catch (Exception e) { 
+			e.printStackTrace(); 
+			if (e.getMessage().contains("child record found")) {
+				
+				out.println("write_exist");
+			} else {
+				out.println("error");
+			}
+		}
+		
+		
+		out.close();
+		
 		
 	}
 }

@@ -94,7 +94,7 @@
 제 16 조 (재판관할)
 1. 비트캠프 커뮤니티 사이트와 이용자 간에 발생한 서비스 이용에 관한 분쟁에 대하여는 대한민국 법을 적용하며, 본 분쟁으로 인한 소는 대한민국의 법원에 제기합니다.
                     </pre>
-                    <br/><input type="checkbox" name="terms_of_service" value="1"/> 이용약관에 동의합니다.(필수)
+                    <br/><input type="checkbox" name="terms_of_service" id="terms_of_service" value="1"/> 이용약관에 동의합니다.(필수)
                     <br/>
                     <br/>
                     <strong><i class="fa fa-arrow-circle-right" aria-hidden="true" style="color: #ffa500"></i> 개인정보 수집 및 이용 동의</strong>
@@ -158,12 +158,12 @@
                     </pre>
                     <br/>
                     <input type="checkbox" name="
-                    privacy_policy" value="1"/> 개인정보 수집ㆍ이용에 동의합니다.(필수)
+                    privacy_policy" id="privacy_policy" value="1"/> 개인정보 수집ㆍ이용에 동의합니다.(필수)
 
-                    <div class="board_box_sj box_detail_sj">
+                    <div class="board_box_sj box_detail_sj" style="height: 100px;">
                       
-                            <a href="${pageContext.request.contextPath}/user/userJoinEmail.do" class="button_box_sj box_email_sj">동의함</a><span class="margin_sj"></span>
-                            <a href="${pageContext.request.contextPath}/main.do" class="button_box_sj box_email_sj">동의안함</a>
+                            <a href="#" id="agree" class="button_box_sj box_email_sj">동의함</a><span class="margin_sj"></span>
+                            <a href="#" id="disagree" class="button_box_sj box_email_sj">동의안함</a>
                     </div>
                 </div> 
 
@@ -181,8 +181,29 @@
 
   </div>
   <script>
-  // $(document).ready(alert());
 
+  let agree = document.querySelector("#agree");
+  let disagree = document.querySelector("#disagree");
+  
+  agree.addEventListener("click", (e) => {
+		let terms_of_service = document.querySelector("#terms_of_service");
+		let privacy_policy = document.querySelector("#privacy_policy");
+		
+	  	if (terms_of_service.checked == false) {
+	  		alert("이용약관에 동의 해주세요.");
+	  		return false;
+	  	}
+	  	if (privacy_policy.checked == false) {
+	  		alert("개인정보 수집ㆍ이용에 동의 해주세요.");
+	  		return false;
+	  	}
+		location.href="${pageContext.request.contextPath}/user/userJoinEmail.do";
+  });
+  disagree.addEventListener("click", (e) => {
+	  location.href="${pageContext.request.contextPath}/main.do";
+  });
+  
+  
   </script>
 </body>
 </html>

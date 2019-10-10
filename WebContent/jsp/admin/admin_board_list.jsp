@@ -294,7 +294,6 @@
 		if (studyList.length > 0) jsonData["6"] = studyList;
 		if (qnaList.length > 0) jsonData["7"] = qnaList;
 		
-		console.log(jsonData);
 		
 		let result = confirm("정말 선택한 게시판을 삭제하시겠습니까?");
 		if (result) {
@@ -309,7 +308,6 @@
 						}
 				}
 			};	
-			console.log(jsonData);
 			xhr.open("POST", "boardSelectDel.do", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.send("data=" + JSON.stringify(jsonData));
@@ -334,7 +332,7 @@
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
 							alert("선택한 게시판이 전체 삭제 되었습니다.");
-							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+							location.href = '${pageContext.request.contextPath}/admin/boardAllListForm.do?&codeValue=' + viewBoard;
 						} else {
 							alert("시스템 오류입니다.")
 						}
@@ -358,7 +356,7 @@
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
 							alert("선택한 게시판이 전체 삭제 되었습니다.");
-							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+							location.href = '${pageContext.request.contextPath}/admin/boardAllListForm.do';
 						} else {
 							alert("시스템 오류입니다.")
 						}
@@ -406,8 +404,6 @@
 	}
 	
 	for (let i = 0; i < viewBoardVal.length; i++) {
-// 		console.log(viewBoardVal[i].value);
-// 		console.log('@@@@' + '${codeValue}');
 		if (viewBoardVal[i].value == '${codeValue}') {
 			
 			viewBoardVal[i].selected = true;

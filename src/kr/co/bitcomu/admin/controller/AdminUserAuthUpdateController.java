@@ -7,13 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.UserDAO;
-import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.User;
-import kr.co.bitcomu.util.PageResult;
 
 
 @WebServlet("/admin/adminUserAuthUpdate.do")

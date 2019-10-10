@@ -7,6 +7,8 @@
   <c:import url="/jsp/include/head.jsp">
 		<c:param name="msg" value="회원가입" />
 </c:import> 
+
+
 </head>
 <body>
    <div class="wrapepr email_wrap">

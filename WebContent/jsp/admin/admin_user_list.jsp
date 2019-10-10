@@ -253,14 +253,20 @@
 			xhr.onreadystatechange = (e) => {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
-							alert("삭제 되었습니다.");
-							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+							if (xhr.responseText.trim() == 'success') {
+								alert("삭제 되었습니다.");
+								location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+							} else if (xhr.responseText.trim() == 'write_exist') {
+								alert("해당 유저의 게시글이 존재합니다. 게시글 삭제 후 유저 삭제를 진행해주세요.");
+							} else {
+								alert("시스템 오류입니다.");
+							}
+						
 						} else {
 							alert("시스템 오류입니다.")
 						}
 				}
 			};	
-			console.log(arr);
 			xhr.open("POST", "userSelectDel.do", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.send("msg=" + arr);
@@ -280,8 +286,14 @@
 			xhr.onreadystatechange = (e) => {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
+						if (xhr.responseText.trim() === 'success') {
 							alert("전체 삭제 되었습니다.");
 							location.href = '<c:url value="/admin/adminUserList.do"/>' ;
+						} else if (xhr.responseText.trim() === 'write_exist') {
+							alert("전체 유저를 삭제 하시려면 전체 게시판 삭제 후 진행해 주세요.");
+						} else {
+							alert("시스템 오류입니다.");
+						}
 						} else {
 							alert("시스템 오류입니다. 다시 시도해 주세요.")
 						}
