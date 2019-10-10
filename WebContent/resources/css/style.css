@@ -1386,13 +1386,13 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 }
 
 /* list 전체*/
-.sWrap .list{
+.sWrap #list{
   display: block;
   margin: 10px auto 0;
 
 }
 /* list - 게시글 */
-.sWrap .list a{
+.sWrap #list a{
   display: block;
   margin-bottom: 1px;
   padding: 16px;
@@ -1400,7 +1400,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
   background-color: #fff;
   vertical-align: top;
 }
-.sWrap .container .list p.completed{
+.sWrap .container  p.completed{
   	display: inline;
     margin: 0 4px 12px 0;
     padding: 0 8px;
