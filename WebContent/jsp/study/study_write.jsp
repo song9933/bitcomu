@@ -20,7 +20,7 @@
     <div class="w1280">
         <section class="content">
           <div class="container">
-          <form method="post" action="<c:url value="/study/studywrite.do"/>">
+          <form name="wForm" method="post" action="<c:url value="/study/studywrite.do"/>" onsubmit="return nullChk()">
               <div class="section">
                   <h2>분야</h2>
                   <div class="checks">
@@ -86,6 +86,29 @@
  	<%@include file="/jsp/include/footer.jsp" %>
   </div>
  <script>
+ 
+ function nullChk(){
+	 let f = document.wForm;
+
+	 if (isEmpty(f.studyRecruitField, "모집분야를 선택하세요.")) return false;
+	 if (isEmpty(f.studyLoc,"지역을 입력하세요.")) return false;
+	 
+	 if (isEmpty(f.studyRecruitEnabled,"모집여부를 선택하세요.")) return false;
+	 if (isEmpty(f.studyPostTitle,"제목을 입력하세요.")) return false;
+	 if (isEmpty(f.studyPostContent,"내용을 입력하세요.")) return false;	 	
+
+	 return true;
+ }
+ 
+ function isEmpty(ele, msg){
+	 if (ele.value == ""){
+		 alert(msg);
+		 console.log(msg);
+		 return true;
+	 }
+	 return false;
+ }
+ 
 let min = document.querySelector("#studyRecruitMemMin");
 min.value="5";
  let max = document.querySelector("#studyRecruitMemMax");
@@ -103,19 +126,10 @@ min.value="5";
     	min.value = ui.values[0];
     	max.value = ui.values[1];
   
-        
-    	$( "#amount" ).val(  ui.values[ 0 ] + "명 - " + ui.values[ 1 ] +"명");
       }
     });
-    /* 
-    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-      "명 - " + $( "#slider-range" ).slider( "values", 1 ) +"명"); */
+  
   } );
-  
-
-  
-  
-  
   
   </script>
 </body>

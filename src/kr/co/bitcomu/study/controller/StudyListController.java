@@ -23,8 +23,7 @@ public class StudyListController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Study> list = dao.selectStudyList();
-		req.setAttribute("list", list);
+	
 		
 		
 		req.getRequestDispatcher("/jsp/study/study_main.jsp").forward(req, res);

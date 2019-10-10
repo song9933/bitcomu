@@ -16,7 +16,9 @@
         <section class="content">
           <div class="container">
             <div class="top_box">
+            <c:if test="${!empty sessionScope.user.userNo}">
               <a class="write" href="<c:url value="/study/studywriteform.do" />"><i class="fa fa-pencil" aria-hidden="true"></i>글쓰기</a>
+            </c:if>
               <div class="search">
                 <form>
                   <i class="fa fa-search" aria-hidden="true"></i>
@@ -25,15 +27,18 @@
                 </form>
               </div>
             </div>
-            <div class="list">
+            <%-- <div class="list">
               <c:if test="${empty list}">
               	<p>게시물이 없습니다.</p>
-              </c:if>
+              </c:if> --%>
               <!-- 반복돌려서 스터디게시판 전체 글 가져오기 -->
-              <c:forEach var="std" items="${list}">
+              <div id="list"></div>
+             
+              
+<%--               <c:forEach var="std" items="${list}">
               	  <a class="item" href="<c:url value="/study/studydetail.do?studyPostNo=${std.studyPostNo}" />">
-	                <p class="completed">${std.studyRecruitEnabled}</p>
-	                <h2> ${std.studyPostTitle }</h2>
+	                <p class="completed" id="completed">${std.studyRecruitEnabled}</p>
+	                <h2> ${std.studyPostTitle}</h2>
 	                <p class="info">
 	                  <span> ${std.userId}</span>
 	                  <span><fmt:formatDate value="${std.studyRegDt}" pattern="yyyy-MM-dd HH:mm" /></span>
@@ -41,8 +46,8 @@
 	                  <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>${std.studyCmtCnt}</span>
 	                </p>
 	              </a>
-              
               </c:forEach>
+ --%>              
              
             </div>
           </div>
@@ -57,9 +62,22 @@
 
   </div>
   <script>
-  // $(document).ready(alert());
+  
+	let ele = document.getElementsByClassName("completed");
+	for (let i = 0; i<ele.length ; i++){
+		if (ele[i].innerText == 'Y'){
+			ele[i].innerText = '모집중';
+			
+		} else {
+			ele[i].innerText  = '마감';
+		}
+		
+	}
+
 
   </script>
+  <script src="<c:url value='/resources/js/study.js'/>"></script>
+  
 </body>
 </html>
 

@@ -19,7 +19,7 @@
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
         <section class="content">
-            <form method="post" action="<c:url value="/study/studyupdate.do"/>">
+            <form name="uForm" method="post" action="<c:url value="/study/studyupdate.do"/>" onsubmit="return nullChk()">
             <div class="container">
             <input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
                 <div class="section">
@@ -107,6 +107,31 @@
 
   </div>
 <script>
+
+function nullChk(){
+	 let f = document.uForm;
+
+	 if (isEmpty(f.studyRecruitField, "모집분야를 선택하세요.")) return false;
+	 if (isEmpty(f.studyLoc,"지역을 입력하세요.")) return false;
+	 
+	 if (isEmpty(f.studyRecruitEnabled,"모집여부를 선택하세요.")) return false;
+	 if (isEmpty(f.studyPostTitle,"제목을 입력하세요.")) return false;
+	 if (isEmpty(f.studyPostContent,"내용을 입력하세요.")) return false;	 	
+
+	 return true;
+}
+
+function isEmpty(ele, msg){
+	 if (ele.value == ""){
+		 alert(msg);
+		 console.log(msg);
+		 return true;
+	 }
+	 return false;
+}
+
+
+
 let min = document.querySelector("#studyRecruitMemMin");
 min.value='${study.studyRecruitMemMin}';
  let max = document.querySelector("#studyRecruitMemMax");
@@ -117,18 +142,16 @@ $( function() {
       range: true,
       min: 2,
       max: 20,
-      values: [ 5, 10 ],
+      values: [ min.value, max.value ],
       slide: function( event, ui ) {
     	$(".studyRecruitMemMin").html(ui.values[0]);  
     	$(".studyRecruitMemMax").html(ui.values[1]);  
      	min.value = ui.values[0];
     	max.value = ui.values[1];
-        $( "#amount" ).val(  ui.values[ 0 ] + "명 - " + ui.values[ 1 ] +"명");
+    
       }
     });
-    /* 
-    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-      "명 - " + $( "#slider-range" ).slider( "values", 1 ) +"명"); */
+
   } );
   
  	// 기존 분야 값 가져오기

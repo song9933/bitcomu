@@ -42,9 +42,12 @@
 	</sql>
 	
 	<!-- 스터디게시판 전체목록 조회 -->
-	<select id="selectStudyList" resultMap="studyMap">
-		<include refid="selectStudy" />
-			order by study_post_no desc
+	<select id="selectStudyList" parameterType="Page" resultMap="studyMap">
+		 select *
+		 	from (select rownum rnum, a.* from 
+		 			( <include refid="selectStudy" />
+						order by study_post_no desc ) a)
+			where rnum between #{begin} and #{end}
 	</select>
 	
 	<!-- 스터디게시판 게시글 조회 -->
