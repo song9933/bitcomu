@@ -13,16 +13,21 @@
 		<result column="talk_like_cnt" property="likeCnt" />
 		
 	</resultMap>
-	<select id="selectTalk" parameterType="Page" resultMap="talkMap">
+	<select id="selectTalk" parameterType="hashmap" resultMap="talkMap">
 		select *
 	      from (select rownum rnum, a.*
 			      from ( 
 					      select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
                             from tb_talk n
+                          	
+                           	where #{search.searchType} like '%' || #{search.searchWord} || '%'
+                          	
+                           
+                         
 						   order by talk_post_no desc
 						  )
 						  a)
-		 where rnum between #{begin} and #{end} 
+		 where rnum between #{page.begin} and #{page.end} 
 	</select>
 	<select id="selectTalkCount" resultType="int">
 		select count(*)

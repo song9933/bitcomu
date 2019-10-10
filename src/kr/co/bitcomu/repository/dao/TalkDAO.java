@@ -18,7 +18,7 @@ import kr.co.bitcomu.repository.vo.Talk;
 
 
 public interface TalkDAO {
-	List<Talk> selectTalk(Page page);
+	List<Talk> selectTalk(Map<String, Object> map);
 	Talk selectOneTalk(int no);
 	void updateViewCnt(int no);
 	void insertTalk(Talk talk);

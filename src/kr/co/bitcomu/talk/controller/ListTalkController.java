@@ -1,6 +1,8 @@
 package kr.co.bitcomu.talk.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.TalkDAO;
 import kr.co.bitcomu.repository.vo.Page;
+import kr.co.bitcomu.repository.vo.Search;
 import kr.co.bitcomu.util.PageResult;
 
 
@@ -27,6 +30,7 @@ public class ListTalkController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		req.setCharacterEncoding("utf-8");
+		/* res.setCharacterEncoding("utf-8"); */
 		String sPageNo = req.getParameter("pageNo");
 		
 		// 요청 페이지를 1페이지로 변경
@@ -43,8 +47,33 @@ public class ListTalkController extends HttpServlet {
 		
 		
 		
+		
+		
+		//검색
+		Search search = new Search();
+		//검색어 가져오기
+		String searchWord = "";
+		if (req.getParameter("searchWord") != null)  	
+		searchWord = req.getParameter("searchWord");
+		System.out.println("Word :" + searchWord);
+		//검색타입 가져오기
+		String searchType = "talk_post_no";
+		if (req.getParameter("searchType") != null) 
+		searchType = req.getParameter("searchType");
+		System.out.println("type :" + searchType);
+		search.setSearchType(searchType);
+		search.setSearchWord(searchWord);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		map.put("search", search);
+		
+		
 		// 데이터를 구하고 공유
-		req.setAttribute("talk", dao.selectTalk(page));
+		req.setAttribute("talk", dao.selectTalk(map));
+		
+		//검색어, 타입 보내기
+		req.setAttribute("search", search);
 		
 		
 		// 사용할 화면으로 이동하기

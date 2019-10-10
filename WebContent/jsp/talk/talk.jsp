@@ -104,7 +104,7 @@
                 <c:if test="${pr.count != 0}">
 			  	<c:if test="${pr.prev}">
 			    <li>
-			      <a href="talkList.do?pageNo=${pr.beginPage -1}" aria-label="previous">
+			      <a href="talkList.do?pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="previous">
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
@@ -112,11 +112,11 @@
 			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
 			    	<li 
 			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="talkList.do?pageNo=${i}">${i}</a></li>
+			    	><a href="talkList.do?pageNo=${i}&searchType=${search.searchType}&searchWord=${search.searchWord}">${i}</a></li>
 			    </c:forEach>
 			  	<c:if test="${pr.next}">
 			    <li>
-			      <a href="talkList.do?pageNo=${pr.endPage + 1}" aria-label="next">
+			      <a href="talkList.do?pageNo=${pr.endPage + 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="next">
 			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </li>
@@ -137,15 +137,19 @@
             </c:choose>
             
             <div class="ns_search">
+           <form method="post" action="/bitcomu/talk/talkList.do">
                 search : 
-                <select name="list">
-                    <option value="10" selected>제목 + 내용</option>
-                    <option value="15">제목</option>
-                    <option value="20">내용</option>
-                    
+                <select name="searchType">
+                   <!--  <option value="title&content" >제목 + 내용</option> -->
+                    <option value="talk_post_title" selected>제목</option>
+                    <option value="talk_post_content">내용</option>
+                    <option value="user_id">글쓴이</option>
                 </select>
-                <input type="text" name="search">
-            </div> 
+                
+                <input type="text" name="searchWord" >
+		        <button type="submit" id="doSearch" >검색</button>
+           </form>
+            </div>
         </section>  
         
         
@@ -167,7 +171,9 @@
 
   </div>
   <script>
-  // $(document).ready(alert());
+  function doSearch() {
+	
+}
 
   </script>
 </body>

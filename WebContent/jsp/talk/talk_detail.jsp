@@ -273,20 +273,26 @@
             </c:choose>
 
             
-            
             <div class="ns_search">
+           <form method="get" action="/bitcomu/talk/list_search.do">
                 search : 
                 <select name="list">
-                    <option value="10" selected>제목 + 내용</option>
-                    <option value="15">제목</option>
-                    <option value="20">내용</option>
+                    <option value="title&content" selected>제목 + 내용</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="userId">글쓴이</option>
                     
                 </select>
-                <input type="text" name="search">
+                <input type="text" name="search" id="searchValue" value="">
+		        <button type="button" id="doSearch" >검색</button>
+           </form>
             </div>
           
         </section>
     </div>
+           
+           
+           
     <div id="ns_bottom"></div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
 
@@ -301,9 +307,9 @@
   
  
   <script src="<c:url value='/resources/js/like.js' />">
-  // $(document).ready(alert());
-	
+  
   </script>
+  
 </body>
 </html>
 
