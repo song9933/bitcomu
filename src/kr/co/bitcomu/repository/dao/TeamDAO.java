@@ -16,6 +16,7 @@ public interface TeamDAO {
 	void insertTeamBoard(Team team);
 	void updateTeamBoard(Team team);
 	int deleteTeamBoard(int no);
+	int deleteboardcomment(int no);
 	
 	/* 댓글 파트 시작 ========================================= */
 	List<Comment> selectTeamComment(int teamBoardCmtNo);

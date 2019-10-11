@@ -101,6 +101,16 @@
 <!-- 		   and user_no = #{userNo} -->
 	</delete>
 
+	<delete id="deleteboardcomment" parameterType="int">
+		delete 
+		  from tb_comment 
+		 where board_post_no = #{teamBoardNo}
+		   and code_value = (select code_value 
+		   					   from tb_codenm 
+		   					  where code_name = '팀프로젝트게시판')
+		   
+	</delete>
+
 <!-- ===댓글================================================= -->
 
 	<resultMap id="commentMap" type="Comment">

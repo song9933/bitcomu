@@ -16,30 +16,28 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.TeamDAO;
 import kr.co.bitcomu.repository.vo.Comment;
 
-@WebServlet("/team/teamCommentDelete.do")
-public class DeleteTeamCommentController extends HttpServlet {
-	private TeamDAO dao;
-
-	public DeleteTeamCommentController() {
-		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TeamDAO.class);
-	}
-
+@WebServlet("/team/teamBoardDetail_ajax.do")
+public class TeamCommentAjaxController extends HttpServlet {
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		TeamDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TeamDAO.class);
 		int cmtNo = Integer.parseInt(req.getParameter("cmtNo"));
-		dao.deleteTeamComment(Integer.parseInt(req.getParameter("cmtNo")));
-		res.sendRedirect(req.getContextPath() + "/team/teamBoardDetail.do?teamBoardNo=" + req.getParameter("teamBoardNo"));
 		
 		// 댓글 목록 공유
 		List<Comment> commentList = dao.selectTeamComment(cmtNo);
-
-		PrintWriter out = res.getWriter();
+		
+		PrintWriter out = resp.getWriter();
 		out.println(new Gson().toJson(commentList));
 		out.close();
 	}
-	
-	
-	
-	
-	
 }
+
+
+
+
+
+
+
+
+
+
