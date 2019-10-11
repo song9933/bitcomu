@@ -18,12 +18,11 @@
 				
 					<div class="bottom_box">
 						<div style="margin-bottom: 10px">
-							<a href="#popup" class="floating comment">댓글 쓰기</a>
 
 							<!-- 댓글작성 폼 -->
-								<form method="post" action="<c:url value="/qna/qnacommentwrite.do"/>">
+								<form method="post" action="<c:url value="/qna/qnaCommentWrite.do"/>">
 							<div id="popup" class="layer">
-									<input type="hidden" name="boardPostNo" value="${qna.qnaNo}" />
+									<input type="hidden" name="boardPostNo" value="${b.qnaNo}" />
 									<div class="box clearboth">
 										<textarea id="comment" name="cmtContent" cols="30" rows="10"
 											placeholder="댓글을 입력해주세요"></textarea>
@@ -34,9 +33,6 @@
 							</div>
 								</form>
 
-
-							<a href="<c:url value="/qna/qnaList.do"/>"
-								class="floating comment">목록</a>
 						</div>
 
 					</div>
@@ -44,7 +40,7 @@
 					<div class="comments">
 						<div class="item parent">
 
-							<c:forEach var="cmt" items="${cmtList}">
+							<c:forEach var="cmt" items="${cmt}">
 								<p class="profile">${cmt.userId}</p>
 								<p class="text">${cmt.cmtContent}</p>
 								<div class="info">
@@ -55,9 +51,9 @@
 									<c:if test="${sessionScope.user.userNo eq cmt.userNo}" > 
 									<a href="#popupMod">수정</a>
 									<!-- 댓글수정 폼 팝업 -->
-									<form method="post" action="<c:url value="/qna/qnacommentupdate.do"/>">
+									<form method="post" action="<c:url value="/qna/qnaCommentUpdate.do"/>">
 										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-										<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+										<input type="hidden" name="qnaNo" value="${b.qnaNo}" />
 										<div id="popupMod" class=layer>
 											<div class="box">
 												<textarea id="comment" name="cmtContent" cols="30" rows="10">${cmt.cmtContent}</textarea>
@@ -73,9 +69,9 @@
 									</form>
 									<!-- 댓글 삭제 팝업-->	
 									<a href="#popupDelCmt">삭제</a>
-									<form method="post" action="<c:url value="/qna/qnacommentdelete.do"/>">
+									<form method="post" action="<c:url value="/qna/qnaCommentDelete.do"/>">
 										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-										<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />									
+										<input type="hidden" name="qnaNo" value="${b.qnaNo}" />									
 									<div id="popupDelCmt" class=layer>
 										<div class="box">
 											<p class="text">삭제 하시겠습니까?</p>
@@ -91,9 +87,6 @@
 									</c:if>
 								</div>
 							</c:forEach>
-							<c:if test="${empty cmtList}">
-								<p></p>
-							</c:if>
 
 						</div>
 					</div>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
 
-@WebServlet("/qna/qnacommentdelete.do")
+@WebServlet("/qna/qnaCommentDelete.do")
 public class QnaCommentDeleteController extends HttpServlet {
 	private QnaDAO dao;
 
@@ -21,8 +21,8 @@ public class QnaCommentDeleteController extends HttpServlet {
 
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		dao.deleteComment(Integer.parseInt(req.getParameter("cmtNo")));
-		res.sendRedirect(req.getContextPath() + "/qna/qnadetail.do?qnaNo=" + req.getParameter("qnaNo"));
+		dao.deleteQnaComment(Integer.parseInt(req.getParameter("cmtNo")));
+		res.sendRedirect(req.getContextPath() + "/qna/qnaDetail.do?qnaNo=" + req.getParameter("qnaNo"));
 		
 	}
 	

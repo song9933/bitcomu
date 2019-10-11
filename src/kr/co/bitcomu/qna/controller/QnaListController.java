@@ -46,6 +46,10 @@ public class QnaListController extends HttpServlet {
 		
 		// 데이터를 구하고 공유
 		req.setAttribute("qna", dao.selectQna(page));
+		req.setAttribute("boardNo", req.getParameter("boardNo"));
+		
+		req.setAttribute("searchType", req.getParameter("searchType"));
+		req.setAttribute("searchWord",req.getParameter("searchWord"));
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/qna/qna.jsp").forward(req, res);
 	}

@@ -14,7 +14,7 @@ import kr.co.bitcomu.repository.dao.QnaDAO;
 import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.User;
 
-@WebServlet("/qna/qnacommentwrite.do")
+@WebServlet("/qna/qnaCommentWrite.do")
 public class QnaCommentWriteController extends HttpServlet{
 	private QnaDAO dao;
 
@@ -26,16 +26,14 @@ public class QnaCommentWriteController extends HttpServlet{
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
-		req.setAttribute("user", user);
 		Comment cmt = new Comment();
 
 		cmt.setUserNo(user.getUserNo());
 		cmt.setBoardPostNo(Integer.parseInt(req.getParameter("boardPostNo")));
-		//cmt.setCodeValue(Integer.parseInt(req.getParameter("codeValue")));
 		cmt.setCmtContent(req.getParameter("cmtContent"));
 		
-		dao.insertComment(cmt);
-		res.sendRedirect(req.getContextPath() + "/qna/qnadetail.do?qnaNo=" + Integer.parseInt(req.getParameter("boardPostNo")));
+		dao.insertQnaComment(cmt);
+		res.sendRedirect(req.getContextPath() + "/qna/qnaDetail.do?qnaNo=" + Integer.parseInt(req.getParameter("boardPostNo")));
 	}
 	
 	

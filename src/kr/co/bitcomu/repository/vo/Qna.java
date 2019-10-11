@@ -1,6 +1,7 @@
 package kr.co.bitcomu.repository.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Qna {
 	
@@ -14,6 +15,7 @@ public class Qna {
 	private Date qnaRegDt; // qna 등록 날짜
 	private int qnaViewCnt; // qna 조회 수
 	private int qnaCmtCnt; // qna 댓글 수
+	private List<Comment> commentList;
 	
 	public int getQnaNo() {
 		return qnaNo;
@@ -74,6 +76,12 @@ public class Qna {
 	}
 	public void setQnaCmtCnt(int qnaCmtCnt) {
 		this.qnaCmtCnt = qnaCmtCnt;
+	}
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
 	}
 	
 	
