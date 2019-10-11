@@ -20,7 +20,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cls();">×</button>
                 </div>
                 <div class="modal-body">
-                    <form action="${pageContext.request.contextPath}/user/userLogin.do" method="post" id="loginChk">
+                    <form method="post" name="loginChk">
                         <div class="form-group">
                             <input type="text" class="form-control" name="id" placeholder="Username" required="required">		
                         </div>
@@ -46,12 +46,33 @@
 
 				
 	    sendLogin.addEventListener("click", function () {
-	    		document.querySelector("#loginChk").submit();
-	    		// 구현 해야 할 일 : ajax를 통하여 아이디, 비밀번호가 일치하는지에 따라서 alert 메세지가 바뀌어야 함.
-	    		let msg = "로그인 되었습니다."
-    			alert(msg);
-		    	opener.parent.location.reload();
-		    	self.close();
+	    	let xhr = new XMLHttpRequest();
+    			
+			xhr.onreadystatechange = (e) => {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						if (xhr.responseText.trim() == 'loginSuccess') {
+							alert("로그인 되었습니다.");
+							opener.parent.location.reload();
+							self.close();
+						} else {
+							alert("아이디나 비밀번호가 맞지 않습니다.")
+						}
+					}
+				}
+			};	
+	    	let f = document.loginChk;
+			xhr.open("POST", "userLogin.do", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("id=" + f.id.value + "&password=" + f.password.value);
+	    	
+	    	
+	    	
+	    	
+	    		
+	    		
+		    	
+		    	
 
 	    });
 	    

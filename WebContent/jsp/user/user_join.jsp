@@ -7,6 +7,18 @@
   <c:import url="/jsp/include/head.jsp">
 		<c:param name="msg" value="회원가입" />
 </c:import> 
+<style>
+@import url(https://fonts.googleapis.com/css?family=Oswald:700);
+.vote_countdown{
+  	text-align: center;
+    color: orangered;
+    font-family: "Oswald";
+    font-weight: 700;
+    font-size: 1.7em;
+    padding: 10px;
+}
+
+</style>
 
 
 </head>
@@ -38,8 +50,9 @@
                       <tr>
                         <td>아이디</td>
                         <td><input type="text"
-                          name="id" class="input_box_sj box_join_sj" placeholder="아이디를 입력하세요.">
-                          <button type="button" class="button_box_sj">중복확인</button>
+                          id="id" name="id" class="input_box_sj box_join_sj" placeholder="아이디를 입력하세요.">
+                          <button type="button"  id="userChk" class="button_box_sj">중복확인</button>
+                          <div id="loading"><img id="loading-image" src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif" alt="Loading..." /></div>
                         </td>
                       </tr>
                       <tr>
@@ -100,9 +113,39 @@
  
   </div>
   <script>
-  // $(document).ready(alert());
+  let countdown = document.getElementById("countdown");
+  let joinFlag = false;
+  userChk.addEventListener("click", e => {
+	  let id = document.querySelector("#id").value;
+	  showLoadingbar();
+	  let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = (e) => {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					hideLoadingbar();
+					let result = xhr.responseText.trim();
+					console.log(result);
+					if (result == 0) {
+						alert("사용가능한 아이디 입니다.");
+						joinFlag = true;
+					} else {
+						alert("중복된 회원이 있습니다!");
+						joinFlag = false;
+						return;
+					}
+					
+				}
+
+			}
+		};	
+		xhr.open("POST", "userIdChk.do", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("userId=" + id);
+  });
 
   </script>
+  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 </body>
 </html>
 

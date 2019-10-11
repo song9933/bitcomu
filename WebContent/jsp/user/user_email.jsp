@@ -38,7 +38,7 @@
     </div>
     <!-- //비주얼이미지 영역 끝-->
     <!-- width = 1280px 인 컨텐츠영역-->
-    <form method="GET" action="${pageContext.request.contextPath}/user/userJoinForm.do">
+    <form method="POST" action="${pageContext.request.contextPath}/user/userJoinForm.do" id="emailForm">
       <div class="w1280">
           <section class="content">
               <div class="board_box_sj">
@@ -52,17 +52,18 @@
                   </span>
                   
                   </div>
-                  
+                  <div id="loading"><img id="loading-image" src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif" alt="Loading..." /></div>
+
                     
                 <div class="board_box_sj box_detail_sj"><span><strong><i class="fa fa-arrow-circle-right" aria-hidden="true" style="color: #ffa500"></i></text>이메일에서 받은 인증번호를 입력해 주세요.</strong> </span><br/>
    				<span>
                     <input type="text"
                   name="emailAuth" class="input_box_sj box_default_sj" id="emailAuthResult" placeholder="인증번호를 입력하세요"/></span>
-						<span id="countdown" class="vote_countdown" >3:00</span>
+						<span id="countdown" class="vote_countdown" ></span>
                   
                 </div>
                 <div class="board_box_sj box_detail_sj">
-                  <button type="submit" class="button_box_sj box_email_sj">회원가입</button><span class="margin_sj"></span>
+                  <button type="button" id=joinForm class="button_box_sj box_email_sj">회원가입</button><span class="margin_sj"></span>
                   <button type="button" onclick="location.replace('${pageContext.request.contextPath}/main.do')" class="button_box_sj box_email_sj">취소</button>
                 </div>
               </div>
@@ -83,7 +84,7 @@
 
   </div>
   <script>
-  
+ 	 
   	  let joinFlag = false;
   
 	  let emailSend = document.querySelector("#emailSend");
@@ -95,12 +96,13 @@
 			  alert("제대로 된 이메일 주소를 입력해주세요.");
 			  return;
 		  }
-		  
+		  showLoadingbar();
 		  
 		  let xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = (e) => {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
+						hideLoadingbar();
 						let result = xhr.responseText.trim();
 						if (result == 'Invalid Addresses') {
 							alert("이메일 형식이 맞지 않습니다.");
@@ -109,7 +111,47 @@
 							alert("시스템 오류입니다.");
 							return;
 						}
-						callbackResult(result);
+						emailSend.disabled = true;
+						
+						
+						
+						let emailAuthResult = document.getElementById("emailAuthResult");
+						emailAuthResult.addEventListener("blur", e => {
+							let emailAuthValue = emailAuthResult.value;
+							if (emailAuthValue == result) joinFlag = true;
+							else joinFlag = false;
+						});
+						
+						let timer = 60 * 3, minutes, seconds;
+
+						let startTimer = setInterval(function () {
+						    	
+						    	let countdown = document.getElementById("countdown");
+								
+							    timer = timer, minutes, seconds;
+						        minutes = parseInt(timer / 60, 10);
+						        seconds = parseInt(timer % 60, 10);
+
+						        minutes = minutes < 10 ? "0" + minutes : minutes;
+						        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+						        countdown.innerHTML = minutes + ":" + seconds;  
+						        if (--timer < 0) {
+						            timer = timer;
+						        }
+						        if (minutes == '00' && seconds == '00') {
+									emailSend.disabled = false;
+							        countdown.innerHTML = "다시 인증 받으세요.";
+							        joinFlag = false;
+						        	clearInterval(startTimer);
+						        }
+						 }, 1000);
+						
+						
+						
+						
+						
+						
 						
 					}
 
@@ -120,41 +162,29 @@
 			xhr.send("emailAddr=" + emailAuth);
 	  });
 	  
-	  function callbackResult(result) {
-		 return result;
-	  }
-	  
-	  
-	  
-	  
 
+	  let joinForm = document.querySelector("#joinForm");
+	  
+	  joinForm.addEventListener("click" , e =>  {
+		  	console.log("joinFlag : ", joinFlag);
+			if (!joinFlag) {
+				alert("이메일 인증 후에 회원가입이 가능합니다.");
+				return false;
+			}
+			alert("인증되었습니다.");
+			document.querySelector("#emailForm").submit();
+			
+	  });
+	  
+	  
+	    
 	  	  
 		
+	  	
 		
-
-		function startTimer(duration, display) {
-		    var timer = duration, minutes, seconds;
-		    setInterval(function () {
-		        minutes = parseInt(timer / 60, 10);
-		        seconds = parseInt(timer % 60, 10);
-
-		        minutes = minutes < 10 ? "0" + minutes : minutes;
-		        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-// 		        display.textContent = minutes + ":" + seconds;
-		        countdown.innerHTML = minutes + ":" + seconds;  
-		        if (--timer < 0) {
-		            timer = duration;
-		        }
-		    }, 1000);
-		}
-		function callTimer () {
-		    var fiveMinutes = 60 * 3,
-		    countdown = document.getElementById("countdown");
-		    startTimer(fiveMinutes, countdown);
-		};
-
   </script>
+  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 </body>
 </html>
 

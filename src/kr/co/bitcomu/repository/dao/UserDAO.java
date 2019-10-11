@@ -19,6 +19,6 @@ public interface UserDAO {
 	void insertUser(User user);
 	void updateUser(User user);
 	void deleteUser(int userNo);
-	int selectOneUserCheck(int userNo);
+	int selectOneUserCheck(String userId);
 	String selectFindUser(User user);
 }

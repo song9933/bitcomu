@@ -1,6 +1,7 @@
 package kr.co.bitcomu.user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +30,20 @@ public class UserLogInController extends HttpServlet {
 		User user = new User();
 		user.setUserId(req.getParameter("id"));
 		user.setUserPass(SHA256Password.LockPassword(req.getParameter("password")));
-		session.setAttribute("user", dao.selectOneUser(user));
+		User userStatus = dao.selectOneUser(user);
+		
+		session.setAttribute("user", userStatus);
+		
+		PrintWriter out = res.getWriter();
+		
+		if (userStatus == null) {
+			out.println("loginFail");
+		} else {
+			out.println("loginSuccess");
+		}
+		
+		
+		out.close();
 //		res.sendRedirect(req.getContextPath() + "/main.do");
 	}
 }
