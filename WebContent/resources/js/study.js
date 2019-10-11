@@ -5,6 +5,7 @@ var xhr = new XMLHttpRequest();
 var itemContainer =  document.getElementById('list');
 
 
+
 function getDistFromBottom () {
 
   var scrollPosition = window.pageYOffset;
@@ -44,16 +45,17 @@ xhr.onreadystatechange = function(){
     	
 	    	var sUserId = document.createElement('span');
 	    	sUserId.innerText = list.userId;
-	    	
+	    	sUserId.style.margin = '0 5px 0 0';
 	    	var sRegDt = document.createElement('span');
 
 	    	//sRegDt.innerHTML = dateFormat(list.studyRegDt,"yyyy-MM-dd HH:mm");
-	    	console.log(list.studyRegDt);
+	    	//console.log(list.studyRegDt);
 	    	//sRegDt.innerHTML = `<fmt:formatDate value='${list.studyRegDt}' pattern="yyyy-MM-dd HH:mm" />`;
 	    	//sRegDt.innerText = list.studyRegDt;
 	    	
 	    	var sViewCnt = document.createElement('span');
-	    	sViewCnt.innerHTML +='<i class="fa fa-eye" aria-hidden="false"></i>';	    	
+	    	sViewCnt.innerHTML +='<i class="fa fa-eye" aria-hidden="false"></i>';
+	    	sViewCnt.style.margin = '0 5px 0 0';
 	    	sViewCnt.innerHTML += list.studyViewCnt;
 	    	
 	    	var sCmtCnt = document.createElement('span');
@@ -95,7 +97,7 @@ xhr.onreadystatechange = function(){
 }
 xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
 xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-xhr.send(`pageNo=${pageNo}`);
+xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
 pollingForData = true;
 
 document.addEventListener('scroll', function() {
@@ -105,15 +107,37 @@ document.addEventListener('scroll', function() {
         if ((window.pageYOffset -17) == (document.body.offsetHeight - window.innerHeight)) {
           pollingForData = true;
           pageNo++;
-      
+       /*   console.log('scroll ',window.pageYOffset);
+          console.log('bodyHeight ',document.body.offsetHeight);
+          console.log('innerHeight',window.innerHeight);
+          console.log('pageNo',pageNo);*/
           xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
           xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-          xhr.send(`pageNo=${pageNo}`);
+          xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
         }
      
     		
     		
 });
 
+/**
+ * 검색
+ */
+doSearchStudy.addEventListener('click', e => {
+	let schWord = document.getElementById('keyword').value;
+	let schType = document.getElementById('selectType').value;
+	
+	 /*
+	 xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
+     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+     xhr.send(`searchType=${schType}&searchWord=${schWord}`);
+	*/
+	location.href='/bitcomu/study/studyList.do?searchType='+schType+'&searchWord='+schWord;
+})
 
-
+let selList = document.querySelectorAll("#selectType > option");
+for (let i = 0 ; i < selList.length ; i++) {
+	if(selList[i].value == `${searchType}`){	
+		selList[i].selected = true;
+	}
+}

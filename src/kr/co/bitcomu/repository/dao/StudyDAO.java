@@ -1,13 +1,13 @@
 package kr.co.bitcomu.repository.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.bitcomu.repository.vo.Comment;
-import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.Study;
 
 public interface StudyDAO {
-	List<Study> selectStudyList(Page page);
+	List<Study> selectStudyList(Map<String, Object> map);
 	Study selectOneStudy(int studyPostNo);
 	void insertStudy(Study study);
 	void updateStudy(Study study);

@@ -42,13 +42,25 @@
 	</sql>
 	
 	<!-- 스터디게시판 전체목록 조회 -->
-	<select id="selectStudyList" parameterType="Page" resultMap="studyMap">
+	<select id="selectStudyList" parameterType="hashMap" resultMap="studyMap">
 		 select *
 		 	from (select rownum rnum, a.* from 
 		 			( <include refid="selectStudy" />
-						order by study_post_no desc ) a)
-			where rnum between #{begin} and #{end}
+						
+						<where>
+							<if test="search.searchType != ''">
+								
+										 s.study_recruit_field = #{search.searchType} and s.study_post_content like '%'||#{search.searchWord}||'%'
+									
+							</if>
+						</where>
+						order by study_post_no desc 	
+						)	 			
+						a )
+						where rnum between #{page.begin} and #{page.end}
 	</select>
+	
+	
 	
 	<!-- 스터디게시판 게시글 조회 -->
 	<select id="selectOneStudy" parameterType="int" resultMap="studyMap">
@@ -119,7 +131,6 @@
 	
 	<!-- 스터디게시판 댓글 수 -->
 	<select id="studyCmtCnt" parameterType="int" resultType="int">
-		
 		select count(*) 
     		from tb_comment 
     		where code_value = (select code_value from tb_codenm where code_name = '스터디게시판')

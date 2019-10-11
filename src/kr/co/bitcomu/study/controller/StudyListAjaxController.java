@@ -2,6 +2,9 @@ package kr.co.bitcomu.study.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +17,8 @@ import com.google.gson.Gson;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.StudyDAO;
 import kr.co.bitcomu.repository.vo.Page;
+import kr.co.bitcomu.repository.vo.Search;
+import kr.co.bitcomu.repository.vo.Study;
 
 @WebServlet("/study/studyList_ajax.do")
 public class StudyListAjaxController extends HttpServlet{
@@ -36,11 +41,24 @@ public class StudyListAjaxController extends HttpServlet{
 					pageNo = Integer.parseInt(sPageNo);
 					}
 				Page page = new Page(pageNo);
-				
+				Search search = new Search();
+				search.setSearchType(req.getParameter("searchType"));
+				System.out.println(req.getParameter("searchType"));
+				search.setSearchWord(req.getParameter("searchWord"));
+				System.out.println(req.getParameter("searchWord"));
+				System.out.println(req.getParameter("pageNo"));
+				Map<String, Object> map = new HashMap<>();
+
+				map.put("page",page);
+				map.put("search",search);
+				List<Study> list = dao.selectStudyList(map);
 				
 				PrintWriter out = res.getWriter();
-				out.println(new Gson().toJson(dao.selectStudyList(page)));
+				out.println(new Gson().toJson(dao.selectStudyList(map)));
 				out.close();
+				
+				
+				
 						
 	}
 	

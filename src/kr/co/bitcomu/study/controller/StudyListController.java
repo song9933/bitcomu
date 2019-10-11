@@ -23,8 +23,10 @@ public class StudyListController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	
 		
+		
+		req.setAttribute("searchType", req.getParameter("searchType"));
+		req.setAttribute("searchWord",req.getParameter("searchWord"));
 		
 		req.getRequestDispatcher("/jsp/study/study_main.jsp").forward(req, res);
 	}

@@ -24,14 +24,14 @@
               <div class="section">
                   <h2>분야</h2>
                   <div class="checks">
-                    <input type="radio" id="srf1" name="studyRecruitField"  value="자바" /><label for="srf1">자바 </label>                  	 
-                    <input type="radio" id="srf2" name="studyRecruitField"  value="자바스크립트" /><label for="srf2">자바스크립트 </label>                  	 
-                    <input type="radio" id="srf3" name="studyRecruitField"  value="데이터베이스" /><label for="srf3">데이터베이스 </label>                  	 
-                    <input type="radio" id="srf4" name="studyRecruitField"  value="알고리즘" /><label for="srf4">알고리즘 </label>                  	 
-                    <input type="radio" id="srf5" name="studyRecruitField"  value="jsp/서블릿" /><label for="srf5">jsp/서블릿 </label>                  	 
-                    <input type="radio" id="srf6" name="studyRecruitField"  value="jQuery" /><label for="srf6">jQuery </label>                  	 
-                    <input type="radio" id="srf7" name="studyRecruitField"  value="Spring" /><label for="srf7">Spring </label>                  	 
-                    <input type="radio" id="srf8" name="studyRecruitField"  value="기타" /><label for="srf8">기타</label>                  	 
+                    <input type="radio" id="srf1" name="studyRecruitField"  value="자바" 	   /><label for="srf1">자바 </label>                  	 
+                    <input type="radio" id="srf2" name="studyRecruitField"  value="자바스크립트"  /><label for="srf2">자바스크립트 </label>                  	 
+                    <input type="radio" id="srf3" name="studyRecruitField"  value="데이터베이스"  /><label for="srf3">데이터베이스 </label>                  	 
+                    <input type="radio" id="srf4" name="studyRecruitField"  value="알고리즘" 		/><label for="srf4">알고리즘 </label>                  	 
+                    <input type="radio" id="srf5" name="studyRecruitField"  value="jsp/서블릿" 	/><label for="srf5">jsp/서블릿 </label>                  	 
+                    <input type="radio" id="srf6" name="studyRecruitField"  value="jQuery" 		/><label for="srf6">jQuery </label>                  	 
+                    <input type="radio" id="srf7" name="studyRecruitField"  value="Spring" 		/><label for="srf7">Spring </label>                  	 
+                    <input type="radio" id="srf8" name="studyRecruitField"  value="기타" 		/><label for="srf8">기타</label>                  	 
                   </div>
               </div>
               <div class="section">
