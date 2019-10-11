@@ -7,10 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.TeamDAO;
 import kr.co.bitcomu.repository.vo.Team;
+import kr.co.bitcomu.repository.vo.User;
 
 @WebServlet("/team/teamBoardList.do")
 public class ListTeamBoardController extends HttpServlet {
@@ -22,6 +24,9 @@ public class ListTeamBoardController extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("user");
+		
 		int no = req.getParameter("codeValue") == null ? dao.selectTeamCode() : Integer.parseInt(req.getParameter("codeValue"));
 		
 		if (req.getParameter("codeValue") != null) {
@@ -37,7 +42,10 @@ public class ListTeamBoardController extends HttpServlet {
 		}
 		req.setAttribute("projectNo", projectNo);
 		req.setAttribute("teamNo", teamNo);
-		req.setAttribute("list", dao.selectTeamBoard());
+		Team team = new Team();
+		
+		team.setTeamNo(teamNo);
+		team.setProjectNo(projectNo);
 		req.setAttribute("codeValue", dao.selectTeamCode());
 		req.getRequestDispatcher("/jsp/teamboard/team_board_list.jsp").forward(req, res);
 	

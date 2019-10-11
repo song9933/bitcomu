@@ -77,7 +77,11 @@ div.a_cws {
 
 				<div class="subtabs_cws">
 					<br>
-					<p style="margin-left: 30px;">조 추가/삭제</p>
+					<c:if test="${sessionScope.user.userGrade eq 3}">
+					<form method="post" name="sendForm" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}">
+						<input type='hidden' id="codeValue" name="codeValue" value="${codeValue}">
+						
+						<p style="margin-left: 30px;">조 추가/삭제</p>
 						<button type="button" onclick="doAdd();"
 							style="width: 20px; height: 20px; margin-left: 40px;">+</button>
 					
@@ -86,15 +90,12 @@ div.a_cws {
 					 
 <!-- 						<button type="submit">저장</button> -->
 						<button type="button" onclick="sendTeam();">저장</button>
+					</form>
+					</c:if>
 					
 					<div class="a_cws">
-<!-- 					<form class="teamNo_active_cws"  -->
-<%-- 						  action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?teamNo=${teamNo}"> --%>
 						<ul id="teamtabs_cws">
-<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li> --%>
-<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=2">2조</a></li> --%>
-<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li> --%>
-<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=4">4조</a></li> --%>
+						
 						</ul>
 <!-- 					</form> -->
 					</div>
@@ -114,10 +115,10 @@ div.a_cws {
     <div class="background_cws">
     </div>
     <div class="writepopup_cws">
-      <form action="${pageContext.request.contextPath}/team/teamBoardList.do">
+      <form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}">
         <button class="close_cws" style="width:50px; height:50px; 
-      background-color: white; opacity: .9; border: none">
-      </button>
+      		background-color: white; opacity: .9; border: none">
+      	</button>
       </form>
       <br>
       <h1 style="text-align: center">글등록페이지</h1>
@@ -127,16 +128,16 @@ div.a_cws {
       <input type="hidden" name="userNo" value="${userNo}">
       
       <div>
-        <select name="projectNo">
-          <option value="1" selected>1차</option>
+        <select name="projectNo" id="projectNo">
+          <option value="1">1차</option>
           <option value="2">2차</option>
           <option value="3">3차</option>
         </select>
       </div>
       
       <div>
-        <select name="teamNo">
-          <option value="${codeValue}" selected>${codeValue}조</option>
+        <select name="teamNo" id="teamNo">
+<%--           <option value="${codeValue}" selected>${codeValue}조</option> --%>
 <!--           <option value="2">2조</option> -->
 <!--           <option value="3">3조</option> -->
 <!--           <option value="4">4조</option> -->
@@ -189,12 +190,28 @@ div.a_cws {
 		liEle.setAttribute("id", `team\${i}`);
 		teamTab.append(liEle);
 	}
-  // 작성된 글의 팀 번호 보여주기
-		let teamNo = document.querySelectorAll("#teamNo > option");
-		for (let i = 0; i < teamNo.length; i++) {
-			if (teamNo[i].value == `${teamBoard.teamNo}`)
-				teamNo[i].selected = true;
-		}
+  	// select박스에 추가/삭제한 팀 번호 보여주기
+	let teamNo = document.querySelector("#teamNo");
+	for (let i = 1; i <= team; i++) {
+		let opEle = document.createElement("option");
+		opEle.value = `\${i}`;
+		let tNode = document.createTextNode(`\${i}조`);
+		opEle.append(tNode);
+		teamNo.append(opEle);
+			
+	}
+	// select박스에 선택된 프로젝트로 보여주기
+	let proNo = document.querySelectorAll("#projectNo > option");
+	for (let i = 0; i < proNo.length; i++) {
+		if (proNo[i].value == ${projectNo})
+			proNo[i].selected = true;
+	}
+	// select박스에 선택된 팀으로 보여주기
+	let tNo = document.querySelectorAll("#teamNo > option");
+	for (let i = 0; i < tNo.length; i++) {
+		if (tNo[i].value == ${teamNo})
+			tNo[i].selected = true;
+	}
   </script>
 </body>
 

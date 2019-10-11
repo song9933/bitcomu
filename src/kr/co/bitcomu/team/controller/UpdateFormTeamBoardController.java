@@ -26,6 +26,7 @@ public class UpdateFormTeamBoardController extends HttpServlet {
 //		req.setAttribute(
 //			"teamBoard", dao.selectOneTeamBoard(Integer.parseInt(req.getParameter("teamBoardNo")))
 //		);
+		
 		int no = Integer.parseInt(req.getParameter("teamBoardNo"));
 		Team t =  dao.selectOneTeamBoard(no);
 		req.setAttribute("teamBoard", t);

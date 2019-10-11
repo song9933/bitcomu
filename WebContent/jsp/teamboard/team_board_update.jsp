@@ -35,21 +35,21 @@
 
 				<div class="subtabs_cws">
 					<br>
-					<div class="a_cws">
-						<!-- 					<form class="teamNo_active_cws"  -->
-						<%-- 						  action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?teamNo=${teamNo}"> --%>
-						<ul>
-							<li><a
-								href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=2">2조</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=4">4조</a></li>
-						</ul>
-						<!-- 					</form> -->
-					</div>
+					<c:if test="${sessionScope.user.userGrade eq 3}">
+					<form method="post" name="sendForm" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}">
+						<input type='hidden' id="codeValue" name="codeValue" value="${codeValue}">
+						
+						<p style="margin-left: 30px;">조 추가/삭제</p>
+						<button type="button" onclick="doAdd();"
+							style="width: 20px; height: 20px; margin-left: 40px;">+</button>
+					
+						<button type="button" onclick="doDel();"
+							style="width: 20px; height: 20px;">-</button>
+					 
+<!-- 						<button type="submit">저장</button> -->
+						<button type="button" onclick="sendTeam();">저장</button>
+					</form>
+					</c:if>
 				</div>
 
 
@@ -111,11 +111,11 @@
 		<!--// 푸터 끝-->
 		<div class="background_cws"></div>
 		<div class="updatepopup_cws">
-			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do">
-				<button class="close_cws"
-					style="width: 50px; height: 50px; background-color: white; opacity: .9; border: none">
-				</button>
-			</form>
+			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${teamBoard.projectNo}&teamNo=${teamBoard.teamNo}">
+        		<button class="close_cws" style="width:50px; height:50px; 
+      				background-color: white; opacity: .9; border: none">
+      			</button>
+      		</form>
 			<br>
 			<h1 style="text-align: center">수정페이지</h1>
 			<br>

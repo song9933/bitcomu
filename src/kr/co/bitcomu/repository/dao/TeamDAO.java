@@ -1,14 +1,16 @@
 package kr.co.bitcomu.repository.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.bitcomu.repository.vo.Comment;
+import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.Team;
 import kr.co.bitcomu.repository.vo.User;
 
 public interface TeamDAO {
 	List<User> userBirthDday(int no);
-	List<Team> selectTeamBoard();
+	List<Team> selectTeamBoard(Map<String, Object> map);
 	Team selectOneTeamBoard(int no);
 	Team selectUserId(int no);
 	void insertTeamBoard(Team team);
@@ -25,4 +27,7 @@ public interface TeamDAO {
 	
 	int selectTeamCode();
 	int updateTeamCode(int no);
+	
+	/* 페이징 처리 ========================================== */
+	int selectBoardCount();
 }

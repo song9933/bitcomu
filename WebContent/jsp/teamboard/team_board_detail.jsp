@@ -73,14 +73,29 @@
 
 				<div class="subtabs_cws">
 					<br>
+					<c:if test="${sessionScope.user.userGrade eq 3}">
+					<form method="post" name="sendForm" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}">
+						<input type='hidden' id="codeValue" name="codeValue" value="${codeValue}">
+						
+						<p style="margin-left: 30px;">조 추가/삭제</p>
+						<button type="button" onclick="doAdd();"
+							style="width: 20px; height: 20px; margin-left: 40px;">+</button>
+					
+						<button type="button" onclick="doDel();"
+							style="width: 20px; height: 20px;">-</button>
+					 
+<!-- 						<button type="submit">저장</button> -->
+						<button type="button" onclick="sendTeam();">저장</button>
+					</form>
+					</c:if>
+					
 					<div class="a_cws">
 <!-- 					<form class="teamNo_active_cws"  -->
-<%-- 						  action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?teamNo=${teamNo}"> --%>
-						<ul>
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li>
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=2">2조</a></li>
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li>
-							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=4">4조</a></li>
+<%-- 						   --%>
+						<ul id="teamtabs_cws">
+<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=1">1조</a></li> --%>
+<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=3">3조</a></li> --%>
+<%-- 							<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=4">4조</a></li> --%>
 						</ul>
 <!-- 					</form> -->
 					</div>
@@ -88,34 +103,50 @@
 
 
 				<div class="boardtitle_cws">
-					<h2>1조의 진행상황</h2>
+					<h2 style="margin: 0 auto">${teamNo}조의 진행상황</h2>
 				</div>
-				<!-- <br> -->
-				<!-- <br> -->
 				<br> <br>
-				<form action="/team/teamBoardWrite.do">
+				
+				<form method="post" action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?projectNo=${projectNo}&teamNo=${teamNo}">
 					<button class="writebutton_cws">글등록</button>
 				</form>
 				<br> <br> <br> <br>
 				<div class="board_cws">
-					<input type="image"
-						src="${pageContext.request.contextPath}/resources/images/top_ar.png"
-						style="border: 1px solid gray; width: 100px; height: 130px; float: right;">
-					<ul>
+					<br>
+					<ul id="boardList_cws">
 						<c:forEach var="t" items="${list}">
-							<li><a
+							<li><input type="image"
+								src="${pageContext.request.contextPath}/resources/images/top_ar.png"
+								style="border: 1px solid gray; width: 100px; height: 130px; float: right;">
+							</li>
+							<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a
 								href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${t.teamBoardNo}"
-								style="font-size: 40px"> ${t.teamBoardTitle} </a></li>
+								style="font-size: 40px; "> ${t.teamBoardTitle}</a></li>
 							<br>
 							<li>
-								<h6 style="margin: 0 auto">작성일: <fmt:formatDate pattern="yyyy-MM-dd" value="${t.teamBoardRegDt}" />
+								<h6 style="margin: 0 auto">작성자: ${t.userId}</h6>
+							</li>
+							<li>
+								<h6 style="margin: 0 auto">
+									작성일:
+									<fmt:formatDate pattern="yyyy-MM-dd"
+										value="${t.teamBoardRegDt}" />
 								</h6>
 							</li>
+							<c:if test="${sessionScope.user.userNo eq t.userNo or sessionScope.user.userGrade eq 3}">
+								<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do">
+									<input type="hidden" name="teamBoardNo" value="${t.teamBoardNo}"/>
+									<button>X</button>
+								</form>
+							</c:if>
+							<br>
+							<br>
+							<hr>
+<!-- 							<p>----------------------------------------------------------------------------------------------------</p> -->
+							<br>
 						</c:forEach>
 					</ul>
 					<br>
-					<progress value="20" max="100"></progress>
-					<h5>진행률: 20%</h5>
 				</div>
 
 
@@ -132,12 +163,11 @@
 		<!--// 푸터 끝-->
 		<div class="background_cws"></div>
 		<div class="detailpopup_cws">
-			<form
-				action="${pageContext.request.contextPath}/team/teamBoardList.do">
-				<button class="close_cws"
-					style="width: 50px; height: 50px; background-color: white; opacity: .9; border: none">
-				</button>
-			</form>
+			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${teamBoard.projectNo}&teamNo=${teamBoard.teamNo}">
+        		<button class="close_cws" style="width:50px; height:50px; 
+      				background-color: white; opacity: .9; border: none">
+      			</button>
+      		</form>
 			<br>
 			<h1 style="text-align: center">상세보기</h1>
 			<br>
@@ -147,11 +177,11 @@
 			</div>
 			<div class="detailcontent_cws">
 					<h3 style="word-break:break-all;">제목 : ${teamBoard.teamBoardTitle}</h3>
+					<h4 style="float: right; margin-top: -20px; margin-right: 80px;">
+					<fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${teamBoard.teamBoardRegDt}" />
+					</h4>
 					<br>
 					<h3>작성자 : ${teamBoard.userId}</h3>
-					<h4 style="float: right; margin-top: -20px; margin-right: 80px;">
-					<fmt:formatDate pattern="yyyy-MM-dd" value="${teamBoard.teamBoardRegDt}" />
-					</h4>
 					<br>
 					<h3>글내용: ${teamBoard.teamBoardContent}</h3>
 				<br> <br> <br> <br> <br> <br> <br><br> <br> <br>

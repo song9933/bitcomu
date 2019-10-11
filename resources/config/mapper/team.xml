@@ -16,29 +16,56 @@
 		<result column="team_board_reg_dt" property="teamBoardRegDt" />
 	</resultMap>
 	
+	<!-- 페이징 처리 시작 -->
+	<sql id="pagingStart">
+	  	    select *
+	      from (select rownum rnum, a.*
+			      from ( 
+	</sql>
+	<sql id="pagingEnd">
+	  )
+			    a)
+		 where rnum between #{p.begin} and #{p.end}
+	</sql>
+	
+	<!-- infinity scroll 위한 전체 게시글 수 -->
+	<select id="selectBoardCount" resultType="int">
+		select count(*)
+	  	  from tb_team
+
+	</select>
+	
+	<!-- 추가 / 삭제된 후의 팀 갯수 조회-->
 	<select id="selectTeamCode" resultType="int" flushCache="true" useCache="true">
 		select code_value
 		  from tb_codenm
 		 where code_name = '팀갯수'
 	</select>
 	
+	<!-- 팀 추가 / 삭제 -->
 	<update id="updateTeamCode" parameterType="Team">
 		update tb_codenm  
 		   set code_value = #{codeValue}
 		 where code_name = '팀갯수'
 	</update>
 	
+	<!-- 생일자 출력 위한 쿼리 -->
 	<select id="userBirthDday" resultMap="teamMap" flushCache="true" useCache="true">
 		select user_birth
   		  from tb_user
 	</select>
 
-	<select id="selectTeamBoard" parameterType="int" resultMap="teamMap" flushCache="true" useCache="true">
+	<select id="selectTeamBoard" parameterType="Map" resultMap="teamMap" flushCache="true" useCache="true">
+		
+		<include refid="pagingStart" />
 		select t.*, (select user_id  
 					   from tb_user u
                       where u.user_no = t.user_no ) as user_id
           from tb_team t
+         where project_no = #{t.projectNo}
+           and team_no = #{t.teamNo}
          order by team_board_no desc
+		<include refid="pagingEnd" />
 	</select>
 
 	<select id="selectOneTeamBoard" parameterType="int" resultMap="teamMap" flushCache="true" useCache="true">
