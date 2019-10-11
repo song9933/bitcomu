@@ -38,7 +38,7 @@ public class CommentRegistController extends HttpServlet {
 		
 			
 		
-		response.sendRedirect("/bitcomu/talk_detail.do?postNo="+ boardPostNo + "&pageNo=" +request.getParameter("pageNo"));
+		response.sendRedirect("/bitcomu/talk/talk_detail.do?postNo="+ boardPostNo + "&pageNo=" +request.getParameter("pageNo"));
 	}
 }
 

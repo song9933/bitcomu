@@ -124,7 +124,7 @@
             <div id="ns_cmt"></div>
 	            <div class="ns_member_coment">
    															
-                    <form action="talk/comment_update.do" method="post">
+                    <form action="<c:url value="/talk/comment_update.do"/>" method="post">
 						<input type="hidden" name="postNo" value="${talkDetail.postNo}" />
 						<input type="hidden" name="cmtNo" value="${param.cmtNo}" />
 						<input type="hidden" name="pageNo" value="${pr.pageNo}" />
@@ -141,7 +141,7 @@
 								  </td>
 								  <td colspan="2">
 								  	  <input type="submit" value="수정" />
-								  	  <a href="<c:url value="/talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">취소</a>
+								  	  <a href="<c:url value="/talk/talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">취소</a>
 								  </td>
 								</tr>		
 							</c:when>
@@ -156,8 +156,8 @@
 								  <th>
 								  <c:choose>
 								  <c:when test="${ comment.userNo eq sessionScope.user.userNo}">
-								  	  <a href="<c:url value="talk/comment_delete.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">삭제</a>	
-								  	  <a href="<c:url value="talk_detail.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">수정</a>	
+								  	  <a href="<c:url value="/talk/comment_delete.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">삭제</a>	
+								  	  <a href="<c:url value="/talk/talk_detail.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">수정</a>	
 								  </c:when>
 								  <c:otherwise></c:otherwise>
 								  </c:choose>
@@ -237,29 +237,29 @@
 
             
             
-               <ul class="pagination nams">
-                <c:if test="${pr.count != 0}">
-			  	<c:if test="${pr.prev}">
-			    <li>
-			      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage - 1}" aria-label="previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
-			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
-			    	<li 
-			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${i}">${i}</a></li>
-			    </c:forEach>
-			  	<c:if test="${pr.next}">
-			    <li>
-			      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage + 1}" aria-label="next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
-		</c:if>
-		</ul>
+             <ul class="pagination nams">
+              <c:if test="${pr.count != 0}">
+		  	<c:if test="${pr.prev}">
+		    <li>
+		      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage - 1}" aria-label="previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    </c:if>
+		    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+		    	<li 
+		    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
+		    	><a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${i}">${i}</a></li>
+		    </c:forEach>
+		  	<c:if test="${pr.next}">
+		    <li>
+		      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage + 1}" aria-label="next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		    </c:if>
+			</c:if>
+			</ul>
               
              <c:choose>
             <c:when test="${ not empty sessionScope.user.userNo }">
@@ -274,17 +274,17 @@
 
             
             <div class="ns_search">
-           <form method="get" action="/bitcomu/talk/list_search.do">
+           <form method="post" action="/bitcomu/talk/talkList.do">
                 search : 
-                <select name="list">
-                    <option value="title&content" selected>제목 + 내용</option>
-                    <option value="title">제목</option>
+                <select name="searchType">
+                    <option value="titleContent" selected>제목 + 내용</option>
+                    <option value="title" >제목</option>
                     <option value="content">내용</option>
-                    <option value="userId">글쓴이</option>
-                    
+                    <option value="user">글쓴이</option>
                 </select>
-                <input type="text" name="search" id="searchValue" value="">
-		        <button type="button" id="doSearch" >검색</button>
+                
+                <input type="text" name="searchWord" >
+		        <button type="submit" id="doSearch" >검색</button>
            </form>
             </div>
           

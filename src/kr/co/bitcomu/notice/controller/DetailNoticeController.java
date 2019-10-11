@@ -1,7 +1,9 @@
 package kr.co.bitcomu.notice.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.NoticeDAO;
 import kr.co.bitcomu.repository.vo.Page;
+import kr.co.bitcomu.repository.vo.Search;
 import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.util.PageResult;
 
@@ -32,43 +35,46 @@ public class DetailNoticeController extends HttpServlet {
 		
 
 		
+		
+		//리스트
 		String sPageNo = req.getParameter("pageNo");
-		
-		// 요청 페이지를 1페이지로 변경
 		int pageNo = Integer.parseInt(sPageNo);
-//		if (sPageNo != null) {
-//			pageNo = Integer.parseInt(sPageNo);
-//		}
 		Page page = new Page(pageNo);
-		
 		
 		int count = dao.selectNoticeCount();
 		PageResult pr = new PageResult(pageNo, count);
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
+		
+		//검색
+		Search search = new Search();
+		//검색어 가져오기
+		String searchWord = req.getParameter("searchWord");
+		if (searchWord == null) searchWord = "%";	
+		//검색타입 가져오기
+		String searchType = req.getParameter("searchType");
+		if (searchType == null) searchType = "talk_post_no";
+		
+		search.setSearchType(searchType);
+		search.setSearchWord(searchWord);
+		
+		Map<String, Object> listMap = new HashMap<>();
+		listMap.put("page", page);
+		listMap.put("search", search);
+		
+		
+		
+		
+		
 		// 데이터를 구하고 공유
-		req.setAttribute("notice", dao.selectNotice(page));
-		
-		
-		
-
-		
-		
+		req.setAttribute("notice", dao.selectNotice(listMap));
+	
 		
 		// 게시물 상세 정보 조회하기
 		int no = Integer.parseInt(req.getParameter("postNo"));
 		dao.updateViewCnt(no);
-		/*
-		Board board = dao.selectOneBoard(no); 
-		req.setAttribute("board", board);
-		*/
 		req.setAttribute("noticeDetail", dao.selectOneNotice(no));
 		
-		// 댓글 목록 공유
-		/*
-		 * List<Comment> commentList = dao.selectComment(no);
-		 * req.setAttribute("commentList", commentList);
-		 */
 		
 		
 		

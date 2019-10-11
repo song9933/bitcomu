@@ -14,16 +14,34 @@
 	
 	
 	
-	<select id="selectNotice" parameterType="Page" resultMap="noticeMap">
+	<select id="selectNotice" parameterType="hashmap" resultMap="noticeMap">
 	    select *
-	      from (select rownum rnum, a.*
+	      from (
+	      		select rownum rnum, a.*
 			      from ( 
-					      select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
-                            from tb_notice n
-						   order by notice_post_no desc
-						  )
-						  a)
-		 where rnum between #{begin} and #{end}  			 
+			      		 select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+                           from tb_notice n
+						  order by notice_post_no desc
+						)a
+		  <choose>
+			<when test="search.searchType == 'user'">
+				where user_id like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'titleContent'"> 
+                  	where  notice_POST_title like '%' || #{search.searchWord} || '%'
+                  	   or notice_POST_content like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'content'">
+				where notice_POST_content like '%' || #{search.searchWord} || '%'
+			</when >
+			<when test="search.searchType == 'title'">
+				where notice_POST_title like '%' || #{search.searchWord} || '%'
+			</when >
+			<otherwise>
+			</otherwise>
+          </choose>
+				)
+		 where rnum between #{page.begin} and #{page.end}  			 
 	</select>
 	<select id="selectNoticeCount" resultType="int">
 		select count(*)

@@ -80,8 +80,6 @@ public class ListTalkController extends HttpServlet {
 		req.setAttribute("search", search);
 		
 		
-		
-		
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/talk/talk.jsp").forward(req, res);
 	}

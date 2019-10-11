@@ -100,27 +100,27 @@
           
 
             
-              <ul class="pagination nams">
-                <c:if test="${pr.count != 0}">
-			  	<c:if test="${pr.prev}">
-			    <li>
-			      <a href="noticeList.do?pageNo=${pr.beginPage -1}" aria-label="previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
-			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
-			    	<li 
-			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="noticeList.do?pageNo=${i}">${i}</a></li>
-			    </c:forEach>
-			  	<c:if test="${pr.next}">
-			    <li>
-			      <a href="noticeList.do?pageNo=${pr.endPage + 1}" aria-label="next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
+        <ul class="pagination nams">
+         <c:if test="${pr.count != 0}">
+	  	<c:if test="${pr.prev}">
+	    <li>
+	      <a href="noticeList.do?pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="previous">
+	        <span aria-hidden="true">&laquo;</span>
+	      </a>
+	    </li>
+	    </c:if>
+	    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+	    	<li 
+	    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
+	    	><a href="noticeList.do?pageNo=${i}&searchType=${search.searchType}&searchWord=${search.searchWord}">${i}</a></li>
+	    </c:forEach>
+	  	<c:if test="${pr.next}">
+	    <li>
+	      <a href="noticeList.do?pageNo=${pr.endPage + 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="next">
+	        <span aria-hidden="true">&raquo;</span>
+	      </a>
+	    </li>
+	    </c:if>
 		</c:if>
 		</ul>
             
@@ -131,15 +131,19 @@
             </a>
             
             <div class="ns_search">
+           <form method="post" action="/bitcomu/notice/noticeList.do">
                 search : 
-                <select name="list">
-                    <option value="10" selected>제목 + 내용</option>
-                    <option value="15">제목</option>
-                    <option value="20">내용</option>
-                    
+                <select name="searchType">
+                    <option value="titleContent" selected>제목 + 내용</option>
+                    <option value="title" >제목</option>
+                    <option value="content">내용</option>
+                    <option value="user">글쓴이</option>
                 </select>
-                <input type="text" name="search">
-            </div> 
+                
+                <input type="text" name="searchWord" >
+		        <button type="submit" id="doSearch" >검색</button>
+           </form>
+            </div>
         </section>  
         
         

@@ -33,7 +33,7 @@ public class CommentDeleteController extends HttpServlet {
 		
 		dao.deleteComment(commentNo);
 		
-		response.sendRedirect("/bitcomu/talk_detail.do?postNo="+ postNo + "&pageNo="+ pageNo);
+		response.sendRedirect("/bitcomu/talk/talk_detail.do?postNo="+ postNo + "&pageNo="+ pageNo);
 		
 	}
 }
