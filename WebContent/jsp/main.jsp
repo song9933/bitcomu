@@ -58,7 +58,7 @@
 
             <div class="stdboard_box mt100" >
     		<c:forEach items="${studyList}" var="studyList" >
-    		<div class="box" id="stdBox" data-num="${studyList.studyPostNo}">
+    		<div class="box mainStd" id="stdBox${studyList.studyPostNo}" data-num="${studyList.studyPostNo}">
                 <a class="item">
                 	<p class="completed" id="completed" >${studyList.studyRecruitEnabled}</p>
               		<p class="sub">${studyList.studyRecruitField}</p>
@@ -164,12 +164,17 @@
 	}    
 
 	// 메인) 스터디게시판 상세글 이동 
-	let stdBox = document.getElementById("stdBox");
-	  stdBox.addEventListener('click', e=> {
+	
+//	let stdBox = document.getElementById("stdBox");
+	let arrStdBox = document.getElementsByClassName("mainStd");
+	for(let i = 0; i<arrStdBox.length; i++){
+		
+	  arrStdBox[i].addEventListener('click', e=> {
 		  
-		  location.href = '/bitcomu/study/studydetail.do?studyPostNo='+ stdBox.getAttribute("data-num");
+		  location.href = '/bitcomu/study/studydetail.do?studyPostNo='+ arrStdBox[i].getAttribute("data-num");
 	  })
 
+	}
 	
   </script>
 </body>
