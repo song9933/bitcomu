@@ -140,10 +140,10 @@
            <form method="post" action="/bitcomu/talk/talkList.do">
                 search : 
                 <select name="searchType">
-                   <!--  <option value="title&content" >제목 + 내용</option> -->
-                    <option value="talk_post_title" selected>제목</option>
-                    <option value="talk_post_content">내용</option>
-                    <option value="user_id">글쓴이</option>
+                    <option value="titleContent" selected>제목 + 내용</option>
+                    <option value="title" >제목</option>
+                    <option value="content">내용</option>
+                    <option value="user">글쓴이</option>
                 </select>
                 
                 <input type="text" name="searchWord" >

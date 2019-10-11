@@ -33,6 +33,28 @@ public class ListTalkController extends HttpServlet {
 		/* res.setCharacterEncoding("utf-8"); */
 		String sPageNo = req.getParameter("pageNo");
 		
+		
+		
+		
+		
+		
+		
+		//검색
+		Search search = new Search();
+		//검색어 가져오기
+		String searchWord = "";
+		if (req.getParameter("searchWord") != null)  	
+		searchWord = req.getParameter("searchWord");
+
+		//검색타입 가져오기
+		String searchType = "talk_post_no";
+		if (req.getParameter("searchType") != null) 
+		searchType = req.getParameter("searchType");
+
+		search.setSearchType(searchType);
+		search.setSearchWord(searchWord);
+		
+		
 		// 요청 페이지를 1페이지로 변경
 		int pageNo = 1;
 		if (sPageNo != null) {
@@ -46,24 +68,6 @@ public class ListTalkController extends HttpServlet {
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		
-		
-		
-		
-		//검색
-		Search search = new Search();
-		//검색어 가져오기
-		String searchWord = "";
-		if (req.getParameter("searchWord") != null)  	
-		searchWord = req.getParameter("searchWord");
-		System.out.println("Word :" + searchWord);
-		//검색타입 가져오기
-		String searchType = "talk_post_no";
-		if (req.getParameter("searchType") != null) 
-		searchType = req.getParameter("searchType");
-		System.out.println("type :" + searchType);
-		search.setSearchType(searchType);
-		search.setSearchWord(searchWord);
-		
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", page);
 		map.put("search", search);
@@ -74,6 +78,8 @@ public class ListTalkController extends HttpServlet {
 		
 		//검색어, 타입 보내기
 		req.setAttribute("search", search);
+		
+		
 		
 		
 		// 사용할 화면으로 이동하기
