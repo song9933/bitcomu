@@ -28,7 +28,7 @@
 .dc_listbox {
 	cursor: pointer;
     width: 40%;
-    margin: 43px auto;
+    margin: 25px auto;
     height: 242px;
     padding: 40px;
     text-align: center;
@@ -42,6 +42,52 @@
 	margin-top: 22px;
 }
 
+/* 투표 검색창 CSS */
+.vote_search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  margin-top: -149px;
+  margin-left: -57px;
+}
+
+.vote_searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.vote_searchTerm:focus{
+  color: #00B4CC;
+}
+
+.vote_searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.vote_wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 </style>
 <body>
 	<div class="wrapepr">
@@ -50,7 +96,23 @@
 		<!-- width = 1280px 인 컨텐츠영역-->
 		<div class="w1280 vote_bg">
 			<section class="content">
+			<!-- 검색창 -->
+				<div class="vote_wrap">
+					<div class="vote_search">
+						<input type="text" class="vote_searchTerm"
+							placeholder="검색어를 입력하세요." id="vote-search-input">
+						<button type="submit" class="vote_searchButton" id="vote-search-button">
+							<i class="fa fa-search"></i>
+						</button>
+						<button type="submit" class="vote_searchButton" id="vote-refresh-button">
+							<i class="fa fa-refresh"></i>
+						</button>
+							
+					</div>
+				</div>
+				<!-- 검색창끝 -->
 				<h2>투표하기</h2>
+								
 				<button type="button" id="writeVoteBtn"
 					class="w3-button w3-round w3-blue dc_writevote">새 투표 등록</button>
 
@@ -118,46 +180,11 @@
 				</div>
 				<!-- 투표모달창 끝 -->
 				
-				
+				<br><br><br><br><br><br>
 				<!-- 무한스크롤을 위한 표시장소 -->
-				<div class='vote_two'>top</div>
-				<div class='vote_on'>bottom<div class='vote_inner'></div></div>
-				<%-- 투표 리스트 출력시작 --%>
-				<%-- <c:choose>
-					<c:when test="${!empty list}">
-						<c:forEach var="v" items="${list}">
-							<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card"
-								onclick="location.href='<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">
-								<p>
-									<c:if test="${v.voteNoticeEnabled eq 'Y'}">
-										<공지>
-									</c:if>
-									<c:if test="${v.voteAnonyEnabled eq 'Y'}">
-										<익명>
-									</c:if>
-									<c:if test="${v.voteCloseEnabled eq 'Y'}">
-										<마감>
-									</c:if>
-								<div
-									onclick="location.href='<c:url value="/vote/votedetail.do?voteNo=${v.voteNo}" />'">${v.voteTitle}</div>
-								</p>
-								<p>
-									글쓴이 : ${v.userId}<br>
-									<fmt:formatDate value="${v.voteRegDt}"
-										pattern="yyyy년 MM월 dd일 hh시 mm분 " />
-								</p>
-							</div>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<div class="w3-panel w3-card-4 w3-round dc_listbox">
-							<p>등록된 투표가 없습니다.</p>
-						</div>
-					</c:otherwise>
-				</c:choose> --%>
-				<%-- 투표 리스트 출력 끝 --%>
-<!-- 				<br> <br> <br> <br> <br> <br> <br> -->
-
+				
+				<div class='vote_inner'></div>
+				
 			</section>
 		</div>
 		<!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -255,6 +282,9 @@ function validate(){
 /* 무한스크롤 스크립트 시작 */
 let list;
 let page = 1;
+let keyword = "";
+let searchSwitch = false;
+let userInput;
 function voteListAjax() {
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -270,15 +300,23 @@ function voteListAjax() {
 			}
 		}
 	};
-	xhr.open("GET", "/bitcomu/vote/votelistajax.do?pageno="+page, true);
-	xhr.send();
+	if(keyword){
+		xhr.open("GET", "/bitcomu/vote/votesearchajax.do?pageno="+page+"&keyword="+keyword, true);
+		xhr.send();
+	}else{
+		xhr.open("GET", "/bitcomu/vote/votelistajax.do?pageno="+page, true);
+		xhr.send();
+	}
 }
 voteListAjax();
 
 function loadMore(list) {
 	console.log(list.length);
 		let okok = document.querySelector(".vote_inner");
-		console.log(okok);
+		//검색 한번에 한번 실행되는 스위치.
+		if(searchSwitch) {
+			document.querySelector(".vote_inner").innerHTML = "";
+		}
 		for(var i = 0; i < list.length; i++){
 			let vote = list[i];
 			let notice = "";
@@ -294,6 +332,7 @@ function loadMore(list) {
 			if(vote.voteCloseEnabled == 'Y'){
 				close = "<마감>";
 			}
+
 			document.querySelector(".vote_inner").innerHTML += 
 		`<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card" 
 			onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">
@@ -308,22 +347,9 @@ function loadMore(list) {
 			</p>
 		</div>`;
 		}
+		searchSwitch = false;
+		userInput = "";
 }	
-// window.onload = loadMore();
-
-/* document.querySelector('.vote_on').scroll(function () {
-	  	console.log("1" + page);
-  var top = document.querySelector('.vote_on').scrollTop();
-  document.querySelector('.vote_two').html(
-		  "top: "+top+" diff: " + 
-		  (document.querySelector(".vote_inner").height() - document.querySelector(".vote_on").height()));
-  if (top >= document.querySelector(".vote_inner").height() - document.querySelector(".vote_on").height()) {
-	  document.querySelector('.vote_two').append("bottom");
-	  	console.log("2" + page);
-    	page++;
-    	voteListAjax();
-  }
-}); */
 
 $(window).on("scroll", function() {
 	var scrollHeight = $(document).height();
@@ -332,80 +358,33 @@ $(window).on("scroll", function() {
 	$("#scrollHeight").text(scrollHeight);
 	$("#scrollPosition").text(scrollPosition);
 	$("#bottom").text(scrollHeight - scrollPosition);
-
-	if (scrollPosition > scrollHeight - 200) {			
+	if (scrollPosition > scrollHeight - 200 && keyword == "") {			
 		//todo
 		page++;
     	voteListAjax();
 	}
 });
 
-
-/* function makeVoteList(list) {
-	let voteList = document.getElementById("voteList");
-	let html = "";
-	if(list.length != 0){
-		for (let i = 0; i < list.length; i++) {
-		let vote = list[i];
-		html += `
-			<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card"
-			onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=${vote.voteNo}'">
-			<p>
-				if(${vote.voteNoticeEnabled} == 'Y') <공지>
-				if(${vote.voteAnonyEnabled} == 'Y') <익명>
-				if(${vote.voteCloseEnabled} == 'Y') <마감>
-			<div
-				onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=${vote.voteNo}" />'">${vote.voteTitle}</div>
-			</p>
-			<p>
-				글쓴이 : ${vote.userId}<br>
-				${v.voteRegDt}
-			</p>
-		</div>
-	    `;
-		} 
-	}
-	else {
-		html += `<div class="w3-panel w3-card-4 w3-round dc_listbox">
-		<p>등록된 투표가 없습니다.</p>
-		</div>`;
-	}
-	// commentList.innerHTML = html;
-} */
-
-
-
-/* 콜백함수의 예 */
-/* function getData() {
-	var tableData;
-	$.get('https://domain.com/products/1', function (response) {
-		tableData = response;
+/* 검색기능구현 */
+	/* 검색아작스 */
+	document.getElementById("vote-search-button").addEventListener('click', function searchajax(){
+		userInput = document.getElementById("vote-search-input").value;
+		if(userInput != ""){
+			keyword = userInput;
+			console.log('클릭이벤트 끝나기 직전 키워드',keyword);
+			page = 1;
+			searchSwitch = true;
+			voteListAjax();
+		} else {
+			alert('최소 한글자이상 입력해주세요.')
+		}
 	});
-	return tableData;
-}
-
-console.log(getData()); // undefined
-
-
-
-function getData(callbackFunc) {
-	$.get('https://domain.com/products/1', function (response) {
-		callbackFunc(response); // 서버에서 받은 데이터 response를 callbackFunc() 함수에 넘겨줌
+	
+	/*새로고침 기능*/
+	document.getElementById("vote-refresh-button").addEventListener('click', function(){
+		location.href="/bitcomu/vote/votelist.do";
 	});
-}
-
-getData(function (tableData) {
-	console.log(tableData); // $.get()의 response 값이 tableData에 전달됨
-}); */
-
-
-
-
-
-
-
-
-
+	
 </script>
 
 </html>

@@ -8,6 +8,7 @@ import kr.co.bitcomu.repository.vo.Vote;
 public interface VoteDAO {
 	List<Vote> selectVote();
 	List<Vote> selectVoteN(int rnum);
+	List<Vote> selectVoteNSmall(int rnum);
 	Vote selectOneVote(int voteNo);
 	void insertVote(Vote vote);
 	void updateVoteInCnt(int voteNo);
@@ -15,6 +16,8 @@ public interface VoteDAO {
 	void updateVoteCloseEnabled(int voteNo);
 	void deleteVote(int voteNo);
 	String selectUserId(int voteNo);
+	List<Vote> selectVoteSearchAjax(Vote vote);
+	List<Vote> selectVoteSearchAjaxSmall(Vote vote);
 	
 	/*댓글테이블 이용한 투표 변동파트 시작*/
 	
