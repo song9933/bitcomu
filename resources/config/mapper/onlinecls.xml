@@ -101,6 +101,11 @@
 		tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, (select code_value from tb_codenm where code_name='온라인강의게시판')
 	)
 </insert>
+<delete id="deleteComment" parameterType="int">
+	delete 
+	  from tb_comment
+	 where cmt_no = ${cmtNo}
+</delete>
 	
 <!-- // 댓글 -->
 </mapper>

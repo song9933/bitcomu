@@ -227,33 +227,37 @@ int yt_no = 0;
           </form>
 
       </div>
-      <div class="pop_layer hidden">
+    <!-- 수정/삭제/취소 팝업 -->
+    <div id="rudPop" class="pop_layer hidden">
       	<ul>
-      	<c:if test="${ sessionScope.user.userNo eq ocls.userNo }">
-			<form>
-				<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/updateform.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'">수정</li>		
-			</form>
-      	</c:if>
-<form>
-	<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/delete.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'" class="red">삭제</li>
-</form>
-			
-      		<li><a href="javascript:closePop()">취소</a></li>
+          <c:if test="${ sessionScope.user.userNo eq ocls.userNo }">
+        <form>
+          <li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/updateform.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'">수정</li>		
+        </form>
+          </c:if>
+  <form>
+    <li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/delete.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'" class="red">삭제</li>
+  </form>
+          <li><a href="javascript:closePop()">취소</a></li>
       	</ul>
       </div>
+      <!-- // 수정/삭제/취소 팝업 -->
       <!-- 댓글 수정 삭제 팝업 -->
-      <div class="cmt_pop_layer hidden">
-      	<ul>
-      	<c:if test="${ sessionScope.user.userNo eq ocls.userNo }">
+      <div id="cmtRudPop" class="pop_layer cmt_pop_layer hidden">
+      	<ul id="cmtupdt">
+<!--     	
+  		<c:if test="${ sessionScope.user.userNo eq ocls.userNo }">
 			<form>
-				<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/updateform.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'">수정</li>		
+				<li>댓글 수정</li>		
 			</form>
       	</c:if>
-<form>
-	<li onclick="location.href='${ pageContext.request.contextPath }/onlineclass/cmt_delete.do?subj=${ ocls.ytSubject }&yt_no=${ ocls.ytNo }'" class="red">삭제</li>
-</form>
-			
-      		<li><a href="javascript:closePop2()">취소</a></li>
+-->
+<!-- 
+			<form>
+				<li class="red">댓글 삭제</li>
+			</form>
+      		<li><a href="javascript:closePop2()">댓글 취소</a></li>
+ -->      		
       	</ul>
       </div>
       <!-- //댓글 수정 삭제 팝업 -->
@@ -265,8 +269,13 @@ int yt_no = 0;
   <script>
   // 팝업
   let popEle1 = document.querySelector('.popup');
-  let popEle2 = document.querySelector('.pop_layer');
-  let popEle3 = document.querySelector('.cmt_pop_layer');
+  let popEle2 = document.querySelector('#rudPop');
+  let popEle3 = document.querySelector('#cmtRudPop');
+  let userN ='${sessionScope.user.userNo}';
+  
+  
+  
+  
   	function openPop(){
   		popEle1.classList.toggle('opacbox');
   		popEle2.classList.toggle('hidden');
@@ -279,7 +288,7 @@ int yt_no = 0;
   		popEle1.classList.toggle('opacbox');
   		popEle3.classList.toggle('hidden');
   	}
-  	function openPop(){
+  	function closePop2(){
   		popEle1.classList.toggle('opacbox');
   		popEle3.classList.toggle('hidden');
   	}
