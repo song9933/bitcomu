@@ -62,7 +62,7 @@
                 <a class="item">
                 	<p class="completed" id="completed" >${studyList.studyRecruitEnabled}</p>
               		<p class="sub">${studyList.studyRecruitField}</p>
-					<span><h2 style="font-size: 35px; margin: 9px 0;">${studyList.studyPostTitle}</h2></span>
+					<span><h2 style="font-size: 30px; margin: 9px 0;">${studyList.studyPostTitle}</h2></span>
 					<p>
 						<span style="margin : 0 5px 0 0">${studyList.studyRegDt}</span>
 						
