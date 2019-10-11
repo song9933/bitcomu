@@ -75,13 +75,13 @@
              
              
              <c:choose>
-             <c:when test="${talkDetail.userNo eq sessionScope.user.userNo }">   
+             <c:when test="${talkDetail.userNo eq sessionScope.user.userNo || sessionScope.user.userGrade eq 3 }">   
               <div class="ns_go_update"> 
-            <a  href="/bitcomu/updateTalkForm.do?postNo=${talkDetail.postNo}"> 
+            <a  href="/bitcomu/talk/updateTalkForm.do?postNo=${talkDetail.postNo}"> 
                	 수정
             </a>
               </div>
-            <a class="ns_go_delete" href="/bitcomu/talkdelete.do?postNo=${talkDetail.postNo}"> 
+            <a class="ns_go_delete" href="/bitcomu/talk/talkdelete.do?postNo=${talkDetail.postNo}"> 
               <div> 
                	 삭제
               </div>
@@ -155,7 +155,7 @@
 								  
 								  <th>
 								  <c:choose>
-								  <c:when test="${ comment.userNo eq sessionScope.user.userNo}">
+								  <c:when test="${ comment.userNo eq sessionScope.user.userNo || coment.userGrade eq 3}">
 								  	  <a href="<c:url value="/talk/comment_delete.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">삭제</a>	
 								  	  <a href="<c:url value="/talk/talk_detail.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">수정</a>	
 								  </c:when>
@@ -184,7 +184,7 @@
 				<td></td>
 				
 				<td >
-				
+				<c:if test="${cpr.count > 10}">
 	             <div>
 	             <ul class="pagination cmt_nams">
 					      	 <c:if test="${cpr.count != 0}">
@@ -210,6 +210,8 @@
 							</c:if>
 					</ul>
 					</div>
+				</c:if>
+					
 				</td>
 				
 				</tr>

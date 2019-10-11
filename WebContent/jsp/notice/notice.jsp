@@ -124,11 +124,13 @@
 		</c:if>
 		</ul>
             
+            <c:if test="${ sessionScope.user.userGrade eq 3}">
             <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
               <div> 
               	  글쓰기
               </div>
             </a>
+            </c:if>
             
             <div class="ns_search">
            <form method="post" action="/bitcomu/notice/noticeList.do">

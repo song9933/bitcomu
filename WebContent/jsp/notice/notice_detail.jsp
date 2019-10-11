@@ -85,7 +85,7 @@
                         <span>${noticeDetail.postNo}</span>
                         <span>${noticeDetail.title}</span>
                         <span>${noticeDetail.userId }</span>
-                        <span><fmt:formatDate value="${noticeDetail.regDt}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                        <span><fmt:formatDate value="${noticeDetail.regDt}" pattern="MM-dd hh:mm"/></span>
                         <span>조회수${noticeDetail.viewCnt}</span>
                     </li>
                     
@@ -103,7 +103,7 @@
                   
                   <%@ include file="/jsp/notice/notice_list.jsp" %> 
                 </ul>
-                
+             <c:if test="${sessionScope.user.userGrade eq 3 }">
               <div class="ns_go_update"> 
             <a  href="/bitcomu/updateNoticeForm.do?postNo=${noticeDetail.postNo}"> 
                	 수정
@@ -114,6 +114,7 @@
                	 삭제
               </div>
             </a>
+             </c:if>
                 
             </div>
   
@@ -179,13 +180,13 @@
 		    </c:if>
 			</c:if>
 			</ul>
-              
+             <c:if test="${sessionScope.user.userGrade eq 3 }">  
              <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
               <div> 
               	  글쓰기
               </div>
             </a>
-
+			</c:if>
             
             
             <div class="ns_search">

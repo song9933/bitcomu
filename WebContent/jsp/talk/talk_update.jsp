@@ -76,11 +76,11 @@
 		     글쓴이 :${userId} <input type='hidden' value="${userId}" name='writer' size='30' />
 	 	</div> 
 	 	<div>
-	            내용 : <textarea name='content' rows='7' cols='70' value="${board.content}" ></textarea>
+	            내용 : <textarea name='content' rows='7' cols='70' value="${board.content}" >${board.content}</textarea>
 	 	</div>
-		<div>
+		<!-- <div>
 			<input type="file" name="attach" />
-		</div>
+		</div> -->
               <a class="ns_write_do" > 
 	    <button type='submit'>등록</button>
               </a> 

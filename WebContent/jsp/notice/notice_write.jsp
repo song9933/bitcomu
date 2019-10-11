@@ -76,9 +76,9 @@
 	 	<div>
 	            내용 : <textarea name='content' rows='7' cols='70' ></textarea>
 	 	</div>
-		<div>
+		<!-- <div>
 			<input type="file" name="attach" />
-		</div>
+		</div> -->
               <a class="ns_write_do" > 
 	    <button type='submit'>등록</button>
               </a> 
