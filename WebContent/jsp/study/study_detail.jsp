@@ -79,9 +79,9 @@
 						</c:if>
 					</div>
 					<div class="comments">
-						<div class="item parent">
 
-							<c:forEach var="cmt" items="${cmtList}">
+					<c:forEach var="cmt" items="${cmtList}">
+						<div class="item parent">
 								<p class="profile">${cmt.userId}</p>
 								<p class="text">${cmt.cmtContent}</p>
 								<div class="info">
@@ -91,23 +91,7 @@
 									</p>
 									<c:if test="${sessionScope.user.userNo eq cmt.userNo}" >
 									<a href="#popupMod">수정</a>
-									<!-- 댓글수정 폼 팝업 -->
-									<form method="post" action="<c:url value="/study/studycommentupdate.do"/>">
-										<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-										<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
-										<div id="popupMod" class=layer>
-											<div class="box">
-												<textarea id="comment" name="cmtContent" cols="30" rows="10">${cmt.cmtContent}</textarea>
-												<button type="button" onclick="location.href='#'" class="close">닫기</button>
-												<!-- 
-												<a href="#" class="close">닫기</a>
-												 -->
-												<button type="submit" class="close">등록</button>
-												<!-- <input type="submit" class="close" value="등록"/>-->
-												<!--<a href="#" class="close">등록</a>-->
-											</div>
-										</div>
-									</form>
+									
 									<!-- 댓글 삭제 팝업-->	
 									<a href="#popupDelCmt">삭제</a>
 									<form method="post" action="<c:url value="/study/studycommentdelete.do"/>">
@@ -117,22 +101,24 @@
 										<div class="box">
 											<p class="text">삭제 하시겠습니까?</p>
 											<button type="button" onclick="location.href='#'" class="close">닫기</button>
-											<!-- 
-											 <a href="#" class="close">닫기</a>
-											 -->
 											<button type="submit" class="delete">삭제</button> 
-											<!--<a class="delete">삭제</a>-->
 										</div>
 									</div>
 									</form>
 									</c:if>
+										<div class="item child">
+						                  <a href="#popup">대댓글을 입력해주세요</a>
+						                  <form name="ccmtForm" method="post" action="<c:url value="/study/studycommentwrite.do"/>" onsubmit ="return commentRegist()">
+						                  </form>
+						                 </div> 
 								</div>
+						</div>
+						
 							</c:forEach>
 							<c:if test="${empty cmtList}">
 								<p></p>
 							</c:if>
 
-						</div>
 					</div>
 
 				</div>
