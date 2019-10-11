@@ -22,6 +22,7 @@
 		 order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc
 	</select>
 	
+	<!-- 리스트 출력 7개 이상 -->
 	<select id="selectVoteN" parameterType="int" resultMap="voteMap">
 	select *
 	from
@@ -32,6 +33,19 @@
                         order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc) aa)
         
         where numrow between (#{rnum}-6) and #{rnum}
+	</select>
+	
+	<!-- 리스트 출력 7개 미만 -->
+	<select id="selectVoteNSmall" parameterType="int" resultMap="voteMap">
+	select *
+	from
+	(
+    select rownum numrow, aa.* from 
+                       (select *
+                        from tb_vote
+                        order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc) aa)
+        
+        where numrow between 1 and #{rnum}
 	</select>
 	
 	<select id="selectUserId" parameterType="int" resultType="String">
@@ -88,6 +102,32 @@
 		 where vote_no = #{voteNo}
 	</delete>
 	
+	
+	<!-- 투표 검색 -->
+	<select id="selectVoteSearchAjax" parameterType="Vote" resultMap="voteMap">
+	select *
+	from
+	(
+    select rownum numrow, aa.* from 
+                       (select *
+                        from tb_vote
+                       where vote_title like '%' || #{voteKeyword} || '%'
+                        order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc) aa)
+        where numrow between (#{voteListCount}-6) and #{voteListCount}
+	</select>
+	
+	<!-- 투표 검색 7개미만 -->
+	<select id="selectVoteSearchAjaxSmall" parameterType="Vote" resultMap="voteMap">
+	select *
+	from
+	(
+    select rownum numrow, aa.* from 
+                       (select *
+                        from tb_vote
+                       where vote_title like '%' || #{voteKeyword} || '%'
+                        order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc) aa)
+        where numrow between 1 and #{voteListCount}
+	</select>
 	
 <!-- 	댓글테이블 이용한 투표 변동 파트 ================================== -->
 	<resultMap id="commentMap" type="Comment">

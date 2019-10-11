@@ -16,6 +16,22 @@ public class Vote {
 	private String voteCloseEnabled;
 	private String voteCloseDt;
 	private String userId;
+	private String voteKeyword;
+	private int voteListCount;
+	
+	
+	public int getVoteListCount() {
+		return voteListCount;
+	}
+	public void setVoteListCount(int voteListCount) {
+		this.voteListCount = voteListCount;
+	}
+	public String getVoteKeyword() {
+		return voteKeyword;
+	}
+	public void setVoteKeyword(String voteKeyword) {
+		this.voteKeyword = voteKeyword;
+	}
 	public int getVoteNo() {
 		return voteNo;
 	}

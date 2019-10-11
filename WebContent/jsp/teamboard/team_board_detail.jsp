@@ -258,16 +258,16 @@
 		</div>	
 	</div>
 	<script>
-		// $(document).ready(alert());
-// 		let accordion = document.querySelector(".viewcomment_cws");
-// 		accordion.addEventListener('click', function viewComment() {
+// 	댓글 아코디언
 		document.querySelector("#team_comment_cws").className = "hidden";
 		function viewComment() {
 				let commentEle = document.querySelector("#team_comment_cws");
 				commentEle.classList.toggle("hidden");
 				commentEle.classList.toggle("show");
 		}
-		// 		});
+		
+// 	댓글 ===========================================
+	
 	</script>
 </body>
 

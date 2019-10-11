@@ -24,6 +24,7 @@ public class DeleteTeamBoardController extends HttpServlet {
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 데이터베이스 처리하기
 		dao.deleteTeamBoard(Integer.parseInt(req.getParameter("teamBoardNo"))); 
+		dao.deleteboardcomment(Integer.parseInt(req.getParameter("teamBoardNo"))); 
 		int teamNo = Integer.parseInt(req.getParameter("teamNo"));
 		int projectNo = Integer.parseInt(req.getParameter("projectNo"));
 		res.sendRedirect("teamBoardList.do?projectNo=" + projectNo + "&teamNo=" + teamNo);

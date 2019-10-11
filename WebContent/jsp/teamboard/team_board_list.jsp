@@ -62,7 +62,7 @@ div.a_cws {
 	<c:import url="/jsp/include/header.jsp"/>
 		<!-- width = 1280px 인 컨텐츠영역-->
 		<div class="w1280">
-			<section class="content">
+			<section class="content clearboth">
 
 				<h2 class="title_cws" style="text-align: center">
 					<a href="teamBoardList.do"> 조별프로젝트 게시판 </a>
@@ -122,48 +122,6 @@ div.a_cws {
 					<div id="boardList_cws">
 					
 					</div>
-<!-- 					<ul id="boardList_cws"> -->
-<%-- 						<c:forEach var="t" items="${list}"> --%>
-<!-- 							<li><input type="image" -->
-<%-- 								src="${pageContext.request.contextPath}/resources/images/top_ar.png" --%>
-<!-- 								style="border: 1px solid gray; width: 100px; height: 130px; float: right;"> -->
-<!-- 							</li> -->
-<!-- 							<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 35px;"><a -->
-<%-- 								href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${t.teamBoardNo}" --%>
-<%-- 								style="font-size: 35px; "> ${t.teamBoardTitle}</a></li> --%>
-<!-- 							<br> -->
-<!-- 							<li> -->
-<%-- 								<h6 style="margin: 0 auto">작성자: ${t.userId}</h6> --%>
-<!-- 							</li> -->
-<!-- 							<li> -->
-<!-- 								<h6 style="margin: 0 auto"> -->
-<!-- 									작성일: -->
-<%-- 									<fmt:formatDate pattern="yyyy-MM-dd" --%>
-<%-- 										value="${t.teamBoardRegDt}" /> --%>
-<!-- 								</h6> -->
-<!-- 							</li> -->
-<%-- 							<c:if test="${sessionScope.user.userNo eq t.userNo or sessionScope.user.userGrade eq 3}"> --%>
-<%-- 								<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do"> --%>
-<%-- 									<input type="hidden" name="teamBoardNo" value="${t.teamBoardNo}"/> --%>
-<!-- 									<button>X</button> -->
-<!-- 								</form> -->
-<%-- 							</c:if> --%>
-<!-- 							<br> -->
-<!-- 							<br> -->
-<!-- 							<hr> -->
-<!-- <!-- 							<p>----------------------------------------------------------------------------------------------------</p> -->
-<!-- 							<br> -->
-<%-- 						</c:forEach> --%>
-<!-- 					</ul> -->
-					<br>
-<!-- 				</div> -->
-
-				<div>&nbsp;</div>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br>
 				
 				<div>
 					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}">
@@ -217,11 +175,11 @@ div.a_cws {
 		}
 		// 조 삭제
 		function doDel() {
-			console.log(`#team\${team}`);
 			let delEle = document.querySelector(`#team\${team}`);
 			console.log(delEle);
 			delEle.remove();
 			team--;
+			
 
 		}
 		// 변경된 조 저장
@@ -233,7 +191,20 @@ div.a_cws {
 		    form.submit();
 		}
 
-		// Ajax를 이용한 리스트 출력
+// 		// 삭제시 컨펌
+		
+// 		function confirm(){
+// 			let result = confirm("정말 삭제하시겠습니까?");
+// 			if(result){
+// 			    alert("삭제되었습니다");
+// 			}else{
+// 			    alert("취소되었습니다");
+// 			}
+// 		}
+		
+		// Ajax를 이용한 리스트 출력 및 infinity scroll
+		
+		let page = 1;
 		function teamListAjax() {
 			let xhr = new XMLHttpRequest();
 			
@@ -242,17 +213,19 @@ div.a_cws {
 				if (xhr.readyState === 4) {
 					
 					if (xhr.status === 200) {
-						
 						let teamList = JSON.parse(xhr.responseText);
-						makeTeamList(teamList);
+						if (teamList.length == 0) {
+							page--;
+						} else {
+							makeTeamList(teamList)
+						}
 					}
 				}
 			};
-			xhr.open("GET", "teamBoardList_ajax.do?projectNo=${projectNo}&teamNo=${teamNo}", true);
-			
+// 			console.log(page);
+			xhr.open("GET", "teamBoardList_ajax.do?projectNo=${projectNo}&teamNo=${teamNo}&pageNo=" + page, true);
 			xhr.send();
 		}
-		
 		teamListAjax();
 		
 		function makeTeamList(list) {
@@ -260,19 +233,17 @@ div.a_cws {
 			let html = "<div>";
 			for (let i = 0; i < list.length; i++) {
 				let tList = list[i];
-// 				console.log("aaa", tList.teamBoardNo);
 				let a = document.createElement("span");
 				a.innerHTML = "";
 				
-				
 		 		if ('${sessionScope.user.userNo}' == tList.userNo || '${sessionScope.user.userGrade}' == 3){
-		 		a.innerHTML = 
+		 			a.innerHTML = 
 		 			`<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do" />
 		 			<input type="hidden" name="teamBoardNo" value="\${tList.teamBoardNo}"/>
 		 			<input type="hidden" name="projectNo" value="\${tList.projectNo}"/>
 		 			<input type="hidden" name="teamNo" value="\${tList.teamNo}"/>
-		 			<button>X</button></form>`
-			 };
+		 			<button onclick="confirm()">삭제</button></form>`
+			 	};
 			html += `<ul class="board_cws">
 					<li><input type="image" src="${pageContext.request.contextPath}/resources/images/top_ar.png" style="border: 1px solid gray; width: 100px; height: 130px; float: right;"></li>
 					<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 35px;">
@@ -288,7 +259,7 @@ div.a_cws {
 				`;
 			}
 			html += "</div>";
-			teamList.innerHTML = html;
+			teamList.innerHTML += html;
 			
 		}
 		
@@ -296,7 +267,6 @@ div.a_cws {
 		// infinity scroll
 		
 
-		let listElm = document.querySelector('#boardList_cws');
 
 		// Add 20 items.
 // 		let nextItem = 1;
@@ -306,15 +276,22 @@ div.a_cws {
 //     			item.innerText = 'Item ' + nextItem++;
 //     			listElm.appendChild(item);
 //   			}
-  			
-  			
 // 		}
 		
-		listElm.addEventListener('scroll', function() {
-			  if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
-				  makeTeamList(list);
-			  }
-			});
+// 		let listElm = document.querySelector('#boardList_cws');
+		$(window).on('scroll', function() {
+			let scrollHeight = $(document).height();
+			let scrollPosition = $(window).height() + $(window).scrollTop();		
+
+			$("#scrollHeight").text(scrollHeight);
+			$("#scrollPosition").text(scrollPosition);
+			$("#bottom").text(scrollHeight - scrollPosition);
+
+			if (scrollPosition > scrollHeight - 300) {			
+				page++;
+				teamListAjax();
+			}  
+		});
 		
 
 // 		$(window).scroll(function(){
