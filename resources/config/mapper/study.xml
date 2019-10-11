@@ -33,7 +33,7 @@
 				(select user_id from tb_user u 
 						where u.user_no = s.user_no ) as user_id ,
 				s.study_recruit_enabled, s.study_post_title, s.study_view_cnt, s.study_loc, s.study_recruit_mem_min,
-				s.study_recruit_mem_max, s.study_recruit_field, s.study_post_content, s.study_reg_dt,
+				s.study_recruit_mem_max, s.study_recruit_field, s.study_post_content, to_char(s.study_reg_dt, 'YYYY-MM-DD HH24:MI') study_reg_dt,
 				(select count(*) 
 			    		from tb_comment c
 			    		where code_value = (select code_value from tb_codenm where code_name = '스터디게시판')
@@ -46,17 +46,12 @@
 		 select *
 		 	from (select rownum rnum, a.* from 
 		 			( <include refid="selectStudy" />
-						
 						<where>
 							<if test="search.searchType != ''">
-								
-										 s.study_recruit_field = #{search.searchType} and s.study_post_content like '%'||#{search.searchWord}||'%'
-									
+								 s.study_recruit_field = #{search.searchType} and s.study_post_content like '%'||#{search.searchWord}||'%'
 							</if>
 						</where>
-						order by study_post_no desc 	
-						)	 			
-						a )
+						order by study_post_no desc) a )
 						where rnum between #{page.begin} and #{page.end}
 	</select>
 	
@@ -136,4 +131,12 @@
     		where code_value = (select code_value from tb_codenm where code_name = '스터디게시판')
         	and board_post_no = #{studyPostNo}
 	</select>
+	
+	<!-- 메인화면 스터디게시판 글 -->
+	<select id="mainStudyPost" resultMap="studyMap">
+		select rownum , s.* from tb_study s
+		    where rownum between 1 and 4
+		    order by study_post_no desc	
+	</select>
+	
 </mapper>

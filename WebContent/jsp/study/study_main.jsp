@@ -46,27 +46,8 @@
                   <input type="search" id="keyword" class="keyword" value="${searchWord}" placeholder="검색어를 입력해주세요">
               </div>
             </div>
-            <%-- <div class="list">
-              <c:if test="${empty list}">
-              	<p>게시물이 없습니다.</p>
-              </c:if> --%>
-              <!-- 반복돌려서 스터디게시판 전체 글 가져오기 -->
               <div id="list"></div>
-             
-              
-<%--               <c:forEach var="std" items="${list}">
-              	  <a class="item" href="<c:url value="/study/studydetail.do?studyPostNo=${std.studyPostNo}" />">
-	                <p class="completed" id="completed">${std.studyRecruitEnabled}</p>
-	                <h2> ${std.studyPostTitle}</h2>
-	                <p class="info">
-	                  <span> ${std.userId}</span>
-	                  <span><fmt:formatDate value="${std.studyRegDt}" pattern="yyyy-MM-dd HH:mm" /></span>
-	                  <span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>${std.studyViewCnt }</span>
-	                  <span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>${std.studyCmtCnt}</span>
-	                </p>
-	              </a>
-              </c:forEach>
- --%>          
+            
             </div>
           </div>
         </section>
@@ -75,9 +56,9 @@
     <%@include file="/jsp/include/footer.jsp" %>
   </div>
   <script>
-
 	let searchType = '${searchType}';
 	let searchWord = '${searchWord}';
+
   </script>
   
   <script src="<c:url value='/resources/js/study.js'/>"></script>

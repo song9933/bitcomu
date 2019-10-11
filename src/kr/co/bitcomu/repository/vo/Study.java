@@ -24,7 +24,7 @@ public class Study {
 	// 스터디 글 내용
 	private String studyPostContent;
 	// 스터디 등록 날짜
-	private Date studyRegDt;
+	private String studyRegDt;
 	// 회원 아이디
 	private String userId;
 	// 댓글 수
@@ -94,11 +94,11 @@ public class Study {
 		this.studyPostContent = studyPostContent;
 	}
 
-	public Date getStudyRegDt() {
+	public String getStudyRegDt() {
 		return studyRegDt;
 	}
 
-	public void setStudyRegDt(Date studyRegDt) {
+	public void setStudyRegDt(String studyRegDt) {
 		this.studyRegDt = studyRegDt;
 	}
 

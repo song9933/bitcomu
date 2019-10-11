@@ -56,15 +56,22 @@
               </div>
             </div>
 
-            <div class="stdboard_box mt100">
-              <div class="box">
-                <p>ㅋ</p>
-              </div>
-              <div class="box">
-                <p>ㅋ</p>
-              </div>
-              <div class="box more">
-                더 보기 <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <div class="stdboard_box mt100" >
+    		<c:forEach items="${studyList}" var="studyList" >
+    		<div class="box" id="stdBox" data-num="${studyList.studyPostNo}">
+                <a class="item">
+                	<p class="completed" id="completed" >${studyList.studyRecruitEnabled}</p>
+              		<p class="sub">${studyList.studyRecruitField}</p>
+					<span><h2 style="font-size: 35px; margin: 9px 0;">${studyList.studyPostTitle}</h2></span>
+					<p>
+						<span style="margin : 0 5px 0 0">${studyList.studyRegDt}</span>
+						
+					</p>
+                </a>
+            </div>
+    		</c:forEach>
+              
+              <div class="box more" id="boxMore" style="padding : 0">더 보기 <i class="fa fa-plus-circle" aria-hidden="true"></i>
               </div>
             </div>
             
@@ -136,8 +143,34 @@
     </div>
   </div>
   <script>
-  // $(document).ready(alert());
+  
+  // 메인)더보기 버튼으로 스터디게시판 이동
+  let boxMore = document.getElementById("boxMore");
+  boxMore.addEventListener('click', e => {
+	  location.href='/bitcomu/study/studyList.do;';
+  })
+  
+  // 메인) 스터디 게시판 글 모집여부 부분
+   let ele = document.getElementsByClassName("completed");
+	for (let i = 0; i<ele.length ; i++){
+	
+		if (ele[i].innerText == 'Y'){
+			ele[i].innerText = '모집중';
+			ele[i].style.background = '#7D9EF8';
+			ele[i].style.color = 'white';
+		} else if(ele[i].innerText != '모집중') {
+			ele[i].innerText  = '마감';
+		}
+	}    
 
+	// 메인) 스터디게시판 상세글 이동 
+	let stdBox = document.getElementById("stdBox");
+	  stdBox.addEventListener('click', e=> {
+		  
+		  location.href = '/bitcomu/study/studydetail.do?studyPostNo='+ stdBox.getAttribute("data-num");
+	  })
+
+	
   </script>
 </body>
 </html>

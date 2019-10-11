@@ -21,4 +21,6 @@ public interface StudyDAO {
 	void updateViewCnt(int studyPostNo);
 	
 	int studyCmtCnt(int studyPostNo);
+	
+	List<Study> mainStudyPost();
 }

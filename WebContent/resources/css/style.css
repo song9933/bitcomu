@@ -96,7 +96,7 @@ section { margin: 100px 0; }
 }
 .stdboard_box .box {
   width: 800px;
-  height: 200px; 
+  height: 150px; 
   border-bottom: 1px solid #d1d1d0;
   box-sizing: border-box;
   background: #fff;
@@ -1415,7 +1415,8 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 
 }
 /* list - 게시글 */
-.sWrap #list a{
+.sWrap #list a,
+.main_wrap .stdboard_box .box{
   display: block;
   margin-bottom: 1px;
   padding: 16px;
@@ -1424,7 +1425,10 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
   vertical-align: top;
 }
 .sWrap .container  p.completed,
-.sWrap .container  .sub{
+.sWrap .container  .sub,
+.main_wrap .stdboard_box .completed,
+.main_wrap .stdboard_box .sub
+{
   	display: inline;
     margin: 0 4px 12px 0;
     padding: 0 8px;

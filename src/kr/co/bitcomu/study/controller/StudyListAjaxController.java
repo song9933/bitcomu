@@ -42,11 +42,10 @@ public class StudyListAjaxController extends HttpServlet{
 					}
 				Page page = new Page(pageNo);
 				Search search = new Search();
+				
 				search.setSearchType(req.getParameter("searchType"));
-				System.out.println(req.getParameter("searchType"));
 				search.setSearchWord(req.getParameter("searchWord"));
-				System.out.println(req.getParameter("searchWord"));
-				System.out.println(req.getParameter("pageNo"));
+
 				Map<String, Object> map = new HashMap<>();
 
 				map.put("page",page);

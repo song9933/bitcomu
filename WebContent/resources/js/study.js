@@ -5,7 +5,6 @@ var xhr = new XMLHttpRequest();
 var itemContainer =  document.getElementById('list');
 
 
-
 function getDistFromBottom () {
 
   var scrollPosition = window.pageYOffset;
@@ -15,7 +14,8 @@ function getDistFromBottom () {
   return Math.max(bodyHeight - (scrollPosition + windowSize), 0);
 
 }
-xhr.onreadystatechange = function(){
+
+ xhr.onreadystatechange = function(){
   if(xhr.readyState == 4 && xhr.status == 200) {
 	
     pollingForData = false;
@@ -51,7 +51,9 @@ xhr.onreadystatechange = function(){
 	    	//sRegDt.innerHTML = dateFormat(list.studyRegDt,"yyyy-MM-dd HH:mm");
 	    	//console.log(list.studyRegDt);
 	    	//sRegDt.innerHTML = `<fmt:formatDate value='${list.studyRegDt}' pattern="yyyy-MM-dd HH:mm" />`;
-	    	//sRegDt.innerText = list.studyRegDt;
+	    	//var dt = new Date();
+	    	sRegDt.innerHTML = list.studyRegDt;
+	    	//console.log(list.studyRegDt);
 	    	
 	    	var sViewCnt = document.createElement('span');
 	    	sViewCnt.innerHTML +='<i class="fa fa-eye" aria-hidden="false"></i>';
@@ -103,14 +105,14 @@ pollingForData = true;
 document.addEventListener('scroll', function() {
         distToBottom = getDistFromBottom();
     
-        
         if ((window.pageYOffset -17) == (document.body.offsetHeight - window.innerHeight)) {
           pollingForData = true;
           pageNo++;
        /*   console.log('scroll ',window.pageYOffset);
           console.log('bodyHeight ',document.body.offsetHeight);
           console.log('innerHeight',window.innerHeight);
-          console.log('pageNo',pageNo);*/
+          console.log('pageNo',pageNo);
+          */
           xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
           xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
           xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
@@ -121,7 +123,7 @@ document.addEventListener('scroll', function() {
 });
 
 /**
- * 검색
+ * 검색결과 가져오기
  */
 doSearchStudy.addEventListener('click', e => {
 	let schWord = document.getElementById('keyword').value;
@@ -140,4 +142,34 @@ for (let i = 0 ; i < selList.length ; i++) {
 	if(selList[i].value == `${searchType}`){	
 		selList[i].selected = true;
 	}
+}
+
+/**
+ * 날짜 표시 변경하기
+ * @param date
+ * @returns
+ */
+function dt_to_str(dt){
+	var year = dt.getYear();
+
+    var month = dt.getMonth() + 1;
+
+    if(month<10) month = '0' + month;
+
+    var date = dt.getDate();
+
+    if(date<10) date = '0' + date;
+
+    var hour = dt.getHours();
+
+    if(hour<10) hour = '0' + hour;
+
+    var min = dt.getMinutes();
+
+    if(min<10) min = '0' + min;
+
+    return year + "-" + month + "-" + date + " " + hour + ":" + min ;
+
+
+
 }

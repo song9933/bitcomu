@@ -26,7 +26,7 @@
 						<h1>${study.studyPostTitle}</h1>
 						<p>${study.userId}</p>
 						<p class="info">
-							<span><fmt:formatDate value="${study.studyRegDt}" pattern="yyyy-MM-dd HH:mm" /></span> 
+							<span>${study.studyRegDt}</span> 
 							<span class="viewcount"><i class="fa fa-eye" aria-hidden="true"></i>${study.studyViewCnt}</span>
 							<span class="commentcount"><i class="fa fa-comment-o" aria-hidden="true"></i>${studyCmtCnt}</span>
 						</p>
@@ -144,15 +144,17 @@
 
 	</div>
 	<script>
+    let ele = document.getElementsByClassName("completed");
+	for (let i = 0; i<ele.length ; i++){
 	
-	let ele = document.getElementById("completed");
-	if (ele.innerText == 'Y'){
-		ele.innerText = '모집중';
-		
-	} else {
-		ele.innerText  = '마감';
-	}
-	
+		if (ele[i].innerText == 'Y'){
+			ele[i].innerText = '모집중';
+			ele[i].style.background = '#7D9EF8';
+			ele[i].style.color = 'white';
+		} else if(ele[i].innerText != '모집중') {
+			ele[i].innerText  = '마감';
+		}
+	}    
 	
 	function commentRegist(){
 		let f = document.crForm;
