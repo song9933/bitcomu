@@ -10,7 +10,7 @@ public class Comment {
 	private Date cmtRegDt;
 	private int codeValue;
 	private String userId;
-	
+	private int parentCmtNo;
 	public int getCmtNo() {
 		return cmtNo;
 	}
@@ -57,6 +57,12 @@ public class Comment {
 	public String toString() {
 		return "Comment [cmtNo=" + cmtNo + ", userNo=" + userNo + ", boardPostNo=" + boardPostNo + ", cmtContent="
 				+ cmtContent + ", cmtRegDt=" + cmtRegDt + ", codeValue=" + codeValue + ", userId=" + userId + "]";
+	}
+	public int getParentCmtNo() {
+		return parentCmtNo;
+	}
+	public void setParentCmtNo(int parentCmtNo) {
+		this.parentCmtNo = parentCmtNo;
 	}
 	
 	
