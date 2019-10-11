@@ -156,23 +156,29 @@
 
             
             
-                <ul class="pagination nams">
-                  <li>
-                    <a href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li>
-                    <a href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
+                 <ul class="pagination nams">
+              <c:if test="${pr.count != 0}">
+		  	<c:if test="${pr.prev}">
+		    <li>
+		      <a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.endPage - 1}" aria-label="previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    </c:if>
+		    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+		    	<li 
+		    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
+		    	><a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${i}">${i}</a></li>
+		    </c:forEach>
+		  	<c:if test="${pr.next}">
+		    <li>
+		      <a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.endPage + 1}" aria-label="next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		    </c:if>
+			</c:if>
+			</ul>
               
              <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
               <div> 
@@ -183,14 +189,18 @@
             
             
             <div class="ns_search">
+           <form method="post" action="/bitcomu/notice/noticeList.do">
                 search : 
-                <select name="list">
-                    <option value="10" selected>제목 + 내용</option>
-                    <option value="15">제목</option>
-                    <option value="20">내용</option>
-                    
+                <select name="searchType">
+                    <option value="titleContent" selected>제목 + 내용</option>
+                    <option value="title" >제목</option>
+                    <option value="content">내용</option>
+                    <option value="user">글쓴이</option>
                 </select>
-                <input type="text" name="search">
+                
+                <input type="text" name="searchWord" >
+		        <button type="submit" id="doSearch" >검색</button>
+           </form>
             </div>
           
         </section>
