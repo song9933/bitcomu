@@ -23,13 +23,15 @@
 	</select>
 	
 	<select id="selectVoteN" parameterType="int" resultMap="voteMap">
-	
-		 select *
-		 from tb_vote
-		 <![CDATA[ 
-		 where rownum <= #{rnum} ]]>
-		 order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc
-		 
+	select *
+	from
+	(
+    select rownum numrow, aa.* from 
+                       (select *
+                        from tb_vote
+                        order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc) aa)
+        
+        where numrow between (#{rnum}-6) and #{rnum}
 	</select>
 	
 	<select id="selectUserId" parameterType="int" resultType="String">
