@@ -86,7 +86,7 @@
 								<p class="text">${cmt.cmtContent}</p>
 								<div class="info">
 									<p>
-										<fmt:formatDate value="${study.studyRegDt}"
+										<fmt:formatDate value="${cmt.cmtRegDt}"
 											pattern="yyyy-MM-dd HH:mm" />
 									</p>
 									<c:if test="${sessionScope.user.userNo eq cmt.userNo}" >
