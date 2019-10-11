@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
-import kr.co.bitcomu.repository.dao.UserDAO;
-import kr.co.bitcomu.repository.vo.Page;
-import kr.co.bitcomu.util.PageResult;
+import kr.co.bitcomu.repository.vo.Qna;
 
-@WebServlet("/qna/qnadetail.do")
+
+@WebServlet("/qna/qnaDetail.do")
 public class QnaDetailController extends HttpServlet{
 	
 	private QnaDAO dao;
@@ -26,24 +25,17 @@ public class QnaDetailController extends HttpServlet{
 	
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		int qnaNo = Integer.parseInt(req.getParameter("qnaNo"));
+		// 게시물 상세 정보 조회하기
+		int no = Integer.parseInt(req.getParameter("qnaNo"));
+		Qna q =  dao.selectOneQna(no);
+		req.setAttribute("qna", q);
 		
-		//조회수 증가
-		dao.updateQnaViewCnt(qnaNo);
+		// 댓글
+		req.setAttribute("qnaCmt", dao.selectQnaCommentList(no));
 		
-		// 게시글 가져오기
-		req.setAttribute("qna", dao.selectOneQna(qnaNo));
-		
-		// 댓글 목록 가져오기
-		req.setAttribute("cmtList", dao.selectCommentList(qnaNo));
-		
-		// 댓글 수 가져오기
-		int qnaCmtCnt = dao.qnaCmtCnt(qnaNo);
-		req.setAttribute("qnaCmtCnt", qnaCmtCnt);
-		
-		req.getRequestDispatcher("/jsp/qna/qna_detail.jsp").forward(req, res);
-	}
-	
+		RequestDispatcher rd = req.getRequestDispatcher("/jsp/qna/qna_detail.jsp");
+		rd.forward(req, res);
+	}	
 }	
 	
 

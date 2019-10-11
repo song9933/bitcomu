@@ -19,10 +19,10 @@ public interface QnaDAO {
 	
 	
 	// 댓글 부분
-	List<Comment> selectCommentList(int qnaNo);
-	void insertComment(Comment comment);
-	void updateComment(Comment comment);
-	void deleteComment(int cmtNo);
+	List<Comment> selectQnaCommentList(int qnaNo);
+	void insertQnaComment(Comment qnaComment);
+	void updateQnaComment(Comment qnaComment);
+	void deleteQnaComment(int cmtNo);
 	
 	int qnaCmtCnt(int qnaNo);
 

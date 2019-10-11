@@ -25,7 +25,7 @@
 		</div>
 		<c:forEach var="b" items="${qna}">
           <div class="qna_accordion vertical" >   	
-        	<form method='post' action="/bitcomu/qna/qnaList.do">
+        	<a method='post' action="/bitcomu/qna/qnaList.do">
             <h3 class="qna_title_1" onclick="changeView('${b.qnaNo}');">${b.qnaTitle}</h3>
     		<i class="fa fa-lock qna_pd10" style="font-size: 2em" aria-hidden="true"></i>
                <!-- 수정버튼 -->
@@ -40,20 +40,37 @@
 					  onclick="document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"
 					  style="font-weight: bold">삭제</a>
 				   </span>
+				  
     		 <div class="qna_content_1" id="${b.qnaNo}">
     		 	
-                        <p>공개여부 ${b.qnaPublicEnabled} 조회수 ${b.qnaViewCnt}</p>
+    		 		<p>공개여부 ${b.qnaPublicEnabled} 조회수 ${b.qnaViewCnt}</p>  
                         <p>${b.userId}</p>
                         <p>${b.qnaContent}</p>
-                        <p><fmt:formatDate value="${b.qnaRegDt}" pattern="yyyy-MM-dd hh:mm"/></p>
-              
-                        <input type="text" class="qna_text_content_2" name="comment" style="resize: none" placeholder="Comment" />
-                        <button type="submit" class="qna_button_2">댓글</button>
+                        <p><fmt:formatDate value="${b.qnaRegDt}"
+											pattern="yyyy-MM-dd HH:mm" /></p>
+					<c:forEach var="cmt" items="${comment}">
+					<form method='post' action="/bitcomu/qna/qnaDetail.do" >	
+                        <p>${cmt.userId}</p>
+                        <p>${cmt.cmtContent}</p>
+                        <p><fmt:formatDate value="${cmt.cmtRegDt}"
+											pattern="yyyy-MM-dd HH:mm" /></p>
+					
+					</form>
+					</c:forEach>
+			
+                
+                
+                <form method='post' action="/bitcomu/qna/qnaCommentWrite.do" >
+                    <input type="text" class="qna_text_content_2" name="cmtContent" style="resize: none" placeholder="Comment"  value="${cmt.cmtContent}"/>
+                    <button type="submit" class="qna_button_2">댓글</button>
+				</form>
+            
              	
              </div>                	
-    	</form>
+    	</a>
     	</div>
-   
+    	
+    
     	<!-- 삭제 팝업 -->
       <div id="light" class="qna_white_content">
       	<form method='post' action="/bitcomu/qna/qnaDelete.do" >
@@ -108,7 +125,7 @@
           	</form>
          </div>
           <div class="qna_search">
-              <input type="text" class="qna_text_search" name="search" style="resize: none" placeholder="Search" vlaue="${search.searchWord}" />
+              <input type="text" class="qna_text_search" name="search" style="resize: none" placeholder="Search" value="${searchWord}" />
               <select name="select" class="qna_select_1">
                   <option value="1">작성자</option>
                   <option value="2">제목</option>
@@ -126,15 +143,22 @@
     </div>
 	  
     <script>
+    // let boardNo = ${boardNo};
+    
     	let a = document.querySelectorAll(".qna_content_1");
     	for (let i = 0; i < a.length; i++) {
     		a[i].className = "hidden";
+    	// if (a[i].id == boardNo) a[i].className = "hidden";
     	}
     	function changeView(i) {
         let divEle = document.getElementById(i);
         divEle.classList.toggle("show");
         divEle.classList.toggle("hidden");
     }
+    	/*
+    	let searchType = '${searchType}';
+    	let searchWord = '${searchWord}';
+    	*/
     </script>
 </body>
 </html>
