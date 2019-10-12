@@ -25,11 +25,9 @@ public class VoteListAjaxController extends HttpServlet{
 	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("만약 이게 안나온다면 아작스는 시스아웃이 안되는거야.");
 		req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		int rnum = (Integer.parseInt(req.getParameter("pageno")))*7;
-//		System.out.println("rnum" + rnum);
 		List<Vote> list;
 		if(rnum < 7) {
 			list = dao.selectVoteNSmall(rnum);

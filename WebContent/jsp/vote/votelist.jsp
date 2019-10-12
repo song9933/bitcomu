@@ -47,7 +47,7 @@
   width: 100%;
   position: relative;
   display: flex;
-  margin-top: -149px;
+  margin-top: -168px;
   margin-left: -57px;
 }
 
@@ -293,6 +293,10 @@ function voteListAjax() {
 				list = JSON.parse(xhr.responseText);
 				// makeCommentList(list);
 				if(list.length == 0){
+					//만약 검색을 통해 받아온리스트가 아예 0일때
+						if(searchSwitch){
+							alert('검색결과가 존재하지 않습니다.');
+						}
 					page--;
 				} else {
 				loadMore(list);
