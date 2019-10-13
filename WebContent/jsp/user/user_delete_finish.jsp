@@ -29,7 +29,16 @@
 
           
               <div class="board_box_sj">
-                  <p><span class="font_align_sj"><i class="fa fa-trash" aria-hidden="true"; style="color: #ffa500;"></i>탈퇴완료</span></p>
+                  <p><span class="font_align_sj"><i class="fa fa-trash" aria-hidden="true"; style="color: #ffa500;"></i>
+                  <c:choose>
+                  	<c:when test="${result ne 0}">
+                        탈퇴완료
+                  	</c:when>
+                  	<c:otherwise>
+                  		탈퇴 미완료
+                  	</c:otherwise>
+                  </c:choose>
+                  </span></p>
                 
 
                   <div class="board_box_sj box_detail_sj">
@@ -41,7 +50,7 @@
                   <br/>
                   <div class="board_box_sj box_detail_sj font_size_sj">
                   <c:choose>
-                  	<c:when test="${result eq 1}">
+                  	<c:when test="${result ne 0}">
                         회원탈퇴가 완료되었습니다.
                   	</c:when>
                   	<c:otherwise>
