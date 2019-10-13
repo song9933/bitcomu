@@ -124,9 +124,105 @@ h2.vote_modal_title {
 }
 
 
+/* 리스트에 있는거 임시로 복붙해온 부분 나중에 병합 X */
+.dc_form {
+	width: 97%;
+	height: 800px;
+	overflow: auto;
+	font-family: 'Cute Font', cursive;
+	font-size: 24px;
+    line-height: 2.7em;
+    font-weight: bolder;
+    color: black;
+}
+	
+}
+
+.dc_writeform-container {
+	height: 550px;
+    overflow: auto;
+}
+
+.vote_plusminus {
+	font-size: 1.6em;
+}
+
+.dc_listbox {
+	cursor: pointer;
+    width: 40%;
+    margin: 25px auto;
+    height: 242px;
+    padding: 40px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 2.5em;
+    color: black;
+    background-color: #fff20708;
+}
+
+.vote_h1 {
+	margin-top: 22px;
+}
+
+/* 투표 검색창 CSS */
+.vote_search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  margin-top: -168px;
+  margin-left: -57px;
+}
+
+.vote_searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.vote_searchTerm:focus{
+  color: #00B4CC;
+}
+
+.vote_searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.vote_wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vote-x-btn {
+	font-size: 50px;
+	color: black;
+}
+
+.vote_datetime_input {
+	font-size: x-large;
+}
+
 </style>
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -240,11 +336,8 @@ h2.vote_modal_title {
 					<%-- 로그인사용자가 작성자이고, 아직 투표에 참여한 사람이 없으면 수정하기 버튼이 나타나도록한다.--%>
 					<c:if
 						test="${user.userNo eq vote.userNo && vote.voteInCnt eq '0'}">
-						<form action="<c:url value='/vote/votemodify.do' />" method="post">
-							<input type="hidden" name="voteModify" value="${vote.voteNo}" />
-							<button id="vote-modify"
-								class="w3-btn w3-red vote_submit_button vote_btn">수정하기</button><br>
-						</form>
+							<button id="vote-modify-btn" type="button" 
+							class="w3-btn w3-red vote_submit_button vote_btn">수정하기</button><br>
 					</c:if>
 					
 					
@@ -255,9 +348,107 @@ h2.vote_modal_title {
 					</c:if>
 
 				</div>
-		</div>
+				
+				<!-- 투표수정하기 모달창 시작 -->
+			 	<div id="modify-vote-form" class="w3-modal">
+					<div class="w3-modal-content">
+						<div class="w3-container dc_writeform-container">
+							<span
+								onclick="document.getElementById('modify-vote-form').style.display='none'"
+								class="w3-button w3-display-topright vote-x-btn">&times;</span>
 
+							<form id="dc_form_modify" class="dc_form w3-panel"
+								action="<c:url value="/vote/votemodify.do" />" method="post" onsubmit="return validate()">
+									<h1 class="vote_h1">투표 수정하기</h1>
+								<input type="hidden" name="voteNo" value="${vote.voteNo}"/>	
+								<div>투표 제목을 입력해주세요.</div>
+								<input class="w3-input" type="text" name="voteTitle"
+									value="${vote.voteTitle}">
 
+								<div>마감 기한을 선택해주세요.</div>
+								<div>
+									<input type="datetime-local" name="voteCloseDt" class="vote_datetime_input vote-close-dt" 
+									/>
+								</div>
+								<div>투표에대한 간략한 설명을 입력해주세요.</div>
+								<textarea class="w3-input"  
+								name="voteContent" id="vote-content">${vote.voteContent}</textarea>
+								<div>중복체크 가능여부 설정(체크시 체크박스로 변경)</div>
+								<c:if test="${vote.voteType eq 0}">
+								<input class="w3-check" type="checkbox" name="voteMultiCheck" checked>
+								<label>중복체크 가능</label>
+								</c:if>
+								<c:if test="${vote.voteType eq 1}">
+								<input class="w3-check" type="checkbox" name="voteMultiCheck">
+								<label>중복체크 가능</label>
+								</c:if>
+
+								<div>
+								<div><h3>투표 선택지의 이름
+									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
+									value="${realMenu.get(0)}"
+									name="menu">
+								</h3></div>
+								
+								<div><h3>투표 선택지의 이름
+									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
+									value="${realMenu.get(1)}"
+									name="menu"> <i class="fa fa-plus-square vote_plusminus" onclick="vote_add()" aria-hidden="true"></i>
+								</h3></div>
+								
+								<!-- 기존에 있던 데이터가 먼저 들어가는 DIV -->
+								
+								<div>
+								<% for(int i = 2; i < realMenu.size(); i++){ %>
+								<h3 id="vwmenu<%= -i %>">투표 선택지의 이름
+								<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
+								value="<%= realMenu.get(i) %>"
+								name="menu"> <i class="fa fa-plus-square vote_plusminus" onclick="vote_add()" aria-hidden="true"></i>
+									<i class="fa fa-minus-square vote_plusminus" onclick="vote_sub(<%= -i %>)"></i>
+								</h3><% } %>
+								</div>
+								<div id="vote_tg">
+								</div>
+							
+								
+								</div>
+								
+								<c:if test="${vote.voteNoticeEnabled eq 'Y'}">
+								<div>
+								<input class="w3-check" type="checkbox" name="voteNotice" checked>
+								<label>공지사항으로 적용</label>
+								</div>
+								</c:if>
+								<c:if test="${vote.voteNoticeEnabled eq 'N'}">
+								<div>
+								<input class="w3-check" type="checkbox" name="voteNotice">
+								<label>공지사항으로 적용</label>
+								</div>
+								</c:if>
+								
+								<c:if test="${vote.voteAnonyEnabled eq 'Y'}">
+								<div>
+								<input class="w3-check" type="checkbox" name="voteAnonymous" checked>
+								<label>익명투표허용</label>
+								</div>
+								</c:if>
+								<c:if test="${vote.voteAnonyEnabled eq 'N'}">
+								<div>
+								<input class="w3-check" type="checkbox" name="voteAnonymous">
+								<label>익명투표허용</label>
+								</div>
+								</c:if>
+								
+								<br>
+								<p>
+									<button type="submit" class="w3-btn w3-blue">수정하기</button>
+								</p>
+								<br>
+							</form>
+						</div>
+					</div>
+				</div> 
+				<!-- 투표모달창 끝 -->
 
 	</section>	</div>
 	<!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -267,8 +458,7 @@ h2.vote_modal_title {
 
 
 
-	<script>
-		
+<script>
 	
 		function nodata(){
 			let nodataMsg = document.createElement("h3");
@@ -376,7 +566,23 @@ h2.vote_modal_title {
     + minutes + "분 " + seconds + "초 남음..";  
  
 	}, 1000);
+	
+	/*수정하기 버튼에 대한 이벤트 리스너 시작 */
+	var modifyBtn = document.getElementById("vote-modify-btn");
+
+	modifyBtn.addEventListener("click", modifyVote);  // 선택한 요소에 click 이벤트 리스너를 등록함.
+
+	function modifyVote() {
+		if('${sessionScope.user}' == '') {
+			alert('투표 수정은 로그인후에 이용하실 수 있습니다.');
+		} else {
+			document.getElementById('modify-vote-form').style.display='block';
+		}
+	}
+	
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/voteform.js"></script>
+	
 </body>
 
 </html>

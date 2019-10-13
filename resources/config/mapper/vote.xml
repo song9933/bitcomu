@@ -82,13 +82,12 @@
 	<update id="updateVote" parameterType="Vote">
 		update tb_vote 
 		   set VOTE_TITLE = #{voteTitle}, 
-		       VOTE_CONTENT = #{voteContent}
-		       VOTE_TYPE = #{voteType}
-		       VOTE_MENU = #{voteMenu}
-		       vote_notice_enabled = #{voteNoticeEnabled}
-		       vote_anony_enabled = #{voteAnonyEnabled}
-		       vote_close_enabled = #{voteCloseEnabled}
-		       vote_close_dt = #{voteCloseDt}
+		       VOTE_CONTENT = #{voteContent},
+		       VOTE_TYPE = #{voteType},
+		       VOTE_MENU = #{voteMenu},
+		       vote_notice_enabled = #{voteNoticeEnabled},
+		       vote_anony_enabled = #{voteAnonyEnabled},
+		       vote_close_dt = to_date(#{voteCloseDt},'MM-DD-YYYY HH24:MI:SS')
 		 where VOTE_NO = #{voteNo}
 	</update>
 	<update id="updateVoteCloseEnabled" parameterType="int">

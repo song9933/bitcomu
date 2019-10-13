@@ -154,7 +154,7 @@
 
 								<div>마감 기한을 선택해주세요.</div>
 								<div>
-									<input type="datetime-local" name="voteCloseDt" id="vote-close-dt" class="vote_datetime_input"/>
+									<input type="datetime-local" name="voteCloseDt" class="vote_datetime_input vote-close-dt" />
 								</div>
 								<div>투표에대한 간략한 설명을 입력해주세요.</div>
 								<textarea class="w3-input" placeholder="투표에 대한 기본 설명입력.."
@@ -209,9 +209,9 @@
 
 
 	</div>
-</body>
-<script>
-	let index = 3;
+	<script src="${pageContext.request.contextPath}/resources/js/voteform.js"></script>
+	<script>
+	<%-- let index = 3;
 	function vote_add(){
 		let tg = document.getElementById("vote_tg");
 		let title = document.createElement("h3");
@@ -252,7 +252,7 @@
 	document.getElementById("vote-close-dt").value= cDate.toISOString().slice(0, 16);
 	
 	
-	<%-- 등록하기 버튼에 대한 이벤트 리스너 시작 --%>
+	등록하기 버튼에 대한 이벤트 리스너 시작
 	var writeBtn = document.getElementById("writeVoteBtn");
 
 	writeBtn.addEventListener("click", writeVote);  // 선택한 요소에 click 이벤트 리스너를 등록함.
@@ -291,6 +291,19 @@ function validate(){
 			alert("선택지이름을 입력해주세요.");
 			return false;
 		}	
+	}
+} --%>
+
+/*등록하기 버튼에 대한 이벤트 리스너 시작 */
+var writeBtn = document.getElementById("writeVoteBtn");
+
+writeBtn.addEventListener("click", writeVote);  // 선택한 요소에 click 이벤트 리스너를 등록함.
+
+function writeVote() {
+	if('${sessionScope.user}' == '') {
+		alert('투표 등록하기는 로그인후에 이용하실 수 있습니다.');
+	} else {
+		document.getElementById('writevoteform').style.display='block';
 	}
 }
 
@@ -405,5 +418,6 @@ $(window).on("scroll", function() {
 	});
 	
 </script>
+</body>
 
 </html>
