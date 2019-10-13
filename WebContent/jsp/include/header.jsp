@@ -47,7 +47,7 @@
                   let top = (screen.height - 300) / 3;
                   window.open(
                       "<c:url value='/user/userLoginForm.do'/>", "로그인페이지", 
-                      "width=400,height=500,left=" + left + ",top=" + top, "status=yes,toolbar=no,menubar=no,location=no");
+                      "width=470,height=550,left=" + left + ",top=" + top, "status=yes,toolbar=no,menubar=no,location=no");
       }
       
       </script>
