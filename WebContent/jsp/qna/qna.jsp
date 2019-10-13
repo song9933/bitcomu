@@ -25,7 +25,7 @@
 		</div>
 		<c:forEach var="b" items="${qna}">
           <div class="qna_accordion vertical" >   	
-        	<a method='post' action="/bitcomu/qna/qnaList.do">
+        	<div method='post' action="/bitcomu/qna/qnaList.do">
             <h3 class="qna_title_1" onclick="changeView('${b.qnaNo}');">${b.qnaTitle}</h3>
     		<i class="fa fa-lock qna_pd10" style="font-size: 2em" aria-hidden="true"></i>
                <!-- 수정버튼 -->
@@ -40,7 +40,7 @@
 					  onclick="document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"
 					  style="font-weight: bold">삭제</a>
 				   </span>
-				  
+			</div>	  
     		 <div class="qna_content_1" id="${b.qnaNo}">
     		 	
     		 		<p>공개여부 ${b.qnaPublicEnabled} 조회수 ${b.qnaViewCnt}</p>  
@@ -67,8 +67,8 @@
             
              	
              </div>                	
-    	</a>
     	</div>
+    	
     	
     
     	<!-- 삭제 팝업 -->
@@ -125,7 +125,7 @@
           	</form>
          </div>
           <div class="qna_search">
-              <input type="text" class="qna_text_search" name="search" style="resize: none" placeholder="Search" value="${searchWord}" />
+              <input type="text" class="qna_text_search" name="searchWord" style="resize: none" placeholder="Search" />
               <select name="select" class="qna_select_1">
                   <option value="1">작성자</option>
                   <option value="2">제목</option>
