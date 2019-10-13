@@ -67,9 +67,9 @@ public class DetailTalkController extends HttpServlet {
 		
 		
 		// 게시물 상세 정보 조회하기
-		int no = Integer.parseInt(req.getParameter("postNo"));
-		dao.updateViewCnt(no);//조회수
-		req.setAttribute("talkDetail", dao.selectOneTalk(no));
+		int postNo = Integer.parseInt(req.getParameter("postNo"));
+		dao.updateViewCnt(postNo);//조회수
+		req.setAttribute("talkDetail", dao.selectOneTalk(postNo));
 		
 		/* req.setAttribute("likeCount", dao.selectTalkLikeCount(no)); */
 		
@@ -88,12 +88,12 @@ public class DetailTalkController extends HttpServlet {
 		Page cmtPage = new Page(cmtPageNo);
 		
 		
-		int cmtCount = dao.selectTalkCmtCount(no);
+		int cmtCount = dao.selectTalkCmtCount(postNo);
 		PageResult cpr = new PageResult(cmtPageNo, cmtCount);
 		req.setAttribute("cpr", cpr);  // 전체 댓글 갯수
 		
 		Map<String, Object> commentMap = new HashMap<>();
-		commentMap.put("boardPostNo", no);
+		commentMap.put("boardPostNo", postNo);
 		commentMap.put("cmtPage", cmtPage);
 
 		//뎃글 목록
