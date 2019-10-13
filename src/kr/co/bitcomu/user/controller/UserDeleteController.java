@@ -26,12 +26,12 @@ public class UserDeleteController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
+		int result = 0;
 		if (user.getUserPass().equals(SHA256Password.LockPassword(req.getParameter("password")))) {
-			dao.deleteUser(Integer.parseInt(req.getParameter("no")));
-			session.invalidate();			
-			req.getRequestDispatcher("/jsp/user/user_delete_finish.jsp").forward(req, res);
-			return;
+			result = dao.deleteUser(Integer.parseInt(req.getParameter("no")));
+			if (result == 1) session.invalidate();			
 		}
-		req.getRequestDispatcher("").forward(req, res);	
+		req.setAttribute("result", result);
+		req.getRequestDispatcher("/jsp/user/user_delete_finish.jsp").forward(req, res);
 	}
 }

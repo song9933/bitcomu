@@ -44,6 +44,7 @@
                 
                 </div>
                 <div class="board_box_sj box_detail_sj font_size_sj">
+                        탈퇴시에 작성한 게시글, 댓글, 좋아요, 파일 등의<br><br>  업로드 된 글은 전부삭제 됩니다.<br/><br/>
                         삭제하신 정보는 복구가 불가능합니다.<br/><br/>
                         동의 하신다면 탈퇴완료를 눌러주세요.<br/>
                 </div>

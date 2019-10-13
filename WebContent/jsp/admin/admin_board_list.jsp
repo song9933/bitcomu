@@ -124,7 +124,7 @@
                       <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
                       <c:choose>
 	                      <c:when test="${board.codeName eq '자유게시판'}">
-	                      	  <a target="_blank" href="<c:url value="/talk_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
+	                      	  <a target="_blank" href="<c:url value="/talk/talk_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>
 	                      </c:when>
 	                      <c:when test="${board.codeName eq '공지게시판'}">
 	                       	  <a target="_blank" href="<c:url value="/notice_detail.do?postNo=${board.postNo}&pageNo=1"/>">${board.postTitle}</a>

@@ -18,7 +18,11 @@ public interface UserDAO {
 	User selectOneUser(User user);
 	void insertUser(User user);
 	void updateUser(User user);
-	void deleteUser(int userNo);
+	int deleteUser(int userNo);
 	int selectOneUserCheck(String userId);
 	String selectFindUser(User user);
+	int findUserIdEmail(User user);
+	void updateUserByPassword(User user);
+	
+	
 }

@@ -33,6 +33,21 @@
 		 delete
 	       from tb_user
 	</sql>  
+	
+	
+	
+	<sql id="procedureMakeStart">
+		{call 
+
+    		declare 
+
+    			begin 
+	</sql>
+	<sql id="procedureMakeEnd">
+				end
+		}
+	</sql>
+	
 
 
     <resultMap type="User" id="userMap">
@@ -118,6 +133,14 @@
       	   where user_id = #{userId}
      </select>
      
+     <!-- 유저 비밀번호 변경을 위한 아이디, 이메일 찾기 -->
+     <select id="findUserIdEmail" resultType="int" parameterType="User" flushCache="true" useCache="true">
+      	   select count(*) 
+      	     from tb_user
+      	   where user_id = #{userId}
+      	     and user_email = #{userEmail}
+     </select>
+     
 
 
      <!-- 유저 등록 -->
@@ -138,6 +161,14 @@
       where user_no = #{userNo}
       
 	 </update>
+	 <!-- 유저 비밀번호 변경 -->
+     <update id="updateUserByPassword" parameterType="User">
+     update tb_user 
+        set user_pass = #{userPass}
+      where user_id = #{userId}
+	 </update>
+	 
+	 
 	 
      <!-- 유저 등급 변경(관리자 전용) -->
      <update id="updateUserAdmin" parameterType="User">
@@ -148,10 +179,133 @@
 	 </update>
            
       <!-- 유저 탈퇴 -->     
-     <select id="deleteUser" parameterType="int">
-     	<include refid="deleteUsers" />
-        where user_no = #{userNo}      
-	 </select>
+     <delete id="deleteUser" parameterType="int">
+     	<include refid="procedureMakeStart"/>
+     		<!-- 자신이 쓴 댓글 삭제 -->
+     		delete
+			  from tb_comment where user_no = #{userNo};
+			  
+			<!-- 자신이 쓴 게시판 글의 댓글들 삭제 -->  
+			delete from tb_comment
+			where (board_post_no, code_value) in (
+				select talk_post_no, 1 as code_value from tb_talk
+				where user_no = #{userNo}
+			);
+			  
+			delete from tb_comment
+			where (board_post_no, code_value) in (
+				select notice_post_no, 2 as code_value from tb_notice
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_comment
+			where (board_post_no, code_value) in (
+				select yt_no, 3 as code_value from tb_youtube
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_comment
+			where (board_post_no, code_value) in (
+				select team_board_no, 4 as code_value from tb_team
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_comment
+			where (board_post_no, code_value) in (
+				select vote_no, 5 as code_value from tb_vote
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_comment
+			where (board_post_no, code_value) in (
+				select study_post_no, 6 as code_value from tb_study
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_comment
+			where (board_post_no, code_value) in (
+				select qna_no, 7 as code_value from tb_qna
+				where user_no = #{userNo}
+			);
+			  
+			<!-- 자신이 좋아요 누른 상태 삭제 -->  
+			delete
+			  from tb_like where user_no = #{userNo};  
+    		
+    		<!-- 자신이 쓴 게시글의 좋아요 누른 상태 삭제 -->  
+			delete from tb_like
+			where (board_post_no, code_value) in (
+				select talk_post_no, 1 as code_value from tb_talk
+				where user_no = #{userNo}
+			);
+			  
+			delete from tb_like
+			where (board_post_no, code_value) in (
+				select notice_post_no, 2 as code_value from tb_notice
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_like
+			where (board_post_no, code_value) in (
+				select yt_no, 3 as code_value from tb_youtube
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_like
+			where (board_post_no, code_value) in (
+				select team_board_no, 4 as code_value from tb_team
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_like
+			where (board_post_no, code_value) in (
+				select vote_no, 5 as code_value from tb_vote
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_like
+			where (board_post_no, code_value) in (
+				select study_post_no, 6 as code_value from tb_study
+				where user_no = #{userNo}
+			);  
+			  
+			delete from tb_like
+			where (board_post_no, code_value) in (
+				select qna_no, 7 as code_value from tb_qna
+				where user_no = #{userNo}
+			);
+    	
+    		<!-- 자신이 올린 파일 삭제 -> 자신이 올린 글의 파일 밖에 없음. -->
+    		delete
+			  from tb_file where user_no = #{userNo};
+     	
+     		delete
+			  from tb_talk where user_no = #{userNo};
+			  
+    		delete
+			  from tb_notice where user_no = #{userNo};
+			  
+    		delete
+			  from tb_youtube where user_no = #{userNo};
+			  
+    		delete
+			  from tb_team where user_no = #{userNo};
+			  
+    		delete
+			  from tb_vote where user_no = #{userNo};
+			  
+    		delete
+			  from tb_study where user_no = #{userNo};
+			  
+    		delete
+			  from tb_qna where user_no = #{userNo};
+     
+	     	<include refid="deleteUsers" />
+	        where user_no = #{userNo};
+        
+        
+        <include refid="procedureMakeEnd"/>      
+	 </delete>
 	 
 	 
       <!-- 유저 삭제(관리자 전용) -->     

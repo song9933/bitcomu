@@ -40,12 +40,18 @@
                   <br/>
                   <br/>
                   <div class="board_box_sj box_detail_sj font_size_sj">
+                  <c:choose>
+                  	<c:when test="${result eq 1}">
                         회원탈퇴가 완료되었습니다.
+                  	</c:when>
+                  	<c:otherwise>
+                  		회원정보가 일치하지 않아 회원탈퇴가 취소되었습니다.
+                  	</c:otherwise>
+                  </c:choose>
                     </div>
 
                     <div class="board_box_sj box_detail_sj">
                   <button type="button" onclick="location.replace('${pageContext.request.contextPath}/main.do')" class="button_box_sj box_email_sj">홈으로</button><span class="margin_sj"></span>
-                  <button type="button" onclick="location.replace('${pageContext.request.contextPath}/user/userJoinTos.do')" class="button_box_sj box_email_sj">회원가입</button>
                 </div>
               </div>
           </section>

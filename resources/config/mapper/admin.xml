@@ -102,7 +102,7 @@
 	<!-- 전체 게시판 조회를 위한 쿼리 끝 -->
 
 
-	<!-- 삭제 처리를 위한 쿼리 시작 -->
+	<!-- 삭제 처리를 위한 프로시저 -->
 	
 	
 	<sql id="procedureMakeStart">
@@ -117,40 +117,7 @@
 		}
 	</sql>
 
-    <sql id="commonColumnDelStart">
-    	    DELETE
-					FROM ${tableType}
-					
-					${postNoVal}
-		
-					   
-    </sql>
-    <sql id="commonColumnDelEnd">
-    	   );
-    </sql>
-    
-    <sql id="boardColumnDelStart">
-    delete 
-		  from ${tableName}
-		  ${boardColumn}
-		 		
-    </sql>
-	
-	<sql id="loopData">
-		<foreach item="value" index="key" collection="_parameter.entrySet()" separator=",">
-	    	<foreach item="items" collection="value" open="("  separator="),(" close=")">
-	    	#{key}, #{items} 
-	   		</foreach>
-   		</foreach>
-	</sql>
-	
-	
-	<sql id="loopData2">
-		<foreach item="items" collection="value" separator=",">
-					    	#{items} 
-		</foreach>
-	</sql>
-	<!-- 삭제 쿼리 끝 -->
+	<!-- 삭제 처리를 위한 프로시저 끝 -->
 	
 
 	<resultMap type="Board" id="boardMap">
@@ -395,92 +362,97 @@
     <!-- 선택 게시판 삭제 -->
     <delete id="delSelBoard" parameterType="Map">
     	<include refid="procedureMakeStart" />
-    	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_comment"/>
-    		<property name="postNoVal" value="where (code_value, board_post_no) in ("/>
-    	</include>
-    	
-    	<include refid="loopData"/>
-    	
-    	<include refid="commonColumnDelEnd" />
-    	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_like"/>
-    		<property name="postNoVal" value="where (code_value, board_post_no) in ("/>
-    	</include>
-    	
-    	<include refid="loopData"/>
-    	
-    	<include refid="commonColumnDelEnd" />
-    	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_file"/>
-    		<property name="postNoVal" value="where (code_value, board_post_no) in ("/>
-    	</include>
-    	
-    	<include refid="loopData"/>
-    	
-    	<include refid="commonColumnDelEnd" />
-
-    	
+    		delete
+			  from tb_comment
+			 where (code_value, board_post_no) in (
+	    	<foreach item="value" index="key" collection="_parameter.entrySet()" separator=",">
+		    	<foreach item="items" collection="value" open="("  separator="),(" close=")">
+		    	#{key}, #{items} 
+		   		</foreach>
+	   		</foreach>
+	   		);
+			delete
+			  from tb_like
+			 where (code_value, board_post_no) in (   
+			<foreach item="value" index="key" collection="_parameter.entrySet()" separator=",">
+		    	<foreach item="items" collection="value" open="("  separator="),(" close=")">
+		    	#{key}, #{items} 
+		   		</foreach>
+	   		</foreach>  	
+			);
+    		delete
+			  from tb_file
+			 where (code_value, board_post_no) in (
+    		<foreach item="value" index="key" collection="_parameter.entrySet()" separator=",">
+		    	<foreach item="items" collection="value" open="("  separator="),(" close=")">
+		    	#{key}, #{items} 
+		   		</foreach>
+	   		</foreach>  
+    		);
 		<foreach item="value" index="key" collection="_parameter.entrySet()">
     		<choose>
 	    		<when test="key == 1">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_talk"/>
-			            <property name="boardColumn" value="where talk_post_no in ("/>
-	        	  </include>	
-	        	  <include refid="loopData2" />
-	        	  <include refid="commonColumnDelEnd" />
+	    		delete 
+				  from tb_talk
+				 where talk_post_no in (	
+	        	 <foreach item="items" collection="value" separator=",">
+					    	#{items} 
+				 </foreach>
+	        	);
 	    		</when>
 	    		<when test="key == 2">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_notice"/>
-			            <property name="boardColumn" value="where notice_post_no in ("/>
-	        	  </include>
-	        	  <include refid="loopData2" />
-	        	  <include refid="commonColumnDelEnd" />	
+	    		delete 
+				  from tb_notice
+				 where notice_post_no in (
+	        	 <foreach item="items" collection="value" separator=",">
+					    	#{items} 
+				 </foreach>
+	        	); 
 	    		</when>
 	    		<when test="key == 3">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_youtube"/>
-			            <property name="boardColumn" value="where yt_no in ("/>
-	        	  </include>
-	        	  <include refid="loopData2" />
-	        	  <include refid="commonColumnDelEnd" />	
+	    		delete 
+				  from tb_youtube
+				 where yt_no in (
+	        	 <foreach item="items" collection="value" separator=",">
+					    	#{items} 
+				 </foreach>
+	        	); 
 	    		</when>
 	    		<when test="key == 4">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_team"/>
-			            <property name="boardColumn" value="where team_board_no in ("/>
-	        	  </include>
-	        	  <include refid="loopData2" />
-	        	  <include refid="commonColumnDelEnd" />	
+	    		delete 
+				  from tb_team
+				 where team_board_no in (
+	        	 <foreach item="items" collection="value" separator=",">
+					    	#{items} 
+				 </foreach>
+	        	);
 	    		</when>
 	    		<when test="key == 5">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_vote"/>
-			            <property name="boardColumn" value="where vote_no in ("/>
-	        	  </include>
-	        	  <include refid="loopData2" />
-	        	  <include refid="commonColumnDelEnd" />	
+	    		delete 
+				  from tb_vote
+				 where vote_no in (
+	        	 <foreach item="items" collection="value" separator=",">
+					    	#{items} 
+				 </foreach>
+	        	);
 	    		</when>
 	    		<when test="key == 6">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_study"/>
-			            <property name="boardColumn" value="where study_post_no in ("/>
-	        	  </include>
-	        	  <include refid="loopData2" />
-	        	  <include refid="commonColumnDelEnd" />	
+	    		delete 
+				  from tb_study
+				 where study_post_no in (
+	        	 <foreach item="items" collection="value" separator=",">
+					    	#{items} 
+				 </foreach>
+	        	);
 	    		</when>
 	    		<when test="key == 7">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_qna"/>
-			            <property name="boardColumn" value="where qna_no in ("/>
-	        	  </include>
-	        	  <include refid="loopData2" />
-	        	  <include refid="commonColumnDelEnd" />	
+	    		delete 
+				  from tb_qna
+				 where qna_no in (
+	        	 <foreach item="items" collection="value" separator=",">
+					    	#{items} 
+				 </foreach>
+	        	);
 	    		</when>
 	   		</choose>
    		</foreach>
@@ -492,84 +464,53 @@
 	<!-- 선택 게시판 삭제 끝 -->
 	
 	<!-- 선택 게시판 전체 삭제 -->
-	<!-- sql id에 조건절이 안먹어서 삭제 안됨. 처리요망 -->
 		
 	<delete id="delSelAllBoard" parameterType="int">
 		
 		<include refid="procedureMakeStart" />
     	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_comment"/>
-    		<property name="postNoVal" value="where code_value ="/>
-    	</include>
-    	#{delBoardTypeNo};
+    		delete
+			  from tb_comment
+			 where code_value = #{delBoardTypeNo};
     	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_like"/>
-    		<property name="postNoVal" value="where code_value ="/> 
-    	</include>
-    	#{delBoardTypeNo};
+    		delete
+			  from tb_like
+			 where code_value = #{delBoardTypeNo};
     	
-    	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_file"/>
-    		<property name="postNoVal" value="where code_value ="/>
-    	</include>
-    	#{delBoardTypeNo};
-    	
+    		delete
+			  from tb_file
+			 where code_value = #{delBoardTypeNo};
     	<choose>
     	
 	    		<when test="delBoardTypeNo == 1">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_talk"/>
-			            <property name="boardColumn" value=""/>
-	        	  </include>	
-
+	    		delete 
+		  		  from tb_talk;
 	    		</when>
 	    		<when test="delBoardTypeNo == 2">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_notice"/>
-			            <property name="boardColumn" value=""/>
-	        	  </include>
-	        	 	
+	    		delete 
+		  		  from tb_notice;
 	    		</when>
 	    		<when test="delBoardTypeNo == 3">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_youtube"/>
-			            <property name="boardColumn" value=""/>
-	        	  </include>
-
+	    		delete 
+		  		  from tb_youtube;
 	    		</when>
 	    		<when test="delBoardTypeNo == 4">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_team"/>
-			            <property name="boardColumn" value=""/>
-	        	  </include>
-
+	    		delete 
+		  		  from tb_team;
 	    		</when>
 	    		<when test="delBoardTypeNo == 5">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_vote"/>
-			            <property name="boardColumn" value=""/>
-	        	  </include>
-
+	    		delete 
+		  		  from tb_vote;
 	    		</when>
 	    		<when test="delBoardTypeNo == 6">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_study"/>
-			            <property name="boardColumn" value=""/>
-	        	  </include>
-
+	    	    delete 
+		  		  from tb_study;
 	    		</when>
 	    		<when test="delBoardTypeNo == 7">
-	    		  <include refid="boardColumnDelStart">
-			            <property name="tableName" value="tb_qna"/>
-			            <property name="boardColumn" value=""/>
-	        	  </include>
-
+	    		 delete 
+		  		  from tb_qna;
 	    		</when>
 	   		</choose>
-		;
     	<include refid="procedureMakeEnd" />
 		
 
@@ -580,54 +521,36 @@
     <delete id="delAllBoard">
 		
 		<include refid="procedureMakeStart" />
+    	 	delete
+			  from tb_comment;
+			  
+			delete
+			  from tb_like;  
     	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_comment"/>
-    	</include>
-    	;
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_like"/>
-    	</include>
-    	;
+    		delete
+			  from tb_file;
     	
-    	<include refid="commonColumnDelStart">
-    		<property name="tableType" value="tb_file"/>
-    	</include>
-    	;
-    	
-	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_talk"/>
-   	  	</include>	
-		;
-
-	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_notice"/>
-   	  	</include>
-		;
-	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_youtube"/>
-   	  	</include>
-		;
-
-	 	 <include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_team"/>
-   	  	</include>
-		;
-	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_vote"/>
-   	  	</include>
-		;
-
-	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_study"/>
-   	  	</include>
-
-		;
-
-	  	<include refid="boardColumnDelStart">
-         	<property name="tableName" value="tb_qna"/>
-   	  	</include>
-		;
+    		delete
+			  from tb_talk;
+			  
+    		delete
+			  from tb_notice;
+			  
+    		delete
+			  from tb_youtube;
+			  
+    		delete
+			  from tb_team;
+			  
+    		delete
+			  from tb_vote;
+			  
+    		delete
+			  from tb_study;
+			  
+    		delete
+			  from tb_qna;
+			  
     	<include refid="procedureMakeEnd" />
 		
 

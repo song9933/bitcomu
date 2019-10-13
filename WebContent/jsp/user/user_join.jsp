@@ -119,13 +119,13 @@
   let passFlag = false;
   let passwordRetry = document.getElementById("passwordRetry");
   let password = document.getElementById("password");
+  let userChk = document.getElementById("userChk");
   
-  
-  let idPtn = /([a-zA-Z0-9]{4,12})/;
-  let namePtn = /([가-힣]{2,6})+$/;
-  let passPtn = /^(?=.*[a-zA-Z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{10,20}/;
-  let phonePtn = /([0-9]{3,4})+$/;
-  let phonePtn2 = /([0-9]{4})+$/;
+  let idPtn = /(^[a-zA-Z0-9]{4,12})+$/;
+  let namePtn = /(^[가-힣]{2,6})+$/;
+  let passPtn = /(^(?=.*[a-zA-Z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{10,20})+$/;
+  let phonePtn = /(^[0-9]{3,4})+$/;
+  let phonePtn2 = /(^[0-9]{4})+$/;
   
   userChk.addEventListener("click", e => {
 	  let id = document.querySelector("#id").value;
@@ -196,6 +196,12 @@
           return false;
       }
       
+      if(!(passPtn.test(obj.passwordRetry.value))) {
+          alert('영문자, 숫자, 특수문자를 포함한 10~20자내의 비밀번호를 입력하세요.');
+          obj.password.focus();
+          return false;
+      }
+      
       if(!(phonePtn.test(obj.userphone2.value))) {
           alert('3~4자리의 숫자를 입력하세요.');
           obj.userphone2.focus();
@@ -203,7 +209,7 @@
       }
       
       if(!(phonePtn2.test(obj.userphone3.value))) {
-          alert('3~4자리의 숫자를 입력하세요.');
+          alert('4자리의 숫자를 입력하세요.');
           obj.userphone3.focus();
           return false;
       }
