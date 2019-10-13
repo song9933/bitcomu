@@ -2105,25 +2105,6 @@ div.a_cws {
 
 /* 동찬 시작 */
 
-#dc_form_write {
-	width: 70%;
-	margin: 0 auto;
-}
-
-#dc_form_write>p {
-	font-size: 15px;
-	line-height: 200%;
-}
-
-#dc_form_write>i {
-	font-size: 2.5rem;
-	margin-right: 10px;
-}
-
-#dc_Datepicker {
-	width: 25%;
-}
-
 .dc_listbox {
 	width: 40%;
 	margin: 20px auto;
@@ -2142,75 +2123,6 @@ div.a_cws {
 	background-color: dodgerblue;
 	color: white;
 	font-weight: bold;
-}
-
-#dc_modal_content {
-	float: none;
-	width: 100%;
-	margin: 0px auto;
-	border: 0px;
-	align-items: center;
-	/* padding: 20px 20px; */
-}
-
-#dc_selectbox_vote {
-	width: 50%;
-	margin: 0 auto;
-	padding: 20px 20px;
-}
-
-#dc_selectbox_vote>i {
-	font-size: 2rem;
-	color: white;
-	float: left;
-	margin: 10px;
-}
-
-#dc_radio_vote {
-	width: 50%;
-	margin: 0 auto;
-	padding: 20px 20px;
-}
-
-#dc_radio_vote>i {
-	font-size: 2rem;
-	color: white;
-	float: left;
-	margin: 10px;
-}
-
-.dc_expire {
-	text-align: center;
-}
-
-#dc_expired_vote {
-	width: 50%;
-	margin: 0 auto;
-	padding: 20px 20px;
-}
-
-#dc_expired_vote>i {
-	font-size: 2rem;
-	color: lightskyblue;
-	float: left;
-	margin-right: 12px;
-}
-
-#dc_checkbox_vote {
-	width: 50%;
-	margin: 0 auto;
-	padding: 20px 20px;
-}
-
-#dc_checkbox_vote>i {
-	font-size: 2rem;
-	color: white;
-	float: left;
-	margin: 10px;
-}
-
-.dc_expire {
-	text-align: center;
 }
 
 /* 동찬 끝 */

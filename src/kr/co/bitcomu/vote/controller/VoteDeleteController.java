@@ -23,6 +23,7 @@ public class VoteDeleteController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		int voteNo = Integer.parseInt(req.getParameter("voteDelete"));
 		dao.deleteVote(voteNo);
+		dao.deleteAllVoteIn(voteNo);
 		res.sendRedirect("votelist.do");
 		
 	}

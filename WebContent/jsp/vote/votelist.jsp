@@ -8,12 +8,21 @@
 <c:import url="/jsp/include/head.jsp">
 	<c:param name="msg" value="투표글쓰기" />
 </c:import>
+
+<link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
 </head>
 <style>
 .dc_form {
-	width: 80%;
+	width: 97%;
 	height: 800px;
 	overflow: auto;
+	font-family: 'Cute Font', cursive;
+	font-size: 24px;
+    line-height: 2.7em;
+    font-weight: bolder;
+    color: black;
+}
+	
 }
 
 .dc_writeform-container {
@@ -88,6 +97,15 @@
   transform: translate(-50%, -50%);
 }
 
+.vote-x-btn {
+	font-size: 50px;
+	color: black;
+}
+
+.vote_datetime_input {
+	font-size: x-large;
+}
+
 </style>
 <body>
 	<div class="wrapepr">
@@ -112,7 +130,8 @@
 				</div>
 				<!-- 검색창끝 -->
 				<h2>투표하기</h2>
-								
+				
+				<!-- 투표 등록버튼 -->				
 				<button type="button" id="writeVoteBtn"
 					class="w3-button w3-round w3-blue dc_writevote">새 투표 등록</button>
 
@@ -122,27 +141,24 @@
 						<div class="w3-container dc_writeform-container">
 							<span
 								onclick="document.getElementById('writevoteform').style.display='none'"
-								class="w3-button w3-display-topright">&times;</span>
+								class="w3-button w3-display-topright vote-x-btn">&times;</span>
 
 							<%-- 투표 등록하는 폼 시작 --%>
-							<form id="dc_form_write" class="dc_form w3-panel w3-card-4"
+							<form id="dc_form_write" class="dc_form w3-panel"
 								action="<c:url value="/vote/votewrite.do" />" method="post" onsubmit="return validate()">
 									<h1 class="vote_h1">새 투표 등록하기</h1>
 
 								<div>투표 제목을 입력해주세요.</div>
 								<input class="w3-input" type="text" name="voteTitle" id="dc-form-title"
-									placeholder="투표제목"> <br>
+									placeholder="투표제목">
 
 								<div>마감 기한을 선택해주세요.</div>
 								<div>
-									<input type="datetime-local" name="voteCloseDt" id="vote-close-dt"/>
+									<input type="datetime-local" name="voteCloseDt" id="vote-close-dt" class="vote_datetime_input"/>
 								</div>
-								<br>
 								<div>투표에대한 간략한 설명을 입력해주세요.</div>
 								<textarea class="w3-input" placeholder="투표에 대한 기본 설명입력.."
 									name="voteContent" id="vote-content"></textarea>
-
-								<br>
 								<div>중복체크 가능여부 설정(체크박스로 변경)</div>
 								<input class="w3-check" type="checkbox" name="voteMultiCheck">
 								<label>중복체크 가능</label>
@@ -150,25 +166,25 @@
 								<div>
 								<div><h3>투표 선택지1의 이름.
 									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
-									name="menu"> <br>
+									name="menu">
 								</h3></div>
 								
 								<div><h3>투표 선택지2의 이름.
 									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
-									name="menu"> <i class="fa fa-plus-square vote_plusminus" onclick="vote_add()" aria-hidden="true"></i> <br>
+									name="menu"> <i class="fa fa-plus-square vote_plusminus" onclick="vote_add()" aria-hidden="true"></i>
 								</h3></div>
 								
 								<div id="vote_tg"></div>
 							    </div>
 
-								<p>
+								<div>
 									<input class="w3-check" type="checkbox" name="voteNotice">
 									<label>공지사항으로 적용</label>
-								</p>
-								<p>
+								</div>
+								<div>
 									<input class="w3-check" type="checkbox" name="voteAnonymous">
 									<label>익명투표허용</label>
-								</p>
+								</div>
 								<br>
 								<p>
 									<button type="submit" class="w3-btn w3-blue">등록하기</button>
@@ -215,7 +231,7 @@
 		minusbtn.setAttribute("class",`fa fa-minus-square vote_plusminus`);
 		minusbtn.setAttribute("onclick",`vote_sub(\${index})`);
 		minusbtn.setAttribute("aria-hidden",`true`);
-		minusbtn.append(document.createElement("br"));
+// 		minusbtn.append(document.createElement("br"));
 		title.append(input, plusbtn, minusbtn);
 		tg.append(title);
 		index = index + 1;
@@ -236,13 +252,12 @@
 	document.getElementById("vote-close-dt").value= cDate.toISOString().slice(0, 16);
 	
 	
-	<%-- 이벤트 리스너 시작 --%>
+	<%-- 등록하기 버튼에 대한 이벤트 리스너 시작 --%>
 	var writeBtn = document.getElementById("writeVoteBtn");
 
 	writeBtn.addEventListener("click", writeVote);  // 선택한 요소에 click 이벤트 리스너를 등록함.
 
 	function writeVote() {
-// 		console.log(${sessionScope.user});
 		if('${sessionScope.user}' == '') {
 			alert('투표 등록하기는 로그인후에 이용하실 수 있습니다.');
 		} else {

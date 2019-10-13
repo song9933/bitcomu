@@ -200,7 +200,17 @@
 	    delete 
 	      from tb_comment
 	     where cmt_no = #{cmtNo};
-	</delete>	
+	</delete>
+	
+	<delete id="deleteAllVoteIn" parameterType="int">
+		delete
+		  from tb_comment
+		 where board_post_no = #{boardPostNo}
+		   and code_value = (select code_value
+                  	  		   from tb_codenm
+                   	  		  where code_group = 'BOARD_CD' 
+                     		    and code_name = '투표게시판')
+	</delete>
 	
 	<update id="updateVoteIn" parameterType="Comment">
 	    update tb_comment

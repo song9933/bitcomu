@@ -28,4 +28,5 @@ public interface VoteDAO {
 	void updateVoteIn(Comment comment);
 	int selectCodeValueVote();
 	List<Comment> selectCommentInVote(Comment comment);
+	void deleteAllVoteIn(int boardPostNo);
 }
