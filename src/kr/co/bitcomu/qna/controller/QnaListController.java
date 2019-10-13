@@ -1,7 +1,9 @@
 package kr.co.bitcomu.qna.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
 import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.Qna;
+import kr.co.bitcomu.repository.vo.Search;
 import kr.co.bitcomu.util.PageResult;
 
 @WebServlet("/qna/qnaList.do")
@@ -48,8 +51,22 @@ public class QnaListController extends HttpServlet {
 		req.setAttribute("qna", dao.selectQna(page));
 		req.setAttribute("boardNo", req.getParameter("boardNo"));
 		
-		req.setAttribute("searchType", req.getParameter("searchType"));
-		req.setAttribute("searchWord",req.getParameter("searchWord"));
+		//검색
+		Search search = new Search();
+		//검색어 가져오기
+		String searchWord = req.getParameter("searchWord");
+		if (searchWord == null) searchWord = "%";	
+		//검색타입 가져오기
+		String searchType = req.getParameter("searchType");
+		if (searchType == null) searchType = "qna_no";
+				
+		search.setSearchType(searchType);
+		search.setSearchWord(searchWord);
+				
+		Map<String, Object> listMap = new HashMap<>();
+		listMap.put("page", page);
+		listMap.put("search", search);
+		
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/qna/qna.jsp").forward(req, res);
 	}

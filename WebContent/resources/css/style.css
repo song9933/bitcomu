@@ -963,7 +963,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 .qna_title_1 {
     margin-top: 10px;
     margin-left: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
     width: 700px;
     height: 25px;
     border-bottom: 2px dashed gray;
@@ -986,7 +986,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 .qna_pd10 {
 	position: relative;
 	left: 760px;
-	top: -75px;
+	top: -73px;
 }
 .qna_updat_1 > a {
     display: grid;
@@ -1024,21 +1024,21 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     width: 760px;
     height: 30px;
     margin-top: 15px;
-    margin-left: 165px;
+    margin-left: 282px;
 }
 /* 등록 내용*/
 .qna_text_content {
     width: 800px;
     height: 100px;
-    margin-left: 165px;
     margin-top: 5px;
+    margin-left: 282px;
 }
 /*등록 버튼*/
 .qna_button {
     color: rgb(17, 14, 14);
     float: right;
     margin-top: 5px;
-    margin-right: 180px;
+    margin-right: 295px;
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
@@ -1050,7 +1050,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
   /* 파일 업로드 */
 .qna_attatch {
   margin-top: 10px;
-  margin-left: 165px;
+  margin-left: 282px;
 }  
   
   /* 검색 내용*/
@@ -1058,7 +1058,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     width: 400px;
     height: 30px;
     margin-top: 10px;
-    margin-left: 300px;
+    margin-left: 455px;
 }
         
 .qna_select_1 {
@@ -1276,7 +1276,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     color:#333;
     margin:0 0 10px;
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 /* Vertical */
