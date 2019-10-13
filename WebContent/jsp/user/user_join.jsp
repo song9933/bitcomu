@@ -63,12 +63,12 @@
                       <tr>
                         <td>비밀번호</td>
                         <td> <input type="password"
-                          name="password" class="input_box_sj box_join_sj" placeholder="비밀번호를 입력하세요"> * 10~20자 이하 영문.숫자,특수문자(~,!,#,$,%,^,*) 조합으로 입력하세요.</td>
+                          name="password" id="password" class="input_box_sj box_join_sj" placeholder="비밀번호를 입력하세요"> * 10~20자 이하 영문.숫자,특수문자(~,!,#,$,%,^,*) 조합으로 입력하세요.</td>
                       </tr>
                       <tr>
                         <td>비밀번호 확인</td>
                         <td> <input type="password"
-                          name="passwordRetry" class="input_box_sj box_join_sj" placeholder="비밀번호를 확인"> * 비밀번호가 일치합니다.</td>
+                          name="passwordRetry" id="passwordRetry" class="input_box_sj box_join_sj" placeholder="비밀번호를 확인"><span id="passChkVal"></</span></td>
                       </tr>
                       <tr>
                         <td>전화번호</td>
@@ -86,15 +86,15 @@
                       <tr>
                           <td>이메일</td>
                           <td> <input type="text"
-                            name="email1" class="input_box_sj box_join_sj">@
+                            name="email1" class="input_box_sj box_join_sj" value="${userEmail[0]}" readonly="readonly">@
                             <input type="text"
-                     name="email2" class="input_box_sj box_join_sj">
+                     name="email2" class="input_box_sj box_join_sj" value="${userEmail[1]}" readonly="readonly">
                         </tr>
                       <tr>
                         <td>생년월일</td>  
                         <td>
                             <input type="date"
-                            name="birth" class="input_box_sj box_join_sj" >
+                            name="birth" id="birth" class="input_box_sj box_join_sj" min="1960-01-01" max="2019-01-01">
                         </td>
                       </tr>
                 </table>
@@ -113,10 +113,29 @@
  
   </div>
   <script>
+  
   let countdown = document.getElementById("countdown");
   let joinFlag = false;
+  let passFlag = false;
+  let passwordRetry = document.getElementById("passwordRetry");
+  let password = document.getElementById("password");
+  
+  
+  let idPtn = /([a-zA-Z0-9]{4,12})/;
+  let namePtn = /([가-힣]{2,6})+$/;
+  let passPtn = /^(?=.*[a-zA-Z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{10,20}/;
+  let phonePtn = /([0-9]{3,4})+$/;
+  let phonePtn2 = /([0-9]{4})+$/;
+  
   userChk.addEventListener("click", e => {
 	  let id = document.querySelector("#id").value;
+	  
+      if(!(idPtn.test(id))) {
+          alert('아이디 4~12자 이외의 값, 한글, 특수문자등은 입력하실 수 없습니다.');
+          return false;
+      }
+	  
+	  
 	  showLoadingbar();
 	  let xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = (e) => {
@@ -149,82 +168,103 @@
   
   
   
-  let idPtn = /[a-zA-Z0-9]{3,11}/;
-  let namePtn = /[ㄱ-ㅎㅏ-ㅣ가-힣]{1,7}/;
-//   let pwdPtn = 
-  
-//   var languageCheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-  
+ 
 
 
   
   
 
-  function fun2() {
-     
+  function chkJoinForm() {
+	 
 	  let obj = document.fr;
-      
+	  console.log(idPtn.test(obj.id.value));
       if(!(idPtn.test(obj.id.value))) {
           alert('아이디 4~12자 이외의 값, 한글, 특수문자등은 입력하실 수 없습니다.');
           obj.id.focus();
           return false;
       }
       
-      
       if(!(namePtn.test(obj.name.value))) {
-          alert('이름 6자이상의 값, 한글이외의 값은 입력하실 수 없습니다.');
+          alert('이름 2~6자 이외의 값, 한글이외의 값은 입력하실 수 없습니다.');
           obj.name.focus();
           return false;
       }
-      /*
-      if(obj.password.value == '') {
-          alert('패스워드를 입력하세요');
+      
+      if(!(passPtn.test(obj.password.value))) {
+          alert('영문자, 숫자, 특수문자를 포함한 10~20자내의 비밀번호를 입력하세요.');
           obj.password.focus();
           return false;
       }
-      if(obj.password_c.value == '' || obj.password_c.value != obj.password.value) {
-          alert('패스워드를 정확히 입력해주세요');
-          obj.password_c.value = "";
-          obj.password_c.focus();
-          return false;
-      }
-      if(obj.gender.value == '') {
-          alert('성별을 선택하세요');
-          obj.gender.focus();
-          return false;
-      }
-      if(obj.job.selectedIndex == 0)    {
-          alert('직업을 선택하세요');
-          obj.job.focus();
-          return false;
-      }
-      if (document.fr.hobby[0].checked == false
-              && document.fr.hobby[1].checked == false
-              && document.fr.hobby[2].checked == false) {
-          alert('취미를 선택하세요');
-          document.fr.hobby[0].focus();
-          return false;
-      }
-      if(obj.bio.value == '') {
-          alert('자기소개를 입력하세요');
-          obj.bio.focus();
+      
+      if(!(phonePtn.test(obj.userphone2.value))) {
+          alert('3~4자리의 숫자를 입력하세요.');
+          obj.userphone2.focus();
           return false;
       }
       
+      if(!(phonePtn2.test(obj.userphone3.value))) {
+          alert('3~4자리의 숫자를 입력하세요.');
+          obj.userphone3.focus();
+          return false;
+      }
+      
+      if(obj.email1.length == 0 || obj.email2.length == 0) {
+    	  alert('이메일 재인증 후 회원가입 시도해 주세요.');
+          obj.email2.focus();
+          return false;
+      }
+      let birth = document.getElementById("birth").value;
+   	 
+   	  if (birth.trim().length == 0) {
+   		  alert('생년월일을 입력해 주세요.');
+          obj.birth.focus();
+          return false;
+   	  }
+   	  let year = parseInt(document.getElementById("birth").value.substr(0,4));
+    	  
+  
+   	  if (year > 2019 || year < 1960) {
+   		  alert('생년월일은 1960년도 부터 2019년 까지 가능합니다.');
+          obj.birth.focus();
+          return false;
+   	  }
 
-      //obj.submit();
-      alert('Success.. Contents Clear');
-      obj.reset();
-      document.getElementById("alert_text").innerHTML=('<span style="color: #777">아이디를 입력해주세요</span>');    
-      document.getElementById("alert_password").innerHTML=('<span style="color: #777">패스워드를 한번 더 입력해주세요</span>');
-      */
+      if(!joinFlag) {
+    	  alert("아이디 중복확인 후에 진행해 주세요.");
+    	  return false;
+      }
+      if (!passFlag) {
+    	  alert("비밀번호 확인 후에 진행해 주세요.");
+    	  return false;
+      }
+      obj.submit();
   }
 
   
   
   
   let sendJoin = document.querySelector("#sendJoin");
-  sendJoin.addEventListener("click", fun2);
+  sendJoin.addEventListener("click", chkJoinForm);
+  
+  
+  passwordRetry.addEventListener("keyup", passChk );
+  
+  password.addEventListener("keyup", passChk );
+  
+  function passChk() {
+	  password = document.querySelector("#password");
+	  passwordRetry = document.querySelector("#passwordRetry");
+	  if(password.value != passwordRetry.value) {
+		  passChkVal.style.color = "red";
+		  passChkVal.innerText = "* 비밀번호가 일치하지 않습니다.";
+		  passFlag = false;  
+	  } else {
+		  passChkVal.style.color = "black";
+		  passChkVal.innerText = "* 비밀번호가 일치합니다.";
+		  passFlag = true;
+	  }  
+  }
+  
   
   
 
