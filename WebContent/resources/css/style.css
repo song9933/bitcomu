@@ -109,6 +109,21 @@ section { margin: 100px 0; }
   line-height: 50px;
 }
 
+.stdboard_box .item .completed ,
+.stdboard_box .item .sub{
+	display: inline;
+    margin: 0 4px 12px 0;
+    padding: 0 8px;
+    line-height: 20px;
+    border-radius: 10px;
+    color: rgb(161, 161, 161);
+    background-color: rgb(212, 211, 211);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
 /* 컨텐츠 - 배너 */
 .banner {
   margin-left: 78px;
