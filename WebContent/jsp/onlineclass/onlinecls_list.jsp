@@ -79,8 +79,8 @@ int yt_no2 = 0;
 						<option value="subject">과목</option>
 						<option value="titleContent">제목+내용</option>
 					</select>
-					<button type="button" id="btnSearch" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${subject}&pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}'"><i class="fa fa-search" aria-hidden="true"></i></button>
-					<input type="text" id="keyword" value="${ searchWord }" placeholder="검색어를 입력하세요"/>
+					<button type="button" id="btnSearch"><i class="fa fa-search" aria-hidden="true"></i></button>
+					<input type="text" id="keyword" value="${ search.searchWord }" placeholder="검색어를 입력하세요"/>
 				</div>				
 			</div>
               <div class="ifrWrap clearboth">
@@ -138,17 +138,34 @@ int yt_no2 = 0;
 <c:import url="/jsp/include/footer.jsp"/>
   </div>
   <script>
+  // 검색을 한번이라도했다면 선택한 옵션으로 초기화한다.
+// onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${subject}&pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}'"
   let srchBtn = document.querySelector('#btnSearch');
+  let paramUrl = "${pageContext.request.contextPath}";
+  let paramSubj = "${ subject }";
+  let paramPageNo = "${pr.beginPage -1}";
+  let optVal = document.querySelectorAll("#oncls_selType > option");
+  for (let i = 0; i < optVal.length; i++) {
+	  if(optVal[i].value == '${search.searchType}')
+		  optVal[i].selected = true;
+  }
   
   srchBtn.addEventListener('click', (e) => {
-	  let optEle = document.getElementsByTagName('option');
+	  let selEle = document.getElementById('oncls_selType');
 	  let inpEle = document.getElementById('keyword');
-	  let inpVal = inpEle.value;
-	  for (let i = 0; i < optEle.length; i++) {
+	  let inpVal = inpEle.value
+	  let selVal = selEle.value;
+/* 	  for (let i = 0; i < optEle.length; i++) {
 	      if (optEle[i].hasAttribute('selected')) {
-			let selVal = optEle[i].value;
+			selVal = optEle[i].value;
 	      }		  
-	  } 
+	  } */
+	  alert(paramSubj);
+	  alert(paramPageNo);
+	  alert(inpVal);
+	  alert(selVal);
+	  srchBtn.setAttribute('onclick', "location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj="+ paramSubj +"&searchType="+ selVal +"&searchWord="+ inpVal +"'");
+	  srchBtn.click();
   });
   
   

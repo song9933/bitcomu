@@ -40,7 +40,8 @@ public class OnlineclsListController extends HttpServlet{
 		
 		// 요청한 페이지를 1로 초기화
 		int pageNo = 1;
-		int pageList = 10;
+//		int pageList = 10;
+		int pageList = 8;
 		if (sPageNo != null) {
 			pageNo = Integer.parseInt(sPageNo);
 		} 
