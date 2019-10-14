@@ -12,6 +12,11 @@ public class Comment {
 	private String userId;
 	private int parentCmtNo;
 	private int cmtGroupNo;
+	
+	
+	public void setCmtRegDt(String cmtRegDt) {
+		this.cmtRegDt = cmtRegDt;
+	}
 	public int getCmtNo() {
 		return cmtNo;
 	}
@@ -35,12 +40,6 @@ public class Comment {
 	}
 	public void setCmtContent(String cmtContent) {
 		this.cmtContent = cmtContent;
-	}
-	public Date getCmtRegDt() {
-		return cmtRegDt;
-	}
-	public void setCmtRegDt(Date cmtRegDt) {
-		this.cmtRegDt = cmtRegDt;
 	}
 	public int getCodeValue() {
 		return codeValue;
