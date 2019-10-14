@@ -70,6 +70,9 @@ public class Comment {
 	public void setCmtGroupNo(int cmtGroupNo) {
 		this.cmtGroupNo = cmtGroupNo;
 	}
+	public String getCmtRegDt() {
+		return cmtRegDt;
+	}
 	
 	
 	
