@@ -112,13 +112,13 @@
 						
 						<c:if
 							test="${sessionScope.user.userNo eq study.userNo || sessionScope.user.userGrade eq 3}">
-						<a href="#popupDelCmt">삭제</a>
+						<a href="#popupDelCmt${cmt.cmtNo}">삭제</a>
 						
 						<!-- 댓글 삭제 팝업-->
 						<form method="post"	action="<c:url value="/study/studycommentdelete.do"/>">
 							<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
 							<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
-									<div id="popupDelCmt" class=layer>
+									<div id="popupDelCmt${cmt.cmtNo}" class=layer>
 											<div class="box">
 												<p class="text">삭제 하시겠습니까?</p>
 												<button type="button" onclick="location.href='#'" class="close">닫기</button>
@@ -132,14 +132,15 @@
 						<!-- 대댓글 입력 -->
 						<c:if test="${cmt.parentCmtNo eq 0}">
 										<div class="item child">
-											<a href="#popupR">대댓글을 입력해주세요</a>
+											<a href="#popupR${cmt.cmtNo}">대댓글을 입력해주세요</a>
 										</div>
 									<form name="crrForm" method="post"
 										action="<c:url value="/study/studyrecommentwrite.do"/>"
 										onsubmit="return commentRegist2()">
-										<div id="popupR" class="layer">
+										<div id="popupR${cmt.cmtNo}" class="layer">
 											<input type="hidden" name="boardPostNo"
-												value="${study.studyPostNo}" /> <input type="hidden"
+												value="${study.studyPostNo}" /> 
+											<input type="hidden"
 												name="parentCmtNo" value="${cmt.cmtNo}" />
 											<div class="box clearboth">
 												<textarea id="comment" name="cmtContent" cols="30" rows="10"
