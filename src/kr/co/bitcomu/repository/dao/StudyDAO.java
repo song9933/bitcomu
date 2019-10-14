@@ -14,6 +14,7 @@ public interface StudyDAO {
 	void deleteStudy(int studyPostNo);
 	
 	void insertComment(Comment comment);
+	void insertReComment(Comment comment);
 	List<Comment> selectCommentList(int studyPostNo);
 	void updateComment(Comment comment);
 	void deleteComment(int cmtNo);

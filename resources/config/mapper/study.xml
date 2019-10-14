@@ -26,6 +26,8 @@
 			<result column="cmt_reg_dt" property="cmtRegDt"/>
 			<result column="code_value" property="codeValue"/>
 			<result column="user_id" property="userId"/>
+			<result column="parent_cmt_no" property="parentCmtNo"/>
+			<result column="cmt_group_no" property="cmtGroupNo"/>
 	</resultMap>
 		
 	<sql id="selectStudy">
@@ -103,15 +105,29 @@
 		select c.*, (select user_id from tb_user u
 						where user_no = c.user_no ) as user_id 
 						from tb_comment c
-						where board_post_no = #{studyPostNo}
+						where board_post_no = #{studyPostNo} 
 						and code_value = (select code_value from tb_codenm where code_name = '스터디게시판')
+						order by cmt_group_no, cmt_no
 	</select>
+	
+	
 	
 	<!-- 스터디게시판 댓글 입력 -->
 	<insert id="insertComment" parameterType="Comment">
-		insert into tb_comment (cmt_no, user_no, board_post_no, cmt_content, code_value)
-				values (tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, (select code_value from tb_codenm where code_name = '스터디게시판'))
+		insert into tb_comment (cmt_no, user_no, board_post_no, cmt_content, code_value, cmt_group_no)
+				values (tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, 
+						(select code_value from tb_codenm where code_name = '스터디게시판'), tb_cmt_group.nextval)
 	</insert>
+	
+	<!-- 스터디게시판 대댓글 입력 -->
+	<insert id="insertReComment" parameterType="Comment">
+		insert into tb_comment (cmt_no, user_no, board_post_no, cmt_content, code_value, parent_cmt_no, cmt_group_no)
+				values (tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, 
+						(select code_value from tb_codenm where code_name = '스터디게시판'), 
+						#{parentCmtNo}, (select cmt_group_no from tb_comment where cmt_no = #{parentCmtNo}))
+	</insert> 
+
+		
 	<!-- 스터디게시판 댓글 수정 -->
 	<update id="updateComment" parameterType="Comment">
 		update tb_comment
