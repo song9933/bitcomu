@@ -6,6 +6,7 @@ import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.Qna;
 import kr.co.bitcomu.repository.vo.Study;
+import kr.co.bitcomu.repository.vo.Vote;
 
 public interface QnaDAO {
 	
@@ -17,6 +18,8 @@ public interface QnaDAO {
 	void deleteQna(int qnano);
 	int selectQnaCnt();
 	List<Qna> selectQnaSearchAjax(Qna qna);
+	List<Qna> selectQnaN(int rnum);
+	List<Qna> selectQnaNSmall(int rnum);
 	
 	
 	// 댓글 부분

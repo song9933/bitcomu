@@ -27,6 +27,30 @@
 		 where rnum between #{begin} and #{end}  			 
 	</select>
 	
+	<!-- 리스트 출력 7개 이상 -->
+	<select id="selectQnaN" parameterType="int" resultMap="qnaMap">
+	select * from
+	(
+    select rownum numrow, aa.* from 
+                       (select *
+                        from tb_qna
+                        order by qna_reg_dt desc) aa)
+        
+        where numrow between (#{rnum}-6) and #{rnum}
+	</select>
+	
+	<!-- 리스트 출력 7개 미만 -->
+	<select id="selectQnaNSmall" parameterType="int" resultMap="qnaMap">
+	select * from
+	(
+    select rownum numrow, aa.* from 
+                       (select *
+                        from tb_qna
+                        order by qna_reg_dt desc) aa)
+        
+        where numrow between 1 and #{rnum}
+	</select>
+	
 	<select id="selectQnaCnt" resultType="int">
 		select count(*)
 		  from tb_qna

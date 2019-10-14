@@ -53,31 +53,8 @@ public class QnaListController extends HttpServlet {
 			qna.setCommentList(c);
 			
 		}
-		
-		// 데이터를 구하고 공유
-		req.setAttribute("qna", list);
-		req.setAttribute("boardNo", req.getParameter("boardNo"));
-		System.out.println();
-		req.setAttribute("selBoardNo", req.getParameter("selBoardNo") == null ? 0 : req.getParameter("selBoardNo"));
-		
-		
-		
-		//검색
-		Search search = new Search();
-		//검색어 가져오기
-		String searchWord = req.getParameter("searchWord");
-		if (searchWord == null) searchWord = "%";	
-		//검색타입 가져오기
-		String searchType = req.getParameter("searchType");
-		if (searchType == null) searchType = "qna_no";
-				
-		search.setSearchType(searchType);
-		search.setSearchWord(searchWord);
-				
-		Map<String, Object> listMap = new HashMap<>();
-		listMap.put("page", page);
-		listMap.put("search", search);
-		
+
+		req.setAttribute("selBoardNo", req.getParameter("selBoardNo") == null ? 0 : req.getParameter("selBoardNo")); 
 		// 사용할 화면으로 이동하기
 		req.getRequestDispatcher("/jsp/qna/qna.jsp").forward(req, res);
 	}
