@@ -18,7 +18,7 @@
     <div class="tab-box sj">
       <ul class="sj">
         <li class="sj selected">회원정보 수정</li>
-        <li class="sj">회원 탈퇴</li>
+        <li class="sj"><a href="${pageContext.request.contextPath}/user/userDeleteForm.do">회원 탈퇴</a></li>
       </ul>
     </div>   
     <!-- //비주얼이미지 영역 끝-->

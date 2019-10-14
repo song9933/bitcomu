@@ -23,6 +23,7 @@ public class UserEmailAjaxController extends HttpServlet {
 			new SendEmail(req.getParameter("emailAddr"), "회원가입 이메일 인증 코드입니다.", data = CommUtil.randomKey());
 			out.println(data);
 		} catch (Exception e) {
+			e.printStackTrace();
 			if(e.getMessage().contains("Invalid Addresses")) {
 				out.println("Invalid Addresses");
 			} else {

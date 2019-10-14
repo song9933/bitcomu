@@ -15,6 +15,9 @@
 	table td:nth-child(5), table td:nth-child(6) {
     	width: 80px;
 	}
+	table td:nth-child(7), table td:nth-child(8), table td:nth-child(9)  {
+    	text-align: center;
+	}
 	thead td:last-child {
     	text-align: center;
 	}
@@ -43,7 +46,25 @@
 	.button_box_sj.box_email_sj {
 		height: 40px;
 	}
-	
+	.sj_btn {
+	    position: static;
+	    display: inline-block;
+	    padding: 0 15px;
+	    width: auto;
+	    height: 36px;
+	    line-height: 36px;
+	    border-radius: 3px;
+	    border: 1px solid #d6d6d6;
+	    border-radius: 20px;
+	    color: #292929;
+	    font-size: 14px;
+	    background-color: #fff;
+	    background-position: 12px center;
+	    background-size: 18px 18px
+    }
+    .div_center {
+    	text-align: center;
+    }
 	
 </style>
 <body>
@@ -75,7 +96,7 @@
 
             <div class="ns_listlength">
               
-                <select name="changeList" id="changeList">
+                <select name="changeList" id="changeList" class="input_box_sj box_phone_sj">
                     <option value="10" selected>10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
@@ -87,6 +108,9 @@
 			            <td style="margin: 0 auto; padding: 10px;"><input type="checkbox" id="allChk"/></td>
 			            <td><b>유저아이디</b></td>
 			            <td><b>유저이름</b></td>
+			            <td><b>이메일</b></td>
+			            <td><b>전화번호</b></td>
+			            <td><b>생년월일</b></td>
 			            <td><b>권한</b></td>
 			            <td colspan=2><b>관리</b></td>
 			        </tr>
@@ -94,7 +118,7 @@
 			    <tbody>
 			    <c:if test="${empty userList}">
 			    <tr>
-			    <td colspan="5" align="center">가입된 회원이 없습니다.
+			    <td colspan="8" align="center">가입된 회원이 없습니다.
 			    </td>
 			    </tr>
 			    </c:if>
@@ -104,6 +128,9 @@
                   	  <td><input type="checkbox" name="delChk" class="delChk" value="${member.userNo}"/></td>
                       <td>${member.userId}</td>
                       <td>${member.userName}</td>
+                      <td>${member.userEmail}</td>
+                      <td>${member.userMobile}</td>
+                      <td><fmt:formatDate value="${member.userBirth}" pattern="yyyy-MM-dd"/></td>
                       <td>
                       <c:choose>
                       	<c:when test="${member.userGrade eq '2'}">
@@ -149,7 +176,7 @@
 			    </tbody>
 			</table>
 			<br />
-		 
+		 	<div class="div_center">
               <ul class="pagination nams">
                 <c:if test="${pr.count ne 0}">
 			  	<c:if test="${pr.prev}">
@@ -174,17 +201,18 @@
 			    </c:if>
 		</c:if>
 		</ul>
+		</div>
       
-            <div class="ns_search">
-                <select name="searchList" id="searchList">
+			<div class="div_center">
+                <select name="searchList" id="searchList" class="input_box_sj box_phone_sj">
                 
                     <option value="id">아이디</option>
                     <option value="name">이름</option>
                     
                 </select>
-                <input type="text" name="search" id="searchValue" value="${search.searchWord}">
-                <button type="button" id="doSearchUser" name="searchVal">검색</button>
-            </div> 
+                <input type="text" name="search" class="input_box_sj box_join_sj" id="searchValue" value="${search.searchWord}">
+                <button type="button" id="doSearchUser" class="sj_btn" name="searchVal">검색</button>
+ 			</div>
 <!--         </section>   -->
         
 
@@ -204,6 +232,8 @@
   </div>
 
   <script>
+  
+  
   $(document).ready( function () {
 	    $('#table_id').DataTable({
 	    	 paging: false,
@@ -212,8 +242,13 @@
 	    	 Showing: false,
 	    	 bInfo: false
 	    });
+	      
 	   
 	} );
+  
+  
+  
+  
   
   // $(document).ready(alert());
 	let sList = document.querySelector("#searchList").value;

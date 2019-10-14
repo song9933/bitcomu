@@ -45,6 +45,28 @@
 		height: 30px;
 	}
 	
+	.sj_btn {
+	    position: static;
+	    display: inline-block;
+	    padding: 0 15px;
+	    width: auto;
+	    height: 36px;
+	    line-height: 36px;
+	    border-radius: 3px;
+	    border: 1px solid #d6d6d6;
+	    border-radius: 20px;
+	    color: #292929;
+	    font-size: 14px;
+	    background-color: #fff;
+	    background-position: 12px center;
+	    background-size: 18px 18px
+    }
+    
+
+    .div_center {
+    	text-align: center;
+    }
+	
 </style>
 
 
@@ -79,7 +101,7 @@
             <div class="ns_listlength">
             
               	게시판 형태 
-                <select name="viewBoard" id="viewBoard">
+                <select name="viewBoard" id="viewBoard" class="input_box_sj box_phone_sj" style="width : 160px;">
                 
                     <option value="all">전체 게시판</option>
                     <c:forEach var="boardVal" items="${boardCode}">
@@ -89,7 +111,7 @@
                 </select>
               	
               	
-                <select name="changeList" id="changeList">
+                <select name="changeList" id="changeList" class="input_box_sj box_phone_sj">
                     <option value="10" selected>10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
@@ -112,7 +134,7 @@
 			    <tbody>
 			    <c:if test="${empty boardList}">
 			    <tr>
-			    <td colspan="5" align="center">등록된 게시글이 없습니다.
+			    <td colspan="6" align="center">등록된 게시글이 없습니다.
 			    </td>
 			    </tr>
 			    </c:if>
@@ -142,7 +164,7 @@
 	                      	<a target="_blank" href="<c:url value="/study/studydetail.do?studyPostNo=${board.postNo}"/>">${board.postTitle}</a>
 	                      </c:when>
 	                      <c:when test="${board.codeName eq '질문답변게시판'}">
-	                      	<a target="_blank" href="#" >${board.postTitle}</a>
+	                      	<a target="_blank" href="<c:url value="/qna/qnaList.do?selBoardNo=${board.postNo}"/>" >${board.postTitle}</a>
 	                      </c:when>
                       </c:choose>
                       
@@ -156,39 +178,39 @@
 
   
           
-
+			<div class="div_center">
             
               <ul class="pagination nams">
                 <c:if test="${pr.count ne 0}">
-			  	<c:if test="${pr.prev}">
-			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.beginPage -1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>" aria-label="previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
-			   
-			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
-			    	<li 
-			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${i}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>">${i}</a></li>
-			    </c:forEach>
-			  	<c:if test="${pr.next}">
-			    <li>
-			      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.endPage + 1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>" aria-label="next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
-		</c:if>
-		</ul>
-            
+				  	<c:if test="${pr.prev}">
+				    <li>
+				      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.beginPage -1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>" aria-label="previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    </c:if>
+				   
+				    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+				    	<li 
+				    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
+				    	><a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${i}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>">${i}</a></li>
+				    </c:forEach>
+				  	<c:if test="${pr.next}">
+				    <li>
+				      <a href="${pageContext.request.contextPath}/admin/boardAllListForm.do?pageNo=${pr.endPage + 1}<c:if test="${!empty search.searchType}">&searchType=${search.searchType}&searchWord=${search.searchWord}</c:if><c:if test="${!empty pageList}">&pageList=${pageList}</c:if><c:if test="${!empty codeValue}">&codeValue=${codeValue}</c:if>" aria-label="next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				    </c:if>
+				</c:if>
+				</ul>
+        </div>
             
 	
             
-        <div class="ns_search">
-            search : 
-            <select name="searchList" id="searchList">
+        <div class="div_center">
+            
+            <select name="searchList" id="searchList" class="input_box_sj box_phone_sj" style="width: 110px;">
                 <option value="all" selected>제목 + 내용</option>
                 <option value="title">제목</option>
                 <option value="content">내용</option>
@@ -196,8 +218,8 @@
                 <option value="username">유저이름</option>
                 
             </select>
-            <input type="text" name="search" id="searchValue" value="${search.searchWord}">
-            <button type="button" id="doSearchUser" name="searchVal">검색</button>
+            <input type="text" name="search" class="input_box_sj box_join_sj" id="searchValue" value="${search.searchWord}">
+            <button type="button" class="sj_btn" id="doSearchUser" name="searchVal">검색</button>
         </div> 
       </section>  
         

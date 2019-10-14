@@ -45,7 +45,7 @@ public class AdminUserListController extends HttpServlet {
 		search.setSearchType(req.getParameter("searchType"));
 		search.setSearchWord(req.getParameter("searchWord"));
 		int count = dao.selectUserAdminCount(search);
-		
+		count -= 1;
 		
 		Page page = new Page(pageNo, pageList);
 		

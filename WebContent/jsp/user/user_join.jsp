@@ -68,7 +68,7 @@
                       <tr>
                         <td>비밀번호 확인</td>
                         <td> <input type="password"
-                          name="passwordRetry" id="passwordRetry" class="input_box_sj box_join_sj" placeholder="비밀번호를 확인"><span id="passChkVal"></</span></td>
+                          name="passwordRetry" id="passwordRetry" class="input_box_sj box_join_sj" placeholder="비밀번호를 확인"><span id="passChkVal"></span></td>
                       </tr>
                       <tr>
                         <td>전화번호</td>

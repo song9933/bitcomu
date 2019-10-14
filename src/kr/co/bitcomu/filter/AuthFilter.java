@@ -45,18 +45,28 @@ public class AuthFilter implements Filter {
 		// 로그인이 필요하지 않은 Path에 속하는지 체크
 		int index = list.indexOf(uri);
 		
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("user");
+		
 		
 		// 로그인이 필요한 페이지만 체크해야 한다.
 		if (index == -1) {
-			HttpSession session = req.getSession();
-			User user = (User)session.getAttribute("user");
 			if (user == null) {
 				res.sendRedirect(req.getContextPath() + "/user/userLoginAuth.do");
 				return;
 			}
 		}
+		
+		// 관리자가 아니라면 admin 페이지 접근 불가.
+		if (uri.indexOf("admin") != -1) {
+			if (!("admin".equals(user.getUserId()))) {
+				res.sendRedirect(req.getContextPath() + "/user/userLoginAdminAuth.do");
+				return;
+			}
+		}
+		
 		// 로그인 체크 통과된 경우...
-		chain.doFilter(request, response);
+ 		chain.doFilter(request, response);
 	}
 
 }

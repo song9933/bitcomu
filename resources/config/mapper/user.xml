@@ -97,15 +97,16 @@
 		      	   <choose>
 		               <when test="searchType == 'id'">
 		               	
-		               	user_id like '%'|| #{searchWord} ||'%'
+		               	and user_id like '%'|| #{searchWord} ||'%'
 		               
 		               </when>
 		               <when test="searchType == 'name'">
 		               	
-		               	user_name like '%'|| #{searchWord} ||'%'
+		               	and user_name like '%'|| #{searchWord} ||'%'
 		               	
 		               </when>
 		            </choose>
+		              and user_id != 'admin' 
       	   		</where>
       	    </if>
      </select>
@@ -172,7 +173,7 @@
 	 
      <!-- 유저 등급 변경(관리자 전용) -->
      <update id="updateUserAdmin" parameterType="User">
-     update tb_user 
+     update tb_user
         set user_grade = #{userGrade} 
       where user_no = #{userNo}
       
@@ -186,6 +187,7 @@
 			  from tb_comment where user_no = #{userNo};
 			  
 			<!-- 자신이 쓴 게시판 글의 댓글들 삭제 -->  
+			
 			delete from tb_comment
 			where (board_post_no, code_value) in (
 				select talk_post_no, 1 as code_value from tb_talk

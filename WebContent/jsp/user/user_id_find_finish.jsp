@@ -34,7 +34,6 @@
 					  </c:choose>
 				  </div>
                   <div class="board_box_sj box_detail_sj">
-                    <button type="button" onclick="location.replace('${pageContext.request.contextPath}/user/userLoginForm.do')"class="button_box_sj box_email_sj">로그인</button><span class="margin_sj"></span>
                     <button type="button" onclick="location.replace('${pageContext.request.contextPath}/main.do')" class="button_box_sj box_email_sj">홈으로</button>
                   </div>
               </div>

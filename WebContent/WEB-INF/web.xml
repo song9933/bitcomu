@@ -46,7 +46,14 @@
   			/user/userJoinTos.do;
   			/user/userLoginForm.do;
   			/user/userPWFindForm.do;
-  			/user/userLoginAuth.do
+  			/user/userLoginAuth.do;
+  			/user/userLoginAdminAuth.do;
+  			/user/userEmailAuth.do;
+  			/user/userIdChk.do;
+  			/user/userDelete.do;
+  			/user/userPWFindAjax.do;
+  			/user/userPwUpdateFinish.do;
+  			
   		</param-value>
   	</init-param>
   </filter>
