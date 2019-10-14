@@ -64,6 +64,12 @@ public class Comment {
 	public void setParentCmtNo(int parentCmtNo) {
 		this.parentCmtNo = parentCmtNo;
 	}
+	public int getCmtGroupNo() {
+		return cmtGroupNo;
+	}
+	public void setCmtGroupNo(int cmtGroupNo) {
+		this.cmtGroupNo = cmtGroupNo;
+	}
 	
 	
 	
