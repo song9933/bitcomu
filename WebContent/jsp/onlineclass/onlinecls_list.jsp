@@ -9,7 +9,7 @@ int yt_no2 = 0;
 <html lang="ko">
 <head>
 <c:import url="/jsp/include/head.jsp">
-	<c:param name="msg" value="온라인강의::${ subject}" />
+	<c:param name="msg" value="온라인강의:: ${ subject }" />
 </c:import>
 </head>
 <body>
@@ -17,11 +17,9 @@ int yt_no2 = 0;
 <c:import url="/jsp/include/header.jsp" />
     <!-- 컨텐트 비주얼 -->
     <div class="visual">
-<%--       <img src="<c:url value="/resources/images/002(3).jpg" />" alt="온라인강의페이지비주얼"> --%>
 		<img src="${pageContext.request.contextPath}/resources/images/002(3).jpg">
       <div class="dot_bg"></div>
       <div class="imgbox">
-<%--         <img src="<c:url value="/resources/images/002(3).jpg" />" alt="자바"> --%>
 		<img src="${pageContext.request.contextPath}/resources/images/002(3).jpg" />
       </div>
       <div class="detailbox">
@@ -72,6 +70,19 @@ int yt_no2 = 0;
           </div>
           <!-- 현재 선택한 과목 강의리스트 div -->
           <div class="vid_container clearboth">
+          	<div class="divTitle clearboth">
+				<p> ${ subject }</p>
+				<div class="searchBox">
+					<select id="oncls_selType">
+						<option value="title" selected>제목</option>
+						<option value="content">내용</option>
+						<option value="subject">과목</option>
+						<option value="titleContent">제목+내용</option>
+					</select>
+					<button type="button" id="btnSearch" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${subject}&pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}'"><i class="fa fa-search" aria-hidden="true"></i></button>
+					<input type="text" id="keyword" value="${ searchWord }" placeholder="검색어를 입력하세요"/>
+				</div>				
+			</div>
               <div class="ifrWrap clearboth">
                 <!--  <iframe src="https://www.youtube.com/embed/KR9nyo8hAdI?playsinline=0&fs=1&rel=0" frameborder="0" allowfullscreen ></iframe> -->
                 <c:choose>
@@ -92,38 +103,6 @@ int yt_no2 = 0;
                 	</c:forEach>
                 	</c:otherwise>
                 </c:choose>
-                <!-- <div class="ifrBox">
-                    <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-                    <span>1</span>
-                    <div class="ifrInfo">
-                      <h5>Spring Framework 개요 및 특징</h5>
-                      <p>강의시간 36:24</p>
-                    </div>
-                </div>
-                <div class="ifrBox">
-                    <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-                    <span>1</span>
-                    <div class="ifrInfo">
-                      <h5>Spring Framework 개요 및 특징</h5>
-                      <p>강의시간 36:24</p>
-                    </div>
-                </div>
-                <div class="ifrBox">
-                  <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-                  <span>1</span>
-                  <div class="ifrInfo">
-                    <h5>Spring Framework 개요 및 특징</h5>
-                    <p>강의시간 36:24</p>
-                  </div>
-                </div>
-                <div class="ifrBox">
-                  <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-                  <span>1</span>
-                  <div class="ifrInfo clearboth">
-                    <h5>Spring Framework 개요 및 특징</h5>
-                    <p>강의시간 36:24</p>
-                  </div>
-                </div> -->
               </div>
           </div>
           <c:if test="${sessionScope.user.userGrade eq 3}"> 
@@ -131,50 +110,49 @@ int yt_no2 = 0;
 	            <a href="${ pageContext.request.contextPath }/onlineclass/ytwriteform.do?subj=${subject}">강의 등록하기 </a>
 	          </div>
           </c:if>
+			<ul class="pagination nams">
+				<c:if test="${pr.count != 0}">
+					<c:if test="${pr.prev}">
+						<li>
+							<a href="onlineclsList.do?subj=${subject}&pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:if>
+					<c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+						<li <c:if test="${pr.pageNo == i}">class="active"</c:if>><a href="onlineclsList.do?subj=${subject}&pageNo=${i}&searchType=${search.searchType}&searchWord=${search.searchWord}">${i}</a></li>
+					</c:forEach>
+					<c:if test="${pr.next}">
+						<li>
+							<a href="onlineclsList.do?subj=${subject}&pageNo=${pr.endPage + 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</c:if>
+				</c:if>
+			</ul>
         </section>
     </div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
 
 <c:import url="/jsp/include/footer.jsp"/>
-    
-    
-
-    <!-- 팝업 -->
-    <div class="popbg"></div>
-    <div class="popup clearboth">
-      <div class="pop_l">
-        <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" width="100%" height="100%" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-      </div>
-      <div class="pop_r">
-          <div>
-            <dl>
-              <dt><i class="fa fa-user-circle" aria-hidden="true"></i></dt>
-              <dd>iamteacher</dd>
-            </dl>
-          </div>
-          <div>
-            <p>
-              #jsp #스프링프레임워크 #Servlet
-            </p>
-          </div>
-          <div class="socialbox">
-              <i class="fa fa-heart-o" aria-hidden="true"></i>
-              <!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
-              <i class="fa fa-comment-o" aria-hidden="true"></i>
-              <p>좋아요 44,444개</p>
-              <p>2019.09.09</p>
-
-          </div> 
-          <div class="comment">
-            <textarea style="resize: none" placeholder="댓글 달기..."></textarea>
-          </div>
-
-      </div>
-    </div>
-    <!-- //팝업 끝 -->
   </div>
   <script>
+  let srchBtn = document.querySelector('#btnSearch');
   
+  srchBtn.addEventListener('click', (e) => {
+	  let optEle = document.getElementsByTagName('option');
+	  let inpEle = document.getElementById('keyword');
+	  let inpVal = inpEle.value;
+	  for (let i = 0; i < optEle.length; i++) {
+	      if (optEle[i].hasAttribute('selected')) {
+			let selVal = optEle[i].value;
+	      }		  
+	  } 
+  });
+  
+  
+  /* 등록/수정/삭제 결과 alert창 */
   if ('${ resultC }' == 1) {
 	  alert('등록되었습니다');
   }
@@ -184,6 +162,7 @@ int yt_no2 = 0;
   if ('${ resultD }' == 1) {
 	  alert('삭제되었습니다');
   }
+  /* -------------------- */
     $(document).ready(function(){
       $('.online_cls .tab li').on('click', function() {
         $(this).toggleClass('on');

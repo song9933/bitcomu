@@ -1,5 +1,21 @@
+/***
+ * 온라인강의 검색 & 페이징 js
+ * 작성자 : 유지인
+ */
+
+//let PageNo = 1;	// 페이지 1번으로 초기화
+//let xhr = new XMLHttpRequest();
+//
+//xhr.onreadystatechange = () => {
+//	if (xhr.readyState ==4 && xhr.status == 200) {
+//		
+//	}
+//};
+
+
+
 /**
- * 온라인강의 js
+ * 온라인강의 댓글 js
  * 작성자 : 유지인 
  */
 
@@ -8,7 +24,6 @@
  * @returns
  */
 function commentListAjax() {
-	console.log();
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4) {
@@ -118,3 +133,4 @@ function chkcmtuserno(cmtUserNo, cmtNo) {
 	}
 	console.log("cmtUsrNo", cmtUserNo, "/userNo", userNo, "cmtNo", cmtNo);
 }
+

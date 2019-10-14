@@ -24,6 +24,29 @@
 	<result column="CMT_REG_DT" property="cmtRegDt" />
 	<result column="CODE_VALUE" property="codeValue" />
 </resultMap>
+<!-- sql태그 include -->
+<sql id="selectOnlinecls">
+	select y.yt_no, 
+           y.user_no, 
+           (select user_id 
+              from tb_user u 
+             where u.user_no = y.user_no) as user_id, 
+           y.yt_title, 
+           y.yt_content, 
+           y.yt_addr, 
+           y.yt_subject,
+           y.yt_view_cnt,
+           y.yt_like_cnt,
+           (select count(*)
+              from tb_comment c
+             where code_value = (select code_value from tb_codenm where code_name ='온라인강의게시판')
+               and c.board_post_no = y.yt_no) as yt_cmt_cnt
+      from tb_youtube y
+</sql>
+
+
+
+
 <!-- 온라인강의 -->
 <!-- 회원번호로 조인해 회원아이디 조회 -->
 <select id="selectUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
@@ -32,17 +55,77 @@
 	  from tb_youtube y
 	 where yt_no = #{ytNo}
 </select>
+
 <!-- 온라인강의 과목 리스트 조회 -->
 <select id="selectOnlineclsSubject" resultMap="onlineclsMap" flushCache="true" useCache="true">
 	select max(yt_subject) as yt_subject, max(yt_addr) as yt_addr 
 	  from tb_youtube 
 	 group by yt_subject
 </select>
-<!-- 온라인강의 리스트 조회 -->	
+
+<!-- 온라인강의 리스트 조회 -->	 
 <select id="seletOnlinecls" resultMap="onlineclsMap" parameterType="string" flushCache="true" useCache="true">
 	select * 
 	  from tb_youtube
 	 where yt_subject = #{ytSubject}
+</select> 
+<!-- 전체리스트  카운트 -->
+
+<!-- 검색결과 리스트 카운트ㅡ-->
+<select id="selectOnlineclsCount" parameterType="hashMap" resultType="int" flushCache="true" useCache="true">
+	select count(*) from tb_youtube
+	<where>
+		<choose>
+		
+			<when test="search.searchType == 'subject'">
+				and yt_subject like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'titleContent'">
+				and yt_title like '%' || #{search.searchWord} || '%'
+				   or yt_content like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'content'">
+				and yt_content like '%' || #{search.searchWord} || '%'	  				
+			</when>
+			<when test="search.searchType == 'title'">
+				and yt_title like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="subj != ''">
+				and yt_subject = #{ subj }
+			</when>
+			
+		</choose>
+		</where>
+		
+</select>
+
+<!-- 온라인강의 리스트 조회(검색&페이징 포함) --> 
+<select id="selectOnlineclsList" parameterType="hashMap" resultMap="onlineclsMap" flushCache="true" useCache="true">
+	select *
+	  from (select rownum rnum, a.* from
+	  		(<include refid="selectOnlinecls" />
+	  		<where>
+	  			<choose>
+	  				<when test="search.searchType == 'subject'">
+	  					and yt_subject like '%' || #{search.searchWord} || '%'
+	  				</when>
+	  				<when test="search.searchType == 'titleContent'">
+	  					and yt_title like '%' || #{search.searchWord} || '%'
+	  					   or yt_content like '%' || #{search.searchWord} || '%'
+	  				</when>
+	  				<when test="search.searchType == 'content'">
+	  					and yt_content like '%' || #{search.searchWord} || '%'	  				
+	  				</when>
+	  				<when test="search.searchType == 'title'">
+	  					and yt_title like '%' || #{search.searchWord} || '%'
+	  				</when>
+	  				<when test="subj != ''">
+						and yt_subject = #{ subj }
+					</when>
+	  			</choose>
+	  			</where>
+  			 order by yt_no desc) a)
+	 where rnum between #{page.begin} and #{page.end}
 </select>
 
 <!-- 온라인강의 상세 -->	
@@ -94,6 +177,7 @@
 	 where BOARD_POST_NO = #{ytNo} and CODE_VALUE = (select code_value from tb_codenm where code_name='온라인강의게시판')
 	 order by cmt_no desc
 </select>
+<!-- 댓글 등록 -->
 <insert id="insertComment" parameterType="Comment">
 	insert into tb_comment (
 		cmt_no, user_no, board_post_no, cmt_content, code_value
@@ -101,12 +185,14 @@
 		tb_comment_seq.nextval, #{userNo}, #{boardPostNo}, #{cmtContent}, (select code_value from tb_codenm where code_name='온라인강의게시판')
 	)
 </insert>
+<!-- 댓글 삭제 -->
 <delete id="deleteComment" parameterType="int">
 	delete 
 	  from tb_comment
 	 where cmt_no = ${cmtNo}
 </delete>
 	
+<!-- 댓글 수정 -->
 <!-- // 댓글 -->
 </mapper>
 <!--

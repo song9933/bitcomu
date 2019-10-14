@@ -35,9 +35,6 @@ public class OnlineclsMainController extends HttpServlet {
 		List<Onlinecls> sList = dao.selectOnlineclsSubject();
 		req.setAttribute("sList", sList);
 		
-//		List<Onlinecls> list = dao.seletOnlinecls();
-//		req.setAttribute("list", list);
-		
 		req.getRequestDispatcher("/jsp/onlineclass/onlineclass_main.jsp").forward(req, res);
 	}
 }

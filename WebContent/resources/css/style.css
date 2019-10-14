@@ -96,8 +96,8 @@ section { margin: 100px 0; }
 }
 .stdboard_box .box {
   width: 800px;
-  height: 150px; 
-  padding : 15px;
+  height: 150px;
+  padding: 15px; 
   border-bottom: 1px solid #d1d1d0;
   box-sizing: border-box;
   background: #fff;
@@ -174,7 +174,7 @@ section { margin: 100px 0; }
    box-sizing: border-box;
  }
 
- .video .ifrBox:last-child {
+ .video .ifrBox:nth-child(4n) {
    margin-right: 0;
  }
 
@@ -202,11 +202,6 @@ section { margin: 100px 0; }
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
- }
-
- .video .pagination {
-  width: 60px;
-  margin: 0 auto;
  }
 
  .video .pagination p {
@@ -265,7 +260,7 @@ footer { width: 100%; line-height: 60px; text-align: center; }
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: url(../img/dot_bg.png) repeat;  
+  background: url(../images/dot_bg.png) repeat;  
   opacity: 1;
 }
 .online_cls .visual > img {
@@ -345,6 +340,9 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .online_cls .tab li:hover {
   cursor: pointer;
 }
+
+.online_cls .divTitle { margin-top: 40px; }
+.online_cls .divTitle p { border-left: 3px solid #444; padding-left: 20px; font-size: 20px; }
 
 /* 리스트과목 뿌리는 부분 */
 .online_cls .subj_container {
