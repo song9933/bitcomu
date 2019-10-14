@@ -28,7 +28,9 @@ public class QnaCommentUpdateController extends HttpServlet{
 		
 		dao.updateQnaComment(cmt);
 		
-		res.sendRedirect(req.getContextPath() + "/qna/qnaDetail.do?qnaNo=" + req.getParameter("qnaNo"));
+		res.sendRedirect("/bitcomu/qna/qnaList.do?selBoardNo=" + req.getParameter("qnaNo"));
+		
+	//	res.sendRedirect(req.getContextPath() + "/qna/qnaDetail.do?qnaNo=" + req.getParameter("qnaNo"));
 	}
 	
 	

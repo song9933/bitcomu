@@ -1,6 +1,7 @@
 package kr.co.bitcomu.qna.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
+import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Page;
 import kr.co.bitcomu.repository.vo.Qna;
 import kr.co.bitcomu.repository.vo.Search;
@@ -45,11 +47,20 @@ public class QnaListController extends HttpServlet {
 		PageResult pr = new PageResult(pageNo, cnt);
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
-		
+		List<Qna> list = dao.selectQna(page);
+		for (Qna qna : list) {
+			List<Comment> c = dao.selectQnaCommentList(qna.getQnaNo());
+			qna.setCommentList(c);
+			
+		}
 		
 		// 데이터를 구하고 공유
-		req.setAttribute("qna", dao.selectQna(page));
+		req.setAttribute("qna", list);
 		req.setAttribute("boardNo", req.getParameter("boardNo"));
+		System.out.println();
+		req.setAttribute("selBoardNo", req.getParameter("selBoardNo") == null ? 0 : req.getParameter("selBoardNo"));
+		
+		
 		
 		//검색
 		Search search = new Search();

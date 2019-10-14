@@ -23,6 +23,7 @@ public class QnaDeleteController extends HttpServlet {
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 데이터베이스 처리하기
+	
 		dao.deleteQna(Integer.parseInt(req.getParameter("qnaNo"))); 
 		res.sendRedirect("/bitcomu/qna/qnaList.do");
 	}

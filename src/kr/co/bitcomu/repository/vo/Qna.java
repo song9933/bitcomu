@@ -16,7 +16,16 @@ public class Qna {
 	private int qnaViewCnt; // qna 조회 수
 	private int qnaCmtCnt; // qna 댓글 수
 	private List<Comment> commentList;
+	private String qnakeyword;
 	
+	
+	
+	public String getQnakeyword() {
+		return qnakeyword;
+	}
+	public void setQnakeyword(String qnakeyword) {
+		this.qnakeyword = qnakeyword;
+	}
 	public int getQnaNo() {
 		return qnaNo;
 	}

@@ -22,7 +22,8 @@ public class QnaCommentDeleteController extends HttpServlet {
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		dao.deleteQnaComment(Integer.parseInt(req.getParameter("cmtNo")));
-		res.sendRedirect(req.getContextPath() + "/qna/qnaDetail.do?qnaNo=" + req.getParameter("qnaNo"));
+		res.sendRedirect("/bitcomu/qna/qnaList.do?selBoardNo=" + req.getParameter("qnaNo"));
+	//	res.sendRedirect(req.getContextPath() + "/qna/qnaDetail.do?qnaNo=" + req.getParameter("qnaNo"));
 		
 	}
 	

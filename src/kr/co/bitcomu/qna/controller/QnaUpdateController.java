@@ -34,7 +34,7 @@ public class QnaUpdateController extends HttpServlet {
 	 // qna.setUserNo(Integer.parseInt(request.getParameter("userNo")));
 		dao.updateQna(qna);
 		
-		res.sendRedirect("/bitcomu/qna/qnaList.do");
+		res.sendRedirect("/bitcomu/qna/qnaList.do?selBoardNo=" + request.getParameter("qnaNo"));
 	}
 }
 

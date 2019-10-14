@@ -16,12 +16,13 @@ public interface QnaDAO {
 	void updateQna(Qna qna);
 	void deleteQna(int qnano);
 	int selectQnaCnt();
+	List<Qna> selectQnaSearchAjax(Qna qna);
 	
 	
 	// 댓글 부분
-	List<Comment> selectQnaCommentList(int qnaNo);
-	void insertQnaComment(Comment qnaComment);
-	void updateQnaComment(Comment qnaComment);
+	List<Comment> selectQnaCommentList(int boardPostNo);
+	void insertQnaComment(Comment comment);
+	void updateQnaComment(Comment comment);
 	void deleteQnaComment(int cmtNo);
 	
 	int qnaCmtCnt(int qnaNo);
