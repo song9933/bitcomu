@@ -24,6 +24,8 @@ public class ListTeamBoardController extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//		req.setCharacterEncoding("utf-8");
+		res.setContentType("text/json; charset=utf-8");
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
 		

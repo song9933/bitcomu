@@ -43,7 +43,7 @@ public class TeamListAjaxController extends HttpServlet {
 //				}
 				
 			Page page = new Page(pageNo , pageList);
-			System.out.println(req.getParameter("pageNo"));
+//			System.out.println(req.getParameter("pageNo"));
 			Team team = new Team();
 			team.setProjectNo(Integer.parseInt(req.getParameter("projectNo")));
 			team.setTeamNo(Integer.parseInt(req.getParameter("teamNo")));

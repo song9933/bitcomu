@@ -10,7 +10,7 @@ public class Team {
 	private String userId;
 	private String teamBoardTitle;
 	private String teamBoardContent;
-	private Date teamBoardRegDt;
+	private String teamBoardRegDt;
 	
 	public int getTeamBoardNo() {
 		return teamBoardNo;
@@ -61,14 +61,12 @@ public class Team {
 		this.teamBoardContent = teamBoardContent;
 		return this;
 	}
-	public Date getTeamBoardRegDt() {
+	public String getTeamBoardRegDt() {
 		return teamBoardRegDt;
 	}
-	public Team setTeamBoardRegDt(Date teamBoardRegDt) {
+	public void setTeamBoardRegDt(String teamBoardRegDt) {
 		this.teamBoardRegDt = teamBoardRegDt;
-		return this;
 	}
-	
 	
 	
 }

@@ -7,7 +7,7 @@ public class Comment {
 	private int userNo;
 	private int boardPostNo;
 	private String cmtContent;
-	private Date cmtRegDt;
+	private String cmtRegDt;
 	private int codeValue;
 	private String userId;
 	private int parentCmtNo;

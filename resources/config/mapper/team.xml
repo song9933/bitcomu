@@ -58,9 +58,13 @@
 	<select id="selectTeamBoard" parameterType="Map" resultMap="teamMap" flushCache="true" useCache="true">
 		
 		<include refid="pagingStart" />
-		select t.*, (select user_id  
-					   from tb_user u
-                      where u.user_no = t.user_no ) as user_id
+		select t.team_board_no, t.user_no, t.team_no, t.project_no, 
+				t.team_board_title, t.team_board_content, 
+			   to_char(t.team_board_reg_dt,'YYYY-MM-DD HH24:MI:SS') 
+				 as team_board_reg_dt,
+			   (select user_id  
+				  from tb_user u
+                 where u.user_no = t.user_no ) as user_id
           from tb_team t
          where project_no = #{t.projectNo}
            and team_no = #{t.teamNo}
@@ -124,9 +128,11 @@
 	</resultMap>
 	
 	<select id="selectTeamComment" parameterType="int" resultMap="commentMap">
-		select c.*, (select user_id  
-					   from tb_user u
-                      where u.user_no = c.user_no ) as user_id
+		select c.cmt_no, c.user_no, c.board_post_no, c.cmt_content,
+			   c.code_value, to_char(c.cmt_reg_dt,'YYYY-MM-DD HH24:MI:SS') 
+				as cmt_reg_dt, (select user_id  
+				   				  from tb_user u
+                  				 where u.user_no = c.user_no ) as user_id
           from tb_comment c
 		 where board_post_no = #{teamBoardNo}
 		   and code_value = (select code_value from tb_codenm where code_name = '팀프로젝트게시판')

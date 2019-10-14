@@ -120,7 +120,7 @@ div.a_cws {
 <!-- 				<div class="board_cws"> -->
 					<br>
 					<div id="boardList_cws">
-					
+						<!-- ajax 활용한 list출력 -->
 					</div>
 				
 				<div>

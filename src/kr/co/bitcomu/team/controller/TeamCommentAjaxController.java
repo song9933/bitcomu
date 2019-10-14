@@ -19,14 +19,17 @@ import kr.co.bitcomu.repository.vo.Comment;
 @WebServlet("/team/teamBoardDetail_ajax.do")
 public class TeamCommentAjaxController extends HttpServlet {
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("text/json; charset=utf-8");
+//		req.setCharacterEncoding("utf-8");
+		
 		TeamDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TeamDAO.class);
-		int cmtNo = Integer.parseInt(req.getParameter("cmtNo"));
+		int teamBoardNo = Integer.parseInt(req.getParameter("teamBoardNo"));
 		
 		// 댓글 목록 공유
-		List<Comment> commentList = dao.selectTeamComment(cmtNo);
+		List<Comment> commentList = dao.selectTeamComment(teamBoardNo);
 		
-		PrintWriter out = resp.getWriter();
+		PrintWriter out = res.getWriter();
 		out.println(new Gson().toJson(commentList));
 		out.close();
 	}

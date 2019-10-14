@@ -129,8 +129,7 @@
 							<li>
 								<h6 style="margin: 0 auto">
 									작성일:
-									<fmt:formatDate pattern="yyyy-MM-dd"
-										value="${t.teamBoardRegDt}" />
+									${t.teamBoardRegDt} />
 								</h6>
 							</li>
 							<c:if test="${sessionScope.user.userNo eq t.userNo or sessionScope.user.userGrade eq 3}">
@@ -178,7 +177,7 @@
 			<div class="detailcontent_cws">
 					<h3 style="word-break:break-all;">제목 : ${teamBoard.teamBoardTitle}</h3>
 					<h4 style="float: right; margin-top: -20px; margin-right: 80px;">
-					<fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${teamBoard.teamBoardRegDt}" />
+					${teamBoard.teamBoardRegDt}
 					</h4>
 					<br>
 					<h3>작성자 : ${teamBoard.userId}</h3>
@@ -209,39 +208,12 @@
 				<form method="post" action="teamCommentUpdate.do">
 					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" />
 					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	
-					<c:forEach var="t" items="${teamCmt}">
-					<div style="border: 1px solid black; padding: 5px; height: 40px;">
-						<ul>
-						<c:choose>
-							<c:when test="${param.cmtNo eq t.cmtNo}">
-								<li style="float: left;">${t.userId}</li>
-								<li style="float: left; margin-left:30px;">
-									<input type="text" name="cmtContent" value="${t.cmtContent}"/>
-								</li>
-								<li>
-									<a href="teamBoardDetail.do?teamBoardNo=${t.boardPostNo}" style="float: right;">취소</a>
-									<input type="submit" style="float: right;" value="수정" />
-								</li>
-							</c:when>
-								<c:otherwise>
-									<li style="width: 15%;">${t.userId}</li>
-									<li style="width: 70%">${t.cmtContent}</li>
-									<li
-										style="float: right; position: relative; margin-top: -50px;">
-										<fmt:formatDate pattern="yyyy-MM-dd" value="${t.cmtRegDt}" />
-									</li>
-									<li style="float: right; position: relative; margin-top: -25px;">
-										<c:if test="${sessionScope.user.userNo eq t.userNo or sessionScope.user.userGrade eq 3}">
-											<a onclick="viewComment()" href="${pageContext.request.contextPath}/team/teamBoardDetail.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">수정</a>
-											<a href="${pageContext.request.contextPath}/team/teamCommentDelete.do?cmtNo=${t.cmtNo}&teamBoardNo=${t.boardPostNo}">삭제</a>
-										</c:if></li>
-
-								</c:otherwise>
-							</c:choose>
-						</ul>
-					</div>
-					<!-- <h3 style="float: right; margin-top: -27px; margin-right: 8px;">x</h3> -->
-				</c:forEach>
+<%-- 					<c:forEach var="t" items="${teamCmt}"> --%>
+						<div id="commentList_cws" >
+<!-- 						<h5>asdfasdfasd</h5> -->
+						<!-- function makeCommentList(list) 생성부분 -->
+						</div>
+<%-- 					</c:forEach> --%>
 				</form>
 			</div>
 		</div>
@@ -267,7 +239,56 @@
 		}
 		
 // 	댓글 ===========================================
-	
+
+//  댓글 목록 가져오는 Ajax
+let teamBoardNo = ${teamBoard.teamBoardNo};
+// let cmtNo = ${cmtNo};
+function commentListAjax() {
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				let list = JSON.parse(xhr.responseText);
+				makeCommentList(list);
+			}
+		}
+	};
+	xhr.open("GET", "teamBoardDetail_ajax.do?teamBoardNo=" + teamBoardNo, true);
+	xhr.send();
+}
+commentListAjax();
+
+function makeCommentList(list) {
+	let commentList = document.getElementById("commentList_cws");
+	let html = "<div>";
+	for (let i = 0; i < list.length; i++) {
+		let comment = list[i];
+		console.log(comment);
+				
+		let cList = document.createElement("span");
+		cList.innerHTML = "";
+		if ('${sessionScope.user.userNo}' == comment.userNo || '${sessionScope.user.userGrade}' == 3){
+			cList.innerHTML = 	
+				`<a href="${pageContext.request.contextPath}/team/teamBoardDetail.do?cmtNo=${comment.cmtNo}&teamBoardNo=${comment.boardPostNo}">수정</a>
+            	 <a href="${pageContext.request.contextPath}/team/teamCommentDelete.do?cmtNo=${comment.cmtNo}&teamBoardNo=${comment.boardPostNo}">삭제</a>
+		`};
+		html += `
+			<ul style="border: 1px solid black;">
+				<li style="width: 15%;">\${comment.userId}</li>
+	            <li style="width: 70%">\${comment.cmtContent}</li>
+	            <li
+	                style="float: right; position: relative; margin-top: -45px;">
+	                \${comment.cmtRegDt}
+	            </li>
+	            <li style="float: right; position: relative; margin-top: -25px;}">
+	            \${cList.innerHTML}
+	            </li>
+			</ul>
+	    	`;
+	}
+	html += "</div>";
+	commentList.innerHTML = html;
+}
 	</script>
 </body>
 
