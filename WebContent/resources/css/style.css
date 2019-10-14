@@ -1094,13 +1094,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 .qna_black_overlay {
 	display: none;
     position: absolute;
-    top: 0;
-    left: 0;
-	width: 200%;
-	height: 200%;
-	background-color: black;
 	z-index: 1001;
-	-moz-opacity: 0.8;
 	opacity: .80;
     filter: alpha(opacity=80);
 }
@@ -1353,8 +1347,93 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     overflow: unset !important;
 }
 
+/* 댓글작성 모달팝업 */
+.qna_comment .layer{
+  display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0;}
+.qna_comment .layer .box{
+	padding:20px 20px 20px;margin:20px;width:500px;background:#fff;position:relative;
+	border: none;}
+
+.qna_comment .layer .delete{
+  border: none;
+  position: relative;
+  float:right; 
+  right:20px;bottom:20px;
+  display:block;
+  background:buttonface;color:rgb(17, 14, 14);
+  text-align:center;padding:5px 20px;font-size:13px;
+  margin-top: 50px;
+  font-weight: bold;
+ 
+}
+.qna_comment .layer:target{display:flex;animation:open 0.5s;}
+
+@keyframes open {
+from {opacity:0;} to {opacity:1;}
+}
+
+.qna_comment .box{
+  border-radius: 10px;
+}
+.qna_comment .box textarea{
+  width : 492px;
+  height: 130px;
+  resize: none;
+
+}
+.qna_comment .layer .close{  	
+  position: relative;
+  border: none;
+  float:right; 
+  right:20px;bottom:20px;
+  display:block;
+  background:buttonface;color:rgb(17, 14, 14);text-align:center;
+  padding:5px 20px;font-size:13px;
+  margin-top: 50px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+.qna_comment .floating.modify
+{
+  position: static;
+  display: inline-block;
+  float: right;
+  padding: 0 15px; 
+  width: auto;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 3px;
+  border: 1px solid #d6d6d6;
+  border-radius: 20px;
+  color: #292929;
+  font-size: 14px;
+  background-color: buttonface;
+  background-position: 12px center;
+  background-size: 18px 18px;
+  margin-right: 5px;
+}
+
+.qna_comment .floating.delete{
+  position: static;
+  display: inline-block;
+  float: right;
+  padding: 0 15px; 
+  width: auto;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 3px;
+  border: 1px solid #d6d6d6;
+  border-radius: 20px;
+  color: #292929;
+  font-size: 14px;
+  background-color: buttonface;
+  background-position: 12px center;
+  background-size: 18px 18px;
+}
+
 
 /* 동훈 끝 */
+
 
 
 
