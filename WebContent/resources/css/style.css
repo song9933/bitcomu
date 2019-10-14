@@ -1203,6 +1203,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     float: left;
     margin-left: 200px;
     margin-right: 0px;
+    margin-top: 30px;
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
@@ -1210,11 +1211,13 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     width: 80px;
     height: 50px;
   }
+ /*취소 버튼*/
 .qna_button_cancle {
     color: rgb(17, 14, 14);
 	float: right;
     margin-left: 0px;
     margin-right: 250px;
+    margin-top: 30px;
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
