@@ -46,14 +46,9 @@ function getDistFromBottom () {
 	    	var sUserId = document.createElement('span');
 	    	sUserId.innerText = list.userId;
 	    	sUserId.style.margin = '0 5px 0 0';
+	    	
 	    	var sRegDt = document.createElement('span');
-
-	    	//sRegDt.innerHTML = dateFormat(list.studyRegDt,"yyyy-MM-dd HH:mm");
-	    	//console.log(list.studyRegDt);
-	    	//sRegDt.innerHTML = `<fmt:formatDate value='${list.studyRegDt}' pattern="yyyy-MM-dd HH:mm" />`;
-	    	//var dt = new Date();
 	    	sRegDt.innerHTML = list.studyRegDt;
-	    	//console.log(list.studyRegDt);
 	    	
 	    	var sViewCnt = document.createElement('span');
 	    	sViewCnt.innerHTML +='<i class="fa fa-eye" aria-hidden="false"></i>';
