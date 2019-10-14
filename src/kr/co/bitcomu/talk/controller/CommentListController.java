@@ -29,12 +29,12 @@ public class CommentListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		
-		
+		req.setCharacterEncoding("utf-8");
+		resp.setCharacterEncoding("utf-8");
 		TalkDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TalkDAO.class);
 		int postNo = Integer.parseInt(req.getParameter("postNo"));
 		
-		String cPageNo = req.getParameter("CmtPageNo");
+		String cPageNo = req.getParameter("cmtPageNo");
 		
 		
 		int cmtPageNo = 1;
@@ -46,26 +46,22 @@ public class CommentListController extends HttpServlet {
 		
 		int cmtCount = dao.selectTalkCmtCount(postNo);
 		PageResult cpr = new PageResult(cmtPageNo, cmtCount);
-
-		
-		cmtPageNo = Integer.parseInt(req.getParameter("cmtPageNo"));
 		
 		
 		
+		Map<String, Object> commentMap = new HashMap<>();
+		commentMap.put("boardPostNo", postNo);
+		commentMap.put("cmtPage", cmtPage);
 		
-		
-		
-		
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("boardPostNo", postNo);
-		map.put("CmtPageNo", cmtPageNo);
 		
 		// 댓글 목록 공유
-		List<Comment> commentList = dao.selectComment(map);
-		
+		List<Comment> commentList = dao.selectComment(commentMap);
+		for (Comment c : commentList) {
+			System.out.println(c);
+		}
 		PrintWriter out = resp.getWriter();
 		out.println(new Gson().toJson(commentList));
+		out.println(new Gson().toJson(cpr));
 		out.close();
 	}
 

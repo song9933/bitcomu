@@ -128,9 +128,10 @@
 						<input type="hidden" name="postNo" value="${talkDetail.postNo}" />
 						<input type="hidden" name="cmtNo" value="${param.cmtNo}" />
 						<input type="hidden" name="pageNo" value="${pr.pageNo}" />
-						<%-- <input type="hidden" name="cmtContent" value="${comment.cmtContent}" />		 --%>
 						
-						<table>
+						
+			            
+						 <table>
 							<c:forEach var="comment" items="${comment}">
 							<c:choose>
 							<c:when test="${param.cmtNo eq comment.cmtNo}">
@@ -145,22 +146,25 @@
 								  </td>
 								</tr>		
 							</c:when>
-							<c:otherwise>
-								  <th><h3>&nbsp;${comment.userId}</h3></th>
+							<c:otherwise >
+					            <div id="AjaxCmtList">
+					            
+									
+								  <%-- <th><h3>&nbsp;${comment.userId}</h3></th>
 								  
 								  <th>
-								 <h6> <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" 
-								                      value="${comment.cmtRegDt}"/></h6>
+									 <h6> ${comment.cmtRegDt}"</h6>
 								  </th>
 								  
 								  <th>
-								  <c:choose>
-								  <c:when test="${ comment.userNo eq sessionScope.user.userNo || coment.userGrade eq 3}">
+								  
+								  
+								  <c:if test="${ comment.userNo eq sessionScope.user.userNo || coment.userGrade eq 3}">
 								  	  <a href="<c:url value="/talk/comment_delete.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">삭제</a>	
 								  	  <a href="<c:url value="/talk/talk_detail.do?cmtNo=${comment.cmtNo}&postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}"/>">수정</a>	
-								  </c:when>
-								  <c:otherwise></c:otherwise>
-								  </c:choose>
+								  </c:if>
+								  
+								  
 								  </th>
 			 						<th></th>
 								    <tr>
@@ -168,7 +172,9 @@
 								    <td></td>
 								    <td></td>
 									  <td colspan="3">&emsp;${comment.cmtContent}</td>
-								    </tr>
+								    </tr> --%>
+					            </div>
+					            
 							</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -225,7 +231,7 @@
              
              
 				<form class="ns_comment_write" method="post" action="/bitcomu/talk/comment_regist.do" >
-                    <input class="ns_comment_write" type="text" name=cmtContent placeholder="댓글을 입력하세요"></li>
+                    <input type="text" name=cmtContent class="ns_comment_write" placeholder="댓글을 입력하세요">
                     <input type="hidden" name="userNo" value="${sessionScope.user.userNo}"/>
                     <input type="hidden" name="boardPostNo" value="${talkDetail.postNo}"/>
                     <input type="hidden" name="pageNo" value="${pr.pageNo}"/>
@@ -238,8 +244,8 @@
 
 
             
-            
              <ul class="pagination nams">
+            
               <c:if test="${pr.count != 0}">
 		  	<c:if test="${pr.prev}">
 		    <li>
@@ -261,6 +267,7 @@
 		    </li>
 		    </c:if>
 			</c:if>
+            
 			</ul>
               
              <c:choose>
@@ -306,12 +313,14 @@
 
 
   </div>
-  
- 
-  <script src="<c:url value='/resources/js/like.js' />">
-  
+  <script>
+	let postNo = '${talkDetail.postNo}';
+	let cmtPageNo = '${cpr.pageNo}';
+	let UserGrade = '${sessionScope.user.userGrade}';
+	let UserNo = '${sessionScope.user.userNo}';
   </script>
-  
+  <script src="<c:url value='/resources/js/talkComment.js' />"></script>
+  <script src="<c:url value='/resources/js/like.js' />"></script>
 </body>
 </html>
 

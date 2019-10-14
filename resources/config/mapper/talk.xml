@@ -16,9 +16,10 @@
 	<select id="selectTalk" parameterType="hashmap" resultMap="talkMap">
 		select *
 	      from (
-	      		select rownum rnum, a.*
+	      		select rownum rnum, a.* 
 			      from ( 
-					      select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+					      select n.*,
+					      (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
                             from tb_talk n
 						   order by talk_post_no desc
 						)a
@@ -27,8 +28,8 @@
 					where user_id like '%' || #{search.searchWord} || '%'
 				</when>
 				<when test="search.searchType == 'titleContent'"> 
-		                 	where  TALK_POST_title like '%' || #{search.searchWord} || '%'
-		                 	    or TALK_POST_content like '%' || #{search.searchWord} || '%'
+		                 	where TALK_POST_title like '%' || #{search.searchWord} || '%'
+		                 	   or TALK_POST_content like '%' || #{search.searchWord} || '%'
 				</when>
 				<when test="search.searchType == 'content'">
 					where TALK_POST_content like '%' || #{search.searchWord} || '%'
@@ -85,6 +86,7 @@
 		delete 
 		  from tb_talk 
 		 where talk_post_no = #{postNo}
+		 
 	</delete>
 	
 	<!-- 	댓글테이블  파트 ================================== -->
@@ -102,7 +104,13 @@
 	    select *
 	      from (select rownum rnum, a.*
 			      from (
-					    select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+					    select n.cmt_no,
+					           n.user_no,
+					           n.board_post_no,
+					           n.cmt_content,
+					           n.code_value,
+					           to_char(cmt_reg_dt, 'YYYY-MM-DD HH24:MI:SS') as cmt_reg_dt,
+					           (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
 					      from tb_comment n
 					     where board_post_no = #{boardPostNo}
 					       and code_value = 1

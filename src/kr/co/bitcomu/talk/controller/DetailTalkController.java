@@ -32,16 +32,19 @@ public class DetailTalkController extends HttpServlet {
 	}
 	
 	@Override
-	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void service(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
 		
 		
 
 		//리스트
-		String sPageNo = req.getParameter("pageNo");
+		String sPageNo= "1" ;
+		if(req.getParameter("pageNo") != null);
+		sPageNo = req.getParameter("pageNo");
 		int pageNo = Integer.parseInt(sPageNo);
 		Page page = new Page(pageNo);
 		int count = dao.selectTalkCount();
-		PageResult pr = new PageResult(pageNo, count);
+		PageResult pr = new PageResult(pageNo, count);	
 		req.setAttribute("pr", pr);  // 전체 게시물 갯수	
 		
 		
