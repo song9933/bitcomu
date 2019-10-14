@@ -96,7 +96,8 @@ section { margin: 100px 0; }
 }
 .stdboard_box .box {
   width: 800px;
-  height: 200px; 
+  height: 150px; 
+  padding : 15px;
   border-bottom: 1px solid #d1d1d0;
   box-sizing: border-box;
   background: #fff;
