@@ -11,6 +11,7 @@ public class Comment {
 	private int codeValue;
 	private String userId;
 	private int parentCmtNo;
+	private int cmtGroupNo;
 	public int getCmtNo() {
 		return cmtNo;
 	}
