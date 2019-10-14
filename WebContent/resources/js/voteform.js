@@ -5,7 +5,7 @@ let index = 3;
 		let tg = document.getElementById("vote_tg");
 		let title = document.createElement("h3");
 		title.setAttribute("id", `vwmenu${index}`);
-		title.innerText = `투표 선택지의 이름.`;
+		title.innerText = `투표 선택지의 이름`;
 		let input = document.createElement("input");
 		input.setAttribute("type","text");
 		input.setAttribute("class", "w3-input vote_menu")

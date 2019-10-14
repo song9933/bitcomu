@@ -70,12 +70,12 @@
 								<label>중복체크 가능</label>
 
 								<div>
-								<div><h3>투표 선택지1의 이름.
+								<div><h3>투표 선택지의 이름
 									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
 									name="menu">
 								</h3></div>
 								
-								<div><h3>투표 선택지2의 이름.
+								<div><h3>투표 선택지의 이름
 									<input class="w3-input vote_menu" type="text" placeholder="선택지 이름을 입력하세요"
 									name="menu"> <i class="fa fa-plus-square vote_plusminus" onclick="vote_add()" aria-hidden="true"></i>
 								</h3></div>

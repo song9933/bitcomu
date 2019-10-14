@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
+import kr.co.bitcomu.repository.dao.UserDAO;
 import kr.co.bitcomu.repository.dao.VoteDAO;
 import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.User;
@@ -29,6 +30,8 @@ public class VoteDetailController extends HttpServlet{
 	public VoteDetailController() {
 		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(VoteDAO.class);
 	}
+	
+	private UserDAO udao = MyAppSqlConfig.getSqlSessionInstance().getMapper(UserDAO.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -68,23 +71,34 @@ public class VoteDetailController extends HttpServlet{
 		req.setAttribute("vote", vote);
 		req.setAttribute("cList", cList);
 		
-		//통계표시에 필요한 데이터 가공 시작
+		//통계표시에 필요한 데이터 가공 시작(참여자들 이름 출력 추가버전)
 		int menusize = realMenu.size();
-	    Map<String, Integer> menuCount = new HashMap<String, Integer>();
-		for(int i = 0; i < menusize; i++) {
+		Map<String, Integer> menuCount = new HashMap<String, Integer>();
+	    Map<String, String> choicedPeople = new HashMap<String, String>();
+//	    List<String> userNames = new ArrayList<String>();
+	    for(int i = 0; i < menusize; i++) {
 			int count = 0;
 //			System.out.println("씨리스트싸이즈 : " +cList.size());
 			
+			StringBuffer userNames = new StringBuffer();
 			for(int k = 0; k < cList.size(); k++) {
 				String temp = i + "★";
 				String data = cList.get(k).getCmtContent();
 				if(data != null && data.contains(temp)) {
 //					System.out.println(count);
 					menuCount.put(realMenu.get(i), ++count);
+					int choicedUserNo = cList.get(k).getUserNo();
+					String userName = dao.selectOneUserName(choicedUserNo);
+					userNames.append(userName + " ");
 				}
+				System.out.println("각" + i + "번째 마다의 유저넴이스투스트링 : " + userNames.toString());
 			}
+			choicedPeople.put(realMenu.get(i), userNames.toString());
+			
+			
 		}
 		req.setAttribute("menuCount", menuCount);
+		req.setAttribute("choicedPeople", choicedPeople);
 		
 		//디테일을 조회하는 유저의 정보를 넘김.
 		HttpSession session = req.getSession();

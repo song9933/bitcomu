@@ -29,4 +29,7 @@ public interface VoteDAO {
 	int selectCodeValueVote();
 	List<Comment> selectCommentInVote(Comment comment);
 	void deleteAllVoteIn(int boardPostNo);
+	
+	/*유저넘버로 유저이름 받아오는 부분*/
+	String selectOneUserName(int userNo);
 }

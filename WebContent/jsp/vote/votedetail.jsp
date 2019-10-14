@@ -20,6 +20,34 @@
 	</c:import>
 
 <style>
+.vote-hidden {
+   height: 0px;
+   opacity: 0;
+}
+
+.vote-show {
+   height: auto;
+   opacity: 1;
+}
+.vote-accordian {
+	margin: 0px;
+    width: 80%;
+    border: 1px solid #345;
+    box-sizing: border-box;
+    padding: 4px 10px;
+    margin-top: 8px;
+}
+}
+
+div.vote-accordian {
+	 position: relative;
+     transition: 1s;
+     height:auto;
+     overflow: hidden;
+     padding: 5px 10px;
+}
+
+
 </style>
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -45,7 +73,25 @@
 			<div class="w3-container w3-card w3-white w3-round vote_detail">
 				<!-- 차트 그리기 시작점 -->
 				<div id="bar_chart_div"></div>
+				
+				
+				<!-- 차트 바로 밑 영역 선택한 사람의 이름 표시되는 영역-->
+				<!-- 익명투표가 체크되지 않았을 경우에만 출력한다. -->
+				<c:if test="${vote.voteAnonyEnabled == 'N' }">
+				<hr>
+				<h3 class="vote-accordian" onclick="viewResult();">투표 현황 및 결과 보기</h3>
+				<div id="vote-detail-result" class="vote-accordian">
+				<br>
+				<h3>투표 결과</h3>
+				<c:forEach var="menuitem" items="${realMenu}" varStatus="idx">
+									<div>
+										<p>${menuitem} : ${choicedPeople.get(menuitem)}</p>
+									</div>
+								</c:forEach>
 				</div>
+				</c:if>
+				
+				</div> <!-- 여기까지 차트랑 결과 디브 -->
 
 				<div class="w3-container w3-card w3-white w3-round vote_detail">
 					<h3>투표상세보기</h3>
@@ -76,7 +122,6 @@
 						<c:choose>
 							<%-- 중복체크 가능한 체크박스형태  --%>
 							<c:when test="${vote.voteType == 0}">
-								<%--원래 메뉴의 이름을 입력할때 파악하기 위해 저장해놓는다. --%>
 								<c:forEach var="aa" items="${realMenu}" varStatus="idx">
 									<div>
 										<input type="checkbox" class="w3-check" name="choice" value="${idx.index}">${aa}
@@ -259,7 +304,7 @@
 
 
 
-
+</div>
 <script>
 	
 		function nodata(){
@@ -371,8 +416,9 @@
 	
 	/*수정하기 버튼에 대한 이벤트 리스너 시작 */
 	var modifyBtn = document.getElementById("vote-modify-btn");
-
+	if(modifyBtn != null){
 	modifyBtn.addEventListener("click", modifyVote);  // 선택한 요소에 click 이벤트 리스너를 등록함.
+	}
 
 	function modifyVote() {
 		if('${sessionScope.user}' == '') {
@@ -381,6 +427,14 @@
 			document.getElementById('modify-vote-form').style.display='block';
 		}
 	}
+	
+	/*아코디언 결과보기*/
+	document.querySelector("#vote-detail-result").className = "vote-hidden";
+      function viewResult() {
+            let resultEle = document.querySelector("#vote-detail-result");
+            resultEle.classList.toggle("vote-show");
+            resultEle.classList.toggle("vote-hidden");
+      }
 	
 	</script>
 	<script src="${pageContext.request.contextPath}/resources/js/voteform.js"></script>

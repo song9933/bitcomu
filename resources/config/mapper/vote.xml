@@ -137,6 +137,7 @@
         where numrow between 1 and #{voteListCount}
 	</select>
 	
+	
 <!-- 	댓글테이블 이용한 투표 변동 파트 ================================== -->
 	<resultMap id="commentMap" type="Comment">
 		<result column="cmt_no" property="cmtNo" />
@@ -227,52 +228,13 @@
 	</update>
 	
 	
+	<!-- 특정 선택지에 참여한 유저를 셀렉하기 위해 만든 유저이름 셀렉트 -->	
+	<select id="selectOneUserName" parameterType="int" resultType="String">	
+		select user_name
+		  from tb_user
+		 where user_no = #{user_no}
+	</select>
 	
-	
-	
-	
-	
-	
-	
-	<!-- 투표 변동 파트 ================================== -->
-<!-- 	<resultMap id="voteInMap" type="VoteIn"> -->
-<!-- 		<result column="VOTE_IN_NO" property="voteInNo" /> -->
-<!-- 		<result column="VOTE_NO" property="voteNo" /> -->
-<!-- 		<result column="USER_NO" property="userNo" /> -->
-<!-- 		<result column="VOTE_DATA" property="voteData" /> -->
-<!-- 	</resultMap> -->
-	
-<!-- 	<select id="selectVoteIn" parameterType="int" resultMap="voteInMap"> -->
-<!-- 	    select * -->
-<!-- 	      from vote_in -->
-<!-- 	     where vote_no = #{voteNo} -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectOneVoteIn" parameterType="int" resultType="VoteIn"> -->
-<!-- 	    select * -->
-<!-- 	      from vote_in -->
-<!-- 	     where vote_in_no = #{voteInNo} -->
-<!-- 	</select> -->
-	
-<!-- 	<insert id="insertVoteIn" parameterType="VoteIn"> -->
-<!-- 		insert into vote_in( -->
-<!-- 			VOTE_IN_NO, VOTE_NO, USER_NO, VOTE_DATA -->
-<!-- 		) values ( -->
-<!-- 			tb_VOTE_IN_SEQ.nextVal, #{voteNo}, #{userNo}, #{voteData} -->
-<!-- 		) -->
-<!-- 	</insert>	 -->
-			
-<!-- 	<delete id="deleteVoteIn" parameterType="int"> -->
-<!-- 	    delete  -->
-<!-- 	      from vote_in -->
-<!-- 	     where VOTE_IN_NO = #{voteInNo} -->
-<!-- 	</delete>	 -->
-	
-<!-- 	<update id="updateComment" parameterType="comment"> -->
-<!-- 	    update tb_comment -->
-<!-- 	       set content = #{content} -->
-<!-- 	     where comment_no = #{commentNo} -->
-<!-- 	</update> -->
-	
+		
 </mapper>
 	
