@@ -45,13 +45,12 @@
                   <li><span>●</span>오늘자 대기업 회의 <em>[12]</em></li>
                 </ul>
               </div>
-              <div>
-                  <p><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;투표게시판</p>
+              <div class="vote-list-main-div">
+                  <p><a href="/bitcomu/vote/votelist.do"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;투표게시판</a></p>
                   <ul>
-                      <li><span>●</span>희망하는간식 <em>[12]</em></li>
-                      <li><span>●</span>반장을 뽑아주세요 <em>[12]</em></li>
-                      <li><span>●</span>투표3 <em>[12]</em></li>
-                      <li><span>●</span>회식 희망날짜 <em>[12]</em></li>
+                  	  <c:forEach var="i" items="${voteList}" begin="0" end="6" step="1" >
+                  	  	<li class="vote-list-main"><a href="/bitcomu/vote/votedetail.do?voteNo=${i.voteNo}"><span>●</span>${i.voteTitle}</a><em>[${i.voteInCnt}]</em></li>
+                  	  </c:forEach>
                   </ul>
               </div>
             </div>

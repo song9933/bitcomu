@@ -5,7 +5,7 @@ import java.util.Date;
 public class Vote {
 	private int voteNo;
 	private int userNo;
-	private Date voteRegDt;
+	private String voteRegDt;
 	private String voteTitle;
 	private String voteContent;
 	private int voteInCnt;
@@ -44,10 +44,10 @@ public class Vote {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public Date getVoteRegDt() {
+	public String getVoteRegDt() {
 		return voteRegDt;
 	}
-	public void setVoteRegDt(Date voteRegDt) {
+	public void setVoteRegDt(String voteRegDt) {
 		this.voteRegDt = voteRegDt;
 	}
 	public String getVoteTitle() {

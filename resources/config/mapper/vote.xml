@@ -17,14 +17,20 @@
 		<result column="vote_close_dt" property="voteCloseDt" />
 	</resultMap>
 	<select id="selectVote" resultMap="voteMap">
-		  select *
+		  select vote_no, user_no, vote_title, vote_content, vote_in_cnt,
+		  		 vote_type, vote_menu, vote_notice_enabled, vote_anony_enabled,
+		  		 vote_close_enabled, vote_close_dt,
+		  		 to_char(vote_reg_dt, 'YYYY-MM-DD HH24:MI:SS') vote_reg_dt
 		  from tb_vote		 
 		 order by vote_close_enabled asc, vote_notice_enabled desc, vote_reg_dt desc
 	</select>
 	
 	<!-- 리스트 출력 7개 이상 -->
 	<select id="selectVoteN" parameterType="int" resultMap="voteMap">
-	select *
+	select vote_no, user_no, vote_title, vote_content, vote_in_cnt,
+		  		 vote_type, vote_menu, vote_notice_enabled, vote_anony_enabled,
+		  		 vote_close_enabled, vote_close_dt,
+		  		 to_char(vote_reg_dt, 'YYYY-MM-DD HH24:MI:SS') vote_reg_dt
 	from
 	(
     select rownum numrow, aa.* from 
@@ -37,7 +43,10 @@
 	
 	<!-- 리스트 출력 7개 미만 -->
 	<select id="selectVoteNSmall" parameterType="int" resultMap="voteMap">
-	select *
+	select vote_no, user_no, vote_title, vote_content, vote_in_cnt,
+		  		 vote_type, vote_menu, vote_notice_enabled, vote_anony_enabled,
+		  		 vote_close_enabled, vote_close_dt,
+		  		 to_char(vote_reg_dt, 'YYYY-MM-DD HH24:MI:SS') vote_reg_dt
 	from
 	(
     select rownum numrow, aa.* from 

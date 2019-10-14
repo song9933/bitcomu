@@ -12,100 +12,6 @@
 <link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
 </head>
 <style>
-.dc_form {
-	width: 97%;
-	height: 800px;
-	overflow: auto;
-	font-family: 'Cute Font', cursive;
-	font-size: 24px;
-    line-height: 2.7em;
-    font-weight: bolder;
-    color: black;
-}
-	
-}
-
-.dc_writeform-container {
-	height: 550px;
-    overflow: auto;
-}
-
-.vote_plusminus {
-	font-size: 1.6em;
-}
-
-.dc_listbox {
-	cursor: pointer;
-    width: 40%;
-    margin: 25px auto;
-    height: 242px;
-    padding: 40px;
-    text-align: center;
-    font-size: 22px;
-    line-height: 2.5em;
-    color: black;
-    background-color: #fff20708;
-}
-
-.vote_h1 {
-	margin-top: 22px;
-}
-
-/* 투표 검색창 CSS */
-.vote_search {
-  width: 100%;
-  position: relative;
-  display: flex;
-  margin-top: -168px;
-  margin-left: -57px;
-}
-
-.vote_searchTerm {
-  width: 100%;
-  border: 3px solid #00B4CC;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9DBFAF;
-}
-
-.vote_searchTerm:focus{
-  color: #00B4CC;
-}
-
-.vote_searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-  margin-right: 2px;
-}
-
-/*Resize the wrap to see the search bar change!*/
-.vote_wrap{
-  width: 30%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.vote-x-btn {
-	font-size: 50px;
-	color: black;
-}
-
-.vote_datetime_input {
-	font-size: x-large;
-}
-
 </style>
 <body>
 	<div class="wrapepr">
@@ -211,89 +117,7 @@
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/voteform.js"></script>
 	<script>
-	<%-- let index = 3;
-	function vote_add(){
-		let tg = document.getElementById("vote_tg");
-		let title = document.createElement("h3");
-		title.setAttribute("id", `vwmenu\${index}`);
-		title.innerText = `투표 선택지\${index}의 이름.`;
-		let input = document.createElement("input");
-		input.setAttribute("type","text");
-		input.setAttribute("class", "w3-input vote_menu")
-		input.setAttribute("placeholder", "선택지 이름을 입력하세요");
-		input.setAttribute("name", "menu");
-// 		input.setAttribute("value", `\${index}`);
-		let plusbtn = document.createElement("i");
-		plusbtn.setAttribute("class",`fa fa-plus-square vote_plusminus`);
-		plusbtn.setAttribute("onclick",`vote_add()`);
-		plusbtn.setAttribute("aria-hidden",`true`);
-		let minusbtn = document.createElement("i");
-		minusbtn.setAttribute("class",`fa fa-minus-square vote_plusminus`);
-		minusbtn.setAttribute("onclick",`vote_sub(\${index})`);
-		minusbtn.setAttribute("aria-hidden",`true`);
-// 		minusbtn.append(document.createElement("br"));
-		title.append(input, plusbtn, minusbtn);
-		tg.append(title);
-		index = index + 1;
-		sleep(300);
-	}
 	
-	function vote_sub(num){
-		document.getElementById(`vwmenu\${num}`).remove();
-		sleep(300);
-	}
-	
-	function sleep (delay) {
-		   var start = new Date().getTime();
-		   while (new Date().getTime() < start + delay);
-		}
-	var cDate = new Date();
-	cDate.setHours(cDate.getHours()+9);
-	document.getElementById("vote-close-dt").value= cDate.toISOString().slice(0, 16);
-	
-	
-	등록하기 버튼에 대한 이벤트 리스너 시작
-	var writeBtn = document.getElementById("writeVoteBtn");
-
-	writeBtn.addEventListener("click", writeVote);  // 선택한 요소에 click 이벤트 리스너를 등록함.
-
-	function writeVote() {
-		if('${sessionScope.user}' == '') {
-			alert('투표 등록하기는 로그인후에 이용하실 수 있습니다.');
-		} else {
-			document.getElementById('writevoteform').style.display='block';
-		}
-	}
-
-//투표 글쓰기창의 유효성 검사 함수
-
-function validate(){
-	let writeFormTitle = document.getElementById("dc-form-title");
-	if (document.getElementById("dc-form-title").value == ""){
-		alert("제목을 입력해주세요.");
-		return false;
-	}
-	var date = new Date();
-	date.setMinutes(date.getMinutes()+3);
-	if (document.getElementById("vote-close-dt").value < date.value){
-		alert("마감기한은 현재시간보다 최소 3분 이후로 설정하셔야 합니다.");
-		return false;
-	}
-	if (document.querySelector("#vote-content").value.length == 0){
-		alert("설명을 입력해주세요.");
-		return false;
-	}
-	
-	let menu = document.getElementsByClassName("vote_menu");
-	console.log(menu);
-	for (let i = 0; i < menu.length; i++){
-		if(menu[i].value.length == 0){
-			alert("선택지이름을 입력해주세요.");
-			return false;
-		}	
-	}
-} --%>
-
 /*등록하기 버튼에 대한 이벤트 리스너 시작 */
 var writeBtn = document.getElementById("writeVoteBtn");
 
@@ -306,6 +130,7 @@ function writeVote() {
 		document.getElementById('writevoteform').style.display='block';
 	}
 }
+
 
 /* 무한스크롤 스크립트 시작 */
 let list;
@@ -342,6 +167,7 @@ function voteListAjax() {
 }
 voteListAjax();
 
+
 function loadMore(list) {
 	console.log(list.length);
 		let okok = document.querySelector(".vote_inner");
@@ -352,7 +178,6 @@ function loadMore(list) {
 		for(var i = 0; i < list.length; i++){
 			let vote = list[i];
 			let notice = "";
-			console.log(vote.voteNoticeEnabled);
 			if(vote.voteNoticeEnabled == 'Y') {
 				notice = "<공지>";
 			}
@@ -417,6 +242,8 @@ $(window).on("scroll", function() {
 		location.href="/bitcomu/vote/votelist.do";
 	});
 	
+	
+
 </script>
 </body>
 

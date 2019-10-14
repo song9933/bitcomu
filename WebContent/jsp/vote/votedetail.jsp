@@ -19,206 +19,7 @@
 		<c:param name="msg" value="투표글쓰기" />
 	</c:import>
 
-	<style>
-.vote_btn {
-	float: left;
-	margin-right: 5px;
-}
-
-.vote_detail {
-	width: 550px;
-	margin: 20px auto;
-	padding: 20px 40px;
-}
-
-h2.vote_modal_title {
-	padding: 13px 15px 20px 0px;
-	font-size: x-large;
-}
-
-.vote_submit_button {
-	margin-top: 20px;
-}
-
-/*카운트 다운 관련 CSS */
-@import url(https://fonts.googleapis.com/css?family=Oswald:700);
-/* body.dc {
-  margin-top: 35px;
-} */
-.vote_countdown{
-  	text-align: center;
-    color: orangered;
-    font-family: "Oswald";
-    font-weight: 700;
-    font-size: 1.7em;
-    margin: 0 16%;
-    padding: 10px;
-}
-
-/* 툴팁관련 */
-/**
- * Tooltip Styles
- */
-
-/* Add this attribute to the element that needs a tooltip */
-[data-tooltip] {
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-}
-
-/* Hide the tooltip content by default */
-[data-tooltip]:before,
-[data-tooltip]:after {
-  visibility: hidden;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Position tooltip above the element */
-[data-tooltip]:before {
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  margin-bottom: 5px;
-  margin-left: -80px;
-  padding: 7px;
-  width: 160px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #000;
-  background-color: hsla(0, 0%, 20%, 0.9);
-  color: #fff;
-  content: attr(data-tooltip);
-  text-align: center;
-  font-size: 14px;
-  line-height: 1.2;
-}
-
-/* Triangle hack to make tooltip look like a speech bubble */
-[data-tooltip]:after {
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -5px;
-  width: 0;
-  border-top: 5px solid #000;
-  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
-  border-right: 5px solid transparent;
-  border-left: 5px solid transparent;
-  content: " ";
-  font-size: 0;
-  line-height: 0;
-}
-
-/* Show tooltip content on hover */
-[data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
-  visibility: visible;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-
-
-/* 리스트에 있는거 임시로 복붙해온 부분 나중에 병합 X */
-.dc_form {
-	width: 97%;
-	height: 800px;
-	overflow: auto;
-	font-family: 'Cute Font', cursive;
-	font-size: 24px;
-    line-height: 2.7em;
-    font-weight: bolder;
-    color: black;
-}
-	
-}
-
-.dc_writeform-container {
-	height: 550px;
-    overflow: auto;
-}
-
-.vote_plusminus {
-	font-size: 1.6em;
-}
-
-.dc_listbox {
-	cursor: pointer;
-    width: 40%;
-    margin: 25px auto;
-    height: 242px;
-    padding: 40px;
-    text-align: center;
-    font-size: 22px;
-    line-height: 2.5em;
-    color: black;
-    background-color: #fff20708;
-}
-
-.vote_h1 {
-	margin-top: 22px;
-}
-
-/* 투표 검색창 CSS */
-.vote_search {
-  width: 100%;
-  position: relative;
-  display: flex;
-  margin-top: -168px;
-  margin-left: -57px;
-}
-
-.vote_searchTerm {
-  width: 100%;
-  border: 3px solid #00B4CC;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9DBFAF;
-}
-
-.vote_searchTerm:focus{
-  color: #00B4CC;
-}
-
-.vote_searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-  margin-right: 2px;
-}
-
-/*Resize the wrap to see the search bar change!*/
-.vote_wrap{
-  width: 30%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.vote-x-btn {
-	font-size: 50px;
-	color: black;
-}
-
-.vote_datetime_input {
-	font-size: x-large;
-}
-
+<style>
 </style>
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -232,13 +33,16 @@ h2.vote_modal_title {
 		<!-- width = 1280px 인 컨텐츠영역-->
 		<div class="w1280">
 			<section class="content">
-				<!-- breadcrumbs 위치 -->
-				<div>
-					<h4 style="text-align: center; color: gray;">현재위치 : 투표하기 - ${vote.voteTitle}</h4>
-				</div>
-				
 			
-				<div class="w3-container w3-card w3-white w3-round vote_detail">
+			<!-- 3개의 박스를 감싸는 메인 div -->
+			<div>
+			
+			<!-- breadcrumbs 위치 -->
+				<div class="vote-breadcrumbs">
+					<h4><a href="/bitcomu/main.do">홈&nbsp;&nbsp;>&nbsp;&nbsp; </a><a href="/bitcomu/vote/votelist.do">투표&nbsp;&nbsp;>&nbsp;&nbsp;</a><a href="#">${vote.voteTitle}</a></h4>
+				</div>
+			
+			<div class="w3-container w3-card w3-white w3-round vote_detail">
 				<!-- 차트 그리기 시작점 -->
 				<div id="bar_chart_div"></div>
 				</div>
@@ -264,11 +68,6 @@ h2.vote_modal_title {
 						<br>
 					</div>
 					
-<!-- 					<form method="post" name="form"> -->
-<!-- 						<input type="submit" value="update" -->
-<!-- 							onclick="javascript: form.action='/manage/update';" /> -->
-<!-- 						<input type="submit" value="delete" -->
-<!-- 							onclick="javascript: form.action=<c:url value='/vote/votein.do' />;" /> -->
 					<!-- 메인 투표 폼 컨텐츠 시작 -->
 					<form method="post" name="form" >
 					<c:choose>
@@ -348,6 +147,9 @@ h2.vote_modal_title {
 					</c:if>
 
 				</div>
+			
+			</div>
+				
 				
 				<!-- 투표수정하기 모달창 시작 -->
 			 	<div id="modify-vote-form" class="w3-modal">
