@@ -23,8 +23,7 @@
           <div class="top_box" style="display: inline-block">
           	<a href="<c:url value="/study/studyList.do"/>"
 						class="floating comment" >목록</a>
-					
-					</div>
+			</div>
           <form name="wForm" method="post" action="<c:url value="/study/studywrite.do"/>" onsubmit="return nullChk()">
               <div class="section">
                   <h2>분야</h2>

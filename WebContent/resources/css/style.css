@@ -1664,7 +1664,8 @@ from {opacity:0;} to {opacity:1;}
   margin-bottom: 5px;
 }
 .sWrapDetail .floating.comment,
-.sWrapWrite .top_box .floating.comment{
+.sWrapWrite .top_box .floating.comment,
+.sWrapMo .top_box .floating.comment{
   position: static;
   display: inline-block;
   float: left;

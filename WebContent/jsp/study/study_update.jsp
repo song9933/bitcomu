@@ -19,8 +19,12 @@
     <!-- width = 1280px 인 컨텐츠영역-->
     <div class="w1280">
         <section class="content">
-            <form name="uForm" method="post" action="<c:url value="/study/studyupdate.do"/>" onsubmit="return nullChk()">
             <div class="container">
+             <div class="top_box" style="display: inline-block">
+          	<a href="<c:url value="/study/studyList.do"/>"
+						class="floating comment" >목록</a>
+			</div>
+            <form name="uForm" method="post" action="<c:url value="/study/studyupdate.do"/>" onsubmit="return nullChk()">
             <input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
                 <div class="section">
                     <h2>분야</h2>
@@ -94,8 +98,8 @@
                   <input type="submit" value="수정">
               </div>
           
-            </div>
              </form>
+            </div>
         </section>
     </div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
