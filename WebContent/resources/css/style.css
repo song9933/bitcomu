@@ -1663,7 +1663,8 @@ from {opacity:0;} to {opacity:1;}
 .sWrapDetail .bottom_box {
   margin-bottom: 5px;
 }
-.sWrapDetail .floating.comment{
+.sWrapDetail .floating.comment,
+.sWrapWrite .top_box .floating.comment{
   position: static;
   display: inline-block;
   float: left;
