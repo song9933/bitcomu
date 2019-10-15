@@ -1326,6 +1326,11 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     margin-right: 40px;
 }
 
+/* 댓글 수정 삭제 위치 */
+.qna_item.parent > * {
+    display: inline-block;
+}
+
 /*댓글 버튼*/
 .qna_button_2 {
     color: rgb(17, 14, 14);
@@ -1431,6 +1436,88 @@ from {opacity:0;} to {opacity:1;}
   background-position: 12px center;
   background-size: 18px 18px;
 }
+
+/* 검색창 관련 */
+
+.qna-container {
+  display: block;
+  max-width: 900px;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 80px;
+  height: 100%;
+  outline: none;
+}
+
+.qna-search-container {
+  overflow: hidden;
+  float: right;
+  height: 4em;
+  width: 4em;
+  border-radius: 2em;
+  box-shadow: 0 0 5px #6A5D4F;
+  -moz-transition: all 0.35s;
+  -webkit-transition: all 0.35s;
+}
+.qna-search-container:hover, .qna-search-container:focus, .qna-search-container:focus-within {
+  width: 25em;
+  border-radius: 5px 2em 2em 5px;
+  outline: none;
+}
+.qna-search-container:hover input, .qna-search-container:focus input, .qna-search-container:focus-within input {
+  display: inline-block;
+  width: 19em;
+  padding: 10px;
+}
+.qna-input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  float: left;
+  width: 0em;
+  height: 2em;
+  margin: 1em;
+  margin-right: -4.5em;  
+  margin-top: 5px;
+  margin-left: 8px;
+  background: #fff;
+  color: #6A5D4F;
+  font-size: 1em;
+  font-weight: 600;
+  padding: 0px;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+}
+.qna-input:focus {
+  outline: none;
+  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+.qna-button {
+  float: right;
+  width: 1.75em;
+  height: 1.75em;
+  margin: 0.125em;
+  background: #9e9e9e;
+  text-align: center;
+  line-height: 50px;
+  font-size: 2em;
+  color: #FDF6E3;
+  border-radius: 50%;
+  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 1px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.3);
+}
+.qna-button i {
+  margin-top: 0.3em;
+}
+.qna-button:active {
+  border: 0 !important;
+  text-shadow: 0 0 0;
+}
+
 
 
 /* 동훈 끝 */

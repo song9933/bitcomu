@@ -10,90 +10,6 @@
   
 </head>
 <style>
-/* 검색창 관련 CSS */
-
-.qna-container {
-  display: block;
-  max-width: 900px;
-  margin: auto;
-  padding: 100px;
-  height: 100%;
-  outline: none;
-}
-
-.qna-search-container {
-  overflow: hidden;
-  float: right;
-  height: 4em;
-  width: 4em;
-  border-radius: 2em;
-  box-shadow: 0 0 5px #6A5D4F;
-  -moz-transition: all 0.35s;
-  -webkit-transition: all 0.35s;
-}
-.qna-search-container:hover, .qna-search-container:focus, .qna-search-container:focus-within {
-  width: 25em;
-  border-radius: 5px 2em 2em 5px;
-  outline: none;
-}
-.qna-search-container:hover input, .qna-search-container:focus input, .qna-search-container:focus-within input {
-  display: inline-block;
-  width: 19em;
-  padding: 10px;
-}
-
-.qna-input {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  float: left;
-  width: 0em;
-  height: 2em;
-  margin: 1em;
-  margin-right: -4.5em;  
-  margin-top: 5px;
-  margin-left: 8px;
-  background: #fff;
-  color: #6A5D4F;
-  font-size: 1em;
-  font-weight: 600;
-  padding: 0px;
-  border: 0;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  -moz-transition: all 0.25s;
-  -webkit-transition: all 0.25s;
-}
-.qna-input:focus {
-  outline: none;
-  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
-}
-
-.qna-button {
-  float: right;
-  width: 1.75em;
-  height: 1.75em;
-  margin: 0.125em;
-  background: #9e9e9e;
-  text-align: center;
-  line-height: 50px;
-  font-size: 2em;
-  color: #FDF6E3;
-  border-radius: 50%;
-  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 1px rgba(0, 0, 0, 0.25);
-  text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.3);
-}
-.qna-button i {
-  margin-top: 0.3em;
-}
-.qna-button:active {
-  border: 0 !important;
-  text-shadow: 0 0 0;
-}
-
-
-
 
 </style>
 <body>
@@ -133,131 +49,12 @@
          		</div>
 				<!-- 리스트 출력시작 -->
 		
-		<div class="qna_inner">
-		
-		</div>
-<%-- 
-		<c:forEach var="b" items="${qna}">
-          <div class="qna_accordion vertical" >   	
-        	<div method='post' action="/bitcomu/qna/qnaList.do">
-            <h3 class="qna_title_1" onclick="changeView('${b.qnaNo}');">${b.qnaTitle}</h3>
-    		<i class="fa fa-lock qna_pd10" style="font-size: 2em" aria-hidden="true"></i>
-               <!-- 수정버튼 -->
-                   <span class="qna_updat_1">
-					 <a href="javascript:void(0)"
-					  onclick="document.getElementById('light_1${b.qnaNo}').style.display='block'; document.getElementById('fade_1${b.qnaNo}').style.display='block'"
-					  style="font-weight: bold">수정</a>
-				   </span>
-			  <!-- 삭제버튼 -->
-				   <span class="qna_delete_1">
-					  <a href="javascript:void(0)"
-					  onclick="document.getElementById('light${b.qnaNo}').style.display='block'; document.getElementById('fade${b.qnaNo}').style.display='block'"
-					  style="font-weight: bold">삭제</a>
-				   </span>
-				  
-    		 <div class="qna_content_1" id="${b.qnaNo}">	 	
-    		 		<p>공개여부 ${b.qnaPublicEnabled} 조회수 ${b.qnaViewCnt}</p>  
-                    <p>${b.userId}</p>
-                    <p>${b.qnaContent}</p>
-                    <p><fmt:formatDate value="${b.qnaRegDt}"
-											pattern="yyyy-MM-dd HH:mm" /></p>
-				
-					<c:forEach var="cmt" items="${b.commentList}">
-					<div class="qna_cmt_content" id="${cmt.cmtNo}">
- 				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" >
-                        <p>${cmt.userId}</p>
-                        <p>${cmt.cmtContent}</p>
-                        <p>${cmt.cmtRegDt}</p>			
-					</form> 
-			 		</div>
-			 		<div class="wrapper qna_comment">
-					<div class="item parent">
-						<!-- 댓글수정 폼 팝업 -->
-						<a href="#popupMod">수정</a>
-							  <form method="post" action="<c:url value="/qna/qnaCommentUpdate.do"/>">
-									<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-									<input type="hidden" name="qnaNo" value="${b.qnaNo}" />
-								<div id="popupMod" class=layer>
-									<div class="box">
-										<textarea id="comment" name="cmtContent" cols="30" rows="10">${cmt.cmtContent}</textarea>
-										<button type="submit" class="close">수정</button>								
-										<button type="button" onclick="location.href='#'" class="close">취소</button>
-									</div>
-									</div>
-							  </form>
-						 <!-- 댓글 삭제 팝업-->	
-						 <a href="#popupDelCmt">삭제</a>
-								<form method="post" action="<c:url value="/qna/qnaCommentDelete.do"/>">
-									<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-									<input type="hidden" name="qnaNo" value="${b.qnaNo}" />									
-								<div id="popupDelCmt" class=layer>
-									<div class="box">
-										<p class="text">삭제 하시겠습니까?</p>
-										<button type="submit" class="delete">삭제</button> 
-										<button type="button" onclick="location.href='#'" class="close">취소</button>
-									</div>
-								</div>
-								</form>
-							</div>
-						</div>	
-					</c:forEach>
-			            
-                <form method='post' action="/bitcomu/qna/qnaCommentWrite.do" >
-                    <input type="hidden" class="qna_text_content_2" name="boardPostNo" style="resize: none" placeholder="Comment" value="${b.qnaNo}"/>
-                    <input type="text" class="qna_text_content_2" name="cmtContent" style="resize: none" placeholder="Comment"/>
-                    <button type="submit" class="qna_button_2">댓글</button>
-				</form>
-                      	
-             	</div> 
-             </div>               	
-    	</div>
-    	   
-    	<!-- 삭제 팝업 -->
-      <div id="light${b.qnaNo}" class="qna_white_content">
-      	<form method='post' action="/bitcomu/qna/qnaDelete.do" >
-      		<input type="hidden" name="qnaNo" value="${b.qnaNo}" /> 
-      		<a href="javascript:void(0)" onclick="document.getElementById('light${b.qnaNo}').style.display='none'; document.getElementById('fade${b.qnaNo}').style.display='none'" />
-          		<div class="qna_delete_2"><p>삭제 하시겠습니까?</p></div> 
-          		<div class="qna_button_1" style="resize: none">
-          		<div><button type="submit" class="qna_button_0" >삭제</button></div>
-          		<div><button type="button" onclick="location.href='#'" class="qna_button_0">취소</button></div>
-      			</div>
-        </form>
-      </div>
-      <div id="fade${b.qnaNo}" class="qna_black_overlay"></div>
-        <!-- 수정 팝업 -->
-  	  <div id="light_1${b.qnaNo}" class="qna_white_content_1">
-  	  	<form method='post' action="/bitcomu/qna/qnaUpdate.do">
-  			<input type="hidden" name="qnaNo" value="${b.qnaNo}" /> 
-  			<input type="hidden" name="selBoardNo" value="${b.qnaNo}" /> 
-  				<a href="javascript:void(0)"
-    			onclick="document.getElementById('light_1${b.qnaNo}').style.display='none'; document.getElementById('fade_1${b.qnaNo}').style.display='none'"></a>
-    	<div class="qna_update_title">   
-      		<input type="text" class="qna_text_title_1" name="qnaTitle" style="resize: none" placeholder="Title" value="${b.qnaTitle}" />
-      		<input type="checkbox" id="check_0" value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
-      		<input type="text" class="qna_text_content_1" name="qnaContent" style="resize: none" placeholder="Content" value="${b.qnaContent}" />
-      <div>
-      </div>
- <!-- <div><input type="file" class="qna_update_attatch" enctype="multipart/form-data" name="attach" /></div> -->
-      <div><button type="submit" class="qna_button_update">수정</button></div>
-      <div><button type="button" onclick="location.href=''" class="qna_button_cancle">취소</button></div> 
-    </div> 
-     </form>   
-  </div>
-  <div id="fade_1" class="qna_black_overlay_1"></div>
-       
-    </div>
-    	</c:forEach>
-    	--%>
-     
-        
-		
+		<div class="qna_inner"></div>
+
         </div>
       </section>
 
       <%@include file="/jsp/include/footer.jsp" %>
-
-
 
     </div>
 	  
@@ -339,7 +136,7 @@
     				
                    <span class="qna_updat_1">
 					 <a href="javascript:void(0)"
-					  onclick="document.getElementById('light_1\${b.qnaNo}').style.display='block'; document.getElementById('fade_1\${b.qnaNo}').style.display='block'"
+					  onclick="validateQna(\${b.userNo}, \${b.qnaNo});"
 					  style="font-weight: bold">수정</a>
 				   </span>
 				   
@@ -351,7 +148,7 @@
 				  
     		 <div class="qna_content_1 hidden" id="c\${b.qnaNo}">	 	
     		 		<p>공개여부 \${b.qnaPublicEnabled} 조회수 \${b.qnaViewCnt}</p>  
-                    <p>\${b.userId}</p>
+                    <p style="font-weight: bold" >\${b.userId}</p>
                     <p>\${b.qnaContent}</p>
                     <p>\${b.qnaRegDt}</p><hr>`;
                     
@@ -364,13 +161,13 @@
          					html += `
          					<div class="qna_cmt_content" id="\${cmt.cmtNo}">
          				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" >
-                                 <p>\${cmt.userId}</p>
+                                 <p style="font-weight: bold">\${cmt.userId}</p>
                                  <p>\${cmt.cmtContent}</p>
                                  <p>\${cmt.cmtRegDt}</p>
          					</form> 
          			 		</div>
          			 		<div class="wrapper qna_comment">
-         					<div class="item parent">
+         					<div class="qna_item parent">
          						<a href="#popupMod">수정</a>
          							  <form method="post" action="/bitcomu/qna/qnaCommentUpdate.do">
          									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
@@ -396,7 +193,7 @@
          								</div>
          								</form>
          							</div>
-         						</div>`;	
+         						</div><hr>`;	
          					}
                     }
                    
@@ -426,6 +223,8 @@
         </form>
       </div>
       <div id="fade\${b.qnaNo}" class="qna_black_overlay"></div>
+      
+      
         <!-- 수정 팝업 -->
   	  <div id="light_1\${b.qnaNo}" class="qna_white_content_1">
   	  	<form method='post' action="/bitcomu/qna/qnaUpdate.do">
@@ -437,7 +236,7 @@
       		<input type="text" class="qna_text_title_1" name="qnaTitle" style="resize: none" placeholder="Title" value="\${b.qnaTitle}" />
       		<input type="checkbox" id="check_0" value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
       		<input type="text" class="qna_text_content_1" name="qnaContent" style="resize: none" placeholder="Content" value="\${b.qnaContent}" />
-      <div>
+      	<div>
       </div>
  <!-- <div><input type="file" class="qna_update_attatch" enctype="multipart/form-data" name="attach" /></div> -->
       <div><button type="submit" class="qna_button_update">수정</button></div>
@@ -445,7 +244,7 @@
     </div> 
      </form>   
   </div>
-  <div id="fade_1" class="qna_black_overlay_1"></div>
+  <div id="fade_1\${b.qnaNo}" class="qna_black_overlay_1"></div>
        
     </div>
     	        		
@@ -494,6 +293,22 @@
 	document.getElementById("qna-refresh-button").addEventListener('click', function(){
 		location.href="/bitcomu/qna/qnaList.do";
 	});
+	
+	/* 게시글 수정에 조건 주는 펑션 */
+	
+	function validateQna(userNo, qnaNo){
+		console.log('세션의유저',${user.userNo});
+		let qnaId = "light_1"+qnaNo;
+		let qnaId2 = "fade_1"+qnaNo;
+		if(${user.userNo} == userNo){
+			document.getElementById(qnaId).style.display='black';
+			document.getElementById(qnaId2).style.display='block';
+		} else {
+			alert('작성자만 수정할 수 있습니다.');
+			return;
+		}
+	}
+	
         
    
     </script>
