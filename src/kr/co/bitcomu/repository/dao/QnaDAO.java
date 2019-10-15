@@ -20,7 +20,7 @@ public interface QnaDAO {
 	List<Qna> selectQnaSearchAjax(Qna qna);
 	List<Qna> selectQnaN(int rnum);
 	List<Qna> selectQnaNSmall(int rnum);
-	
+	String selectUserId(int qnano);
 	
 	// 댓글 부분
 	List<Comment> selectQnaCommentList(int boardPostNo);

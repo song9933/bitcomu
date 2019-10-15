@@ -16,6 +16,15 @@
 		<result column="qna_cmt_cnt" property="qnaCmtCnt"/>
 	</resultMap>
 	
+	<select id="selectUserId" parameterType="int" resultType="String">
+		  select (select user_id  
+          from tb_user u
+        where q.user_no = u.user_no ) as user_id
+          from tb_qna q
+         where qna_no = #{qnaNo}
+	</select>
+	
+	
 	<select id="selectQna" parameterType="page" resultMap="qnaMap">
 	    select *
 	      from (select rownum rnum, a.*

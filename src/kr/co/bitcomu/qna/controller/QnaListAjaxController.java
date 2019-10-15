@@ -40,9 +40,9 @@ public class QnaListAjaxController extends HttpServlet{
 		} else {
 			list = dao.selectQnaN(rnum);
 		}
-		/*
-		 * for(Qna q : list) { q.setUserId(dao.selectUserId(q.getQnaNo())); }
-		 */
+		
+		for(Qna q : list) { q.setUserId(dao.selectUserId(q.getQnaNo())); }
+		 
 		
 		PrintWriter out = res.getWriter();
 		
