@@ -45,14 +45,15 @@ function getDistFromBottom () {
     	
 	    	var sUserId = document.createElement('span');
 	    	sUserId.innerText = list.userId;
-	    	sUserId.style.margin = '0 5px 0 0';
+	    	sUserId.style.marginRight = '5px';
 	    	
 	    	var sRegDt = document.createElement('span');
 	    	sRegDt.innerHTML = list.studyRegDt;
+	    	sRegDt.style.marginRight = '5px';
 	    	
 	    	var sViewCnt = document.createElement('span');
 	    	sViewCnt.innerHTML +='<i class="fa fa-eye" aria-hidden="false"></i>';
-	    	sViewCnt.style.margin = '0 5px 0 0';
+	    	sViewCnt.style.marginRight = '5px';
 	    	sViewCnt.innerHTML += list.studyViewCnt;
 	    	
 	    	var sCmtCnt = document.createElement('span');

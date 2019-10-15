@@ -89,6 +89,9 @@
 					
 							<div class="item parent" name="parent">
 							<input type="hidden" name="pCmtNo" value="${cmt.parentCmtNo}"/>
+							
+									<span class="replyArrow"></span>
+								
 								<p class="profile">${cmt.userId}</p>
 								<p class="text">${cmt.cmtContent}</p>
 								<div class="info">
@@ -170,10 +173,14 @@
 	<script>
 	let pEle = document.getElementsByName("parent");
 	let pNo = document.getElementsByName("pCmtNo");
+	let reArrow = document.querySelectorAll(".replyArrow");
+	console.log(reArrow);
+
 	for(let i = 0; i < pNo.length; i++){
-	//console.log(pNo[i].value);
-	if(pNo[i].value != '0'){
+	console.log(pNo[i].value);
+	if(parseInt(pNo[i].value) != 0){
 		pEle[i].style.marginLeft = 30 + "px";
+		reArrow[i].innerHTML = '<i class="fa fa-reply fa-rotate-180" ></i>';
 	}
 	}
 	
