@@ -974,6 +974,36 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     margin-left: 170px;
     font-size: 30px;
 }
+
+/* 등록 제목*/
+.qna_text_title {
+    width: 760px;
+    height: 30px;
+    margin-top: 15px;
+    margin-left: 170px;
+}
+/* 등록 내용*/
+.qna_text_content {
+    width: 800px;
+    height: 100px;
+    margin-top: 5px;
+    margin-left: 170px;
+}
+/*등록 버튼*/
+.qna_button {
+    color: rgb(17, 14, 14);
+    float: right;
+    margin-top: 5px;
+    margin-right: 169px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+  }
+
+
 .qna_title_1 {
     margin-top: 10px;
     margin-left: 10px;
@@ -1033,33 +1063,6 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
    
 }
 
-/* 등록 제목*/
-.qna_text_title {
-    width: 760px;
-    height: 30px;
-    margin-top: 15px;
-    margin-left: 282px;
-}
-/* 등록 내용*/
-.qna_text_content {
-    width: 800px;
-    height: 100px;
-    margin-top: 5px;
-    margin-left: 282px;
-}
-/*등록 버튼*/
-.qna_button {
-    color: rgb(17, 14, 14);
-    float: right;
-    margin-top: 5px;
-    margin-right: 295px;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-  }
 
   /* 파일 업로드 */
 .qna_attatch {

@@ -16,15 +16,22 @@ public class Qna {
 	private int qnaViewCnt; // qna 조회 수
 	private int qnaCmtCnt; // qna 댓글 수
 	private List<Comment> commentList;
-	private String qnakeyword;
+	private String qnaKeyword;
+	private int qnaListCount;
 	
 	
 	
-	public String getQnakeyword() {
-		return qnakeyword;
+	public int getQnaListCount() {
+		return qnaListCount;
 	}
-	public void setQnakeyword(String qnakeyword) {
-		this.qnakeyword = qnakeyword;
+	public void setQnaListCount(int qnaListCount) {
+		this.qnaListCount = qnaListCount;
+	}
+	public String getQnaKeyword() {
+		return qnaKeyword;
+	}
+	public void setQnaKeyword(String qnaKeyword) {
+		this.qnaKeyword = qnaKeyword;
 	}
 	public int getQnaNo() {
 		return qnaNo;

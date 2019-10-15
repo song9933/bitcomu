@@ -17,10 +17,11 @@ public interface QnaDAO {
 	void updateQna(Qna qna);
 	void deleteQna(int qnano);
 	int selectQnaCnt();
-	List<Qna> selectQnaSearchAjax(Qna qna);
 	List<Qna> selectQnaN(int rnum);
 	List<Qna> selectQnaNSmall(int rnum);
 	String selectUserId(int qnano);
+	List<Qna> selectQnaSearchAjax(Qna qna);
+	List<Qna> selectQnaSearchAjaxSmall(Qna qna);
 	
 	// 댓글 부분
 	List<Comment> selectQnaCommentList(int boardPostNo);

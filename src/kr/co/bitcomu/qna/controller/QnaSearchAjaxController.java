@@ -14,47 +14,37 @@ import com.google.gson.Gson;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
-import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Qna;
 
-
-@WebServlet("/qna/qnalistajax.do")
-public class QnaListAjaxController extends HttpServlet{
-	private QnaDAO dao;
+@WebServlet("/qna/qnasearchajax.do")
+public class QnaSearchAjaxController extends HttpServlet{
+	QnaDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
 	
-	public QnaListAjaxController() {
-		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
-	}
 	
-
-
-
-
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
-		res.setContentType("text/json; charset=utf-8");
-		int rnum = (Integer.parseInt(req.getParameter("pageno")))*7;
+		Qna qna = new Qna();
+		String keyword = req.getParameter("keyword");
+		qna.setQnaKeyword(keyword);
+		int qnaListCount = (Integer.parseInt(req.getParameter("pageno")))*7;
+		qna.setQnaListCount(qnaListCount);
 		List<Qna> list;
-		if(rnum < 7) {
-			list = dao.selectQnaNSmall(rnum);
+		if(qnaListCount < 7) {
+			list = dao.selectQnaSearchAjaxSmall(qna);
 		} else {
-			list = dao.selectQnaN(rnum);
+			list = dao.selectQnaSearchAjax(qna);
 		}
 		
-		for(Qna q : list) { q.setUserId(dao.selectUserId(q.getQnaNo())); }
-		for (Qna qna : list) {
-			List<Comment> c = dao.selectQnaCommentList(qna.getQnaNo());
-			qna.setCommentList(c);
-			
-		} 
-		
+		for(Qna q : list) {
+			q.setUserId(dao.selectUserId(q.getQnaNo()));
+			System.out.println("큐엔에이 하나하나들" + q.toString());
+		}
 		PrintWriter out = res.getWriter();
-		
 		out.println(new Gson().toJson(list));
-		
-		System.out.println(new Gson().toJson(list));
 		out.close();
 	}
+
 	
 }

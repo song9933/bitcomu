@@ -9,7 +9,93 @@
 </c:import> 
   
 </head>
+<style>
+/* 검색창 관련 CSS */
 
+.qna-container {
+  display: block;
+  max-width: 900px;
+  margin: auto;
+  padding: 100px;
+  height: 100%;
+  outline: none;
+}
+
+.qna-search-container {
+  overflow: hidden;
+  float: right;
+  height: 4em;
+  width: 4em;
+  border-radius: 2em;
+  box-shadow: 0 0 5px #6A5D4F;
+  -moz-transition: all 0.35s;
+  -webkit-transition: all 0.35s;
+}
+.qna-search-container:hover, .qna-search-container:focus, .qna-search-container:focus-within {
+  width: 25em;
+  border-radius: 5px 2em 2em 5px;
+  outline: none;
+}
+.qna-search-container:hover input, .qna-search-container:focus input, .qna-search-container:focus-within input {
+  display: inline-block;
+  width: 19em;
+  padding: 10px;
+}
+
+.qna-input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  float: left;
+  width: 0em;
+  height: 2em;
+  margin: 1em;
+  margin-right: -4.5em;  
+  margin-top: 5px;
+  margin-left: 8px;
+  background: #fff;
+  color: #6A5D4F;
+  font-size: 1em;
+  font-weight: 600;
+  padding: 0px;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+}
+.qna-input:focus {
+  outline: none;
+  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.qna-button {
+  float: right;
+  width: 1.75em;
+  height: 1.75em;
+  margin: 0.125em;
+  background: #9e9e9e;
+  text-align: center;
+  line-height: 50px;
+  font-size: 2em;
+  color: #FDF6E3;
+  border-radius: 50%;
+  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 1px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.3);
+}
+.qna-button i {
+  margin-top: 0.3em;
+}
+.qna-button:active {
+  border: 0 !important;
+  text-shadow: 0 0 0;
+}
+
+
+
+
+</style>
 <body>
   <div class="wrapepr">
    <c:import url="/jsp/include/header.jsp"/>
@@ -23,9 +109,29 @@
         <div>
          <strong class="qna_title">질문 답변</strong>
 		</div>
-		
-		
-		<!-- 리스트 출력시작 -->
+		<!-- 검색창 -->
+				<div class='qna-container' tabindex='1'>
+					<div class='qna-search-container' tabindex='1'>
+						<input class='qna-input' id='qna-input-content' placeholder='search' type='text'> 				
+						<a class='qna-button' id='qna-submit-button'>
+							<i class="fa fa-search icon-search" ></i>
+						</a>	
+					</div>
+						<a class='qna-button' id='qna-refresh-button'>
+							<i class="fa fa-refresh icon-search" ></i>
+						</a>
+				</div>
+				<!-- 게시글 등록 -->
+				<div class="qna_board_qna_title">
+           			<form method='post' action="/bitcomu/qna/qnaWrite.do" >
+              			<input type="text" class="qna_text_title" name="qnaTitle" style="resize: none" placeholder="Title" value="${b.qnaTitle}" />
+              			<input type="checkbox" id="qna_check_2"  value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
+			  			<input type="text" class="qna_text_content" name="qnaContent" style="resize: none" placeholder="Content" value="${b.qnaContent}" /> 
+              			<button type="submit" class="qna_button">등록</button>
+         <!-- <input type="file" class="qna_attatch" enctype="multipart/form-data" name="attach" /> -->
+          			</form>
+         		</div>
+				<!-- 리스트 출력시작 -->
 		
 		<div class="qna_inner">
 		
@@ -144,26 +250,8 @@
     	</c:forEach>
     	--%>
      
-        <div class="qna_board_qna_title">
-           <form method='post' action="/bitcomu/qna/qnaWrite.do" >
-              <input type="text" class="qna_text_title" name="qnaTitle" style="resize: none" placeholder="Title" value="${b.qnaTitle}" />
-              <input type="checkbox" id="qna_check_2"  value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
-			  <input type="text" class="qna_text_content" name="qnaContent" style="resize: none" placeholder="Content" value="${b.qnaContent}" /> 
-              <button type="submit" class="qna_button">등록</button>
-         <!-- <input type="file" class="qna_attatch" enctype="multipart/form-data" name="attach" /> -->
-          	</form>
-         </div>
-         
-          <div class="qna_search">
-              <input type="text" class="qna_text_search" name="searchWord" style="resize: none" placeholder="Search" />
-              <select name="select" class="qna_select_1">
-                  <option value="1">작성자</option>
-                  <option value="2">제목+작성자</option>
-                  <option value="3">제목</option>
-                  <option value="4">내용</option>
-              </select>
-              <button type="button" onclick="" class="qna_button_serch">검색</button>
-            </div>
+        
+		
         </div>
       </section>
 
@@ -176,7 +264,7 @@
     <script>
 //     let boardNo = ${boardNo};
         
-//         let selectBoardNo = ${selBoardNo};
+        let selectBoardNo = ${selBoardNo};
     	let a = document.querySelectorAll(".qna_content_1");
     	a.className = "hidden";
 //     	a.addEventListener("click", changeView())
@@ -184,16 +272,9 @@
 //     		a[i].className = "hidden";
 //     	if (a[i].id == boardNo) a[i].className = "hidden";
 //     	}
-//         if (selectBoardNo != 0) {
-// 	        let divEle2 = document.getElementById(selectBoardNo);
-// 	        divEle2.classList.remove("hidden");
-// 	        divEle2.classList.add("show");
         	
-//         }
-		
-        
         function changeView(i) {
-	        let divEle = document.getElementById(i);
+	        let divEle = document.getElementById("c" + i);
 	        divEle.classList.toggle("show");
 	        divEle.classList.toggle("hidden");
     	}
@@ -210,12 +291,13 @@
         		if (xhr.readyState == 4) {
         			if (xhr.status == 200) {
         				qlist = JSON.parse(xhr.responseText);
-        				console.log('dd',qlist);
+        				console.log('큐리스트',qlist);
         				// makeCommentList(list);
         				if(qlist.length == 0){
         					//만약 검색을 통해 받아온리스트가 아예 0일때
         						if(searchSwitch){
         							alert('검색결과가 존재하지 않습니다.');
+        							searchSwitch = false;
         						}
         					page--;
         				} else {
@@ -224,13 +306,14 @@
         			}
         		}
         	};
-//         	if(keyword){
-//         		xhr.open("GET", "/bitcomu/qna/qnasearchajax.do?pageno="+page+"&keyword="+keyword, true);
-//         		xhr.send();
-//         	}else{
+        	if(keyword){
+        		console.log('키워드 이프문 진입');
+        		xhr.open("GET", "/bitcomu/qna/qnasearchajax.do?pageno="+page+"&keyword="+keyword, true);
+        		xhr.send();
+        	}else{
         		xhr.open("GET", "/bitcomu/qna/qnalistajax.do?pageno="+page, true);
         		xhr.send();
-//         	}
+        	}
         }
         qnaListAjax();
 
@@ -266,17 +349,18 @@
 					  style="font-weight: bold">삭제</a>
 				   </span>
 				  
-    		 <div class="qna_content_1 hidden" id="\${b.qnaNo}">	 	
+    		 <div class="qna_content_1 hidden" id="c\${b.qnaNo}">	 	
     		 		<p>공개여부 \${b.qnaPublicEnabled} 조회수 \${b.qnaViewCnt}</p>  
                     <p>\${b.userId}</p>
                     <p>\${b.qnaContent}</p>
-                    <p>\${b.qnaRegDt}</p>`;
+                    <p>\${b.qnaRegDt}</p><hr>`;
                     
                     /* 댓글 부분 추출장소 */
                     if(qlist[i].commentList != null){
                     	 console.log('코멘트 리스트', qlist[i].commentList);
          				for(var j = 0; j < qlist[i].commentList.length; j++){
          					let cmt = qlist[i].commentList[j];
+         					console.log('코멘트 하나하나', cmt)
          					html += `
          					<div class="qna_cmt_content" id="\${cmt.cmtNo}">
          				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" >
@@ -287,9 +371,8 @@
          			 		</div>
          			 		<div class="wrapper qna_comment">
          					<div class="item parent">
-         						/* 댓글수정 폼 팝업 */
          						<a href="#popupMod">수정</a>
-         							  <form method="post" action="bitcomu/qna/qnaCommentUpdate.do">
+         							  <form method="post" action="/bitcomu/qna/qnaCommentUpdate.do">
          									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
          									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />
          								<div id="popupMod" class=layer>
@@ -300,9 +383,8 @@
          									</div>
          									</div>
          							  </form>
-         						 /* 댓글 삭제 팝업 */	
          						 <a href="#popupDelCmt">삭제</a>
-         								<form method="post" action="bitcomu/qna/qnaCommentDelete.do"/>">
+         								<form method="post" action="/bitcomu/qna/qnaCommentDelete.do">
          									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
          									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />									
          								<div id="popupDelCmt" class=layer>
@@ -372,6 +454,11 @@
         		document.querySelector(".qna_inner").innerHTML += html;
         		searchSwitch = false;
         		userInput = "";
+        		document.getElementById("qna-input-content").value = "";
+        		
+        		if (selectBoardNo != 0) {
+                	changeView(selectBoardNo);
+                }
         };	
 
         $(window).on("scroll", function() {
@@ -387,6 +474,26 @@
             	qnaListAjax();
         	}
         });
+   
+    /* 검색기능구현 */
+	/* 검색 Ajax */
+	document.getElementById("qna-submit-button").addEventListener('click', function searchajax(){
+		userInput = document.getElementById("qna-input-content").value;
+		if(userInput != ""){
+			keyword = userInput;
+			console.log('클릭이벤트 끝나기 직전 키워드',keyword);
+			page = 1;
+			searchSwitch = true;
+			qnaListAjax();
+		} else {
+			alert('최소 한글자이상 입력해주세요.')
+		}
+	});
+	
+	/*새로고침 기능*/
+	document.getElementById("qna-refresh-button").addEventListener('click', function(){
+		location.href="/bitcomu/qna/qnaList.do";
+	});
         
    
     </script>
