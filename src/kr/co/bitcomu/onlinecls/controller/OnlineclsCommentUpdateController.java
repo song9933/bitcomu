@@ -18,34 +18,40 @@ import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.OnlineclsDAO;
 import kr.co.bitcomu.repository.vo.Comment;
 
-@WebServlet("/onlineclass/cmt_del.do")
-public class OnlineclsCommentDeleteController extends HttpServlet {
+@WebServlet("/onlineclass/cmt_upd.do")
+public class OnlineclsCommentUpdateController extends HttpServlet {
+
 	private OnlineclsDAO dao;
 	
-	public OnlineclsCommentDeleteController() {
+	public OnlineclsCommentUpdateController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(OnlineclsDAO.class);
 	}
 
-	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("application/json; charset=utf-8");
-		int cmtNo = Integer.parseInt(req.getParameter("cmtNo"));
-		int no = Integer.parseInt(req.getParameter("no"));
-		int result = dao.deleteComment(cmtNo);
 		
-		// 댓글 목록 공유
+		int no = Integer.parseInt(req.getParameter("no"));
+		
+		
+		Comment comment = new Comment();
+		comment.setCmtNo(Integer.parseInt(req.getParameter("cmtNo")));
+		comment.setCmtContent(req.getParameter("cmtDetail"));
+		int result = dao.updateComment(comment);
+		
 		List<Comment> commentList = dao.selectComment(no);
-		// 댓글 작성자 리스트
+		
 		List<String> cmtUserList = dao.selectCmtUserId(no);
-		// Map에 전체 댓글 List, 댓글작성자  List담기
+		
 		Map<String, Object> cmtMap = new HashMap<>();
 		cmtMap.put("cmt", commentList);
 		cmtMap.put("cmtUser", cmtUserList);
 		cmtMap.put("result", result);
 		
-		
-		
 		PrintWriter out = res.getWriter();
-		out.println(new Gson().toJson(cmtMap));
+		out.println(new Gson().toJson(cmtMap)); 
 		out.close();
-	} 
+	}
+
 }
+

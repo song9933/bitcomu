@@ -49,7 +49,7 @@
 
 <!-- 온라인강의 -->
 <!-- 회원번호로 조인해 회원아이디 조회 -->
-<select id="selectUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
+<select id="selectUserId" parameterType="int" resultType="string" flushCache="true" useCache="true">
 	select (select user_id from tb_user u
 			 where y.user_no = u.user_no) as user_id
 	  from tb_youtube y
@@ -163,7 +163,7 @@
 
 <!-- 댓글 -->
 <!-- 댓글 작성자 조회 -->
-<select id="selectCmtUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
+<select id="selectCmtUserId" parameterType="int" resultType="string" flushCache="true" useCache="true">
 	select (select user_id from tb_user u
 			 where c.user_no = u.user_no) as user_id
 	  from tb_comment c
@@ -193,7 +193,39 @@
 </delete>
 	
 <!-- 댓글 수정 -->
+<update id="updateComment" parameterType="Comment">
+	update tb_comment
+	   set cmt_content = #{cmtContent}
+	 where cmt_no = #{cmtNo} 
+</update>
 <!-- // 댓글 -->
+
+<!-- 조회수 -->
+<update id="updateViewCnt" parameterType="int">
+	update tb_youtube
+	   set yt_view_cnt = yt_view_cnt + 1
+	 where yt_no = #{ytNo}     
+</update>
+
+<!-- 좋아요 -->
+<!-- 좋아요 조회 -->
+<select id="selectLike" parameterType="int" resultType="int">
+	select user_no
+	  from tb_like
+	 where board_post_no = #{no}
+</select>
+<!-- 좋아요 추가 -->
+<insert id="insertLike" parameterType="Onlinecls">
+	insert into tb_like 
+	values (#{ytNo}, #{userNo}, (select code_value from tb_codenm where code_name = '온라인강의게시판'))
+</insert>
+<!-- 좋아요 카운트 cnt -->
+<select id="selectLikeCnt" parameterType="int" resultType="int">
+	select count(*)
+	  from tb_like 
+	 where board_post_no = #{no} 
+	   and code_value = (select code_value from tb_codenm where code_name = '온라인강의게시판')
+</select>
 </mapper>
 <!--
 검색은

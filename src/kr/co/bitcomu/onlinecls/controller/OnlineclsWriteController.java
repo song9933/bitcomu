@@ -38,10 +38,11 @@ public class OnlineclsWriteController extends HttpServlet{
 		ocls.setYtContent(req.getParameter("yt_detail"));
 		
 		// 주소는 첫번째 파라미터만 커팅한다
-		String targetAddr = req.getParameter("yt_addr");
-		String[] addr = targetAddr.split("\\?v=");
-		String ytAddr = addr[1].split("&")[0];
-		ocls.setYtAddr(ytAddr);
+//		String targetAddr = req.getParameter("yt_addr");
+//		String[] addr = targetAddr.split("\\?v=");
+//		String ytAddr = addr[1].split("&")[0];
+//		ocls.setYtAddr(ytAddr);
+		ocls.setYtAddr(req.getParameter("yt_addr"));
 		
 		// selbox가 null이면 input을 저장
 //		if(req.getParameter("yt_sel") == "") {
