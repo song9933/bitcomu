@@ -56,9 +56,9 @@ public class CommentListController extends HttpServlet {
 		
 		// 댓글 목록 공유
 		List<Comment> commentList = dao.selectComment(commentMap);
-		for (Comment c : commentList) {
-			System.out.println(c);
-		}
+		/*
+		 * for (Comment c : commentList) { System.out.println(c); }
+		 */
 		PrintWriter out = resp.getWriter();
 		out.println(new Gson().toJson(commentList));
 		out.println(new Gson().toJson(cpr));

@@ -49,14 +49,14 @@
 				 	</div>
 				 	
 				 	
-					<div>
+					<!-- <div>
 						<form action="test05.do" method="post" enctype="multipart/form-data">
 							
 							<div><input type="file" name="attach" multiple /></div>
-			  			  <input type='submit' value="등록"></input>
 							
 						</form>
-					</div>
+					</div> -->
+			  			  <input type='submit' value="등록"></input>
 					<div>
 					</div>
 		              <a class="ns_write_do" > 
