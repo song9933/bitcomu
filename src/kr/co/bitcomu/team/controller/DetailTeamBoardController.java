@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.TeamDAO;
 import kr.co.bitcomu.repository.vo.Team;
@@ -30,7 +32,7 @@ private TeamDAO dao;
 		req.setAttribute("teamBoard", t);
 		
 		// 댓글
-		req.setAttribute("teamCmt", dao.selectTeamComment(no));
+		req.setAttribute("teamCmt", new Gson().toJson(dao.selectTeamComment(no)));
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/jsp/teamboard/team_board_detail.jsp");
 		rd.forward(req, res);

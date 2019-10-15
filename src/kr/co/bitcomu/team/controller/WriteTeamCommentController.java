@@ -29,7 +29,6 @@ public class WriteTeamCommentController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		int cmtNo = Integer.parseInt(req.getParameter("cmtNo"));
 		User user = (User)session.getAttribute("user");
 		Comment cmt = new Comment();
 
@@ -40,12 +39,13 @@ public class WriteTeamCommentController extends HttpServlet{
 		dao.insertTeamComment(cmt);
 		res.sendRedirect(req.getContextPath() + "/team/teamBoardDetail.do?teamBoardNo=" + Integer.parseInt(req.getParameter("teamBoardNo")));
 	
-		// 댓글 목록 공유
-		List<Comment> commentList = dao.selectTeamComment(cmtNo);
-
-		PrintWriter out = res.getWriter();
-		out.println(new Gson().toJson(commentList));
-		out.close();
+//		// 댓글 목록 공유
+//		int cmtNo = Integer.parseInt(req.getParameter("cmtNo"));
+//		List<Comment> commentList = dao.selectTeamComment(cmtNo);
+//
+//		PrintWriter out = res.getWriter();
+//		out.println(new Gson().toJson(commentList));
+//		out.close();
 	}
 	
 	

@@ -24,6 +24,8 @@ import kr.co.bitcomu.repository.vo.Team;
 public class TeamListAjaxController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("text/json; charset=utf-8");
+		
 		TeamDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TeamDAO.class);
 		
 		// 페이징처리

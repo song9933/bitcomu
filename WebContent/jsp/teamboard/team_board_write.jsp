@@ -123,8 +123,7 @@ div.a_cws {
       <br>
       <h1 style="text-align: center">글등록페이지</h1>
       <br>
-     <form method='post' action='${pageContext.request.contextPath}/team/teamBoardWrite.do'
-     		enctype="multipart/form-data">
+     <form method='post' action='${pageContext.request.contextPath}/team/teamBoardWrite.do'>
       <input type="hidden" name="userNo" value="${userNo}">
       
       <div>
@@ -137,11 +136,7 @@ div.a_cws {
       
       <div>
         <select name="teamNo" id="teamNo">
-<%--           <option value="${codeValue}" selected>${codeValue}조</option> --%>
-<!--           <option value="2">2조</option> -->
-<!--           <option value="3">3조</option> -->
-<!--           <option value="4">4조</option> -->
-<!--           <option value="0">공지</option> -->
+        
         </select>
       </div>
       <div class="titleboard_cws">
@@ -156,8 +151,8 @@ div.a_cws {
           padding: 5px; resize: none">내용을 입력하세요.</textarea>
         </div>
         <br>
-        <input type="file" style="cursor: pointer; width:180px; float: left; margin-left: -120px" 
-        		onchange="previewImage(this,'View_area')">
+<!--         <input type="file" style="cursor: pointer; width:180px; float: left; margin-left: -120px"  -->
+<!--         		onchange="previewImage(this,'View_area')"> -->
 
 
 
@@ -208,7 +203,8 @@ div.a_cws {
 	}
 	// select박스에 선택된 팀으로 보여주기
 	let tNo = document.querySelectorAll("#teamNo > option");
-	for (let i = 0; i < tNo.length; i++) {
+// 	tNo[0].selected = true;
+		for (let i = 0; i < tNo.length; i++) {
 		if (tNo[i].value == ${teamNo})
 			tNo[i].selected = true;
 	}
