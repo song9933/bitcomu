@@ -193,14 +193,16 @@ div.a_cws {
 
 // 		// 삭제시 컨펌
 		
-// 		function confirm(){
-// 			let result = confirm("정말 삭제하시겠습니까?");
-// 			if(result){
-// 			    alert("삭제되었습니다");
-// 			}else{
-// 			    alert("취소되었습니다");
-// 			}
-// 		}
+		function confirmDel(){
+			let result = confirm("정말 삭제하시겠습니까?");
+			if(result){
+			    alert("삭제되었습니다");
+			    return true;
+			}else{
+			    alert("취소되었습니다");
+			    return false;
+			}
+		}
 		
 		// Ajax를 이용한 리스트 출력 및 infinity scroll
 		
@@ -242,7 +244,7 @@ div.a_cws {
 		 			<input type="hidden" name="teamBoardNo" value="\${tList.teamBoardNo}"/>
 		 			<input type="hidden" name="projectNo" value="\${tList.projectNo}"/>
 		 			<input type="hidden" name="teamNo" value="\${tList.teamNo}"/>
-		 			<button onclick="confirm()">삭제</button></form>`
+		 			<button onclick="return confirmDel();">삭제</button></form>`
 			 	};
 			html += `<ul class="board_cws">
 					<li><input type="image" src="${pageContext.request.contextPath}/resources/images/top_ar.png" style="border: 1px solid gray; width: 100px; height: 130px; float: right;"></li>

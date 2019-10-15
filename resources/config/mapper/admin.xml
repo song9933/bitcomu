@@ -19,8 +19,7 @@
 		 where rnum between #{page.begin} and #{page.end}
 	</sql>
 	
-	<!-- 페이징 처리 끝 -->
-	
+
 	<!-- 전체 게시판 조회를 위한 쿼리 -->
 
 	<sql id="selectStudy">

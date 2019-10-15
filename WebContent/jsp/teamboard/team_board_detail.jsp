@@ -170,10 +170,10 @@
 			<br>
 			<h1 style="text-align: center">상세보기</h1>
 			<br>
-			<div class="detailimage_cws">
-				<input type="image" title="&emsp;글에 첨부된 이미지"
-					style="width: 600px; height: 300px;">
-			</div>
+<!-- 			<div class="detailimage_cws"> -->
+<!-- 				<input type="image" title="&emsp;글에 첨부된 이미지" -->
+<!-- 					style="width: 600px; height: 300px;"> -->
+<!-- 			</div> -->
 			<div class="detailcontent_cws">
 					<h3 style="word-break:break-all;">제목 : ${teamBoard.teamBoardTitle}</h3>
 					<h4 style="float: right; margin-top: -20px; margin-right: 80px;">
@@ -185,40 +185,37 @@
 					<h3>글내용: ${teamBoard.teamBoardContent}</h3>
 				<br> <br> <br> <br> <br> <br> <br><br> <br> <br>
 			</div>
+			
+			<div id="list_c">
+<!-- 			<button class="viewcomment_cws" onclick="viewComment()">댓글보기</button> -->
+<%-- 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do"> --%>
+<%-- 				<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}"/> --%>
+<!-- 				<button class="updatebutton_cws">수정</button> -->
+<!-- 			</form> -->
+<!-- 			<br> <br>  -->
 
-			<button class="viewcomment_cws" onclick="viewComment()">댓글보기</button>
-			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do">
-				<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
-				<button class="updatebutton_cws">수정</button>
-			</form>
-			<br> <br> 
+<%-- 			<form method="post" action="${pageContext.request.contextPath}/team/teamCommentWrite.do"> --%>
+<!-- 				<p style="margin-left: 20px;">▶ -->
+<!-- 				<input type="text" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;"> -->
+<%-- 				<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}"> --%>
+<%-- 				<input type="hidden" name="userNo" value="${userNo}"> --%>
+<!-- 				<button>등록</button> -->
+<!-- 				</p> -->
+<!-- 			</form> -->
 <!-- 			<br> -->
-
-
-			<form method="post" action="${pageContext.request.contextPath}/team/teamCommentWrite.do">
-				<p>▶
-				<input type="text" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;">
-				<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}">
-				<input type="hidden" name="userNo" value="${userNo}">
-				<button>등록</button>
-				</p>
-			</form>
-			<br>
-			<div id="team_comment_cws">
-				<form method="post" action="teamCommentUpdate.do">
-					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" />
-					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	
-<%-- 					<c:forEach var="t" items="${teamCmt}"> --%>
-						<div id="commentList_cws" >
-<!-- 						<h5>asdfasdfasd</h5> -->
+<!-- 				<form method="post" action="teamCommentUpdate.do"> -->
+<%-- 					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" /> --%>
+<%-- 					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	 --%>
+<!-- 						<div id="commentList_cws" > -->
 						<!-- function makeCommentList(list) 생성부분 -->
-						</div>
+<!-- 						</div> -->
 <%-- 					</c:forEach> --%>
-				</form>
+<!-- 				</form> -->
 			</div>
 		</div>
 
 		<div>
+
 			<form action="/team/teamBoardDetail.do?cmtNo=${cmtNo}&teamBoardNo=${teamBoardNo}">
 				<button class="movetop_cws"
 					style="width: 60px; height: 60px; background-color: #a5a5a5; opacity: .7; border: none">
@@ -231,7 +228,6 @@
 	</div>
 	<script>
 // 	댓글 아코디언
-		document.querySelector("#team_comment_cws").className = "hidden";
 		function viewComment() {
 				let commentEle = document.querySelector("#team_comment_cws");
 				commentEle.classList.toggle("hidden");
@@ -240,54 +236,197 @@
 		
 // 	댓글 ===========================================
 
+// 삭제 여부 묻는 alert
+function confirmDel(){
+			let result = confirm("정말 삭제하시겠습니까?");
+			if(result){
+			    alert("삭제되었습니다");
+			    return true;
+			}else{
+			    alert("취소되었습니다");
+			    return false;
+			}
+		}	
+
 //  댓글 목록 가져오는 Ajax
 let teamBoardNo = ${teamBoard.teamBoardNo};
 // let cmtNo = ${cmtNo};
-function commentListAjax() {
+function commentListAjax(showFlag) {
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				let list = JSON.parse(xhr.responseText);
-				makeCommentList(list);
+				makeCommentList(list, showFlag);
 			}
 		}
 	};
 	xhr.open("GET", "teamBoardDetail_ajax.do?teamBoardNo=" + teamBoardNo, true);
 	xhr.send();
 }
-commentListAjax();
+commentListAjax(false);
 
-function makeCommentList(list) {
-	let commentList = document.getElementById("commentList_cws");
-	let html = "<div>";
+function makeCommentList(list, showFlag) {
+	let commentList = document.getElementById("list_c");
+	let html = `<div>
+		<button class="viewcomment_cws" onclick="viewComment()">댓글보기</button>
+		<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do">
+			<button class="updatebutton_cws">수정</button>
+			<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
+		</form>
+		<br> <br> 
+		<div id="teamCommentWriteForm">
+			<form name="crForm" method="post" action="teamCommentWrite.do" 
+			      onsubmit="return teamCommentWriteAjax()">
+			<p style="margin-left: 20px;">▶
+			<input type="text" id="cmtContent" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;"/>
+			<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
+			<input type="hidden" name="userNo" value="${teamBoard.userNo}"/>
+			<button>등록</button>
+			</p>
+			<br>
+			</form>
+		</div>
+		
+		<div id="team_comment_cws">`;
+		
+		html += `<div id="commentList_cws" >
+	`;
 	for (let i = 0; i < list.length; i++) {
 		let comment = list[i];
-		console.log(comment);
 				
 		let cList = document.createElement("span");
 		cList.innerHTML = "";
 		if ('${sessionScope.user.userNo}' == comment.userNo || '${sessionScope.user.userGrade}' == 3){
 			cList.innerHTML = 	
-				`<a href="${pageContext.request.contextPath}/team/teamBoardDetail.do?cmtNo=${comment.cmtNo}&teamBoardNo=${comment.boardPostNo}">수정</a>
-            	 <a href="${pageContext.request.contextPath}/team/teamCommentDelete.do?cmtNo=${comment.cmtNo}&teamBoardNo=${comment.boardPostNo}">삭제</a>
+				`<a onClick="updateF(\${comment.cmtNo}, '\${comment.cmtContent}', \${comment.boardPostNo})" href="javascript:;">수정</a>
+                 <a href="#" onclick="commentDeleteAjax(\${comment.cmtNo}, \${comment.boardPostNo});">삭제</a>
 		`};
 		html += `
-			<ul style="border: 1px solid black;">
-				<li style="width: 15%;">\${comment.userId}</li>
+			
+			<ul id="update\${comment.cmtNo}" style="border: 1px solid black; padding: 3px;">
+				<li style="width: 15%;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>&nbsp; \${comment.userId}</li>
 	            <li style="width: 70%">\${comment.cmtContent}</li>
 	            <li
-	                style="float: right; position: relative; margin-top: -45px;">
+	                style="float: right; position: relative; margin-top: -45px; margin-right: 5px;">
 	                \${comment.cmtRegDt}
 	            </li>
-	            <li style="float: right; position: relative; margin-top: -25px;}">
-	            \${cList.innerHTML}
+	            <li style="float: right; position: relative; margin-top: -25px; margin-right: 5px;">
+	            	\${cList.innerHTML}
 	            </li>
 			</ul>
-	    	`;
+			
+			</form>
+			`;
 	}
 	html += "</div>";
 	commentList.innerHTML = html;
+	if(showFlag) {
+		document.querySelector("#team_comment_cws").className = "show";
+	} else {
+		document.querySelector("#team_comment_cws").className = "hidden";
+	}
+}
+
+/**
+ * 댓글 등록
+ */
+ function teamCommentWriteAjax() {
+// 	console.log("111111111");
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					commentListAjax(true);
+					}
+			}
+		};
+		xhr.open("POST", "teamCommentWrite.do", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		let f = document.crForm;
+		let cmtContent = document.getElementById("cmtContent").value;
+		xhr.send(`teamBoardNo=\${f.teamBoardNo.value}&userNo=\${f.userNo.value}&cmtContent=\${cmtContent}`);
+		f.cmtContent.value = ""
+			return false;
+	}
+/**
+ * 댓글 삭제
+ * @returns
+ */
+function commentDeleteAjax(cmtNo, boardPostNo) {
+		let result = confirm("정말 삭제하시겠습니까?");
+	if(result){
+		    alert("삭제되었습니다");
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					commentListAjax(true);
+				}
+			}
+		};
+		xhr.open("GET", `teamCommentDelete.do?cmtNo=\${cmtNo}&teamBoardNo=\${boardPostNo}`, true);
+		xhr.send();
+	    return true;
+	}else{
+	    alert("취소되었습니다");
+	    return false;
+	}
+}
+
+function realUpdate(cmtNo, teamBoardNo){
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				makeCommentList(xhr.responseText);
+				commentListAjax(true);
+			}
+		}
+	};
+	let cmtCon = document.getElementById("cmtCon");
+	
+	xhr.open("POST", `teamCommentUpdate.do`, true);
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xhr.send("cmtNo=" + cmtNo + "&cmtContent=" + cmtCon.value + "&teamBoardNo=" + teamBoardNo);
+	
+}
+/**
+ * 댓글 수정
+ */
+//	href="teamBoardDetail.do?teamBoardNo=${teamBoard.teamBoardNo}" 
+
+
+function updateF(cmtNo, cmtContent, boardPostNo) {
+	
+	let upEle = document.querySelector(`#update\${cmtNo}`);
+	upEle.style="height: 40px; border: 1px solid black; padding: 4px;";
+	upEle.innerHTML = `
+		<li style="width: 70%; padding: 2px;">
+	 	<textarea id="cmtCon" autofocus name="cmtContent" style="border: none; height: 40px; width: 465px; resize: none">\${cmtContent}</textarea>
+	</li>
+		<li style="float: right; margin-top: -32px; margin-right: 32px;">
+        <a href="javascript:;" onclick="realUpdate(\${cmtNo}, \${boardPostNo})"
+        	style="color: inherit; background: none; border: none; cursor: pointer;">수정</a>
+		</li>
+	`;
+}
+// <form method="post" action="teamCommentUpdate.do">
+// <li style="width: 70%">
+// 	<textarea name="cmtContent" style="height: 40px; width: 450px; resize: none">\${cmtContent}</textarea>
+// 	<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}">
+// 	<input type="hidden" name="userNo" value="${teamBoard.userNo}">
+// </li>
+// <li style="float: right; margin-top: -23px;">
+// 	<input type="submit" style="color: inherit; background: none; border: none; cursor: pointer;" value="수정 " />
+// 	<input type="button" onclick="updateCancel(\${cmtNo})" style="color: inherit; background: none; border: none; cursor: pointer;" value="취소" />
+// </li>
+// </form>
+function updateCancel(cmtNo) {
+	let cancelEle = "";
+	let before = document.querySelector(`#update\${cmtNo}`);
+	cancelEle.innerHTML = before
 }
 	</script>
 </body>
