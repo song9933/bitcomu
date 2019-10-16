@@ -123,6 +123,15 @@
 		  from tb_talk 
 		 where talk_post_no = #{postNo}
 		 
+		<!--  delete 
+	    relativedata, crawls, stored
+		from
+		    relativedata 
+		LEFT join crawls on relativedata.crawl_id = crawls.id
+		LEFT join stored on relativedata.crawl_id = stored.crawl_id
+		WHERE
+		    relativedata.id = ?  -->
+		 
 	</delete>
 	
 	<!-- 	댓글테이블  파트 ================================== -->
