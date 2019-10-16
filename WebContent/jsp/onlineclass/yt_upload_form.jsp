@@ -96,7 +96,6 @@ addrEle.addEventListener('blur', (e) => {
 });
 let selEle = document.querySelector('select[name="yt_subj_sel"]');
 selEle.addEventListener('change', (e) => {
-	console.log('change OK')
 	let optEle = document.querySelector('option[value="0"]');
 	let inpEle = document.querySelector('input[name="yt_subj_inp');
 	if (optEle.selected) {
@@ -108,13 +107,6 @@ selEle.addEventListener('change', (e) => {
 	}
 });
 
-
-/* let selEle = document.querySelector('option[value="0"]');
-if (selEle.selected) {
-	let inpEle = document.querySelector('input[name="yt_subj_inp"]');
-	inpEle.classList.add = 'a';
-}
- */
 $(document).ready(function() {
 
 });

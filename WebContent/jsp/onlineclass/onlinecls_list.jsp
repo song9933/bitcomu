@@ -24,11 +24,11 @@ int yt_no2 = 0;
 				
 				<div class="detailbox">
 					<h2>JAVA 기초 배우기</h2>
-					<ul>
+<!-- 					<ul>
 						<li>손병찬 강사님</li>
 						<li>총 31강</li>
 						<li>2019년도 제작</li>
-					</ul>
+					</ul> -->
 					<p>객체 지향 언어인 C++ 언어의 객체 지향적인 장점을 살리면서 분산 환경을 지원하는 JAVA를 공부할 수 있습니다.</p>
 					<p>객체지향프로그래밍 언어로서 C/C++에 비해 간략하고 쉬우며 네트워크 기능의 구현이 용이하기 때문에, 인터넷 환경에서 가장 활발히 사용되는 프로그래밍 언어입니다.</p>
 				</div>
@@ -277,16 +277,26 @@ if ('${ resultD }' == 1) {
 }
 /* -------------------- */
 /* 탭으로 전체과목 해당과목 목록 전환 */
+let tabEle = document.querySelector('.tab');
 let tabBtn = document.querySelectorAll('.tab li');
+let subjList = document.querySelector('.subj_container');
+let vidList = document.querySelector('.vid_container');
 //console.log(tabBtn.length);
 for(let i = 0; i < tabBtn.length; i++) {
 	tabBtn[i].addEventListener('click', (e) => {
-		if (tabBtn[i].classList.contains('on')) {
-			tabBtn[i].classList.remove('on');
-			tabBtn[i].nextElementSibling.classList.add('on');
-		} else {
+		if (!(tabBtn[i].classList.contains('on'))) {
 			tabBtn[i].classList.add('on');
-			tabBtn[i].nextElementSibling.classList.remove('on');
+			$(tabBtn[i]).siblings().removeClass('on');
+			if (tabEle.firstElementChild.classList.contains('on')) {
+				$(vidList).addClass('hidden');
+				$(subjList).removeClass('hidden');
+			} else {
+				$(vidList).removeClass('hidden');
+				$(subjList).addClass('hidden');
+			};
+			return;
+		} else {
+			$(tabBtn[i]).siblings().removeClass('on');
 		}
 	});
 }

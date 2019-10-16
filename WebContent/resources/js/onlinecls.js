@@ -20,12 +20,12 @@ for(let i = 0; i < ifrEle.length; i++) {
  */
 //selectOnlineclassListAjax(subj);
 function selectOnlineclassListAjax() {
-	console.log("subj : ", subj)
+//	console.log("subj : ", subj)
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			let obj = JSON.parse(xhr.responseText);
-			console.log("결과", obj);
+//			console.log("결과", obj);
 		}
 	};
 	xhr.open("GET", "onlineclsAjaxList.do?subj=" + subj, true);
@@ -72,7 +72,6 @@ function selectOnlineclassAjax(no) {
 			
 			for (let i = 0; i < obj.likeUserNo.length; i++) {
 				if (userNo == obj.likeUserNo[i]){
-					console.log("좋아요한 회원들의 회원번호", obj.likeUserNo[i]);
 					let iconLike = document.querySelector(".like");
 					iconLike.setAttribute('class', 'like fa fa-heart');
 					iconLike.style.color="#ff006a";
@@ -280,7 +279,6 @@ function addLike() {
 	xhr.onreadystatechange = () => {
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			let result = xhr.responseText.trim();
-			console.log("좋아요 결과값", result);
 			if (result == 'success') {
 				alert("좋아요 성공");
 				selectOnlineclassAjax(no)
