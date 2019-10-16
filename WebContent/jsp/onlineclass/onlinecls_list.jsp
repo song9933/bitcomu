@@ -281,8 +281,13 @@ let tabBtn = document.querySelectorAll('.tab li');
 //console.log(tabBtn.length);
 for(let i = 0; i < tabBtn.length; i++) {
 	tabBtn[i].addEventListener('click', (e) => {
-		tabBtn[i].classList.toggle('aaa');
-		tabBtn[i].siblings().classList.remove('aaa');
+		if (tabBtn[i].classList.contains('on')) {
+			tabBtn[i].classList.remove('on');
+			tabBtn[i].nextElementSibling.classList.add('on');
+		} else {
+			tabBtn[i].classList.add('on');
+			tabBtn[i].nextElementSibling.classList.remove('on');
+		}
 	});
 }
 
