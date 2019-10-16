@@ -9,7 +9,7 @@ let f = document.writeForm
   }
   
   function isEmpty(ele, msg) {
-      if (ele.value == "") {
+      if (ele.value.trim() == "") {
           alert(msg);
           ele.focus();
           return true; 

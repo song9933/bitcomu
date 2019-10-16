@@ -11,6 +11,7 @@
 		<result column="talk_view_cnt" property="viewCnt" />
 		<result column="talk_reg_dt" property="regDt" />
 		<result column="talk_like_cnt" property="likeCnt" />
+		<result column="cmtCnt" property="cmtCnt" />
 		
 	</resultMap>
 	<select id="selectTalk" parameterType="hashmap" resultMap="talkMap">
@@ -51,7 +52,8 @@
 	      		select rownum rnum, a.* 
 			      from ( 
 					      select n.*,
-					      (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+					      (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id,
+					      (select count(*) from tb_comment c where n.talk_post_no = c.board_post_no and c.code_value = 1) as cmtCnt
                             from tb_talk n
 						   order by talk_post_no desc
 						)a

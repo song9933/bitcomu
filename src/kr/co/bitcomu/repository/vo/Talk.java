@@ -7,11 +7,19 @@ public class Talk {
 	private int userNo;
 	private int viewCnt;
 	private int likeCnt;
+	private int cmtCnt;
 	private String title;
 	private String content;
 	private String userId;
 	private Date regDt;
 	
+	
+	public int getCmtCnt() {
+		return cmtCnt;
+	}
+	public void setCmtCnt(int cmtCnt) {
+		this.cmtCnt = cmtCnt;
+	}
 	public int getPostNo() {
 		return postNo;
 	}

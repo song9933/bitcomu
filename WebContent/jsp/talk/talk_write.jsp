@@ -58,11 +58,11 @@
 							
 						</form>
 					</div> -->
-			  			  <input type='submit' value="등록" onclick="titleIsContent();"></input>
+		              <a  > 
+			  			  <input class="ns_write_do" type='submit' value="등록" onclick="titleIsContent();"></input>
+		              </a> 
 					<div>
 					</div>
-		              <a class="ns_write_do" > 
-		              </a> 
 				</form>
             </div>
           

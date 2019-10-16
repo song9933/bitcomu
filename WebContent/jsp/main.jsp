@@ -25,7 +25,7 @@ int yt_no1 = 0;
         <section class="content clearboth">
             <div class="board_box clearboth">
               <div>
-                <p><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;공지사항</p>
+                <p><a href="/bitcomu/notice/noticeList.do"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;공지사항</a></p>
                 <ul>
                 	<c:forEach var="i" items="${noticeList}" begin="0" end="6" step="1" >
                 		<li class="notice-list-main"><a href="/bitcomu/notice_detail.do?postNo=${i.postNo}&pageNo=1"><span>●</span>${i.title}</a> </li>
@@ -33,10 +33,10 @@ int yt_no1 = 0;
                 </ul>
               </div>
               <div>
-                <p><i class="fa fa-commenting-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;자유게시판</p>
+                <p><a href="/bitcomu/talk/talkList.do"><i class="fa fa-commenting-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;자유게시판</a></p>
                 <ul>
                 <c:forEach var="i" items="${talkList}" begin="0" end="6" step="1" >
-                		<li class="talk-list-main"><a href="/bitcomu/talk/talk_detail.do?postNo=${i.postNo}&pageNo=1"><span>●</span>${i.title}</a><em> </em> </li>
+                		<li class="talk-list-main"><a href="/bitcomu/talk/talk_detail.do?postNo=${i.postNo}&pageNo=1"><span>●</span>${i.title}</a><em> [${i.cmtCnt}]</em> </li>
                 </c:forEach>
                 </ul>
               </div>
