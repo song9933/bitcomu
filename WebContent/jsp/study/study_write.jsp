@@ -82,23 +82,37 @@
 	 let f = document.wForm;
 
 	 if (isEmpty(f.studyRecruitField, "모집분야를 선택하세요.")) return false;
+	 
 	 if (isEmpty(f.studyLoc,"지역을 입력하세요.")) return false;
+	 if (isLong(f.studyLoc,"10글자 이하로 입력해주세요.", 11)) return false;
 	 
 	 if (isEmpty(f.studyRecruitEnabled,"모집여부를 선택하세요.")) return false;
 	 if (isEmpty(f.studyPostTitle,"제목을 입력하세요.")) return false;
+	 if (isLong(f.studyPostTitle,"30글자 이하로 입력해주세요.",31)) return false;
 	 if (isEmpty(f.studyPostContent,"내용을 입력하세요.")) return false;	 	
+	 if (isLong(f.studyPostContent,"1000글자 이하로 입력해주세요.",1001)) return false;
 
 	 return true;
  }
  
  function isEmpty(ele, msg){
-	 if (ele.value == ""){
+	 if (ele.value.trim() == ""  ){
 		 alert(msg);
-		 console.log(msg);
+		
 		 return true;
 	 }
 	 return false;
  }
+ 
+ function isLong(ele, msg, max){
+	 if( ele.value.length > max){
+		 alert(msg);
+		 ele.value = "";
+		 return true;
+	 }
+	 return false;
+ }
+ 
  
 let min = document.querySelector("#studyRecruitMemMin");
 min.value="5";
