@@ -204,10 +204,12 @@ int yt_no2 = 0;
 			<a href="javascript:closePop0();"><img src="${ pageContext.request.contextPath }/resources/images/icon_closeW.png" alt="팝업닫기"/></a>
 		</div>
 		<!-- //팝업 끝 -->
+		<h1>${ resultR }</h1>
+		<h1>${ resultU }</h1>
+		<h1>${ resultD }</h1>
 	</div>		
 <script>
 let subj = "${subject}";
-
 
 
 //let subj = "${subject}";
@@ -263,6 +265,7 @@ function closePop2(){
 }
   
 /* 등록/수정/삭제 결과 alert창 */
+
 if ('${ resultC }' == 1) {
 	alert('등록되었습니다');
 }
@@ -274,9 +277,13 @@ if ('${ resultD }' == 1) {
 }
 /* -------------------- */
 /* 탭으로 전체과목 해당과목 목록 전환 */
-let tabBtn = document.querySelector('.tab li');
-for(let i = 0; i < tabBtn.lengt; i++) {
-	console.log('gggg');
+let tabBtn = document.querySelectorAll('.tab li');
+//console.log(tabBtn.length);
+for(let i = 0; i < tabBtn.length; i++) {
+	tabBtn[i].addEventListener('click', (e) => {
+		tabBtn[i].classList.toggle('aaa');
+		tabBtn[i].siblings().classList.remove('aaa');
+	});
 }
 
 </script>

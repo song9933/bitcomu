@@ -8,4 +8,5 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
   <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
