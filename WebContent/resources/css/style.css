@@ -1021,7 +1021,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 .qna_title_1 {
     margin-top: 10px;
     margin-left: 10px;
-    margin-bottom: 45px;
+    margin-bottom: 50px;
     width: 700px;
     height: 25px;
     border-bottom: 2px dashed gray;
@@ -1532,7 +1532,6 @@ from {opacity:0;} to {opacity:1;}
   border: 0 !important;
   text-shadow: 0 0 0;
 }
-
 
 
 /* 동훈 끝 */
