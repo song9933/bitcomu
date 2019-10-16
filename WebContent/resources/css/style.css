@@ -626,13 +626,13 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     .ns_table{    
         grid-area: 2/4 / 8/14;
         display: grid;
-        grid-row-gap: 10px;
+/*         grid-row-gap: 10px; */
         grid-template-rows: repeat(10, minmax(25px, auto-fit));  
         grid-template-columns: repeat(14, 64px);
     }
 
     .ns_table  div {
-        grid-row-gap: 10px;
+/*         grid-row-gap: 10px; */
 
     }
         .ns_table > .ns_TableListHead{ 
@@ -698,17 +698,17 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
   
     .ns_comment_write > input{
         width: 700px;
-        height: 100px;
+        height: 90px;
         
         
     }
     
     .ns_comment_write button {
     position: absolute;
-    top: 0; 
+    top: 7px; 
     right: -130px;
     width: 110px;
-    height: 100px;
+    height: 90px;
     
     
     }

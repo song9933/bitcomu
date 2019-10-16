@@ -39,13 +39,15 @@
            <div class="ns_table_write">
 		   		<form method='post' action="/bitcomu/talk/write.do" name="writeForm" onsubmit="return inputCheck();">
 				 	<div>
-			  		   제목 : <input type='text' name='title' size='70' placeholder=""/>	 	
+			  		   제목 <br>
+			  		    <input type='text' name='title' id="title" size='70' placeholder="100byte 까지 가능합니다"/>	 	
 				 	</div>
 				 	<div>
-					     글쓴이 :${user.userId} <input type='hidden' value="${user.userId}" name='writer' size='30' />
+					   작성자 :  ${user.userId} <input type='hidden' value="${user.userId}" name='writer' size='30' />
 				 	</div> 
 				 	<div>
-				            내용 : <textarea name='content' rows='20' cols='70' ></textarea>
+				            내용 <br>
+				          <textarea name='content' id="content" rows='20' cols='70' placeholder="2000byte 까지 가능합니다 까지 가능합니다" ></textarea>
 				 	</div>
 				 	
 				 	

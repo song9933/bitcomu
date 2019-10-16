@@ -118,6 +118,11 @@
 				
 				
 	            
+			<c:if test="${empty comment}">
+				 <tr>
+				    <td colspan='4'>댓글이 존재하지 않습니다.</td>
+				 </tr>
+			</c:if>	 
 			            </div>
 			</form>	
 								  <%--
@@ -169,11 +174,6 @@
 						</c:forEach>
 								   --%>
 					
-			<c:if test="${empty comment}">
-				 <tr>
-				    <td colspan='4'>댓글이 존재하지 않습니다.</td>
-				 </tr>
-			</c:if>	 
 						
 			<c:if test="${cpr.count > 10}">
              <div>

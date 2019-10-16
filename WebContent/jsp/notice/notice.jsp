@@ -49,7 +49,7 @@
 
 
 
-            <div class="ns_listlength">
+           <!--  <div class="ns_listlength">
               
                 <select name="list">
                     <option value="10" selected>10개</option>
@@ -57,7 +57,7 @@
                     <option value="20">20개</option>
                     
                 </select>씩 보기
-            </div>
+            </div> -->
   
         <%--
             <div class="ns_table">

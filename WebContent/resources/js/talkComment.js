@@ -1,7 +1,3 @@
-console.log(postNo);
-console.log(cmtPageNo);
-console.log(UserGrade);
-console.log(UserNo);
 /**
  * 댓글 목록 가져오는 Ajax
  * @returns
