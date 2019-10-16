@@ -51,7 +51,7 @@ int yt_no2 = 0;
 							<c:otherwise>
 								<c:forEach var="subject" items="${ sList }">
 	 								<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${ subject.ytSubject }'">
-										<div class="imgBox"><img src="https://img.youtube.com/vi/${ subject.ytAddrMod }/0.jpg"></div>
+										<div class="imgBox"><img src="https://img.youtube.com/vi/${ subject.ytAddr }/0.jpg"></div>
 										<span><%= ++yt_no1 %></span>
 										<div class="ifrInfo"><h5>${ subject.ytSubject }</h5></div>
 									</div>

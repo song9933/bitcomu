@@ -75,9 +75,9 @@
             </div>
             
             <div class="banner mt100">
-              <div class="box"></div>
-              <div class="box"></div>
-              <div class="box"></div>
+              <div class="box"><a href="http://www.moel.go.kr/index.do"></a></div>
+              <div class="box"><a href="https://www.work.go.kr/seekWantedMain.do"></a></div>
+              <div class="box"><a href="https://www.jobkorea.co.kr/"></a></div>
             </div>
 
         </section>
