@@ -120,7 +120,9 @@
 						<!-- 댓글 삭제 팝업-->
 						<form method="post"	action="<c:url value="/study/studycommentdelete.do"/>">
 							<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
+							<input type="hidden" name="parentCmtNo" value="${cmt.parentCmtNo}" /> 
 							<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
+							
 									<div id="popupDelCmt${cmt.cmtNo}" class=layer>
 											<div class="box">
 												<p class="text">삭제 하시겠습니까?</p>

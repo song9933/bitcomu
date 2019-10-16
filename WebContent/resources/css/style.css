@@ -142,9 +142,9 @@ section { margin: 100px 0; }
 .banner .box:last-child {
   margin-bottom: 0;
 }
-.banner .box:first-child { background-image: url('../images/배너1.png'); }
-.banner .box:nth-child(2) { background-image: url('../images/배너2.png'); }
-.banner .box:nth-child(3) { background-image: url('../images/배너3.png'); }
+.banner .box:first-child { background-image: url('../img/배너1.png'); }
+.banner .box:nth-child(2) { background-image: url('../img/배너2.png'); }
+.banner .box:nth-child(3) { background-image: url('../img/배너3.png'); }
 
 
 
@@ -569,6 +569,20 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
 
 /* 남수 시작 */
 
+.notice-list-main {
+  		white-space: nowrap;
+  		overflow: hidden;
+  		text-overflow: ellipsis;
+  		cursor: pointer;
+  	}
+.talk-list-main {
+  		white-space: nowrap;
+  		overflow: hidden;
+  		text-overflow: ellipsis;
+  		cursor: pointer;
+  	}
+
+
     .content.ns_content {
       display: grid;
       grid-template-rows: repeat(9, minmax(25px, auto-fit)); 
@@ -737,7 +751,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
         grid-template-columns: 1fr 5.5fr 1fr 1fr 1fr;
         padding: 10px;
     }
-    .ns_table > .ns_TableListBody li:nth-child(2n + 1){    
+    .ns_table > .ns_TableListBody li:nth-child(2n){    
         background: rgb(238, 240, 243);
     }
     .ns_table > .ns_TableListBody li:hover{    

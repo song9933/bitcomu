@@ -24,25 +24,17 @@
               <div>
                 <p><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;공지사항</p>
                 <ul>
-                  <li><span>●</span>비트캠프 학생여러분 안녕하세요 ^^</li>
-                  <li><span>●</span>와이파이비밀번호입니다.</li>
-                  <li><span>●</span>지각현황입니다 </li>
-                  <li><span>●</span>회식 관련공지입니다.</li>
-                  <li><span>●</span>2차 프로젝트 일정확인해주세요.</li>
-                  <li><span>●</span>컴퓨터에 불법 프로그램설치하지 마세요</li>
-                  <li><span>●</span>과제 제출 하세요</li>
+                	<c:forEach var="i" items="${noticeList}" begin="0" end="6" step="1" >
+                		<li class="notice-list-main"><a href="/bitcomu/notice_detail.do?postNo=${i.postNo}&pageNo=1"><span>●</span>${i.title}</a> </li>
+                	</c:forEach>
                 </ul>
               </div>
               <div>
                 <p><i class="fa fa-commenting-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;자유게시판</p>
                 <ul>
-                  <li><span>●</span>공리주의 - 끝나지않을이야기 <em>[12]</em></li>
-                  <li><span>●</span>오늘 회사 난리남 <em>[12]</em></li>
-                  <li><span>●</span>곤자가 런치박스 개꿀인데??! <em>[12]</em></li>
-                  <li><span>●</span>예비군 멋지네진짜 <em>[12]</em></li>
-                  <li><span>●</span>최태성 유튜브 쩐다 <em>[12]</em></li>
-                  <!-- <li><span>●</span>고기 속여 팔다가 유튜버한테 걸림.jpg <em>[12]</em></li> -->
-                  <li><span>●</span>오늘자 대기업 회의 <em>[12]</em></li>
+                <c:forEach var="i" items="${talkList}" begin="0" end="6" step="1" >
+                		<li class="talk-list-main"><a href="/bitcomu/talk/talk_detail.do?postNo=${i.postNo}&pageNo=1"><span>●</span>${i.title}</a><em> </em> </li>
+                </c:forEach>
                 </ul>
               </div>
               <div class="vote-list-main-div">
@@ -75,9 +67,9 @@
             </div>
             
             <div class="banner mt100">
-              <div class="box"><a href="http://www.moel.go.kr/index.do"></a></div>
-              <div class="box"><a href="https://www.work.go.kr/seekWantedMain.do"></a></div>
-              <div class="box"><a href="https://www.jobkorea.co.kr/"></a></div>
+              <div class="box"></div>
+              <div class="box"></div>
+              <div class="box"></div>
             </div>
 
         </section>
@@ -168,7 +160,7 @@
 	let arrStdBox = document.getElementsByClassName("mainStd");
 	for(let i = 0; i<arrStdBox.length; i++){
 		
-	  arrStdBox[i].addEventListener('click', e=> {
+	  arrStdBox[i].addEventListener('click', e => {
 		  
 		  location.href = '/bitcomu/study/studydetail.do?studyPostNo='+ arrStdBox[i].getAttribute("data-num");
 	  })

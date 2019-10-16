@@ -16,5 +16,8 @@ public interface NoticeDAO {
 	void updateNotice(Notice notice);
 	int deleteNotice(int no);
 	int selectNoticeCount();
+	
+	//메인 페이지
+	List<Notice> selectMainNotice();
 
 }
