@@ -2,6 +2,7 @@ package kr.co.bitcomu.qna.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,49 +15,40 @@ import com.google.gson.Gson;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.QnaDAO;
-import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Qna;
 
-
-@WebServlet("/qna/qnalistajax.do")
-public class QnaListAjaxController extends HttpServlet{
+@WebServlet("/qna/QnaLikeAjax.do")
+public class QnaLikeAjaxController extends HttpServlet {
 	private QnaDAO dao;
 	
-	public QnaListAjaxController() {
+	public QnaLikeAjaxController() {
 		this.dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(QnaDAO.class);
 	}
 	
-
-
-
-
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setCharacterEncoding("utf-8");
-		res.setContentType("text/json; charset=utf-8");
-		int rnum = (Integer.parseInt(req.getParameter("pageno")))*7;
-		List<Qna> list;
-		if(rnum < 7) {
-			list = dao.selectQnaNSmall(rnum);
-		} else {
-			list = dao.selectQnaN(rnum);
+		String result = "success";
+		List<Object> list = new ArrayList<>();
+		try {
+			Qna qna = new Qna();
+			qna.setQnaNo(Integer.parseInt(req.getParameter("qnaNo")));
+			qna.setUserNo(Integer.parseInt(req.getParameter("userNo")));
+			dao.insertLike(qna);
+		} catch (Exception e) {
+			if (e.getMessage().contains("unique constraint")) {
+				result = "already";
+			} else {
+				result = "error";
+			}
 		}
-		
-		for(Qna q : list) { q.setUserId(dao.selectUserId(q.getQnaNo()));
-				q.setQnaLikeCnt(dao.selectLike(q.getQnaNo()));
-		}
-		for (Qna qna : list) {
-			List<Comment> c = dao.selectQnaCommentList(qna.getQnaNo());
-			qna.setCommentList(c);
-			
-		} 
-		
-		PrintWriter out = res.getWriter();
-		
+		int likeCnt = dao.selectLike(Integer.parseInt(req.getParameter("qnaNo")));
+		list.add(result);
+		list.add(likeCnt);
+		PrintWriter out = res.getWriter(); 
 		out.println(new Gson().toJson(list));
-		
-		System.out.println(new Gson().toJson(list));
 		out.close();
 	}
+
 	
 }

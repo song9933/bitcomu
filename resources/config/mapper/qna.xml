@@ -24,6 +24,18 @@
          where qna_no = #{qnaNo}
 	</select>
 	
+	<update id="updateViewCntQna" parameterType="int">
+		update tb_qna
+		   set qna_view_cnt = qna_view_cnt + 1
+		 where qna_no = #{qnaNo}    
+	</update>
+	
+	<select id="selectViewCntQna" parameterType="int" resultType="int">
+		select qna_view_cnt
+		  from tb_qna
+		 where qna_no = #{qnaNo}    
+	</select>
+	
 	
 	<select id="selectQna" parameterType="page" resultMap="qnaMap">
 	    select *
@@ -75,9 +87,9 @@
 	<!-- qna게시판 글 작성 -->
 	<insert id="insertQna" parameterType="Qna">
 		insert into tb_qna (
-			qna_no, qna_title, qna_content, user_no
+			qna_no, qna_title, qna_content, user_no, qna_public_enabled
 		) values (
-			tb_qna_seq.nextval, #{qnaTitle}, #{qnaContent}, ${userNo}
+			tb_qna_seq.nextval, #{qnaTitle}, #{qnaContent}, #{userNo}, #{qnaPublicEnabled}
 		)
 	</insert>
 	
@@ -103,21 +115,29 @@
 		 where qna_no = #{qnaNo}
 	</update>
 	
+	<!-- qna게시판 좋아요 -->
+	<insert id="insertLike" parameterType="Qna">
+		insert into tb_like
+		values (#{qnaNo}, #{userNo}, (select code_value from tb_codenm where code_name='질문답변게시판'))
+	</insert>
+	<select id="selectLike" parameterType="int" resultType="int">
+		select count(*) from tb_like
+		 where board_post_no = #{qnaNo} and code_value = (select code_value from tb_codenm where code_name='질문답변게시판')
+	</select>
+	
 	<!-- 7개 이상 검색 -->
 	<select id="selectQnaSearchAjax" parameterType="Qna" resultMap="qnaMap">
 	select *
 	from
 	(
     select rownum numrow, aa.* from 
-                       (select *
-                        from tb_qna
-                       where qna_title like '%' || #{qnaKeyword} || '%'
-                       or qna_content like '%' || #{qnaKeyword} || '%'
-                       or  (select (select user_id  
-          					 from tb_user u
-        					 where q.user_no = u.user_no ) as user_id
-          					 from tb_qna q
-         					 where qna_no = #{qnaNo}) like '%' || #{qnaKeyword} || '%' 
+                       ( select * from
+                       		(select q.*, (select user_id from tb_user u
+            				  where q.user_no = u.user_no) user_id
+                        	   from tb_qna q)
+                       		where qna_title like '%' || #{qnaKeyword} || '%'
+                       		or qna_content like '%' || #{qnaKeyword} || '%'
+                       		or user_id like '%' || #{qnaKeyword} || '%' 
                         order by qna_reg_dt desc) aa)
              where numrow between (#{qnaListCount}-6) and #{qnaListCount}
 	</select>
@@ -127,15 +147,13 @@
 	from
 	(
     select rownum numrow, aa.* from 
-                       (select *
-                        from tb_qna
+                       (select * from 
+                       		(select q.*, (select user_id from tb_user u
+            				  where q.user_no = u.user_no) user_id
+                       		   from tb_qna q)
                        where qna_title like '%' || #{qnaKeyword} || '%'
                        or qna_content like '%' || #{qnaKeyword} || '%'
-                       or   (select (select user_id  
-          					 from tb_user u
-        					 where q.user_no = u.user_no ) as user_id
-          					 from tb_qna q
-         					 where qna_no = #{qnaNo}) like '%' || #{qnaKeyword} || '%' 
+                       or user_id like '%' || #{qnaKeyword} || '%' 
                         order by qna_reg_dt desc) aa)
              where numrow between 1 and #{qnaListCount}
 	</select>
