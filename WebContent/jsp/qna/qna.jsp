@@ -59,7 +59,7 @@
 	  
     <script>
     	let enabledFlag = false;
-//     let boardNo = ${boardNo};
+//      let boardNo = ${boardNo};
         
         let selectBoardNo = ${selBoardNo};
     	let a = document.querySelectorAll(".qna_content_1");
@@ -212,7 +212,7 @@
 						  
 		    		 		<div class="qna_content_1 hidden" id="c\${b.qnaNo}">	 	
 			    		 		<span class="qna_viewcnt">조회수 \${b.qnaViewCnt}</span><span>&nbsp;&nbsp;좋아요&nbsp;&nbsp;\${b.qnaLikeCnt}&nbsp;&nbsp;</span><i class="far fa-thumbs-up fa-1x" id="likeUpdate\${b.qnaNo}" onclick="loadMore3(\${b.qnaNo}, ${sessionScope.user.userNo})"></i>   
-			                    <p style="font-weight: bold; font-size: 1.5em; color: inherit;" >\${b.userId}</p>
+			                    <p style="font-weight: bold; font-size: 1.3em; color: inherit;" >\${b.userId}</p>
 			                    <p>\${b.qnaContent}</p>
 			                    <p>\${b.qnaRegDt}</p><hr>`;
 		                    
@@ -224,7 +224,7 @@
 		         					html += `
 				         					<div class="qna_cmt_content" id="\${cmt.cmtNo}">
 				         				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" >
-				                                 <p style="font-weight: bold; font-size: 1.5em; color: inherit;">\${cmt.userId}</p>
+				                                 <p style="font-weight: bold; font-size: 1.3em; color: inherit;">\${cmt.userId}</p>
 				                                 <p>\${cmt.cmtContent}</p>
 				                                 <p>\${cmt.cmtRegDt}</p>
 				         					</form> 
@@ -252,7 +252,7 @@
 					         								<form method="post" action="/bitcomu/qna/qnaCommentDelete.do">
 					         									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
 					         									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />									
-					         								<div id="popupDelCmt\${cmt.cmtNo}" class=layer>
+					         								<div id="popupDelCmt\${cmt.cmtNo}" class="layer">
 					         									<div class="box">
 					         										<p class="text">삭제 하시겠습니까?</>
 					         										<button type="button" onclick="location.href='#'" class="close">취소</button>

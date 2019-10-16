@@ -39,13 +39,13 @@
 	
 	<select id="selectQna" parameterType="page" resultMap="qnaMap">
 	    select *
-	      from (select rownum rnum, a.*
+	      from (select rownum numrow, aa.*
 			      from ( 
 					      select q.*, (select user_id  from tb_user u where u.user_no = q.user_no ) as user_id 
                             from tb_qna q
 						   order by qna_no desc
-						   ) a  )			   
-		 where rnum between #{begin} and #{end}  			 
+						   ) aa )			   
+		 where numrow between #{begin} and #{end}  			 
 	</select>
 	
 	<!-- 리스트 출력 7개 이상 -->

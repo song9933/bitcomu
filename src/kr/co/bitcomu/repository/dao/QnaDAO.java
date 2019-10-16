@@ -11,17 +11,17 @@ import kr.co.bitcomu.repository.vo.Vote;
 public interface QnaDAO {
 	
 	List<Qna> selectQna(Page page);
+	List<Qna> selectQnaN(int rnum);
+	List<Qna> selectQnaNSmall(int rnum);
+	List<Qna> selectQnaSearchAjax(Qna qna);
+	List<Qna> selectQnaSearchAjaxSmall(Qna qna);
 	Qna selectOneQna(int qnaNo);
 	void updateQnaViewCnt(int qnaNo);
 	void insertQna(Qna qna);
 	void updateQna(Qna qna);
 	void deleteQna(int qnaNo);
 	int selectQnaCnt();
-	List<Qna> selectQnaN(int rnum);
-	List<Qna> selectQnaNSmall(int rnum);
 	String selectUserId(int qnaNo);
-	List<Qna> selectQnaSearchAjax(Qna qna);
-	List<Qna> selectQnaSearchAjaxSmall(Qna qna);
 	int updateViewCntQna(int qnaNo);
 	int selectViewCntQna(int qnaNo);
 	void insertLike(Qna qna);
