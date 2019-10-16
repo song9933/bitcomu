@@ -95,8 +95,17 @@ addrEle.addEventListener('blur', (e) => {
 	}
 });
 let selEle = document.querySelector('select[name="yt_subj_sel"]');
-selEle.addEventListener('onchange', (e) => {
-	console.log('onchagne');
+selEle.addEventListener('change', (e) => {
+	console.log('change OK')
+	let optEle = document.querySelector('option[value="0"]');
+	let inpEle = document.querySelector('input[name="yt_subj_inp');
+	if (optEle.selected) {
+		$('input[name="yt_subj_inp').removeClass('hidden');
+	} else {
+		if (inpEle.class != 'hidden') {
+			$('input[name="yt_subj_inp').addClass('hidden');
+		}
+	}
 });
 
 

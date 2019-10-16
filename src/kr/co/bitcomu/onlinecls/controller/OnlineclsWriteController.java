@@ -40,23 +40,28 @@ public class OnlineclsWriteController extends HttpServlet{
 		// 원본 주소
 		ocls.setYtAddr(req.getParameter("yt_addr"));
 		// 필요한 파라미터
-		ocls.setYtAddr(req.getParameter("yt_addr_mod"));
+		ocls.setYtAddrMod(req.getParameter("yt_addr_mod"));
 		
+		String yt_subject = req.getParameter("yt_subj_sel");
 		// selbox가 null이면 input을 저장
-//		if(req.getParameter("yt_sel") == "") {
-//			ocls.setYtSubject(req.getParameter("inp_yt_sel"));
-//		} else {
-//			ocls.setYtSubject(req.getParameter("yt_sel"));
-//		}
-		String yt_subject = req.getParameter("yt_sel");
+		if("0".equals(req.getParameter("yt_subj_sel"))) {
+			ocls.setYtSubject(req.getParameter("yt_subj_inp"));
+			yt_subject = req.getParameter("yt_subj_inp");
+			
+		} else {
+			ocls.setYtSubject(req.getParameter("yt_subj_sel"));
+		}
+		
 		ocls.setYtSubject(yt_subject);
-		int result = dao.insertOnlinecls(ocls);
-		System.out.println("제목" + req.getParameter("yt_title"));
-		System.out.println("내용" + req.getParameter("yt_detail"));
-		System.out.println("원본주소" + req.getParameter("yt_addr"));
-		System.out.println("hidden주소" + req.getParameter("yt_addr_mod"));
-		System.out.println("과목" + req.getParameter("yt_sel"));
+//		System.out.println("작성자 " + user.getUserNo());
+//		System.out.println("제목 " + req.getParameter("yt_title"));
+//		System.out.println("내용 " + req.getParameter("yt_detail"));
+//		System.out.println("원본주소 " + req.getParameter("yt_addr"));
+//		System.out.println("hidden주소 " + req.getParameter("yt_addr_mod"));
+//		System.out.println("과목 " + yt_subject);
 //		System.out.println("insert결과::" + result);
+		
+		int result = dao.insertOnlinecls(ocls);
 		
 		// url에서 과목명이 깨지는것 처리
 		yt_subject = URLEncoder.encode(yt_subject, "utf-8");

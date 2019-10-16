@@ -90,6 +90,7 @@ int yt_no2 = 0;
 										<h5>${ ocls.ytTitle }</h5>
 										<!-- <p>강의시간 36:24</p> -->
 										<p>조회수 ${ ocls.ytViewCnt }</p>
+										<b>${ocls.ytSubject }</b>
 									</div>
 								</div>
 							</c:forEach>

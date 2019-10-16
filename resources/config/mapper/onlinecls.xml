@@ -92,7 +92,7 @@
 			<when test="search.searchType == 'title'">
 				and yt_title like '%' || #{search.searchWord} || '%'
 			</when>
-			<when test="subj != ''">
+			<when test="subj != null">
 				and yt_subject = #{ subj }
 			</when>
 			
@@ -122,7 +122,7 @@
 	  					and yt_title like '%' || #{search.searchWord} || '%'
 	  				</when>
 	  				<when test="subj != ''">
-						and yt_subject = #{ subj }
+						and yt_subject=#{subj}
 					</when>
 	  			</choose>
 	  			</where>
@@ -142,7 +142,7 @@
 	insert into tb_youtube(
 		yt_no, user_no, yt_title, yt_content, yt_addr, yt_subject, yt_addr_mod
 	) values (
-		tb_youtube_seq.nextval, #{userNo}, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject}, #{ytAddrMod 
+		tb_youtube_seq.nextval, #{userNo}, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject}, #{ytAddrMod}
 	)
 </insert>
 
