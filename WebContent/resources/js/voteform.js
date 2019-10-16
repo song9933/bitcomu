@@ -1,5 +1,40 @@
 /*투표등록 모달창과 관련된 JS 시작*/
 
+
+function validate(){
+	let writeFormTitle = document.getElementById("dc-form-title");
+	if (document.getElementById("dc-form-title").value.trim().length == 0){
+		alert("제목을 입력해주세요.");
+		return false;
+	}
+	var date = new Date();
+	date.setMinutes(date.getMinutes()+3);
+	let dateString = date.toISOString().slice(0, 16);
+//	date.setHours(date.getHours()+9);
+	let inputdate = document.querySelector("#limitDate");
+	console.log(typeof(dateString),typeof(inputdate.value));
+	console.log(parseInt(dateString),parseInt(inputdate.value));
+	console.log(dateString,inputdate.value);
+	if (inputdate.value < dateString){
+		alert("마감기한은 현재시간보다 최소 3분 이후로 설정하셔야 합니다.");
+		return false;
+	}
+	
+	if (document.querySelector("#vote-content").value.trim().length == 0){
+		alert("설명을 입력해주세요.");
+		return false;
+	}
+	
+	let menu = document.getElementsByClassName("vote_menu");
+	console.log(menu);
+	for (let i = 0; i < menu.length; i++){
+		if(menu[i].value.trim().length == 0){
+			alert("선택지이름을 입력해주세요.");
+			return false;
+		}	
+	}
+}
+
 let index = 3;
 	function vote_add(){
 		let tg = document.getElementById("vote_tg");
@@ -42,29 +77,3 @@ let index = 3;
 
 //투표 글쓰기창의 유효성 검사 함수
 
-function validate(){
-	let writeFormTitle = document.getElementById("dc-form-title");
-	if (document.getElementById("dc-form-title").value == ""){
-		alert("제목을 입력해주세요.");
-		return false;
-	}
-	var date = new Date();
-	date.setMinutes(date.getMinutes()+3);
-	if (document.getElementById("vote-close-dt").value < date.value){
-		alert("마감기한은 현재시간보다 최소 3분 이후로 설정하셔야 합니다.");
-		return false;
-	}
-	if (document.querySelector("#vote-content").value.length == 0){
-		alert("설명을 입력해주세요.");
-		return false;
-	}
-	
-	let menu = document.getElementsByClassName("vote_menu");
-	console.log(menu);
-	for (let i = 0; i < menu.length; i++){
-		if(menu[i].value.length == 0){
-			alert("선택지이름을 입력해주세요.");
-			return false;
-		}	
-	}
-}

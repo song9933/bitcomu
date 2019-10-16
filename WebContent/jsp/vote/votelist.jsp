@@ -60,7 +60,7 @@
 
 								<div>마감 기한을 선택해주세요.</div>
 								<div>
-									<input type="datetime-local" name="voteCloseDt" class="vote_datetime_input vote-close-dt" />
+									<input type="datetime-local" name="voteCloseDt" class="vote_datetime_input vote-close-dt" id="limitDate"/>
 								</div>
 								<div>투표에대한 간략한 설명을 입력해주세요.</div>
 								<textarea class="w3-input" placeholder="투표에 대한 기본 설명입력.."
@@ -241,6 +241,12 @@ $(window).on("scroll", function() {
 	document.getElementById("vote-refresh-button").addEventListener('click', function(){
 		location.href="/bitcomu/vote/votelist.do";
 	});
+
+	function mindate() {
+		var cdate = new Date();
+		console.log(c)
+		return new Date();
+	}
 	
 	
 
