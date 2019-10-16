@@ -61,7 +61,11 @@ public class AuthFilter implements Filter {
 					session.setAttribute("uri", uri + "?studyPostNo=" + req.getParameter("studyPostNo"));
 				} else if ("/onlineclass/onlineclsList.do".contains(uri)) { 
 					session.setAttribute("uri", uri + "?subj=" + req.getParameter("subj"));
-				} else {
+				} else if ("/team/teamBoardDetail.do".contains(uri)) {					
+					session.setAttribute("uri", uri + "?teamBoardNo=" + req.getParameter("teamBoardNo"));
+				}
+				
+				else {
 				    session.setAttribute("uri", uri);
 				}
 				res.sendRedirect(req.getContextPath() + "/user/userLoginAuth.do");
