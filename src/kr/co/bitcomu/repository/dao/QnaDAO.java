@@ -22,6 +22,10 @@ public interface QnaDAO {
 	String selectUserId(int qnano);
 	List<Qna> selectQnaSearchAjax(Qna qna);
 	List<Qna> selectQnaSearchAjaxSmall(Qna qna);
+	int updateViewCntQna(int qnaNo);
+	int selectViewCntQna(int qnaNo);
+	void insertLike(Qna qna);
+	int selectLike(int qnaNo);
 	
 	// 댓글 부분
 	List<Comment> selectQnaCommentList(int boardPostNo);

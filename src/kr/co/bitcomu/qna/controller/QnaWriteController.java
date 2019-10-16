@@ -32,6 +32,11 @@ public class QnaWriteController extends HttpServlet {
 		q.setUserNo(user.getUserNo());	
 		q.setQnaTitle(req.getParameter("qnaTitle"));
 		q.setQnaContent(req.getParameter("qnaContent"));
+		if ("N".equals(req.getParameter("qnaEnabled"))) {
+			q.setQnaPublicEnabled(req.getParameter("qnaEnabled"));
+		} else {
+			q.setQnaPublicEnabled("Y");
+		}
 		
 		dao.insertQna(q);
 		res.sendRedirect("qnaList.do");
