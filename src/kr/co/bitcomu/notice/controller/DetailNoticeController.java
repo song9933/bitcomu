@@ -41,9 +41,6 @@ public class DetailNoticeController extends HttpServlet {
 		int pageNo = Integer.parseInt(sPageNo);
 		Page page = new Page(pageNo);
 		
-		int count = dao.selectNoticeCount();
-		PageResult pr = new PageResult(pageNo, count);
-		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		
 		//검색
@@ -63,6 +60,9 @@ public class DetailNoticeController extends HttpServlet {
 		listMap.put("search", search);
 		
 		
+		int count = dao.selectNoticeCount(listMap);
+		PageResult pr = new PageResult(pageNo, count);
+		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		
 		

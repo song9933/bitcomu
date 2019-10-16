@@ -58,9 +58,29 @@
 	</select>
 	
 	
-	<select id="selectNoticeCount" resultType="int">
+	<select id="selectNoticeCount" parameterType="hashmap" resultType="int">
 		select count(*)
-		  from tb_notice
+		  from (select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+                            from tb_notice n)
+	  	 <choose>
+			<when test="search.searchType == 'user'">
+				where user_id like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'titleContent'"> 
+	                 	where notice_POST_title like '%' || #{search.searchWord} || '%'
+	                 	   or notice_POST_content like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'content'">
+				where notice_POST_content like '%' || #{search.searchWord} || '%'
+			</when >
+			<when test="search.searchType == 'title'">
+				where notice_POST_title like '%' || #{search.searchWord} || '%'
+			</when >
+			<when test="search.searchType == null">
+			</when >
+			<otherwise>
+			</otherwise>
+         </choose>
 	</select>
 	
 

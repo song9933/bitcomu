@@ -99,31 +99,31 @@
   
           
 
-            
-              <ul class="pagination nams">
-                <c:if test="${pr.count != 0}">
-			  	<c:if test="${pr.prev}">
-			    <li>
-			      <a href="talkList.do?pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
-			    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
-			    	<li 
-			    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-			    	><a href="talkList.do?pageNo=${i}&searchType=${search.searchType}&searchWord=${search.searchWord}">${i}</a></li>
-			    </c:forEach>
-			  	<c:if test="${pr.next}">
-			    <li>
-			      <a href="talkList.do?pageNo=${pr.endPage + 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			    </c:if>
+        <c:if test="${pr.count > 10}">
+        <ul class="pagination nams">
+        <c:if test="${pr.count != 0}">
+	  	<c:if test="${pr.prev}">
+	    <li>
+	      <a href="talkList.do?pageNo=${pr.beginPage -1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="previous">
+	        <span aria-hidden="true">&laquo;</span>
+	      </a>
+	    </li>
+	    </c:if>
+	    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+	    	<li 
+	    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
+	    	><a href="talkList.do?pageNo=${i}&searchType=${search.searchType}&searchWord=${search.searchWord}">${i}</a></li>
+	    </c:forEach>
+	  	<c:if test="${pr.next}">
+	    <li>
+	      <a href="talkList.do?pageNo=${pr.endPage + 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="next">
+	        <span aria-hidden="true">&raquo;</span>
+	      </a>
+	    </li>
+	    </c:if>
 		</c:if>
 		</ul>
-		
+		</c:if>
 		
             <c:choose>
             <c:when test="${ not empty sessionScope.user.userNo }">

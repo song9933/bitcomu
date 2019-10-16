@@ -65,24 +65,24 @@
 		  from (select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
                             from tb_talk n)
 		 <choose>
-				<when test="search.searchType == 'user'">
-					where user_id like '%' || #{search.searchWord} || '%'
-				</when>
-				<when test="search.searchType == 'titleContent'"> 
-		                 	where TALK_POST_title like '%' || #{search.searchWord} || '%'
-		                 	   or TALK_POST_content like '%' || #{search.searchWord} || '%'
-				</when>
-				<when test="search.searchType == 'content'">
-					where TALK_POST_content like '%' || #{search.searchWord} || '%'
-				</when >
-				<when test="search.searchType == 'title'">
-					where TALK_POST_title like '%' || #{search.searchWord} || '%'
-				</when >
-				<when test="search.searchType == null">
-				</when >
-				<otherwise>
-				</otherwise>
-              </choose>
+			<when test="search.searchType == 'user'">
+				where user_id like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'titleContent'"> 
+	                 	where TALK_POST_title like '%' || #{search.searchWord} || '%'
+	                 	   or TALK_POST_content like '%' || #{search.searchWord} || '%'
+			</when>
+			<when test="search.searchType == 'content'">
+				where TALK_POST_content like '%' || #{search.searchWord} || '%'
+			</when >
+			<when test="search.searchType == 'title'">
+				where TALK_POST_title like '%' || #{search.searchWord} || '%'
+			</when >
+			<when test="search.searchType == null">
+			</when >
+			<otherwise>
+			</otherwise>
+         </choose>
 	
 	
 	

@@ -98,7 +98,7 @@
   
   
           
-
+		<c:if test="${pr.count > 10}">
         <ul class="pagination nams">
         
          <c:if test="${pr.count != 0}">
@@ -124,6 +124,7 @@
 		</c:if>
 		
 		</ul>
+		</c:if>
             
             <c:if test="${ sessionScope.user.userGrade eq 3}">
             <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 

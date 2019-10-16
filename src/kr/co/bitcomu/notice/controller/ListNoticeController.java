@@ -59,14 +59,14 @@ public class ListNoticeController extends HttpServlet {
 		Page page = new Page(pageNo);
 		
 		
-		int count = dao.selectNoticeCount();
-		PageResult pr = new PageResult(pageNo, count);
-		req.setAttribute("pr", pr);  // 전체 게시물 갯수
-		
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", page);
 		map.put("search", search);
+		
+		int count = dao.selectNoticeCount(map);
+		PageResult pr = new PageResult(pageNo, count);
+		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		
 		
