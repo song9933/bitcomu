@@ -1533,6 +1533,9 @@ from {opacity:0;} to {opacity:1;}
   text-shadow: 0 0 0;
 }
 
+.qna_item.parent {
+	font-weight: bold;
+}
 
 /* 동훈 끝 */
 

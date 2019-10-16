@@ -212,7 +212,7 @@
 						  
 		    		 		<div class="qna_content_1 hidden" id="c\${b.qnaNo}">	 	
 			    		 		<span class="qna_viewcnt">조회수 \${b.qnaViewCnt}</span><span>&nbsp;&nbsp;좋아요&nbsp;&nbsp;\${b.qnaLikeCnt}&nbsp;&nbsp;</span><i class="far fa-thumbs-up fa-1x" id="likeUpdate\${b.qnaNo}" onclick="loadMore3(\${b.qnaNo}, ${sessionScope.user.userNo})"></i>   
-			                    <p style="font-weight: bold; font-size: 15px; color: inherit;" >\${b.userId}</p>
+			                    <p style="font-weight: bold; font-size: 1.5em; color: inherit;" >\${b.userId}</p>
 			                    <p>\${b.qnaContent}</p>
 			                    <p>\${b.qnaRegDt}</p><hr>`;
 		                    
@@ -224,7 +224,7 @@
 		         					html += `
 				         					<div class="qna_cmt_content" id="\${cmt.cmtNo}">
 				         				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" >
-				                                 <p style="font-weight: bold; font-size: 15px; color: inherit;">\${cmt.userId}</p>
+				                                 <p style="font-weight: bold; font-size: 1.5em; color: inherit;">\${cmt.userId}</p>
 				                                 <p>\${cmt.cmtContent}</p>
 				                                 <p>\${cmt.cmtRegDt}</p>
 				         					</form> 
@@ -236,7 +236,7 @@
 				         					if (${sessionScope.user.userNo} == cmt.userNo || ${sessionScope.user.userGrade} == 3) {
 				         					
 					         					html +=	`<div class="qna_item parent">
-					         							<a href="#popupMod\${cmt.cmtNo}">수정</a>
+					         						<p><a href="#popupMod\${cmt.cmtNo}">수정</a></p>
 					         							  <form method="post" action="/bitcomu/qna/qnaCommentUpdate.do"  name="crForm4">
 					         									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
 					         									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />
