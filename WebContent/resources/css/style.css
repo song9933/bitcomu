@@ -2132,14 +2132,15 @@ div.a_cws {
 .writepopup_cws select {
 	border: 1px solid black;
 	height: 25px;
-	margin-left: 30px;
+	margin-left: 13px;
 	color: gray;
 }
 
 
 .close_cws{
 	color: black;
-	background-image: url("./../img/close.jpg");
+	background-image: url("./../images/icon_closeW.png");
+	C:\java\git\bitcomu\WebContent\resources\images
 	background-size: cover;
 	position: absolute;
 	margin: 0;
@@ -2161,7 +2162,7 @@ div.a_cws {
 .writecontent_cws {
 	border: 1px solid gray;
 	width: 540px;
-	height: 250px;
+	height: 290px;
 	margin-left: -120px;
 	overflow: hidden;
 }
@@ -2171,8 +2172,7 @@ div.a_cws {
 	color: white;
 	width: 90px;
 	height: 30px;
-	margin-top: 40px;
-	margin-left: 50px;
+	margin-left: 100px;
 	cursor: pointer; 
 	border-radius: 5px;
 
