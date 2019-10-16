@@ -737,7 +737,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
         grid-template-columns: 1fr 5.5fr 1fr 1fr 1fr;
         padding: 10px;
     }
-    .ns_table > .ns_TableListBody li:nth-child(2n + 1){    
+    .ns_table > .ns_TableListBody li:nth-child(2n){    
         background: rgb(238, 240, 243);
     }
     .ns_table > .ns_TableListBody li:hover{    
