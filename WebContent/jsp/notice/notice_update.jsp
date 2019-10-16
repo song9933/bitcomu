@@ -66,7 +66,7 @@
            
            
            <div class="ns_table_write">
-     <form method='post' action="/bitcomu/noticeUpdate.do" > <!-- enctype = "multipart/form-data"> -->
+     <form method='post' action="/bitcomu/noticeUpdate.do" name="writeForm" onsubmit="return inputCheck();"> <!-- enctype = "multipart/form-data"> -->
      	<input type="hidden" name="postNo" value="${board.postNo}" />
      	<input type="hidden" name="userNo" value="${board.userNo}" />
 	 	<div>
@@ -82,7 +82,7 @@
 			<input type="file" name="attach" />
 		</div>
               <a class="ns_write_do" > 
-	    <button type='submit'>등록</button>
+	    <button type='submit'>수정</button>
               </a> 
 	</form>
               </div>
@@ -137,10 +137,8 @@
 
 
   </div>
-  <script>
-  // $(document).ready(alert());
-
-  </script>
+ <script src="<c:url value='/resources/js/talkWriteCheckForm.js' />">
+ </script>
 </body>
 </html>
 

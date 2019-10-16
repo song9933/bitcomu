@@ -66,7 +66,7 @@
            
            
            <div class="ns_table_write">
-     <form method='post' action="/bitcomu/notice/write.do" > <!-- enctype = "multipart/form-data"> -->
+     <form method='post' action="/bitcomu/notice/write.do" name="writeForm" onsubmit="return inputCheck();"> <!-- enctype = "multipart/form-data"> -->
 	 	<div>
   		   제목 : <input type='text' name='title' size='70' />	 	
 	 	</div>
@@ -135,9 +135,7 @@
 
 
   </div>
-  <script>
-  // $(document).ready(alert());
-
+  <script src="<c:url value='/resources/js/talkWriteCheckForm.js' />">
   </script>
 </body>
 </html>

@@ -45,12 +45,33 @@
 			  )
 		 where rnum between #{page.begin} and #{page.end} 
 	</select>
-	<select id="selectTalkCount" parameterType="string" resultType="int">
+	<select id="selectTalkCount" parameterType="hashmap" resultType="int">
 		select count(*)
 		  from (select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
                             from tb_talk n)
-		   
-           
+		 <choose>
+				<when test="search.searchType == 'user'">
+					where user_id like '%' || #{search.searchWord} || '%'
+				</when>
+				<when test="search.searchType == 'titleContent'"> 
+		                 	where TALK_POST_title like '%' || #{search.searchWord} || '%'
+		                 	   or TALK_POST_content like '%' || #{search.searchWord} || '%'
+				</when>
+				<when test="search.searchType == 'content'">
+					where TALK_POST_content like '%' || #{search.searchWord} || '%'
+				</when >
+				<when test="search.searchType == 'title'">
+					where TALK_POST_title like '%' || #{search.searchWord} || '%'
+				</when >
+				<when test="search.searchType == null">
+				</when >
+				<otherwise>
+				</otherwise>
+              </choose>
+	
+	
+	
+	
 	</select>
 	
 	

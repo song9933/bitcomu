@@ -14,6 +14,7 @@ import java.util.Map;
 
 import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Page;
+import kr.co.bitcomu.repository.vo.Search;
 import kr.co.bitcomu.repository.vo.Talk;
 
 
@@ -24,7 +25,7 @@ public interface TalkDAO {
 	void insertTalk(Talk talk);
 	void updateTalk(Talk talk);
 	int deleteTalk(int no);
-	int selectTalkCount();
+	int selectTalkCount(Map<String, Object> listMap);
 	
 	/* 댓글 파트 시작 ========================================= */
 	List<Comment> selectComment(Map<String, Object> map);

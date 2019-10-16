@@ -49,7 +49,7 @@ public class CommentUpdateController extends HttpServlet {
 		 * 
 		 * );
 		 */
-int postNo = Integer.parseInt(request.getParameter("boardPostNo").trim());
+int postNo = Integer.parseInt(request.getParameter("boardPostNo"));
 		
 		String cPageNo = request.getParameter("cmtPageNo");
 		

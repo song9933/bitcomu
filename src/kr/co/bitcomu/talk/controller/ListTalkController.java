@@ -55,6 +55,7 @@ public class ListTalkController extends HttpServlet {
 		search.setSearchWord(searchWord);
 		
 		
+		
 		// 요청 페이지를 1페이지로 변경
 		int pageNo = 1;
 		if (sPageNo != null) {
@@ -62,16 +63,14 @@ public class ListTalkController extends HttpServlet {
 		}
 		Page page = new Page(pageNo);
 		
-		
-		int count = dao.selectTalkCount();
-		PageResult pr = new PageResult(pageNo, count);
-		req.setAttribute("pr", pr);  // 전체 게시물 갯수
-		
-		
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", page);
 		map.put("search", search);
 		
+		
+		int count = dao.selectTalkCount(map);
+		PageResult pr = new PageResult(pageNo, count);
+		req.setAttribute("pr", pr);  // 전체 게시물 갯수
 		
 		// 데이터를 구하고 공유
 		req.setAttribute("talk", dao.selectTalk(map));
