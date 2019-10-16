@@ -53,10 +53,13 @@
 							<when test="search.searchType == '' and search.searchWord != ''">
 							 where s.study_post_content like '%'||#{search.searchWord}||'%'
 								or s.study_post_title like '%'||#{search.searchWord}||'%'
+								or s.study_loc like '%'||#{search.searchWord}||'%'
 							</when>
 							<when test="search.searchType != ''">
 							 where s.study_recruit_field = #{search.searchType} 
-								and (s.study_post_content like '%'||#{search.searchWord}||'%' or s.study_post_title like '%'||#{search.searchWord}||'%')
+								and (s.study_post_content like '%'||#{search.searchWord}||'%' 
+									or s.study_post_title like '%'||#{search.searchWord}||'%'
+									or s.study_loc like '%'||#{search.searchWord}||'%')
 							</when>
 						
 						</choose>

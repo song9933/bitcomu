@@ -45,13 +45,13 @@
 							<c:if test="${!empty sessionScope.user.userNo }">
 								<a href="#popup" class="floating comment">댓글 쓰기</a>
 							<!-- 댓글작성 폼 -->
-							<form name="crForm" method="post" action="<c:url value="/study/studycommentwrite.do"/>" onsubmit="return commentRegist()">
+							<form name="crForm" method="post" action="<c:url value="/study/studycommentwrite.do"/>" onsubmit="return submitChk1()">
 								<div id="popup" class="layer">
 									<input type="hidden" name="boardPostNo" value="${study.studyPostNo}" />
 									<div class="box clearboth">
 										<textarea id="comment" name="cmtContent" cols="30" rows="10" placeholder="댓글을 입력해주세요"></textarea>
 										<button type="button" onclick="location.href='#'" class="close">닫기</button>
-										<button type="submit" class="close">등록</button>
+										<button type="submit" class="close" >등록</button>
 									</div>
 								</div>
 							</form>	
@@ -100,7 +100,7 @@
 						<a href="#popupMod${cmt.cmtNo}" >수정</a>
 						
 						<!-- 댓글 수정폼 팝업 -->
-						<form method="post" action="<c:url value="/study/studycommentupdate.do"/>">
+						<form method="post" name="modForm" action="<c:url value="/study/studycommentupdate.do"/>" onsubmit="return submitChk3()">
 							<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" />
 							<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
 							<div id="popupMod${cmt.cmtNo}" class=layer>
@@ -141,7 +141,7 @@
 										</div>
 									<form name="crrForm" method="post"
 										action="<c:url value="/study/studyrecommentwrite.do"/>"
-										onsubmit="return commentRegist2()">
+										onsubmit="return submitChk2()">
 										<div id="popupR${cmt.cmtNo}" class="layer">
 											<input type="hidden" name="boardPostNo"
 												value="${study.studyPostNo}" /> 
@@ -173,10 +173,8 @@
 	let pEle = document.getElementsByName("parent");
 	let pNo = document.getElementsByName("pCmtNo");
 	let reArrow = document.querySelectorAll(".replyArrow");
-	console.log(reArrow);
 
 	for(let i = 0; i < pNo.length; i++){
-	console.log(pNo[i].value);
 	if(parseInt(pNo[i].value) != 0){
 		pEle[i].style.marginLeft = 30 + "px";
 		reArrow[i].innerHTML = '<i class="fa fa-reply fa-rotate-180" ></i>';
@@ -194,23 +192,49 @@
 			}
 		}
 
-		function commentRegist() {
-			let f = document.crForm;
-			if (f.cmtContent.value == "") {
-				alert("내용을 입력해주세요.")
-				return false;
+	function submitChk1(){
+		let f = document.crForm;
+		
+		if (isEmpty(f.cmtContent,"내용을 입력해주세요.")) return false;
+		if (isLong(f.cmtContent,"100글자 이하로 입력해주세요.",101)) return false;
+		return true;
+	}	
+	
+	function submitChk2(){
+		let f = document.crrForm;
+		
+		if (isEmpty(f.cmtContent,"내용을 입력해주세요.")) return false;
+		if (isLong(f.cmtContent,"100글자 이하로 입력해주세요.", 101)) return false;
+		
+		return true;
+	}		
+	function submitChk3(){
+		let f = document.modForm;
+		
+		if (isEmpty(f.cmtContent,"내용을 입력해주세요.")) return false;
+		if (isLong(f.cmtContent,"100글자 이하로 입력해주세요.", 101)) return false;
+		
+		return true;
+	}		
+
+		function isEmpty(ele, msg) {
+			if (ele.value.trim() == "") {
+				alert(msg)
+				return true;
 			}
-			return true;
+			return false;
 		}
 		
-		function commentRegist2() {
-			let f = document.crrForm;
-			if (f.cmtContent.value == "") {
-				alert("내용을 입력해주세요.")
-				return false;
+		function isLong(ele, msg, max){
+			if (ele.value.length > max){
+				alert(msg);
+				
+				return true;
 			}
-			return true;
+			return false;
 		}
+		
+	
 	</script>
 </body>
 </html>

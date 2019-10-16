@@ -107,7 +107,7 @@
  function isLong(ele, msg, max){
 	 if( ele.value.length > max){
 		 alert(msg);
-		 ele.value = "";
+		
 		 return true;
 	 }
 	 return false;

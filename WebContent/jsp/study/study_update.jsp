@@ -101,9 +101,8 @@ function nullChk(){
 }
 
 function isEmpty(ele, msg){
-	 if (ele.value == ""){
+	 if (ele.value.trim() == ""){
 		 alert(msg);
-		 console.log(msg);
 		 return true;
 	 }
 	 return false;
