@@ -39,11 +39,11 @@
 				</div>
 				<!-- 게시글 등록 -->
 				<div class="qna_board_qna_title">
-           			<form method='post' action="/bitcomu/qna/qnaWrite.do" >
+           			<form method='post' action="/bitcomu/qna/qnaWrite.do" name="crForm1">
               			<input type="text" class="qna_text_title" name="qnaTitle" style="resize: none" placeholder="Title" value="${b.qnaTitle}" />
               			<input type="checkbox" id="qna_check_2" name="qnaEnabled" value="N"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
 			  			<input type="text" class="qna_text_content" name="qnaContent" style="resize: none" placeholder="Content" value="${b.qnaContent}" /> 
-              			<button type="submit" class="qna_button">등록</button>
+              			<button type="button" onclick="chkNullQna()" class="qna_button">등록</button>
          <!-- <input type="file" class="qna_attatch" enctype="multipart/form-data" name="attach" /> -->
           			</form>
          		</div>
@@ -70,16 +70,7 @@
 //     	if (a[i].id == boardNo) a[i].className = "hidden";
 //     	}
         	
-        function changeView(i) {
-	        let divEle = document.getElementById("c" + i);
-	        	
-	        if (divEle.classList.contains("hidden")) {
-				loadMore2(i);	        	
-		        divEle.classList.toggle("show");
-	        }
-	        
-	        divEle.classList.toggle("hidden");
-    	}
+        
         function loadMore2(boardNo) {
         	let xhr = new XMLHttpRequest();
         	xhr.onreadystatechange = function() {
@@ -107,11 +98,11 @@
         	let xhr = new XMLHttpRequest();
         	xhr.onreadystatechange = function() {
         		if (xhr.readyState == 4 && xhr.status == 200) {
-        			console.log(xhr.responseText);
+//         			console.log(xhr.responseText);
         			let result = JSON.parse(xhr.responseText);
        				
        				if (result[0] =='already') {
-       					alert("이미 좋아요 누르셨습니다.");
+       					alert("좋아요 를 이미 누르셨습니다.");
        					return;
        				}
        				else if (result[0] =='error') {
@@ -220,7 +211,7 @@
 						   </span>
 						  
 		    		 		<div class="qna_content_1 hidden" id="c\${b.qnaNo}">	 	
-			    		 		<span>조회수 \${b.qnaViewCnt}</span><span>&nbsp;&nbsp;좋아요 수&nbsp;&nbsp;\${b.qnaLikeCnt}&nbsp;&nbsp;</span><i class="far fa-thumbs-up fa-1x" id="likeUpdate\${b.qnaNo}" onclick="loadMore3(\${b.qnaNo}, ${sessionScope.user.userNo})"></i>&nbsp;&nbsp;   
+			    		 		<span>조회수 \${b.qnaViewCnt}</span><span>&nbsp;&nbsp;좋아요&nbsp;&nbsp;\${b.qnaLikeCnt}&nbsp;&nbsp;</span><i class="far fa-thumbs-up fa-1x" id="likeUpdate\${b.qnaNo}" onclick="loadMore3(\${b.qnaNo}, ${sessionScope.user.userNo})"></i>   
 			                    <p style="font-weight: bold" >\${b.userId}</p>
 			                    <p>\${b.qnaContent}</p>
 			                    <p>\${b.qnaRegDt}</p><hr>`;
@@ -238,34 +229,42 @@
 				                                 <p>\${cmt.cmtRegDt}</p>
 				         					</form> 
 				         			 		</div>
-				         			 		<div class="wrapper qna_comment">
-				         					<div class="qna_item parent">
-				         						<a href="#popupMod">수정</a>
-				         							  <form method="post" action="/bitcomu/qna/qnaCommentUpdate.do">
-				         									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
-				         									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />
-				         								<div id="popupMod" class=layer>
-				         									<div class="box">
-				         										<textarea id="comment" name="cmtContent" cols="30" rows="10">${cmt.cmtContent}</textarea>
-				         										<button type="submit" class="close">수정</button>								
-				         										<button type="button" onclick="location.href='#'" class="close">취소</button>
-				         									</div>
-				         									</div>
-				         							  </form>
-				         						 <a href="#popupDelCmt">삭제</a>
-				         								<form method="post" action="/bitcomu/qna/qnaCommentDelete.do">
-				         									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
-				         									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />									
-				         								<div id="popupDelCmt" class=layer>
-				         									<div class="box">
-				         										<p class="text">삭제 하시겠습니까?</p>
-				         										<button type="submit" class="delete">삭제</button> 
-				         										<button type="button" onclick="location.href='#'" class="close">취소</button>
-				         									</div>
-				         								</div>
-				         								</form>
-				         							</div>
-				         						</div><hr>`;	
+				         			 		<div class="wrapper qna_comment">`;
+// 				         					console.log(${sessionScope.user.userNo});
+// 				         					console.log(b.userNo);
+// 				         					console.log(${sessionScope.user.userGrade});
+				         					if (${sessionScope.user.userNo} == cmt.userNo || ${sessionScope.user.userGrade} == 3) {
+				         					
+					         					html +=	`<div class="qna_item parent">
+					         							<a href="#popupMod\${cmt.cmtNo}">수정</a>
+					         							  <form method="post" action="/bitcomu/qna/qnaCommentUpdate.do"  name="crForm4">
+					         									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
+					         									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />
+					         								<div id="popupMod\${cmt.cmtNo}" class="layer">
+					         									<div class="box">
+					         										<textarea id="comment" name="cmtContent" cols="30" rows="10">\${cmt.cmtContent}</textarea>
+					         										<button type="button" onclick="location.href='#'" class="close">취소</button>
+					         										<button type="button" onclick="chkNullQnaCmtUpdate(\${cmt.cmtNo})" class="close">수정</button>
+					         									</div>
+					         								</div>
+					         							  </form>
+					         						 <a href="#popupDelCmt\${cmt.cmtNo}">삭제</a>
+					         								<form method="post" action="/bitcomu/qna/qnaCommentDelete.do">
+					         									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
+					         									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />									
+					         								<div id="popupDelCmt\${cmt.cmtNo}" class=layer>
+					         									<div class="box">
+					         										<p class="text">삭제 하시겠습니까?</>
+					         										<button type="button" onclick="location.href='#'" class="close">취소</button>
+					         										<button type="submit" class="delete">삭제</button>
+					         									</div>
+					         								</div>
+					         								</form>
+					         							</div>`;
+				         						
+				         					}
+				         								
+				         					html +=	`</div><hr>`;	
 		         					}
 		                    }
                    
@@ -273,10 +272,10 @@
                     /* 댓글부분 추출끝 장소 */
 					
 					html +=`
-								<form method='post' action="/bitcomu/qna/qnaCommentWrite.do" >
+								<form method='post' action="/bitcomu/qna/qnaCommentWrite.do" name="crForm3">
 				                    <input type="hidden" class="qna_text_content_2" name="boardPostNo" style="resize: none" placeholder="Comment" value="\${b.qnaNo}"/>
 				                    <input type="text" class="qna_text_content_2" name="cmtContent" style="resize: none" placeholder="Comment"/>
-				                    <button type="submit" class="qna_button_2">댓글</button>
+				                    <button type="button" onclick="chkNullQnaCmt(\${b.qnaNo})" class="qna_button_2">댓글</button>
 								</form>
 				                      	
 				             	</div> 
@@ -300,19 +299,18 @@
       
 				        <!-- 수정 팝업 -->
 				  	  <div id="light_1\${b.qnaNo}" class="qna_white_content_1">
-				  	  	<form method='post' action="/bitcomu/qna/qnaUpdate.do">
+				  	  	<form method='post' action="/bitcomu/qna/qnaUpdate.do" name="crForm2">
 				  			<input type="hidden" name="qnaNo" value="\${b.qnaNo}" /> 
 				  			<input type="hidden" name="selBoardNo" value="\${b.qnaNo}" /> 
 				  				<a href="javascript:void(0)"
 				    			onclick="document.getElementById('light_1\${b.qnaNo}').style.display='none'; document.getElementById('fade_1\${b.qnaNo}').style.display='none'"></a>
 				    	<div class="qna_update_title">   
 				      		<input type="text" class="qna_text_title_1" name="qnaTitle" style="resize: none" placeholder="Title" value="\${b.qnaTitle}" />
-				      		<input type="checkbox" id="check_0" value="1"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
 				      		<input type="text" class="qna_text_content_1" name="qnaContent" style="resize: none" placeholder="Content" value="\${b.qnaContent}" />
 				      	<div>
 				      </div>
 				 <!-- <div><input type="file" class="qna_update_attatch" enctype="multipart/form-data" name="attach" /></div> -->
-				      <div><button type="submit" class="qna_button_update">수정</button></div>
+				      <div><button type="button" onclick="chkNullQnaUpdate(\${b.qnaNo})" class="qna_button_update">수정</button></div>
 				      <div><button type="button" onclick="location.href=''" class="qna_button_cancle">취소</button></div> 
 				    </div> 
 				     </form>   
@@ -407,8 +405,82 @@
 			return;
 		}
 	}
+	
+	/* 게시글 공백처리 펑션 */
+	
+	function chkNullQna() {
+		let crForm1 = document.crForm1;
+		if(crForm1.qnaTitle.value.trim().length == 0 || crForm1.qnaContent.value.trim().length == 0)
+		{
+			alert("빈값은 입력하실 수 없습니다.");
+			return false;
+		}	
+		
+		crForm1.submit();
+		
+	}
+	
+	/* 게시글 수정 공백처리 펑션 */
+	
+	function chkNullQnaUpdate(qnaNo) {
+		let crForm2 = document.crForm2;
+		for (let i = 0; i < crForm2.length; i++) {
+			if (crForm2[i].qnaNo.value == qnaNo) {
+				let crFomVal = crForm2[i]; 
+				if(crFomVal.qnaTitle.value.trim().length == 0 || crFomVal.qnaContent.value.trim().length == 0)
+				{
+					alert("빈값은 입력하실 수 없습니다.");
+					return false;
+				}	
+				crFomVal.submit();
+			}
+		}	
+	}
+	
+	/* 댓글 공백처리 펑션 */
+	
+	function chkNullQnaCmt(qnaNo) {
+		let crForm3 = document.crForm3;
+		for (let i = 0; i < crForm3.length; i++) {
+			if (crForm3[i].boardPostNo.value == qnaNo) {
+				let crFomVal2 = crForm3[i]; 
+				if(crFomVal2.cmtContent.value.trim().length == 0)
+				{
+					alert("빈값은 입력하실 수 없습니다.");
+					return false;
+				}	
+				crFomVal2.submit();
+			}
+		}	
+	}
+	
+/* 댓글 수정공백처리 펑션 */
+	
+	function chkNullQnaCmtUpdate(cmtNo) {
+		let crForm4 = document.crForm4;
+		for (let j = 0; j < crForm4.length; j++) {
+			if (crForm4[j].cmtNo.value == cmtNo) {
+				let crFomVal3 = crForm4[j]; 
+				if(crFomVal3.cmtContent.value.trim().length == 0)
+				{
+					alert("빈값은 입력하실 수 없습니다.");
+					return false;
+				}	
+				crFomVal3.submit();
+			}
+		}	
+	}
+	
+	function changeView(i) {
+        let divEle = document.getElementById(`c\${i}`);
+//        	console.log(divEle);
+        if (divEle.classList.contains("hidden")) {
+			loadMore2(i);	        	
+	        divEle.classList.toggle("show");
+        }
         
-   
+        divEle.classList.toggle("hidden");
+	}
     </script>
 </body>
 </html>

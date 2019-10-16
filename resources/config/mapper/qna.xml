@@ -176,7 +176,7 @@
 						from tb_comment c
 						where board_post_no = #{qnaNo}
 						and code_value = (select code_value from tb_codenm where code_name = '질문답변게시판')
-						order by cmt_no desc
+						
 	</select>
 	<!-- 
 	<select id="selectQnaComment" parameterType="int" resultMap="commentMap" >
