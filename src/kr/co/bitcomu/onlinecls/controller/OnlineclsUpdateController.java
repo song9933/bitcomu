@@ -38,12 +38,13 @@ public class OnlineclsUpdateController extends HttpServlet {
 		String[] addrArr = ytAddr.split("\\?v=");
 		String modAddr = addrArr[1].split("&")[0];
 		oncls.setYtAddr(modAddr);
-		int result = dao.updateOnlinecls(oncls);
-//		System.out.println("update결과 : " + result);
+		int resultU = dao.updateOnlinecls(oncls);
+		req.setAttribute("resultU", resultU);
 		
 		// url에서 과목명이 깨지는것 처리
 		subject = URLEncoder.encode(subject, "utf-8");
 		
-		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + subject + "&resultU=" + result);
+//		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + subject + "&resultU=" + result);
+		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + subject);
 	}
 }

@@ -78,13 +78,9 @@
 	select count(*) from tb_youtube
 	<where>
 		<choose>
-		
-			<when test="search.searchType == 'subject'">
-				and yt_subject like '%' || #{search.searchWord} || '%'
-			</when>
 			<when test="search.searchType == 'titleContent'">
-				and yt_title like '%' || #{search.searchWord} || '%'
-				   or yt_content like '%' || #{search.searchWord} || '%'
+				and (yt_title like '%' || #{search.searchWord} || '%'
+				   or yt_content like '%' || #{search.searchWord} || '%')
 			</when>
 			<when test="search.searchType == 'content'">
 				and yt_content like '%' || #{search.searchWord} || '%'	  				
@@ -95,7 +91,6 @@
 			<when test="subj != null">
 				and yt_subject = #{ subj }
 			</when>
-			
 		</choose>
 		</where>
 		
@@ -108,12 +103,9 @@
 	  		(<include refid="selectOnlinecls" />
 	  		<where>
 	  			<choose>
-	  				<when test="search.searchType == 'subject'">
-	  					and yt_subject like '%' || #{search.searchWord} || '%'
-	  				</when>
 	  				<when test="search.searchType == 'titleContent'">
-	  					and yt_title like '%' || #{search.searchWord} || '%'
-	  					   or yt_content like '%' || #{search.searchWord} || '%'
+	  					and (yt_title like '%' || #{search.searchWord} || '%'
+	  					   or yt_content like '%' || #{search.searchWord} || '%')
 	  				</when>
 	  				<when test="search.searchType == 'content'">
 	  					and yt_content like '%' || #{search.searchWord} || '%'	  				

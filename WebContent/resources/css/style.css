@@ -142,9 +142,9 @@ section { margin: 100px 0; }
 .banner .box:last-child {
   margin-bottom: 0;
 }
-.banner .box:first-child { background-image: url('../img/배너1.png'); }
-.banner .box:nth-child(2) { background-image: url('../img/배너2.png'); }
-.banner .box:nth-child(3) { background-image: url('../img/배너3.png'); }
+.banner .box:first-child { background-image: url('../images/배너1.png'); }
+.banner .box:nth-child(2) { background-image: url('../images/배너2.png'); }
+.banner .box:nth-child(3) { background-image: url('../images/배너3.png'); }
 
 
 

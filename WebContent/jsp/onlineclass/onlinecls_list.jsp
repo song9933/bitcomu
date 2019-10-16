@@ -51,7 +51,7 @@ int yt_no2 = 0;
 							<c:otherwise>
 								<c:forEach var="subject" items="${ sList }">
 	 								<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${ subject.ytSubject }'">
-										<div class="imgBox"><img src="https://img.youtube.com/vi/${ subject.ytAddr }/0.jpg"></div>
+										<div class="imgBox"><img src="https://img.youtube.com/vi/${ subject.ytAddrMod }/0.jpg"></div>
 										<span><%= ++yt_no1 %></span>
 										<div class="ifrInfo"><h5>${ subject.ytSubject }</h5></div>
 									</div>
@@ -68,7 +68,6 @@ int yt_no2 = 0;
 								<select id="oncls_selType">
 									<option value="title" selected>제목</option>
 									<option value="content">내용</option>
-									<option value="subject">과목</option>
 									<option value="titleContent">제목+내용</option>
 								</select>
 								<button type="button" id="btnSearch"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -135,9 +134,7 @@ int yt_no2 = 0;
 		
 		<div class="popup hidden clearboth">
 			<div class="pop_l">
-<%-- <iframe src="https://www.youtube.com/embed/${ ocls.ytAddr }" width="100%" height="100%" frameborder="0" allow="accelerometer;" allowfullscreen></iframe> --%>
 			</div>
-			
 			<div class="pop_r">
 				<div class="pop_ttl">
 					<p>${ ocls.ytTitle }
@@ -276,12 +273,12 @@ if ('${ resultD }' == 1) {
 	alert('삭제되었습니다');
 }
 /* -------------------- */
-$(document).ready(function(){
-	$('.online_cls .tab li').on('click', function() {
-		$(this).toggleClass('on');
-		$(this).siblings().toggleClass('on');
-	});
-});
+/* 탭으로 전체과목 해당과목 목록 전환 */
+let tabBtn = document.querySelector('.tab li');
+for(let i = 0; i < tabBtn.lengt; i++) {
+	console.log('gggg');
+}
+
 </script>
 <script src="${ pageContext.request.contextPath }/resources/js/onlinecls.js"></script>
 </body>

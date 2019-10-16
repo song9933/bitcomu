@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.NoticeDAO;
+import kr.co.bitcomu.repository.dao.OnlineclsDAO;
 import kr.co.bitcomu.repository.dao.StudyDAO;
 import kr.co.bitcomu.repository.dao.TalkDAO;
 import kr.co.bitcomu.repository.dao.VoteDAO;
 import kr.co.bitcomu.repository.vo.Notice;
+import kr.co.bitcomu.repository.vo.Onlinecls;
 import kr.co.bitcomu.repository.vo.Study;
 import kr.co.bitcomu.repository.vo.Talk;
 import kr.co.bitcomu.repository.vo.Vote;
@@ -23,13 +25,13 @@ import kr.co.bitcomu.repository.vo.Vote;
 public class MainController extends HttpServlet {
 	private StudyDAO studyDao;
 	
-	
 	public MainController() {
 		studyDao = MyAppSqlConfig.getSqlSessionInstance().getMapper(StudyDAO.class);
 	}
 	private VoteDAO voteDao = MyAppSqlConfig.getSqlSessionInstance().getMapper(VoteDAO.class);
 	private TalkDAO talkDao = MyAppSqlConfig.getSqlSessionInstance().getMapper(TalkDAO.class);
 	private NoticeDAO noticeDao = MyAppSqlConfig.getSqlSessionInstance().getMapper(NoticeDAO.class);
+	private OnlineclsDAO oclsDao = MyAppSqlConfig.getSqlSessionInstance().getMapper(OnlineclsDAO.class);
 	
 
 	@Override
@@ -45,6 +47,11 @@ public class MainController extends HttpServlet {
 		req.setAttribute("talkList", talkList);
 		List<Notice> noticeList = noticeDao.selectMainNotice();
 		req.setAttribute("noticeList", noticeList);
+		
+		/* 온라인강의 게시판  */
+		List<Onlinecls> oclsList = oclsDao.selectOnlineclsSubject();
+		req.setAttribute("oclsList", oclsList);
+		/* 온라인강의 게시판 END */
 	
 		req.getRequestDispatcher("/jsp/main.jsp").forward(req, res);
 	}

@@ -23,10 +23,11 @@ public class OnlineclsDeleteController extends HttpServlet{
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String subject = req.getParameter("subj");
 		int resultD = dao.deleteOnlinecls(Integer.parseInt(req.getParameter("yt_no")));
-//		System.out.println("delete 결과 : " + resultD);
+		req.setAttribute("resultD", resultD);
 		
 		// url에서 과목명이 깨지는것 처리
 		subject = URLEncoder.encode(subject, "utf-8");
-		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + subject + "&resultD=" + resultD);
+//		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + subject + "&resultD=" + resultD);
+		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + subject);
 	}
 }

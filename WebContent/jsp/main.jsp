@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/jsp/include/taglib.jsp" %>    
+<%@ include file="/jsp/include/taglib.jsp" %>
+<%
+int yt_no1 = 0;
+%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -77,48 +80,29 @@
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
     <!-- width= 100%인 컨텐츠 영역-->
     <div class="video clearboth">
-      <div class="w1280 mt100 clearboth">
+      <div class="online_cls w1280 mt100 clearboth">
         <h4>온라인 강의</h4>
-        <div class="ifrWrap clearboth">
-          <!--  <iframe src="https://www.youtube.com/embed/KR9nyo8hAdI?playsinline=0&fs=1&rel=0" frameborder="0" allowfullscreen ></iframe> -->
-          <div class="ifrBox">
-              <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-              <span>1</span>
-              <div class="ifrInfo">
-                <h5>Spring Framework 개요 및 특징</h5>
-                <p>강의시간 36:24</p>
-              </div>
-          </div>
-          <div class="ifrBox">
-              <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-              <span>1</span>
-              <div class="ifrInfo">
-                <h5>Spring Framework 개요 및 특징</h5>
-                <p>강의시간 36:24</p>
-              </div>
-          </div>
-          <div class="ifrBox">
-            <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-            <span>1</span>
-            <div class="ifrInfo">
-              <h5>Spring Framework 개요 및 특징</h5>
-              <p>강의시간 36:24</p>
-            </div>
-          </div>
-          <div class="ifrBox">
-            <iframe src="https://www.youtube.com/embed/7ZDW5gOIJKs" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
-            <span>1</span>
-            <div class="ifrInfo clearboth">
-              <h5>Spring Framework 개요 및 특징</h5>
-              <p>강의시간 36:24</p>
-            </div>
-          </div>
-        </div>
-        <div class="pagination clearboth">
-          <p class="on">1</p>
-          <p>2</p>
-          <p>3</p>
-          <p>4</p>
+        <!-- 전체과목 리스트 div -->
+		<div class="subj_container clearboth">
+			<div class="subjWrap clearboth">
+			<c:choose>
+				<c:when test="${empty oclsList }">
+					<h2> 등록된 과목이 없습니다 </h2>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="subject" items="${ oclsList }" begin="0" end="3" step="1">
+						<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${ subject.ytSubject }'">
+							<div class="imgBox"><img src="https://img.youtube.com/vi/${ subject.ytAddrMod }/0.jpg"></div>
+							<span><%= ++yt_no1 %></span>
+							<div class="ifrInfo"><h5>${ subject.ytSubject }</h5></div>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			</div>
+		</div>
+		<div class="btn_r clearboth" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsMain.do'">
+          <p id="btnYtMore">더보기</p>
         </div>
     </div>
     </div>
@@ -166,7 +150,9 @@
 	  })
 
 	}
+	/* 온라인강의 섹션 */
 	
+	/* 온라인강의 섹션 END */
   </script>
 </body>
 </html>

@@ -61,10 +61,13 @@ public class OnlineclsWriteController extends HttpServlet{
 //		System.out.println("과목 " + yt_subject);
 //		System.out.println("insert결과::" + result);
 		
-		int result = dao.insertOnlinecls(ocls);
+		int resultC = dao.insertOnlinecls(ocls);
+		req.setAttribute("resultC", resultC);
+		
 		
 		// url에서 과목명이 깨지는것 처리
 		yt_subject = URLEncoder.encode(yt_subject, "utf-8");
-		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + yt_subject + "&resultC=" + result);
+//		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + yt_subject + "&resultC=" + result);
+		res.sendRedirect(req.getContextPath() + "/onlineclass/onlineclsList.do?subj=" + yt_subject);
 	}
 }
