@@ -39,6 +39,10 @@ public interface TalkDAO {
 	void updateLikeCnt(int no);
 	int selectTalkLikeCount(int no);
 	void insertTalkLikeCount(Map<String, Object> map);
+	
+	
+	//메인 페이지
+	List<Talk> selectMainTalk();
 }
 
 

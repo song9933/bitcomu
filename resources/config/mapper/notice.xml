@@ -43,6 +43,21 @@
 				)
 		 where rnum between #{page.begin} and #{page.end}  			 
 	</select>
+	
+	<select id="selectMainNotice" resultMap="noticeMap">
+	 select *
+	      from (
+	      		select rownum rnum, a.*
+			      from ( 
+			      		 select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+                           from tb_notice n
+						  order by notice_post_no desc
+						)a
+					)
+		where rnum between 1 and 7
+	</select>
+	
+	
 	<select id="selectNoticeCount" resultType="int">
 		select count(*)
 		  from tb_notice

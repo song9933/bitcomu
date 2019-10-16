@@ -45,6 +45,19 @@
 			  )
 		 where rnum between #{page.begin} and #{page.end} 
 	</select>
+	<select id="selectMainTalk"  resultMap="talkMap">
+		select *
+	      from (
+	      		select rownum rnum, a.* 
+			      from ( 
+					      select n.*,
+					      (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
+                            from tb_talk n
+						   order by talk_post_no desc
+						)a
+					)
+		where rnum between 1 and 7
+	</select>
 	<select id="selectTalkCount" parameterType="hashmap" resultType="int">
 		select count(*)
 		  from (select n.*, (select user_id  from tb_user u where u.user_no = n.user_no ) as user_id 
