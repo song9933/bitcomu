@@ -99,8 +99,8 @@
   
           
 
-            
         <ul class="pagination nams">
+        
          <c:if test="${pr.count != 0}">
 	  	<c:if test="${pr.prev}">
 	    <li>
@@ -122,6 +122,7 @@
 	    </li>
 	    </c:if>
 		</c:if>
+		
 		</ul>
             
             <c:if test="${ sessionScope.user.userGrade eq 3}">

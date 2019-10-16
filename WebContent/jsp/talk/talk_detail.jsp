@@ -181,7 +181,7 @@
 			      	 <c:if test="${cpr.count != 0}">
 					  	<c:if test="${cpr.prev}">
 					    <li>
-					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}&CmtPageNo=${cpr.endPage - 1}" aria-label="previous">
+					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.pageNo}&CmtPageNo=${cpr.beginPage - 1}" aria-label="previous">
 					        <span aria-hidden="true">&laquo;</span>
 					      </a>
 					    </li>
@@ -228,7 +228,7 @@
 	             <c:if test="${pr.count != 0}">
 				  	<c:if test="${pr.prev}">
 					    <li>
-					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage - 1}" aria-label="previous">
+					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.beginPage - 1}" aria-label="previous">
 					        <span aria-hidden="true">&laquo;</span>
 					      </a>
 					    </li>

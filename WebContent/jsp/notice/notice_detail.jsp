@@ -156,12 +156,12 @@
 
 
             
-            
+             <c:if test="${pr.count > 10 }"> 
                  <ul class="pagination nams">
               <c:if test="${pr.count != 0}">
 		  	<c:if test="${pr.prev}">
 		    <li>
-		      <a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.endPage - 1}" aria-label="previous">
+		      <a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.beginPage - 1}" aria-label="previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
@@ -180,6 +180,7 @@
 		    </c:if>
 			</c:if>
 			</ul>
+			</c:if>
              <c:if test="${sessionScope.user.userGrade eq 3 }">  
              <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
               <div> 
