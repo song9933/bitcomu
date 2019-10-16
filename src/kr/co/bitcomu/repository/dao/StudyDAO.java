@@ -23,5 +23,5 @@ public interface StudyDAO {
 	
 	int studyCmtCnt(int studyPostNo);
 	
-	Study mainStudyPost();
+	List<Study> mainStudyPost();
 }

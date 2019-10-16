@@ -89,7 +89,6 @@ document.addEventListener('scroll', function() {
     
         if ((window.pageYOffset -17) == (document.body.offsetHeight - window.innerHeight)) {
           pageNo++;
-          console.log("pageNo :",pageNo);
           xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
           xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
           xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
@@ -105,12 +104,7 @@ document.addEventListener('scroll', function() {
 doSearchStudy.addEventListener('click', e => {
 	let schWord = document.getElementById('keyword').value;
 	let schType = document.getElementById('selectType').value;
-	
-	 /*
-	 xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
-     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-     xhr.send(`searchType=${schType}&searchWord=${schWord}`);
-	*/
+
 	location.href='/bitcomu/study/studyList.do?searchType='+schType+'&searchWord='+schWord;
 })
 

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/jsp/include/taglib.jsp" %>    
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" style="overflow-x : scroll">
 <head>
   <c:import url="/jsp/include/head.jsp">
 		<c:param name="msg" value="스터디게시판" />

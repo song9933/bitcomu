@@ -53,7 +53,7 @@
 								 s.study_recruit_field = #{search.searchType} and s.study_post_content like '%'||#{search.searchWord}||'%'
 							</if>
 						</where>
-						order by study_post_no desc) a )
+						order by STUDY_RECRUIT_ENABLED desc, study_post_no desc) a )
 						where rnum between #{page.begin} and #{page.end}
 	</select>
 	
@@ -152,7 +152,7 @@
 	<select id="mainStudyPost" resultMap="studyMap">
 		select rownum , s.* from tb_study s
 		    where rownum between 1 and 4
-		    order by study_post_no desc	
+		    order by STUDY_RECRUIT_ENABLED desc, study_post_no desc	
 	</select>
 	
 </mapper>
