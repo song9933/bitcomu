@@ -14,6 +14,7 @@
 	<result column="yt_subject" property="ytSubject" />
 	<result column="yt_view_cnt" property="ytViewCnt" />
 	<result column="yt_like_cnt" property="ytLike" />
+	<result column="yt_addr_mod" property="ytAddrMod" />
 </resultMap>
 <!-- 댓글 맵 resultMap -->
 <resultMap type="Comment" id="cmtMap">
@@ -40,7 +41,8 @@
            (select count(*)
               from tb_comment c
              where code_value = (select code_value from tb_codenm where code_name ='온라인강의게시판')
-               and c.board_post_no = y.yt_no) as yt_cmt_cnt
+               and c.board_post_no = y.yt_no) as yt_cmt_cnt,
+           y.yt_addr_mod    
       from tb_youtube y
 </sql>
 
@@ -58,7 +60,7 @@
 
 <!-- 온라인강의 과목 리스트 조회 -->
 <select id="selectOnlineclsSubject" resultMap="onlineclsMap" flushCache="true" useCache="true">
-	select max(yt_subject) as yt_subject, max(yt_addr) as yt_addr 
+	select max(yt_subject) as yt_subject, max(yt_addr_mod) as yt_addr_mod 
 	  from tb_youtube 
 	 group by yt_subject
 </select>
@@ -138,9 +140,9 @@
 <!-- 온라인강의 추가 -->	
 <insert id="insertOnlinecls" parameterType="Onlinecls">
 	insert into tb_youtube(
-		yt_no, user_no, yt_title, yt_content, yt_addr, yt_subject
+		yt_no, user_no, yt_title, yt_content, yt_addr, yt_subject, yt_addr_mod
 	) values (
-		tb_youtube_seq.nextval, #{userNo}, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject} 
+		tb_youtube_seq.nextval, #{userNo}, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject}, #{ytAddrMod 
 	)
 </insert>
 

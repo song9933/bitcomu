@@ -51,7 +51,7 @@ int yt_no2 = 0;
 							<c:otherwise>
 								<c:forEach var="subject" items="${ sList }">
 	 								<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/onlineclsList.do?subj=${ subject.ytSubject }'">
-										<div class="imgBox"><img src="https://img.youtube.com/vi/${ subject.ytAddr }/0.jpg"></div>
+										<div class="imgBox"><img src="https://img.youtube.com/vi/${ subject.ytAddrMod }/0.jpg"></div>
 										<span><%= ++yt_no1 %></span>
 										<div class="ifrInfo"><h5>${ subject.ytSubject }</h5></div>
 									</div>
@@ -84,7 +84,7 @@ int yt_no2 = 0;
 							<c:forEach var="ocls" items="${ list }">
 <!-- 							<div class="ifrBox" onclick="location.href='${pageContext.request.contextPath}/onlineclass/p.do?no=${ ocls.ytNo }&subj=${ocls.ytSubject }'"> -->
 								<div class="ifrBox" data-ytno = ${ ocls.ytNo }>
-									<iframe src="https://www.youtube.com/embed/${ ocls.ytAddr }" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
+									<iframe src="https://www.youtube.com/embed/${ ocls.ytAddrMod }" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>
 									<span><%= ++yt_no2 %></span>
 									<div class="ifrInfo">
 										<h5>${ ocls.ytTitle }</h5>
@@ -151,7 +151,7 @@ int yt_no2 = 0;
 				</div>
 				
 				<div>
-					<p>${ ocls.ytContent }</p>
+					<p id="popDetail">${ ocls.ytContent }</p>
 				</div>
 				<!-- 댓글  -->
 				<div id="commentList2">

@@ -24,6 +24,8 @@ public class Onlinecls {
 	private int ytLike;
 	// 회원 아이디
 	private String userId;
+	// 조작된 온라인강의주소
+	private String ytAddrMod;
 	
 	// getter와 setter
 	public int getYtNo() {
@@ -85,5 +87,12 @@ public class Onlinecls {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	public String getYtAddrMod() {
+		return ytAddrMod;
+	}
+	public void setYtAddrMod(String ytAddrMod) {
+		this.ytAddrMod = ytAddrMod;
 	}
 }

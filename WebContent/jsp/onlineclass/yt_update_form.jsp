@@ -42,7 +42,7 @@
                   <tr>
                     <th>영상주소</th>
                     <td>
-                      <input type="text" name="yt_addr" value="https://www.youtube.com/watch?v=${ oncls.ytAddr }" readonly> 
+                      <input type="text" name="yt_addr" value="${ oncls.ytAddr }" readonly> 
                     </td>
                   </tr>
                   <tr>

@@ -46,7 +46,7 @@ function selectOnlineclassAjax(no) {
 			// 키 ocls, userId
 			let obj = JSON.parse(xhr.responseText);
 			let pop_l_Ele = document.querySelector('.pop_l'); 
-			pop_l_Ele.innerHTML = `<iframe src="https://www.youtube.com/embed/${ obj.ocls.ytAddr }" width="100%" height="100%" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>`;
+			pop_l_Ele.innerHTML = `<iframe src="https://www.youtube.com/embed/${ obj.ocls.ytAddrMod }" width="100%" height="100%" frameborder="0" allow="accelerometer;" allowfullscreen></iframe>`;
 			
 			let pop_r_Ele = document.querySelector('.pop_r');
 			pop_r_Ele.setAttribute('data-num', no);
@@ -58,6 +58,9 @@ function selectOnlineclassAjax(no) {
 				pop_r_Ele1.innerHTML += `<a id="rudBtn" href="javascript:openPop()">···</a>`;
 			}
 			pop_r_Ele2.innerHTML = obj.userId;
+			let detailEle = document.getElementById('popDetail');
+			detailEle.innerText = `${ obj.ocls.ytContent }`;
+			
 			pop_r_Ele2.innerHTML += "<span>조회수 : " + obj.ocls.ytViewCnt + "</span>";
 			let popbg = document.querySelector(".popbg");
 			let popup = document.querySelector(".popup");
