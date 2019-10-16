@@ -41,18 +41,29 @@ public class AuthFilter implements Filter {
 		String uri = req.getRequestURI();
 		String contextPath = req.getContextPath();
 		uri = uri.substring(contextPath.length());
-		
 		// 로그인이 필요하지 않은 Path에 속하는지 체크
 		int index = list.indexOf(uri);
 		
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
-		
+		if (session.getAttribute("uri") == null) {
+			session.setAttribute("uri", "/main.do");
+		}
 		
 		// 로그인이 필요한 페이지만 체크해야 한다.
 		if (index == -1) {
 			if (user == null) {
-				session.setAttribute("uri", uri);
+				if ("/talk/talk_detail.do".contains(uri) || "/notice/notice_detail.do".contains(uri)) {
+					session.setAttribute("uri", uri + "?postNo=" + req.getParameter("postNo") + "&pageNo=" + req.getParameter("pageNo"));
+				} else if ("/vote/votedetail.do".contains(uri)) {
+					session.setAttribute("uri", uri + "?voteNo=" + req.getParameter("voteNo"));
+				} else if ("/study/studydetail.do".contains(uri)) {
+					session.setAttribute("uri", uri + "?studyPostNo=" + req.getParameter("studyPostNo"));
+				} else if ("/onlineclass/onlineclsList.do".contains(uri)) { 
+					session.setAttribute("uri", uri + "?subj=" + req.getParameter("subj"));
+				} else {
+				    session.setAttribute("uri", uri);
+				}
 				res.sendRedirect(req.getContextPath() + "/user/userLoginAuth.do");
 				return;
 			}

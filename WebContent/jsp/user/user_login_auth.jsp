@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
  <c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="회원가입완료" />
+		<c:param name="msg" value="로그인체크" />
 </c:import> 
 </head>
 <body>

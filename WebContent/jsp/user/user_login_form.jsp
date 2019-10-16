@@ -54,6 +54,7 @@
 						if (xhr.responseText.trim() == 'loginSuccess') {
 							alert("로그인 되었습니다.");
 							let uri = "${sessionScope.uri}" || "/main.do";
+							if (uri.indexOf("/user/userLoginForm.do") != -1) uri = "/main.do";
 							opener.location.href="${pageContext.request.contextPath}" + uri ;
 							self.close();
 							

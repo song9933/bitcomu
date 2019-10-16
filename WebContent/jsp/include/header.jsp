@@ -23,7 +23,7 @@
           <c:choose>
           	<c:when test="${empty sessionScope.user}">
           	
-		          <li><a href="javascript:openPop();">로그인</a></li>
+		          <li><a href="javascript:;" onclick="openPop();">로그인</a></li>
 		          <li><a href="<c:url value="/user/userJoinTos.do"/>">회원가입</a></li>
           	</c:when>
           	<c:otherwise>

@@ -52,8 +52,7 @@
   			/user/userIdChk.do;
   			/user/userDelete.do;
   			/user/userPWFindAjax.do;
-  			/user/userPwUpdateFinish.do;
-  			
+  			/user/userPwUpdateFinish.do
   		</param-value>
   	</init-param>
   </filter>
