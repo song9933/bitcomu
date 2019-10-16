@@ -37,26 +37,26 @@
            
            
            <div class="ns_table_write">
-		   		<form method='post' action="/bitcomu/talk/write.do" > <!-- enctype = "multipart/form-data"> -->
+		   		<form method='post' action="/bitcomu/talk/write.do" name="writeForm" onsubmit="return inputCheck();">
 				 	<div>
-			  		   제목 : <input type='text' name='title' size='70' />	 	
+			  		   제목 : <input type='text' name='title' size='70' placeholder=""/>	 	
 				 	</div>
 				 	<div>
 					     글쓴이 :${user.userId} <input type='hidden' value="${user.userId}" name='writer' size='30' />
 				 	</div> 
 				 	<div>
-				            내용 : <textarea name='content' rows='7' cols='70' ></textarea>
+				            내용 : <textarea name='content' rows='20' cols='70' ></textarea>
 				 	</div>
 				 	
 				 	
-					<div>
+					<!-- <div>
 						<form action="test05.do" method="post" enctype="multipart/form-data">
 							
 							<div><input type="file" name="attach" multiple /></div>
-			  			  <input type='submit' value="등록"></input>
 							
 						</form>
-					</div>
+					</div> -->
+			  			  <input type='submit' value="등록" onclick="titleIsContent();"></input>
 					<div>
 					</div>
 		              <a class="ns_write_do" > 
@@ -103,9 +103,7 @@
 
 
   </div>
-  <script>
-  // $(document).ready(alert());
-
+  <script src="<c:url value='/resources/js/talkWriteCheckForm.js' />">
   </script>
 </body>
 </html>

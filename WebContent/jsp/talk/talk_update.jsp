@@ -66,7 +66,7 @@
            
            
            <div class="ns_table_write">
-     <form method='post' action="/bitcomu/talkUpdate.do" > <!-- enctype = "multipart/form-data"> -->
+     <form method='post' action="/bitcomu/talk/talkUpdate.do" name="writeForm" onsubmit="return inputCheck();"> 
      	<input type="hidden" name="postNo" value="${board.postNo}" />
      	<input type="hidden" name="userNo" value="${board.userNo}" />
 	 	<div>
@@ -76,13 +76,13 @@
 		     글쓴이 :${userId} <input type='hidden' value="${userId}" name='writer' size='30' />
 	 	</div> 
 	 	<div>
-	            내용 : <textarea name='content' rows='7' cols='70' value="${board.content}" >${board.content}</textarea>
+	            내용 : <textarea name='content' rows='20' cols='70' value="${board.content}" >${board.content}</textarea>
 	 	</div>
 		<!-- <div>
 			<input type="file" name="attach" />
 		</div> -->
               <a class="ns_write_do" > 
-	    <button type='submit'>등록</button>
+	    <button type='submit'>수정</button>
               </a> 
 	</form>
               </div>
@@ -137,8 +137,8 @@
 
 
   </div>
-  <script>
-  // $(document).ready(alert());
+  <script src="<c:url value='/resources/js/talkWriteCheckForm.js' />">
+  
 
   </script>
 </body>

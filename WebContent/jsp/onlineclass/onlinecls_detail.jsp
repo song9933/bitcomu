@@ -261,7 +261,7 @@ int yt_no = 0;
       	</ul>
       </div>
       <!-- //댓글 수정 삭제 팝업 -->
-      <a href="${ pageContext.request.contextPath }/onlineclass/onlineclsList.do?subj=${ocls.ytSubject }"><img src="${ pageContext.request.contextPath }/resources/images/icon_closeW.png" alt="팝업닫기"/></a>
+      <a href="javascript:closepop();"><img src="${ pageContext.request.contextPath }/resources/images/icon_closeW.png" alt="팝업닫기"/></a>
       
     </div>
     <!-- //팝업 끝 -->

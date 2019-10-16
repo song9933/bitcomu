@@ -37,11 +37,10 @@ public class OnlineclsWriteController extends HttpServlet{
 		ocls.setYtTitle(req.getParameter("yt_title"));
 		ocls.setYtContent(req.getParameter("yt_detail"));
 		
-		// 주소는 첫번째 파라미터만 커팅한다
-		String targetAddr = req.getParameter("yt_addr");
-		String[] addr = targetAddr.split("\\?v=");
-		String ytAddr = addr[1].split("&")[0];
-		ocls.setYtAddr(ytAddr);
+		// 원본 주소
+		ocls.setYtAddr(req.getParameter("yt_addr"));
+		// 필요한 파라미터
+		ocls.setYtAddr(req.getParameter("yt_addr_mod"));
 		
 		// selbox가 null이면 input을 저장
 //		if(req.getParameter("yt_sel") == "") {
@@ -52,7 +51,11 @@ public class OnlineclsWriteController extends HttpServlet{
 		String yt_subject = req.getParameter("yt_sel");
 		ocls.setYtSubject(yt_subject);
 		int result = dao.insertOnlinecls(ocls);
-		
+		System.out.println("제목" + req.getParameter("yt_title"));
+		System.out.println("내용" + req.getParameter("yt_detail"));
+		System.out.println("원본주소" + req.getParameter("yt_addr"));
+		System.out.println("hidden주소" + req.getParameter("yt_addr_mod"));
+		System.out.println("과목" + req.getParameter("yt_sel"));
 //		System.out.println("insert결과::" + result);
 		
 		// url에서 과목명이 깨지는것 처리

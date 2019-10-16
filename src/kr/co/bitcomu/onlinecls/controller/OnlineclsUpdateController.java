@@ -31,11 +31,13 @@ public class OnlineclsUpdateController extends HttpServlet {
 		// 수정된 데이터 set처리
 		oncls.setYtTitle(req.getParameter("yt_title"));
 		oncls.setYtContent(req.getParameter("yt_detail"));
-		// 주소는 첫번째 파라미터만 커팅한다
-		String targetAddr = req.getParameter("yt_addr");
-		String[] addr = targetAddr.split("\\?v=");
-		String ytAddr = addr[1].split("&")[0];
+		// 온라인강의 원본 주소
+		String ytAddr = req.getParameter("yt_addr");
 		oncls.setYtAddr(ytAddr);
+		// 온라인강의 첫번째 파라미터만)
+		String[] addrArr = ytAddr.split("\\?v=");
+		String modAddr = addrArr[1].split("&")[0];
+		oncls.setYtAddr(modAddr);
 		int result = dao.updateOnlinecls(oncls);
 //		System.out.println("update결과 : " + result);
 		

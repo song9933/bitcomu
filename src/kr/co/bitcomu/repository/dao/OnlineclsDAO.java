@@ -5,7 +5,6 @@ import java.util.Map;
 
 import kr.co.bitcomu.repository.vo.Comment;
 import kr.co.bitcomu.repository.vo.Onlinecls;
-import kr.co.bitcomu.repository.vo.Search;
 
 public interface OnlineclsDAO {
 	// 전체 과목 리스트 조회 
@@ -38,4 +37,14 @@ public interface OnlineclsDAO {
 	int updateComment(Comment comment);
 	// 댓글 삭제
 	int deleteComment(int cmtNo);
+	
+	// 조회수
+	void updateViewCnt(int no);
+	
+	// 좋아요한 회원리스트를 조회하여 아이콘 처리
+	int[] selectLike(int no);
+	// 좋아요(1증가)
+	int insertLike(Onlinecls oncls);
+	// 좋아요 카운트
+	int selectLikeCnt(int no);
 }

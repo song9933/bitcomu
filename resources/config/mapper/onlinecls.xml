@@ -14,6 +14,7 @@
 	<result column="yt_subject" property="ytSubject" />
 	<result column="yt_view_cnt" property="ytViewCnt" />
 	<result column="yt_like_cnt" property="ytLike" />
+	<result column="yt_addr_mod" property="ytAddrMod" />
 </resultMap>
 <!-- 댓글 맵 resultMap -->
 <resultMap type="Comment" id="cmtMap">
@@ -40,7 +41,8 @@
            (select count(*)
               from tb_comment c
              where code_value = (select code_value from tb_codenm where code_name ='온라인강의게시판')
-               and c.board_post_no = y.yt_no) as yt_cmt_cnt
+               and c.board_post_no = y.yt_no) as yt_cmt_cnt,
+           y.yt_addr_mod    
       from tb_youtube y
 </sql>
 
@@ -49,7 +51,7 @@
 
 <!-- 온라인강의 -->
 <!-- 회원번호로 조인해 회원아이디 조회 -->
-<select id="selectUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
+<select id="selectUserId" parameterType="int" resultType="string" flushCache="true" useCache="true">
 	select (select user_id from tb_user u
 			 where y.user_no = u.user_no) as user_id
 	  from tb_youtube y
@@ -58,7 +60,7 @@
 
 <!-- 온라인강의 과목 리스트 조회 -->
 <select id="selectOnlineclsSubject" resultMap="onlineclsMap" flushCache="true" useCache="true">
-	select max(yt_subject) as yt_subject, max(yt_addr) as yt_addr 
+	select max(yt_subject) as yt_subject, max(yt_addr_mod) as yt_addr_mod 
 	  from tb_youtube 
 	 group by yt_subject
 </select>
@@ -138,9 +140,9 @@
 <!-- 온라인강의 추가 -->	
 <insert id="insertOnlinecls" parameterType="Onlinecls">
 	insert into tb_youtube(
-		yt_no, user_no, yt_title, yt_content, yt_addr, yt_subject
+		yt_no, user_no, yt_title, yt_content, yt_addr, yt_subject, yt_addr_mod
 	) values (
-		tb_youtube_seq.nextval, #{userNo}, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject} 
+		tb_youtube_seq.nextval, #{userNo}, #{ytTitle}, #{ytContent}, #{ytAddr}, #{ytSubject}, #{ytAddrMod 
 	)
 </insert>
 
@@ -163,7 +165,7 @@
 
 <!-- 댓글 -->
 <!-- 댓글 작성자 조회 -->
-<select id="selectCmtUserId" parameterType="int" resultType="String" flushCache="true" useCache="true">
+<select id="selectCmtUserId" parameterType="int" resultType="string" flushCache="true" useCache="true">
 	select (select user_id from tb_user u
 			 where c.user_no = u.user_no) as user_id
 	  from tb_comment c
@@ -193,7 +195,39 @@
 </delete>
 	
 <!-- 댓글 수정 -->
+<update id="updateComment" parameterType="Comment">
+	update tb_comment
+	   set cmt_content = #{cmtContent}
+	 where cmt_no = #{cmtNo} 
+</update>
 <!-- // 댓글 -->
+
+<!-- 조회수 -->
+<update id="updateViewCnt" parameterType="int">
+	update tb_youtube
+	   set yt_view_cnt = yt_view_cnt + 1
+	 where yt_no = #{ytNo}     
+</update>
+
+<!-- 좋아요 -->
+<!-- 좋아요 조회 -->
+<select id="selectLike" parameterType="int" resultType="int">
+	select user_no
+	  from tb_like
+	 where board_post_no = #{no}
+</select>
+<!-- 좋아요 추가 -->
+<insert id="insertLike" parameterType="Onlinecls">
+	insert into tb_like 
+	values (#{ytNo}, #{userNo}, (select code_value from tb_codenm where code_name = '온라인강의게시판'))
+</insert>
+<!-- 좋아요 카운트 cnt -->
+<select id="selectLikeCnt" parameterType="int" resultType="int">
+	select count(*)
+	  from tb_like 
+	 where board_post_no = #{no} 
+	   and code_value = (select code_value from tb_codenm where code_name = '온라인강의게시판')
+</select>
 </mapper>
 <!--
 검색은

@@ -43,9 +43,6 @@ public class DetailTalkController extends HttpServlet {
 		sPageNo = req.getParameter("pageNo");
 		int pageNo = Integer.parseInt(sPageNo);
 		Page page = new Page(pageNo);
-		int count = dao.selectTalkCount();
-		PageResult pr = new PageResult(pageNo, count);	
-		req.setAttribute("pr", pr);  // 전체 게시물 갯수	
 		
 		
 		//검색
@@ -64,6 +61,10 @@ public class DetailTalkController extends HttpServlet {
 		listMap.put("page", page);
 		listMap.put("search", search);
 		
+		int count = dao.selectTalkCount(listMap);
+		PageResult pr = new PageResult(pageNo, count);	
+		req.setAttribute("pr", pr);  // 전체 게시물 갯수	
+			
 		// 데이터를 구하고 공유
 		req.setAttribute("talk", dao.selectTalk(listMap));
 		
