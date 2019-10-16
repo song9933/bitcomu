@@ -8,7 +8,6 @@
   	<c:param name="msg" value="스터디게시판 | 글쓰기" />
   </c:import> 
  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  
@@ -21,8 +20,7 @@
         <section class="content">
           <div class="container">
           <div class="top_box" style="display: inline-block">
-          	<a href="<c:url value="/study/studyList.do"/>"
-						class="floating comment" >목록</a>
+          	<a href="<c:url value="/study/studyList.do"/>" class="floating comment" >목록</a>
 			</div>
           <form name="wForm" method="post" action="<c:url value="/study/studywrite.do"/>" onsubmit="return nullChk()">
               <div class="section">
@@ -54,30 +52,19 @@
 					<input type="hidden" name="studyRecruitMemMax" id="studyRecruitMemMax"/>
 				</p>
 				<div id="slider-range"></div>     
-                <!-- 
-                <div class="checks">
-                    <input type="radio" id="srm1" name="studyRecruitMem" value="1" /><label for="srm1">2~5명</label>
-                    <input type="radio" id="srm2" name="studyRecruitMem" value="2" /><label for="srm2">6~9명</label>
-                    <input type="radio" id="srm3" name="studyRecruitMem" value="3" /><label for="srm3">10~ 명</label>
-                    <input type="radio" id="srm4" name="studyRecruitMem" value="4" /><label for="srm4">제한없음</label>
-                </div>
-                 -->
               </div>
               <div class="section">
                   <h2>모집 여부</h2>
                 <div class="enabled">
                     <input type="radio" id="sre1" name="studyRecruitEnabled" value="Y" /><label for="sre1">모집중</label>
                     <input type="radio" id="sre2" name="studyRecruitEnabled" value="N" /><label for="sre2">마감</label>
-                    
                 </div>  
               </div>
-             
             <p class="title">
                 <input type="text"  name="studyPostTitle" placeholder="제목을 입력하세요">
             </p>
             <p class="text">
                 <textarea name="studyPostContent" placeholder="내용을 입력하세요"></textarea>
-
             </p>
             <div class="submit">
                 <input type="submit" value="글쓰기">

@@ -155,13 +155,10 @@
 										</div>
 									</form>
 									</c:if>
-								
 							</div>
 					</c:forEach>
 					</div>
-
 				</div>
-
 			</section>
 		</div>
 	</div>
@@ -183,13 +180,6 @@
 		reArrow[i].innerHTML = '<i class="fa fa-reply fa-rotate-180" ></i>';
 	}
 	}
-	
-/* 
-	if(pNo.value != '0'){
-		console.log(pNo.value);
-		pEle.style.marginLeft = 20 + "px";
-	}
- */
 		let ele = document.getElementsByClassName("completed");
 		for (let i = 0; i < ele.length; i++) {
 
