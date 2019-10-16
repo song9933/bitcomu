@@ -52,6 +52,7 @@ public class AuthFilter implements Filter {
 		// 로그인이 필요한 페이지만 체크해야 한다.
 		if (index == -1) {
 			if (user == null) {
+				session.setAttribute("uri", uri);
 				res.sendRedirect(req.getContextPath() + "/user/userLoginAuth.do");
 				return;
 			}

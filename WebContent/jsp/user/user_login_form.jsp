@@ -53,7 +53,8 @@
 					if (xhr.status == 200) {
 						if (xhr.responseText.trim() == 'loginSuccess') {
 							alert("로그인 되었습니다.");
-							opener.location.href="${pageContext.request.contextPath}/main.do";
+							let uri = "${sessionScope.uri}" || "/main.do";
+							opener.location.href="${pageContext.request.contextPath}" + uri ;
 							self.close();
 							
 						} else {
