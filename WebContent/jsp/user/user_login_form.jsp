@@ -53,8 +53,9 @@
 					if (xhr.status == 200) {
 						if (xhr.responseText.trim() == 'loginSuccess') {
 							alert("로그인 되었습니다.");
-							opener.parent.location.reload();
+							opener.location.href="${pageContext.request.contextPath}/main.do";
 							self.close();
+							
 						} else {
 							alert("아이디나 비밀번호가 맞지 않습니다.")
 						}

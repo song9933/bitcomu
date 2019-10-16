@@ -183,15 +183,17 @@
   function passChk() {
 	  password = document.querySelector("#password");
 	  passwordRetry = document.querySelector("#passwordRetry");
-	  if(password.value != passwordRetry.value) {
-		  passChkVal.style.color = "red";
-		  passChkVal.innerText = "* 비밀번호가 일치하지 않습니다.";
-		  passFlag = false;  
-	  } else {
-		  passChkVal.style.color = "black";
-		  passChkVal.innerText = "* 비밀번호가 일치합니다.";
-		  passFlag = true;
-	  }  
+	  if(password.value.length != 0 || passwordRetry.value.length != 0) {
+		  if(password.value != passwordRetry.value) {
+			  passChkVal.style.color = "red";
+			  passChkVal.innerText = "* 비밀번호가 일치하지 않습니다.";
+			  passFlag = false;  
+		  } else {
+			  passChkVal.style.color = "black";
+			  passChkVal.innerText = "* 비밀번호가 일치합니다.";
+			  passFlag = true;
+		  }
+	  }
   }
   
   
