@@ -48,11 +48,20 @@
 		 select *
 		 	from (select rownum rnum, a.* from 
 		 			( <include refid="selectStudy" />
-						<where>
-							<if test="search.searchType != ''">
-								 s.study_recruit_field = #{search.searchType} and s.study_post_content like '%'||#{search.searchWord}||'%'
-							</if>
-						</where>
+						
+						<choose>
+							<when test="search.searchType == '' and search.searchWord != ''">
+							 where s.study_post_content like '%'||#{search.searchWord}||'%'
+								or s.study_post_title like '%'||#{search.searchWord}||'%'
+							</when>
+							<when test="search.searchType != ''">
+							 where s.study_recruit_field = #{search.searchType} 
+								and (s.study_post_content like '%'||#{search.searchWord}||'%' or s.study_post_title like '%'||#{search.searchWord}||'%')
+							</when>
+						
+						</choose>
+						
+						
 						order by STUDY_RECRUIT_ENABLED desc, study_post_no desc) a )
 						where rnum between #{page.begin} and #{page.end}
 	</select>
@@ -135,9 +144,17 @@
 			where cmt_no = #{cmtNo}
 	</update>
 	<!-- 스터디게시판 댓글 삭제 -->
-	<delete id="deleteComment" parameterType="int">
+	<delete id="deleteComment" parameterType="hashMap">
 		delete from tb_comment
-			where cmt_no = #{cmtNo}
+			<choose>
+				<when test="parentCmtNo == 0">
+				where cmt_group_no = (select cmt_group_no from tb_comment where cmt_no = #{cmtNo})
+				</when>
+				<when test="parentCmtNo != 0">
+					where cmt_no = #{cmtNo}
+				</when>
+			</choose>
+			
 	</delete>
 	
 	<!-- 스터디게시판 댓글 수 -->
