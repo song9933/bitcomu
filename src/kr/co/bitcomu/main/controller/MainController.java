@@ -28,7 +28,7 @@ public class MainController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		List<Study> studyList = studyDao.mainStudyPost();
+		Study studyList = studyDao.mainStudyPost();
 		req.setAttribute("studyList", studyList);
 		List<Vote> voteList = voteDao.selectVote();
 		req.setAttribute("voteList", voteList);

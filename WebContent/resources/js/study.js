@@ -1,24 +1,12 @@
-var distToBottom, data, dataObj;
 var pageNo = 1;
-var pollingForData = false;
 var xhr = new XMLHttpRequest();
 var itemContainer =  document.getElementById('list');
 
 
-function getDistFromBottom () {
-
-  var scrollPosition = window.pageYOffset;
-  var windowSize     = window.innerHeight;
-  var bodyHeight     = document.body.offsetHeight;
-
-  return Math.max(bodyHeight - (scrollPosition + windowSize), 0);
-
-}
 
  xhr.onreadystatechange = function(){
   if(xhr.readyState == 4 && xhr.status == 200) {
 	
-    pollingForData = false;
     data = xhr.responseText;
     dataObj = JSON.parse(data);
     // for iterating through the data
@@ -96,19 +84,12 @@ function getDistFromBottom () {
 xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
 xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
-pollingForData = true;
 
 document.addEventListener('scroll', function() {
-        distToBottom = getDistFromBottom();
     
         if ((window.pageYOffset -17) == (document.body.offsetHeight - window.innerHeight)) {
-          pollingForData = true;
           pageNo++;
-       /*   console.log('scroll ',window.pageYOffset);
-          console.log('bodyHeight ',document.body.offsetHeight);
-          console.log('innerHeight',window.innerHeight);
-          console.log('pageNo',pageNo);
-          */
+          console.log("pageNo :",pageNo);
           xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
           xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
           xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
@@ -140,32 +121,3 @@ for (let i = 0 ; i < selList.length ; i++) {
 	}
 }
 
-/**
- * 날짜 표시 변경하기
- * @param date
- * @returns
- */
-function dt_to_str(dt){
-	var year = dt.getYear();
-
-    var month = dt.getMonth() + 1;
-
-    if(month<10) month = '0' + month;
-
-    var date = dt.getDate();
-
-    if(date<10) date = '0' + date;
-
-    var hour = dt.getHours();
-
-    if(hour<10) hour = '0' + hour;
-
-    var min = dt.getMinutes();
-
-    if(min<10) min = '0' + min;
-
-    return year + "-" + month + "-" + date + " " + hour + ":" + min ;
-
-
-
-}
