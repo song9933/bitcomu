@@ -21,34 +21,6 @@
 	
 
 <style>
-.vote-hidden {
-   height: 0px;
-   opacity: 0;
-}
-
-.vote-show {
-   height: auto;
-   opacity: 1;
-}
-.vote-accordian {
-	margin: 0px;
-    width: 80%;
-    border: 1px solid #345;
-    box-sizing: border-box;
-    padding: 4px 10px;
-    margin-top: 8px;
-}
-}
-
-div.vote-accordian {
-	 position: relative;
-     transition: 1s;
-     height:auto;
-     overflow: hidden;
-     padding: 5px 10px;
-}
-
-
 </style>
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

@@ -14,6 +14,7 @@
 <style>
 </style>
 <body>
+	<a href="#" id="vote-scroll" style="display: none;"><span></span></a>
 	<div class="wrapepr">
 		<c:import url="/jsp/include/header.jsp" />
 
@@ -178,24 +179,11 @@ function loadMore(list) {
 		}
 		for(var i = 0; i < list.length; i++){
 			let vote = list[i];
-			let notice = "";
-			if(vote.voteNoticeEnabled == 'Y') {
-				notice = "<공지>";
-			}
-			let annoy = "";
-			if(vote.voteAnonyEnabled == 'Y') {
-				annoy = "<익명>";	
-			}
-			let close = "";
-			if(vote.voteCloseEnabled == 'Y'){
-				close = "<마감>";
-			}
-
 			document.querySelector(".vote_inner").innerHTML += 
 		`<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card" 
 			onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">
 			<p>
-				\${notice} \${annoy} \${close}				
+				<span class="vote-notice" style="display:none;">공지</span><span class="vote-annoy" style="display:none;">익명</span><span class="vote-close" style="display:none;">마감</span>  				
 			<div
 				onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">\${vote.voteTitle}</div>
 			</p>
@@ -204,7 +192,27 @@ function loadMore(list) {
 				\${vote.voteRegDt}
 			</p>
 		</div>`;
+			if(vote.voteNoticeEnabled == 'Y') {
+				let notices = document.querySelectorAll(".vote-notice");
+				for(let i = 0; i < notices.length; i++){
+					notices[i].style.display = 'inline-block';
+				}
+			}
+			
+			if(vote.voteAnonyEnabled == 'Y') {
+				let annoys = document.querySelectorAll(".vote-annoy");
+				for(let i = 0; i < annoys.length; i++){
+					annoys[i].style.display = 'inline-block';
+				}
+			}
+			if(vote.voteCloseEnabled == 'Y'){
+				let closes = document.querySelectorAll(".vote-close");
+				for(let i = 0; i < closes.length; i++){
+					closes[i].style.display = 'inline-block';
+				}
+			}
 		}
+	
 		searchSwitch = false;
 		userInput = "";
 }	
@@ -252,6 +260,20 @@ $(window).on("scroll", function() {
 		return new Date();
 	}
 	
+	/*스크롤 BacktotheTop*/
+	$(document).ready(function(){ 
+    $(window).scroll(function(){ 
+        if ($(this).scrollTop() > 100) { 
+            $('#vote-scroll').fadeIn(); 
+        } else { 
+            $('#vote-scroll').fadeOut(); 
+        } 
+    }); 
+    $('#vote-scroll').click(function(){ 
+        $("html, body").animate({ scrollTop: 0 }, 600); 
+        return false; 
+    }); 
+});
 	
 
 </script>

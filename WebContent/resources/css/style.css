@@ -2558,6 +2558,84 @@ h2.vote_modal_title {
     border-color: royalblue;
 }
 
+/*2번째 디테일 CSS*/
+.vote-hidden {
+   height: 0px;
+   opacity: 0;
+}
+
+.vote-show {
+   height: auto;
+   opacity: 1;
+}
+.vote-accordian {
+	margin: 0px;
+    width: 80%;
+    border: 1px solid #345;
+    box-sizing: border-box;
+    padding: 4px 10px;
+    margin-top: 8px;
+}
+}
+
+div.vote-accordian {
+	 position: relative;
+     transition: 1s;
+     height:auto;
+     overflow: hidden;
+     padding: 5px 10px;
+}
+
+/*2번째 리스트 CSS*/
+.vote-notice, .vote-annoy, .vote-close {
+box-sizing: border-box;
+    border-radius: 22%;
+    padding: 1px 12px;
+    color: white;
+    margin-right: 12px;
+}
+.vote-notice {
+    background-color: lightcoral;
+}
+.vote-annoy {
+	background-color: darkseagreen;
+}
+.vote-close {
+	background-color: darkgray;
+}
+
+/*스크롭 탑으로 가는거*/
+#vote-scroll {
+    position:fixed;
+    right:10px;
+    bottom:10px;
+    cursor:pointer;
+    width:50px;
+    height:50px;
+    background-color:#3498db;
+    text-indent:-9999px;
+    display:none;
+    -webkit-border-radius:60px;
+    -moz-border-radius:60px;
+    border-radius:60px
+}
+#vote-scroll span {
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-8px;
+    margin-top:-12px;
+    height:0;
+    width:0;
+    border:8px solid transparent;
+    border-bottom-color:#ffffff;
+}
+#vote-scroll:hover {
+    background-color:#e74c3c;
+    opacity:1;filter:"alpha(opacity=100)";
+    -ms-filter:"alpha(opacity=100)";
+}
+
 
 /* 동찬 끝 */
 
