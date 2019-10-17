@@ -77,14 +77,10 @@ function splitAddr() {
 	let hidAddrVal = addrEle.value;
 	if (hidAddrVal != "") {
 		let addrArr = hidAddrVal.split('?v=');
-		for (let i = 0; i < addrArr.length; i++) {
-			console.log(addrArr[i]);
-		}
 		addrModEle.value = addrArr[1];
 		if (addrModEle.value.indexOf("&") != -1) {
 			let targetAddr = addrArr[1].split("&")[0];
 			addrModEle.value = targetAddr;
-			console.log(addrModEle.value);
 			return;
 		}
 	} else {
@@ -108,7 +104,6 @@ function validate() {
 	}
 	// addrInput
 	if (addrInput.value.length > 1000 || addrInput.value.trim().length == 0 || addrEle.value.indexOf('?v=') == -1) {
-		console.log(addrEle.value.indexOf('?v='))
 		alert('잘못된형식주소 예시)https://www.youtube.com/watch?v=MtxFWczSFqU&t=171s');
 
 		return false;	
