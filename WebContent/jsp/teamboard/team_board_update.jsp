@@ -21,14 +21,11 @@
 					<a href="teamBoardList.do"> 조별프로젝트 게시판 </a>
 				</h2>
 				<br> <br> <br> <br>
-				<div class="tabs_cws">
-					<ul class="projectNo_active_cws">
-						<li><a
-							href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=1">1차</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=2">2차</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=3">3차</a></li>
+        <div class="tabs_cws">
+					<ul  class="projectNo_active_cws">
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=1">1 차</a></li>
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=2">2 차</a></li>
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=3">3 차</a></li>
 					</ul>
 				</div>
 				<br> <br>
@@ -50,55 +47,15 @@
 						<button type="button" onclick="sendTeam();">저장</button>
 					</form>
 					</c:if>
+					
+					<div class="a_cws">
+						<ul id="teamtabs_cws">
+						
+						</ul>
+<!-- 					</form> -->
+					</div>
 				</div>
 
-
-				<div class="boardtitle_cws">
-					<h2 style="margin: 0 auto">${teamNo}조의진행상황</h2>
-				</div>
-				<br> <br>
-
-				<form action="${pageContext.request.contextPath}/team/teamBoardWriteform.do?projectNo=${projectNo}">
-					<button class="writebutton_cws">글등록</button>
-				</form>
-				<br> <br> <br> <br>
-				<div class="board_cws">
-					<input type="image"
-						src="${pageContext.request.contextPath}/resources/images/top_ar.png"
-						style="border: 1px solid gray; width: 100px; height: 130px; float: right;">
-					<ul>
-						<c:forEach var="t" items="${list}">
-							<li><a
-								href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${t.teamBoardNo}"
-								style="font-size: 40px"> ${t.teamBoardTitle}</a></li>
-							<br>
-							<li>
-								<h6 style="margin: 0 auto">작성자: ${t.userId}</h6>
-							</li>
-							<li>
-								<h6 style="margin: 0 auto">
-									작성일:
-									<fmt:formatDate pattern="yyyy-MM-dd"
-										value="${t.teamBoardRegDt}" />
-								</h6>
-							</li>
-							<br>
-							<p>--------------------------------------------------------------------</p>
-							<br>
-						</c:forEach>
-					</ul>
-					<br>
-					<progress value="20" max="100"></progress>
-					<h5>진행률: 20%</h5>
-					<br>
-				</div>
-
-				<div>&nbsp;</div>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br>
 
 			</section>
 		</div>
@@ -121,20 +78,12 @@
 			<br>
 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdate.do">
 				<div>
-					<select name="projectNo" id="projectNo">
+					<select name="projectNo" id="projectNo" style="margin-left: 28px">
 						<option value="1">1차</option>
 						<option value="2">2차</option>
 						<option value="3">3차</option>
 					</select>
-				</div>
-
-				<div>
 					<select name="teamNo" id="teamNo">
-						<option value="1">1조</option>
-						<option value="2">2조</option>
-						<option value="3">3조</option>
-						<option value="4">4조</option>
-						<option value="0">공지</option>
 					</select>
 				</div>
 				<div class="updatetitleboard_cws">
@@ -148,19 +97,19 @@
 						${teamBoard.teamBoardContent}</textarea>
 					</div>
 					<br>
-					<div class="alreadyfile_cws">
-						<a>첨부된 파일 &emsp;<input type="text" style="border: none"
-							value="aaa.css"> <br>
-							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <input type="text"
-							style="border: none" value="ac8.html"></a>
-					</div>
-					<div class="alreadyimage_cws">
-						<a>첨부된 이미지 &emsp;<input type="image"></a>
-					</div>
-					<br> <input type="file" name="작성된 파일"
-						style="cursor: pointer; width: 180px; float: left; margin-left: -120px"
-						onchange="previewImage(this,'View_area')"> <input
-						type="image" src="" style="margin-left: 20px;"> <br>
+<!-- 					<div class="alreadyfile_cws"> -->
+<!-- 						<a>첨부된 파일 &emsp;<input type="text" style="border: none" -->
+<!-- 							value="aaa.css"> <br> -->
+<!-- 							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <input type="text" -->
+<!-- 							style="border: none" value="ac8.html"></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="alreadyimage_cws"> -->
+<!-- 						<a>첨부된 이미지 &emsp;<input type="image"></a> -->
+<!-- 					</div> -->
+<!-- 					<br> <input type="file" name="작성된 파일" -->
+<!-- 						style="cursor: pointer; width: 180px; float: left; margin-left: -120px" -->
+<!-- 						onchange="previewImage(this,'View_area')"> <input -->
+<!-- 						type="image" src="" style="margin-left: 20px;"> <br> -->
 					<button class="updatesubmit_cws">수정완료</button>
 				</div>
 			</form>
@@ -169,19 +118,44 @@
 	</div>
 	<script>
 		// $(document).ready(alert());
+		
+		 // 조 갯수
+		let teamTab = document.querySelector("#teamtabs_cws");
+		let team = ${codeValue};
+		console.log("1", team);
+		for (let i = 1; i <= team; i++) {
+			let liEle = document.createElement("li");
+			let aEle = document.createElement("a");
+			
+			let txtNode = document.createTextNode(`\${i}조`);
+			aEle.append(txtNode);
+			liEle.append(aEle);
+			liEle.setAttribute("id", `team\${i}`);
+			teamTab.append(liEle);
+		}
+			
+	  	// select박스에 추가/삭제한 팀 번호 보여주기
+		let teamNo = document.querySelector("#teamNo");
+		for (let i = 1; i <= team; i++) {
+			let opEle = document.createElement("option");
+			opEle.value = `\${i}`;
+			let tNode = document.createTextNode(`\${i}조`);
+			opEle.append(tNode);
+			teamNo.append(opEle);
+		}
 		// 작성된 글의 프로젝트 번호 보여주기
 		let proNo = document.querySelectorAll("#projectNo > option");
 		for (let i = 0; i < proNo.length; i++) {
 			if (proNo[i].value == `${teamBoard.projectNo}`)
-				proNo[i].selected = true;
+				proNo[i].setAttribute("selected", true);
 		}
 
 		// 작성된 글의 팀 번호 보여주기
-		let teamNo = document.querySelectorAll("#teamNo > option");
-		for (let i = 0; i < teamNo.length; i++) {
-			if (teamNo[i].value == `${teamBoard.teamNo}`)
-				teamNo[i].selected = true;
-		}
+		let tNo = document.querySelectorAll("#teamNo > option");
+		for (let i = 0; i < tNo.length; i++) {
+			if (tNo[i].value == ${teamBoard.teamNo})
+				tNo[i].setAttribute("selected", true);
+	}
 	</script>
 </body>
 

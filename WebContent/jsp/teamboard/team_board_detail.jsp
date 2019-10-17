@@ -14,18 +14,31 @@
 	width: 90%;
 	box-sizing: border-box;
 	position: relative;
- 	transition: 1s;
+ 	animation-duration: 1s;
+ 	animation-name: slide;
 	overflow: hidden;
 }
 
-.hidden {
+@keyframes slide {
+	from {
+		height: auto;
+	}
+	
+	to {
+		height: 0px;
+	}
+}
+
+.hidden2 {
 	height: 0px;
 	opacity: 0;
+	transition: 1s;
 }
 
 .show {
 	height: auto;
 	opacity: 1;
+	transition: 1s;
 }
 
 .updatebutton_cws {
@@ -164,53 +177,34 @@
 		<div class="detailpopup_cws">
 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${teamBoard.projectNo}&teamNo=${teamBoard.teamNo}">
         		<button class="close_cws" style="width:50px; height:50px; 
-      				background-color: white; opacity: .9; border: none">
+      				opacity: .9; border: none; font-size: 40px;">
       			</button>
       		</form>
-			<br>
-			<h1 style="text-align: center">상세보기</h1>
+<!-- 			<br> -->
+      		<div>
+      			<h5>${teamBoard.projectNo}차 프로젝트 > ${teamBoard.teamNo}조</h5>
+      		</div>
+			<h1 style="word-break:break-all; text-align: center;">${teamBoard.teamBoardTitle}</h1>
 			<br>
 <!-- 			<div class="detailimage_cws"> -->
 <!-- 				<input type="image" title="&emsp;글에 첨부된 이미지" -->
 <!-- 					style="width: 600px; height: 300px;"> -->
 <!-- 			</div> -->
-			<div class="detailcontent_cws">
-					<h3 style="word-break:break-all;">제목 : ${teamBoard.teamBoardTitle}</h3>
-					<h4 style="float: right; margin-top: -20px; margin-right: 80px;">
+			<div class="detailcontent_cws" style="padding: 3px;">
+					<h4 style="float: right; margin-right: 80px; padding: 10px;">
 					${teamBoard.teamBoardRegDt}
 					</h4>
 					<br>
-					<h3>작성자 : ${teamBoard.userId}</h3>
-					<br>
-					<h3>글내용: ${teamBoard.teamBoardContent}</h3>
+					<h3 style="margin-top: -20px; padding: 8px;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+						&nbsp;${teamBoard.userId}</h3>
+			</div>
+<!-- 					<br> -->
+			<div class="detailcontent_cws" style="padding: 3px;">
+					<h3 style="word-break:break-all; padding: 8px;">${teamBoard.teamBoardContent}</h3>
 				<br> <br> <br> <br> <br> <br> <br><br> <br> <br>
 			</div>
 			
 			<div id="list_c">
-<!-- 			<button class="viewcomment_cws" onclick="viewComment()">댓글보기</button> -->
-<%-- 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do"> --%>
-<%-- 				<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}"/> --%>
-<!-- 				<button class="updatebutton_cws">수정</button> -->
-<!-- 			</form> -->
-<!-- 			<br> <br>  -->
-
-<%-- 			<form method="post" action="${pageContext.request.contextPath}/team/teamCommentWrite.do"> --%>
-<!-- 				<p style="margin-left: 20px;">▶ -->
-<!-- 				<input type="text" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;"> -->
-<%-- 				<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}"> --%>
-<%-- 				<input type="hidden" name="userNo" value="${userNo}"> --%>
-<!-- 				<button>등록</button> -->
-<!-- 				</p> -->
-<!-- 			</form> -->
-<!-- 			<br> -->
-<!-- 				<form method="post" action="teamCommentUpdate.do"> -->
-<%-- 					<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}" /> --%>
-<%-- 					<input type="hidden" name="cmtNo" value="${param.cmtNo}" />	 --%>
-<!-- 						<div id="commentList_cws" > -->
-						<!-- function makeCommentList(list) 생성부분 -->
-<!-- 						</div> -->
-<%-- 					</c:forEach> --%>
-<!-- 				</form> -->
 			</div>
 		</div>
 
@@ -228,10 +222,15 @@
 	</div>
 	<script>
 // 	댓글 아코디언
-		function viewComment() {
+		function viewComment(listLength) {
 				let commentEle = document.querySelector("#team_comment_cws");
-				commentEle.classList.toggle("hidden");
+				if(listLength == 0) {
+					alert("댓글이 존재하지 않습니다  가장 먼저 댓글을 달아보세요!");
+					return;
+				}
+				commentEle.classList.toggle("hidden2");
 				commentEle.classList.toggle("show");
+				
 		}
 		
 // 	댓글 ===========================================
@@ -257,7 +256,7 @@ function commentListAjax(showFlag) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				let list = JSON.parse(xhr.responseText);
-				makeCommentList(list, showFlag);
+					makeCommentList(list, showFlag);
 			}
 		}
 	};
@@ -269,18 +268,29 @@ commentListAjax(false);
 function makeCommentList(list, showFlag) {
 	let commentList = document.getElementById("list_c");
 	let html = `<div>
-		<button class="viewcomment_cws" onclick="viewComment()">댓글보기</button>
+		<button class="viewcomment_cws" onclick="viewComment(\${list.length})">댓글보기</button>
 		<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdateform.do">
-			<button class="updatebutton_cws">수정</button>
+			`;
+			let upList = document.createElement("span");
+			upList.innerHTML="";
+			if ('${sessionScope.user.userNo}' == '${teamBoard.userNo}' || '${sessionScope.user.userGrade}' == 3){
+			upList.innerHTML=
+			`<button class="updatebutton_cws">수정</button>
 			<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
+			
+			`};
+		html +=
+			
+		`
+		\${upList.innerHTML}
 		</form>
 		<br> <br> 
 		<div id="teamCommentWriteForm">
 			<form name="crForm" method="post" action="teamCommentWrite.do" 
 			      onsubmit="return teamCommentWriteAjax()">
-			<p style="margin-left: 20px;">▶
+			<p style="margin-left: 40px;">▶
 			<input type="text" id="cmtContent" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;"/>
-			<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
+			<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}"/>
 			<input type="hidden" name="userNo" value="${teamBoard.userNo}"/>
 			<button>등록</button>
 			</p>
@@ -288,19 +298,21 @@ function makeCommentList(list, showFlag) {
 			</form>
 		</div>
 		
-		<div id="team_comment_cws">`;
+		`;
 		
-		html += `<div id="commentList_cws" >
+		html += `<div id="team_comment_cws">
+				
 	`;
+	
 	for (let i = 0; i < list.length; i++) {
 		let comment = list[i];
-				
 		let cList = document.createElement("span");
 		cList.innerHTML = "";
+		
 		if ('${sessionScope.user.userNo}' == comment.userNo || '${sessionScope.user.userGrade}' == 3){
 			cList.innerHTML = 	
 				`<a onClick="updateF(\${comment.cmtNo}, '\${comment.cmtContent}', \${comment.boardPostNo})" href="javascript:;">수정</a>
-                 <a href="#" onclick="commentDeleteAjax(\${comment.cmtNo}, \${comment.boardPostNo});">삭제</a>
+                 <a href="javascript:;" onclick="commentDeleteAjax(\${comment.cmtNo}, \${comment.boardPostNo});">삭제</a>
 		`};
 		html += `
 			
@@ -323,8 +335,10 @@ function makeCommentList(list, showFlag) {
 	commentList.innerHTML = html;
 	if(showFlag) {
 		document.querySelector("#team_comment_cws").className = "show";
+// 		let dpEle = document.querySelector(".viewcomment_cws");
+// 		dpEle.style.transition = "1s";
 	} else {
-		document.querySelector("#team_comment_cws").className = "hidden";
+		document.querySelector("#team_comment_cws").className = "hidden2";
 	}
 }
 
@@ -406,9 +420,11 @@ function updateF(cmtNo, cmtContent, boardPostNo) {
 		<li style="width: 70%; padding: 2px;">
 	 	<textarea id="cmtCon" autofocus name="cmtContent" style="border: none; height: 40px; width: 465px; resize: none">\${cmtContent}</textarea>
 	</li>
-		<li style="float: right; margin-top: -32px; margin-right: 32px;">
+		<li style="float: right; margin-top: -32px; margin-right: 4px; position: relative;">
         <a href="javascript:;" onclick="realUpdate(\${cmtNo}, \${boardPostNo})"
         	style="color: inherit; background: none; border: none; cursor: pointer;">수정</a>
+        <a href="javascript:;" onclick="commentListAjax(true)"
+        	style="color: inherit; background: none; border: none; cursor: pointer;">취소</a>
 		</li>
 	`;
 }

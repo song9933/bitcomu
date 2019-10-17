@@ -95,6 +95,9 @@
 			   project_no = #{projectNo}, 
 			   team_board_content = #{teamBoardContent}
 		 where team_board_no = #{teamBoardNo}
+<!-- 		   and code_value = (select code_value  -->
+<!-- 		   					   from tb_codenm  -->
+<!-- 		   					  where code_name = '팀프로젝트게시판') -->
 <!-- 		   and user_no = #{userNo} -->
 	</update>
 

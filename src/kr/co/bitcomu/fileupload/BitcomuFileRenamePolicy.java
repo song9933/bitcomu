@@ -1,13 +1,17 @@
 package kr.co.bitcomu.fileupload;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 
 public class BitcomuFileRenamePolicy implements FileRenamePolicy {
 	public static void main(String[] args) {
-		File f = new File("C:/java/upload/board/2019/09/18/11/a.jpg");
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
+		String filePath = "/board" + sdf.format(new Date());
+		File f = new File("c:/java/bitupload" + filePath);
 		System.out.println(f.getParent());
 		String name = f.getName();
 		int index = name.lastIndexOf(".");

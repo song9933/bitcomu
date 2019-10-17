@@ -70,12 +70,15 @@ div.a_cws {
 				<br> <br> <br> <br>
 				<div class="tabs_cws">
 					<ul  class="projectNo_active_cws">
-						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=1&teamNo=1">1 차</a></li>
+						<li><a class="active" href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=1&teamNo=1">1 차</a></li>
 						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=2&teamNo=1">2 차</a></li>
 						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=3&teamNo=1">3 차</a></li>
 					</ul>
 				</div>
-				<br> <br>
+				<br> 
+				<br> 
+				<h3 style="margin-left: 300px;">${projectNo}차 프로젝트&nbsp; > &nbsp;${teamNo}조</h3>
+				<br>
 
 				<div class="subtabs_cws">
 					<br>
@@ -106,7 +109,6 @@ div.a_cws {
 <!-- 					</form> -->
 					</div>
 				</div>
-
 
 				<div class="boardtitle_cws">
 					<h2 style="margin: 0 auto">${teamNo}조의 진행상황</h2>
@@ -241,13 +243,15 @@ div.a_cws {
 		 		if ('${sessionScope.user.userNo}' == tList.userNo || '${sessionScope.user.userGrade}' == 3){
 		 			a.innerHTML = 
 		 			`<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do" />
+		 			<button onclick="return confirmDel();" style="margin-top:-100px; cursor: pointer; float: right; background: none; border: none">
+		 			<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+		 			</button>
 		 			<input type="hidden" name="teamBoardNo" value="\${tList.teamBoardNo}"/>
 		 			<input type="hidden" name="projectNo" value="\${tList.projectNo}"/>
 		 			<input type="hidden" name="teamNo" value="\${tList.teamNo}"/>
-		 			<button onclick="return confirmDel();">삭제</button></form>`
+		 			</form>`
 			 	};
 			html += `<ul class="board_cws">
-					<li><input type="image" src="${pageContext.request.contextPath}/resources/images/top_ar.png" style="border: 1px solid gray; width: 100px; height: 130px; float: right;"></li>
 					<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 35px;">
 					<a href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=\${tList.teamBoardNo}" style="font-size: 35px; ">
 					\${tList.teamBoardTitle}</a></li>

@@ -121,46 +121,46 @@ div.a_cws {
       	</button>
       </form>
       <br>
-      <h1 style="text-align: center">글등록페이지</h1>
+      <h1 style="text-align: center">글등록</h1>
       <br>
-     <form method='post' action='${pageContext.request.contextPath}/team/teamBoardWrite.do'>
+     <form method='post' action='${pageContext.request.contextPath}/team/teamBoardWrite.do'
+     		onsubmit="return writeConfirm()">
       <input type="hidden" name="userNo" value="${userNo}">
       
       <div>
-        <select name="projectNo" id="projectNo">
+        <select name="projectNo" id="projectNo" style="margin-left: 30px;">
           <option value="1">1차</option>
           <option value="2">2차</option>
           <option value="3">3차</option>
         </select>
-      </div>
-      
-      <div>
         <select name="teamNo" id="teamNo">
-        
         </select>
       </div>
       <div class="titleboard_cws">
-        <input type="text" name="teamBoardTitle" placeholder="제목을 입력하세요" 
+        <input type="text" name="teamBoardTitle" id="teamBoardTitle"
+        placeholder="제목을 입력하세요" 
         style="width: 100%; border: hidden">
         <br>
         <br>
         <div class="writecontent_cws">
-          <textarea name="teamBoardContent" onclick="this.value=''"
+          <textarea name="teamBoardContent" id="teamBoardContent" 
+          placeholder="내용을 입력하세요."
           style="width: 100%; height: 100%; 
           font-size: 16px; text-align: left; 
-          padding: 5px; resize: none">내용을 입력하세요.</textarea>
+          padding: 5px; resize: none"></textarea>
         </div>
+        <br> 
+<!--         <input type="file" id="myFile" -->
+<!-- 				style="cursor: pointer; width: 180px; float: left; margin-left: -120px" -->
+<!-- 				/> -->
+<!-- 		<button type="button" onclick="uploadFile()">파일업로드</button> -->
+
+					<!--         <input type="image" src="" style="margin-left: 20px;"> -->
         <br>
-<!--         <input type="file" style="cursor: pointer; width:180px; float: left; margin-left: -120px"  -->
-<!--         		onchange="previewImage(this,'View_area')"> -->
-
-
-
-<!--         <input type="image" src="" style="margin-left: 20px;"> -->
-        <br>
-        <button class="submitbutton_cws" type="submit">등록</button>
+        <button class="submitbutton_cws" type="submit" >등록</button>
       </div>
      </form>
+			  
 <!-- 			<div><input type="text" name="msg"></div> -->
 <!-- 			<div><input type="file" name="attach" multiple/></div> -->
 <!-- 			<div><button>전송</button></div> -->
@@ -172,6 +172,19 @@ div.a_cws {
   </div>
   <script>
   // $(document).ready(alert());
+  
+  	// 글내용 유효성검사
+  	function writeConfirm(){
+  		if (document.querySelector("#teamBoardTitle").value.trim().length == 0){
+  		alert("제목을 입력하세요");
+  		return false;
+  		}
+  		if (document.querySelector("#teamBoardContent").value.trim().length == 0){
+  		alert("내용을 입력하세요");
+  		return false;
+  		}
+  	}
+  
   // 조 갯수
 	let teamTab = document.querySelector("#teamtabs_cws");
 	let team = ${codeValue};
@@ -199,15 +212,36 @@ div.a_cws {
 	let proNo = document.querySelectorAll("#projectNo > option");
 	for (let i = 0; i < proNo.length; i++) {
 		if (proNo[i].value == ${projectNo})
-			proNo[i].selected = true;
+			proNo[i].setAttribute("selected", true);
 	}
 	// select박스에 선택된 팀으로 보여주기
 	let tNo = document.querySelectorAll("#teamNo > option");
-// 	tNo[0].selected = true;
 		for (let i = 0; i < tNo.length; i++) {
 		if (tNo[i].value == ${teamNo})
-			tNo[i].selected = true;
+			tNo[i].setAttribute("selected", true);
 	}
+		
+// 	uploadFile = function() {
+// 		  let file = document.getElementById('myFile');
+// 		  let filedata = new FormData(); // FormData 인스턴스 생성
+	
+// 		  if (!file.value) return; // 파일이 없는 경우 빠져나오기
+	
+// 		  filedata.append('uploadfile', file.files[0]);
+	
+// 		  let xml = new XMLHttpRequest();
+// 		  xml.open('POST', 'teamBoardWrite.do', true);
+// 		  xml.onload = function(event) {
+// 		    if (xml.status == 200) {
+// 		      alert('파일업로드 완료');
+// 		    }
+// 		    else {
+// 		      alert('파일업로드에 실패했습니다.');
+// 		    }
+// 		  };
+	
+// 		  xml.send(filedata);
+// 		};
   </script>
 </body>
 

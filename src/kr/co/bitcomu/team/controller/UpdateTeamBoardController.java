@@ -25,8 +25,11 @@ public class UpdateTeamBoardController extends HttpServlet {
 	
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("text/json; charset=utf-8");		
+
 		HttpSession session = req.getSession();
 //		User user = (User)session.getAttribute("user");
+		
 		Team team = new Team();
 //		team.setUserNo(user.getUserNo());
 		team.setTeamBoardNo(Integer.parseInt(req.getParameter("teamBoardNo")));
@@ -36,7 +39,10 @@ public class UpdateTeamBoardController extends HttpServlet {
 		team.setTeamBoardContent(req.getParameter("teamBoardContent"));
 		dao.updateTeamBoard(team);
 		
-		res.sendRedirect("teamBoardList.do");
+		
+		int teamBoardNo = Integer.parseInt(req.getParameter("teamBoardNo"));
+		
+		res.sendRedirect("teamBoardDetail.do?teamBoardNo=" + teamBoardNo);
 	}
 }
 
