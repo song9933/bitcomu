@@ -132,15 +132,6 @@
 						<!-- ajax 활용한 list출력 -->
 					</div>
 				
-				<div>
-					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}">
-						<button class="movetop_cws"
-							style="width: 60px; height: 60px; background-color: white; opacity: .9; border: none">
-							<br> <br> <br> <br>
-							<h3 style="color: #9c9b9b">맨 위로</h3>
-						</button>
-					</form>
-				</div>
 			</section>
 		</div>
 		<!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -186,18 +177,16 @@
 		</div>
 
 		<div>
-
-			<form action="/team/teamBoardDetail.do?cmtNo=${cmtNo}&teamBoardNo=${teamBoardNo}">
-				<button class="movetop_cws"
-					style="width: 60px; height: 60px; background-color: #a5a5a5; opacity: .7; border: none">
-					<br> <br> <br> <br>
+			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${teamBoard.teamBoardNo}">
+				<button id="movetop" class="movetop_cws"><i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i>
+					<br> <br> 
 					<h3 style="color: #ffffffe5">맨 위로</h3>
 				</button>
 			</form>
-
 		</div>	
 	</div>
 	<script>
+
 // 	댓글 아코디언
 		function viewComment(listLength) {
 				let commentEle = document.querySelector("#team_comment_cws");
@@ -265,7 +254,7 @@ function makeCommentList(list, showFlag) {
 		</form>
 		<br> <br> 
 		<div id="teamCommentWriteForm">
-			<form name="crForm" method="post" action="teamCommentWrite.do" 
+			<form name="crForm" method="post"  
 			      onsubmit="return teamCommentWriteAjax()">
 			<p style="margin-left: 40px;">▶
 			<input type="text" id="cmtContent" name="cmtContent" placeholder="댓글을 입력하세요" style="width: 450px;"/>
@@ -296,7 +285,7 @@ function makeCommentList(list, showFlag) {
 		html += `
 			
 			<ul id="update\${comment.cmtNo}" style="border: 1px solid black; padding: 3px;">
-				<li style="width: 15%;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>&nbsp; \${comment.userId}</li>
+				<li style="width: 35%;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>&nbsp; \${comment.userId}</li>
 	            <li style="width: 70%">\${comment.cmtContent}</li>
 	            <li
 	                style="float: right; position: relative; margin-top: -45px; margin-right: 5px;">
@@ -325,7 +314,6 @@ function makeCommentList(list, showFlag) {
  * 댓글 등록
  */
  function teamCommentWriteAjax() {
-// 	console.log("111111111");
 		let xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
@@ -389,7 +377,14 @@ function realUpdate(cmtNo, teamBoardNo){
 	xhr.open("POST", `teamCommentUpdate.do`, true);
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xhr.send("cmtNo=" + cmtNo + "&cmtContent=" + cmtCon.value + "&teamBoardNo=" + teamBoardNo);
-	
+	if (document.querySelector("#cmtCon").value.length == 0){
+		alert("내용을 입력하세요");
+		return false;
+	}
+	if (document.querySelector("#cmtCon").value.length > 100) {
+		alert("내용은 100자리를 초과할 수 없습니다.");
+	  	return false;
+	}
 }
 /**
  * 댓글 수정

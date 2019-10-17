@@ -2117,16 +2117,17 @@ div.a_cws {
 }
 
 .movetop_cws {
-	background-image: url("./../img/top_ar.png");
 	background-size: cover;
-	top: 80%; left: 92%;
-	position: fixed;
-	margin: 0 auto;
-	float: right;
-	cursor: pointer;
-	
-	/* right: 50px; */
-	/* box-shadow: 10px 0px 10px 10px #807f7f; */
+    background-color: #a4a3a3;
+    color: white;
+    top: 80%;
+    left: 92%;
+    position: fixed;
+    cursor: pointer;
+    width: 56px;
+    height: 50px;
+    opacity: 0.8;
+    border: none;
 }
 
 

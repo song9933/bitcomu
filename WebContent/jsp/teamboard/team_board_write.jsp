@@ -150,20 +150,10 @@ div.a_cws {
           padding: 5px; resize: none"></textarea>
         </div>
         <br> 
-<!--         <input type="file" id="myFile" -->
-<!-- 				style="cursor: pointer; width: 180px; float: left; margin-left: -120px" -->
-<!-- 				/> -->
-<!-- 		<button type="button" onclick="uploadFile()">파일업로드</button> -->
-
-					<!--         <input type="image" src="" style="margin-left: 20px;"> -->
         <br>
         <button class="submitbutton_cws" type="submit" >등록</button>
       </div>
      </form>
-			  
-<!-- 			<div><input type="text" name="msg"></div> -->
-<!-- 			<div><input type="file" name="attach" multiple/></div> -->
-<!-- 			<div><button>전송</button></div> -->
     </div>
 
 

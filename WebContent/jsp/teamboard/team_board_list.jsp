@@ -127,10 +127,10 @@ div.a_cws {
 				
 				<div>
 					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}">
-						<button class="movetop_cws"
-							style="width: 60px; height: 60px; background-color: white; opacity: .9; border: none">
-							<br> <br> <br> <br>
-							<h3 style="color: #9c9b9b">맨 위로</h3>
+						<button class="movetop_cws" style="background-color: #f9f9f9; color: #a4a3a3;">
+						<i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i>
+							<br> <br> 
+							<h3 style="color: #a4a3a3">맨 위로</h3>
 						</button>
 					</form>
 				</div>
