@@ -127,7 +127,7 @@
 		
             <c:choose>
             <c:when test="${ not empty sessionScope.user.userNo }">
-            <a class="ns_go_write" href="/bitcomu/jsp/talk/talk_write.jsp"> 
+            <a class="ns_go_write" href="/bitcomu/talk/write_form.do"> 
               <div> 
               	  글쓰기
               </div>

@@ -109,7 +109,7 @@
            <div class="ns_member_coment">
  															
                   <form <%-- "<c:url value="/talk/comment_update.do"/>" --%> method="post"
-                  	name="cuForm">
+                  	name="updateForm" onsubmit="return inputCheck();">
 				<input type="hidden" name="boardPostNo" value="${talkDetail.postNo}" />
 				<input type="hidden" name="cmtNo" value="${param.cmtNo}" />
 				<input type="hidden" name="pageNo" value="${pr.pageNo}" />
@@ -205,17 +205,18 @@
        </div>
       </div>
              
+
              
              
              
-             
-				<form class="ns_comment_write" method="post"
-			       name="crForm">
+			
+				<form class="ns_comment_write" method="post" 
+			       name="writeForm" onsubmit="return inputCheck();">
                     <input type="text" name=cmtContent id="cmtContent" class="ns_comment_write" placeholder="댓글을 입력하세요">
                     <input type="hidden" name="userNo" value="${sessionScope.user.userNo}"/>
                     <input type="hidden" name="boardPostNo" value="${talkDetail.postNo}"/>
                     <input type="hidden" name="pageNo" value="${pr.pageNo}"/>
-                  	<button onclick="commentRegistAjax();" type="button" class="ns_comment_do">등록</button>
+                  	<button onclick="inputCheck();" type="button" class="ns_comment_do">등록</button>
 				</form>
             </div>
   

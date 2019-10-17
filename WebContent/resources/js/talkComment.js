@@ -131,7 +131,7 @@ function commentRegistAjax() {
 			"Content-Type", 
 			"application/x-www-form-urlencoded");
 	
-	let f = document.crForm;
+	let f = document.writeForm;
 	xhr.send(`boardPostNo=${f.boardPostNo.value}&userNo=${f.userNo.value}&cmtContent=${f.cmtContent.value}&pageNo={f.pageNo.value}`);
 //	f.writer.value = "";
 //	f.content.value ="";
@@ -181,7 +181,7 @@ function commentUpdateDoAjax(cmtNo) {
 			"Content-Type", 
 			"application/x-www-form-urlencoded");
 	
-	let f = document.cuForm;
+	let f = document.updateForm;
 	id = "cmtContent" +  cmtNo;
 	let u = document.getElementById(id);
 	console.log(id)
