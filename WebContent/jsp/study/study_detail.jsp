@@ -35,8 +35,7 @@
 						<div class="about">
 							<h3>지역 : ${study.studyLoc}</h3>
 							<h3>분야 : ${study.studyRecruitField}</h3>
-							<h3>인원 : ${study.studyRecruitMemMin} - ${study.studyRecruitMemMax}
-								명</h3>
+							<h3>인원 : ${study.studyRecruitMemMin} - ${study.studyRecruitMemMax}명</h3>
 						</div>
 						<p class="text">${study.studyPostContent}</p>
 					</article>
@@ -86,20 +85,16 @@
 					<!-- 댓글목록 시작 -->
 					<div class="comments">
 						<c:forEach var="cmt" items="${cmtList}">
-					
 							<div class="item parent" name="parent">
 							<input type="hidden" name="pCmtNo" value="${cmt.parentCmtNo}"/>
-							
-									<span class="replyArrow"></span>
-								
+								<span class="replyArrow"></span>
 								<p class="profile">${cmt.userId}</p>
 								<p class="text">${cmt.cmtContent}</p>
 								<div class="info">
 								<p>${cmt.cmtRegDt}</p>
 						<c:if test="${sessionScope.user.userNo eq cmt.userNo}">
+						<!-- 댓글 수정버튼,팝업 -->
 						<a href="#popupMod${cmt.cmtNo}" >수정</a>
-						
-						<!-- 댓글 수정폼 팝업 -->
 						<form method="post" name="modForm" action="<c:url value="/study/studycommentupdate.do"/>" onsubmit="return submitChk3()">
 							<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" />
 							<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
@@ -114,25 +109,22 @@
 						</c:if>
 						
 						<c:if
-							test="${sessionScope.user.userNo eq study.userNo || sessionScope.user.userGrade eq 3}">
+							test="${sessionScope.user.userNo eq cmt.userNo || sessionScope.user.userGrade eq 3}">
+						<!-- 댓글 삭제버튼, 팝업-->
 						<a href="#popupDelCmt${cmt.cmtNo}">삭제</a>
-						
-						<!-- 댓글 삭제 팝업-->
-						<form method="post"	action="<c:url value="/study/studycommentdelete.do"/>">
-							<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
-							<input type="hidden" name="parentCmtNo" value="${cmt.parentCmtNo}" /> 
-							<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
-							
+							<form method="post"	action="<c:url value="/study/studycommentdelete.do"/>">
+								<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" /> 
+								<input type="hidden" name="parentCmtNo" value="${cmt.parentCmtNo}" /> 
+								<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
 									<div id="popupDelCmt${cmt.cmtNo}" class=layer>
-											<div class="box">
-												<p class="text">삭제 하시겠습니까?</p>
+										<div class="box">
+											<p class="text">삭제 하시겠습니까?</p>
 												<button type="button" onclick="location.href='#'" class="close">닫기</button>
 												<button type="submit" class="delete">삭제</button>
-											</div>
+										</div>
 									</div>
-						</form>		
+							</form>		
 						</c:if>
-						
 						</div>
 						<!-- 대댓글 입력 -->
 						<c:if test="${cmt.parentCmtNo eq 0}">
@@ -160,10 +152,15 @@
 							</div>
 					</c:forEach>
 					</div>
+				<div>
+            	<a style="display:scroll; position:fixed; bottom:70px; right:10px;" href="#top" title="위로가기"><i class="fa fa-angle-double-up fa-3x" aria-hidden="true" ></i></a>
+            	<a style="display:scroll; position:fixed; bottom:5px; right:10px;" href="#footer" title="아래로 가기"><i class="fa fa-angle-double-down fa-3x" aria-hidden="true"></i></a>
+            </div>
 				</div>
 			</section>
 		</div>
 	</div>
+	 <div id="footer"></div>
 	<!-- //width = 1280px 인 컨텐츠영역 끝-->
 
 	<%@include file="/jsp/include/footer.jsp"%>

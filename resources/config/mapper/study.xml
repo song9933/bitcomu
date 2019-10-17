@@ -43,12 +43,25 @@
 			from tb_study s
 	</sql>
 	
+	<!-- 삭제처리 프로시져 시작 -->
+	<sql id="procedureMakeStart">
+		{call 
+
+    		declare 
+
+    			begin 
+	</sql>
+	<sql id="procedureMakeEnd">
+				end
+		}
+	</sql>
+	<!-- 삭제처리 프로시져 끝 -->
+	
 	<!-- 스터디게시판 전체목록 조회 -->
 	<select id="selectStudyList" parameterType="hashMap" resultMap="studyMap">
 		 select *
 		 	from (select rownum rnum, a.* from 
 		 			( <include refid="selectStudy" />
-						
 						<choose>
 							<when test="search.searchType == '' and search.searchWord != ''">
 							 where s.study_post_content like '%'||#{search.searchWord}||'%'
@@ -61,10 +74,7 @@
 									or s.study_post_title like '%'||#{search.searchWord}||'%'
 									or s.study_loc like '%'||#{search.searchWord}||'%')
 							</when>
-						
 						</choose>
-						
-						
 						order by STUDY_RECRUIT_ENABLED desc, study_post_no desc) a )
 						where rnum between #{page.begin} and #{page.end}
 	</select>
@@ -100,8 +110,13 @@
 	
 	<!-- 스터디 게시판 글 삭제 -->
 	<delete id="deleteStudy" parameterType="int">
+		<include refid="procedureMakeStart" />
 		delete from tb_study
-			where study_post_no = #{studyPostNo}
+			where study_post_no = #{studyPostNo};
+		delete from tb_comment 
+			where board_post_no = #{studyPostNo} and code_value =(select code_value from tb_codenm where code_name = '스터디게시판');	
+			
+		<include refid="procedureMakeEnd" />
 	</delete>
 	
 	<!-- 스터디게시판 조회수 증가 -->

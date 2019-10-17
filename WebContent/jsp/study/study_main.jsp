@@ -31,7 +31,7 @@
               <div class="search">
                
                   <i class="fa fa-search" aria-hidden="true"></i>
-                  <select id="selectType">
+                  <select id="selectType" style="height: 25px;">
                   	<option value="" selected >분야</option>
                   	<option value="자바" >자바</option>
                   	<option value="자바스크립트" >자바스크립트</option>
@@ -47,14 +47,18 @@
               </div>
             </div>
               <div id="list"></div>
-            
+            <div>
+            	<a style="display:scroll; position:fixed; bottom:70px; right:10px;" href="#top" title="위로가기"><i class="fa fa-angle-double-up fa-3x" aria-hidden="true" ></i></a>
+            	<a style="display:scroll; position:fixed; bottom:5px; right:10px;" href="#footer" title="아래로 가기"><i class="fa fa-angle-double-down fa-3x" aria-hidden="true"></i></a>
             </div>
-          </div>
+            </div>
         </section>
+          </div>
     </div>
+    <div id="footer"></div>
     <!-- //width = 1280px 인 컨텐츠영역 끝-->
     <%@include file="/jsp/include/footer.jsp" %>
-  </div>
+
   <script>
 	let searchType = '${searchType}';
 	let searchWord = '${searchWord}';

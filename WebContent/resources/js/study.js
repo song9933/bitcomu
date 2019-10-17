@@ -9,8 +9,6 @@ var itemContainer =  document.getElementById('list');
 	
     data = xhr.responseText;
     dataObj = JSON.parse(data);
-    // for iterating through the data
-    // Using a ForEach
     dataObj.forEach((list, index) => {
     	
     	var sContainer = document.createElement('a');
