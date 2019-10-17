@@ -70,13 +70,13 @@
      	<input type="hidden" name="postNo" value="${board.postNo}" />
      	<input type="hidden" name="userNo" value="${board.userNo}" />
 	 	<div>
-  		   제목 <br> <input type='text' name='title' size='70' value="${board.title}" />	 	
+  		   제목 <br> <input type='text' name='title' id="title" size='70' value="${board.title}" />	 	
 	 	</div>
 	 	<div>
 		     글쓴이 :${userId} <input type='hidden' value="${userId}" name='writer' size='30' />
 	 	</div> 
 	 	<div>
-	            내용 <br> <textarea name='content' rows='20' cols='70' value="${board.content}" >${board.content}</textarea>
+	            내용 <br> <textarea name='content' id="content" rows='20' cols='70' value="${board.content}" >${board.content}</textarea>
 	 	</div>
 		<!-- <div>
 			<input type="file" name="attach" />

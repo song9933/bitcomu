@@ -68,13 +68,13 @@
            <div class="ns_table_write">
      <form method='post' action="/bitcomu/notice/write.do" name="writeForm" onsubmit="return inputCheck();"> <!-- enctype = "multipart/form-data"> -->
 	 	<div>
-  		   제목 :<br> <input type='text' name='title' size='70' placeholder="100byte 까지 가능합니다" />	 	
+  		   제목 :<br> <input type='text' name='title' size='70' placeholder="20자 까지 가능합니다" />	 	
 	 	</div>
 	 	<div>
 		     글쓴이 :${user.userId} <input type='hidden' value="${user.userId}" name='writer' size='30' />
 	 	</div> 
 	 	<div>
-	            내용 :<br> <textarea name='content' rows='7' cols='70' placeholder="2000byte 까지 가능합니다" ></textarea>
+	            내용 :<br> <textarea name='content' rows='7' cols='70' placeholder="500자 까지 가능합니다" ></textarea>
 	 	</div>
 		<!-- <div>
 			<input type="file" name="attach" />

@@ -43,7 +43,7 @@ function makeCommentList(list) {
 			
 		html += `
 		
-		<ul style="list-style:none"><h3>&nbsp;${comment.userId}</h3></ul>
+		<ul style="list-style:none"><h3>&nbsp;${comment.userId}</h3>
 								  
 		  <li>
 			 <h6> ${comment.cmtRegDt}"</h6>
@@ -65,8 +65,8 @@ function makeCommentList(list) {
 		  
 		  html +=`
 		  </li> 
-		  <ul style="list-style:none"></ul>
-		    <ul>
+		  </ul>
+		    <ul style='list-style:none;'>
 			<li></li>
 		    <li></li>
 		    <li></li>
@@ -134,7 +134,7 @@ function commentRegistAjax() {
 	let f = document.crForm;
 	xhr.send(`boardPostNo=${f.boardPostNo.value}&userNo=${f.userNo.value}&cmtContent=${f.cmtContent.value}&pageNo={f.pageNo.value}`);
 //	f.writer.value = "";
-//	f.content.value = ""
+//	f.content.value ="";
 	return false;
 }
 
@@ -152,7 +152,7 @@ function commentUpdateAjax(cmtNo, cmtContent) {
 
 	
 	html += `
-		<textarea id="cmtContent${cmtNo}" name="cmtContent" rows="2" cols="60"></textarea>
+		<textarea id="cmtContent${cmtNo}" name="cmtContent" id="cmtContent" rows="2" cols="60"></textarea>
 		<button onclick="commentUpdateDoAjax(${cmtNo});" type="button">수정</button>
 		<a href="javascript:;" onclick="commentListAjax()">취소</a>
 	`;

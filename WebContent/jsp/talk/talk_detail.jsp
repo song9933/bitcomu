@@ -211,7 +211,7 @@
              
 				<form class="ns_comment_write" method="post"
 			       name="crForm">
-                    <input type="text" name=cmtContent class="ns_comment_write" placeholder="댓글을 입력하세요">
+                    <input type="text" name=cmtContent id="cmtContent" class="ns_comment_write" placeholder="댓글을 입력하세요">
                     <input type="hidden" name="userNo" value="${sessionScope.user.userNo}"/>
                     <input type="hidden" name="boardPostNo" value="${talkDetail.postNo}"/>
                     <input type="hidden" name="pageNo" value="${pr.pageNo}"/>
@@ -300,6 +300,7 @@
   </script>
   <script src="<c:url value='/resources/js/like.js' />"></script>
   <script src="<c:url value='/resources/js/talkComment.js' />"></script>
+  <script src="<c:url value='/resources/js/talkWriteCheckForm.js' />"></script>
 </body>
 </html>
 
