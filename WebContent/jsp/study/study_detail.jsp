@@ -95,7 +95,7 @@
 						<c:if test="${sessionScope.user.userNo eq cmt.userNo}">
 						<!-- 댓글 수정버튼,팝업 -->
 						<a href="#popupMod${cmt.cmtNo}" >수정</a>
-						<form method="post" name="modForm" action="<c:url value="/study/studycommentupdate.do"/>" onsubmit="return submitChk3()">
+						<form method="post" name="modForm" action="<c:url value="/study/studycommentupdate.do"/>" onsubmit="return submitChk3(${cmt.cmtNo})">
 							<input type="hidden" name="cmtNo" value="${cmt.cmtNo}" />
 							<input type="hidden" name="studyPostNo" value="${study.studyPostNo}" />
 							<div id="popupMod${cmt.cmtNo}" class=layer>
@@ -205,14 +205,16 @@
 		
 		return true;
 	}		
-	function submitChk3(){
+	function submitChk3(cmtNo){
 		let f = document.modForm;
-		
-		if (isEmpty(f.cmtContent,"내용을 입력해주세요.")) return false;
-		if (isLong(f.cmtContent,"100글자 이하로 입력해주세요.", 101)) return false;
-		
-		return true;
-	}		
+		for(let i = 0; i <f.length ; i++){
+			if(f[i].cmtNo.value == cmtNo){
+				if (isEmpty(f[i].cmtContent,"내용을 입력해주세요.")) return false;
+				if (isLong(f[i].cmtContent,"100글자 이하로 입력해주세요.", 101)) return false;
+				return true;
+				}
+			}
+		}		
 
 		function isEmpty(ele, msg) {
 			if (ele.value.trim() == "") {
