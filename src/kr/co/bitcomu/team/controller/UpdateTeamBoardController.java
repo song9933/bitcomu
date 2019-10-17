@@ -36,7 +36,7 @@ public class UpdateTeamBoardController extends HttpServlet {
 		team.setTeamNo(Integer.parseInt(req.getParameter("teamNo")));
 		team.setProjectNo(Integer.parseInt(req.getParameter("projectNo")));
 		team.setTeamBoardTitle(req.getParameter("teamBoardTitle"));
-		team.setTeamBoardContent(req.getParameter("teamBoardContent"));
+		team.setTeamBoardContent(req.getParameter("teamBoardContent").replace("\r\n", "<br>"));
 		dao.updateTeamBoard(team);
 		
 		

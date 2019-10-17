@@ -1,17 +1,23 @@
 package kr.co.bitcomu.repository.vo;
 
-import java.util.Date;
-
 public class Team {
 	private int userNo;
 	private int teamNo;
 	private int projectNo;
 	private int teamBoardNo;
+	private String userName;
 	private String userId;
 	private String teamBoardTitle;
 	private String teamBoardContent;
 	private String teamBoardRegDt;
 	
+	public String getUserName() {
+		return userName;
+	}
+	public Team setUserName(String userName) {
+		this.userName = userName;
+		return this;
+	}
 	public int getTeamBoardNo() {
 		return teamBoardNo;
 	}

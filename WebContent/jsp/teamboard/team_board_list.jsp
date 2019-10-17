@@ -252,7 +252,7 @@ div.a_cws {
 		 			</form>`
 			 	};
 			html += `<ul class="board_cws">
-					<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 35px;">
+					<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 35px; padding-top: 10px;">
 					<a href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=\${tList.teamBoardNo}" style="font-size: 35px; ">
 					\${tList.teamBoardTitle}</a></li>
 			 		<br>

@@ -174,6 +174,16 @@
 			if (tNo[i].value == ${teamBoard.teamNo})
 				tNo[i].setAttribute("selected", true);
 	}
+		
+	</script>
+	<script>
+		let str = document.getElementById("teamBoardContent").value;
+		str = replaceAll(str,'<br>',"\r\n");
+		document.getElementById("teamBoardContent").innerHTML = str;
+		
+		function replaceAll(str, searchStr, replaceStr) {
+		  return str.split(searchStr).join(replaceStr);
+		}
 	</script>
 </body>
 

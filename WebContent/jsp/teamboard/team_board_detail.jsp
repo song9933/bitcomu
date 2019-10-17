@@ -168,7 +168,7 @@
 			</div>
 <!-- 					<br> -->
 			<div class="detailcontent_cws" style="padding: 3px;">
-					<h3 style="word-break:break-all; padding: 8px;">${teamBoard.teamBoardContent}</h3>
+					<h3 id="teamBoardContent" style="word-break:break-all; padding: 8px;">${teamBoard.teamBoardContent}</h3>
 				<br> <br> <br> <br> <br> <br> <br><br> <br> <br>
 			</div>
 			
@@ -391,9 +391,7 @@ function realUpdate(cmtNo, teamBoardNo){
  */
 //	href="teamBoardDetail.do?teamBoardNo=${teamBoard.teamBoardNo}" 
 
-
 function updateF(cmtNo, cmtContent, boardPostNo) {
-	
 	let upEle = document.querySelector(`#update\${cmtNo}`);
 	upEle.style="height: 40px; border: 1px solid black; padding: 4px;";
 	upEle.innerHTML = `
@@ -407,22 +405,6 @@ function updateF(cmtNo, cmtContent, boardPostNo) {
         	style="color: inherit; background: none; border: none; cursor: pointer;">취소</a>
 		</li>
 	`;
-}
-// <form method="post" action="teamCommentUpdate.do">
-// <li style="width: 70%">
-// 	<textarea name="cmtContent" style="height: 40px; width: 450px; resize: none">\${cmtContent}</textarea>
-// 	<input type="hidden"name="teamBoardNo" value="${teamBoard.teamBoardNo}">
-// 	<input type="hidden" name="userNo" value="${teamBoard.userNo}">
-// </li>
-// <li style="float: right; margin-top: -23px;">
-// 	<input type="submit" style="color: inherit; background: none; border: none; cursor: pointer;" value="수정 " />
-// 	<input type="button" onclick="updateCancel(\${cmtNo})" style="color: inherit; background: none; border: none; cursor: pointer;" value="취소" />
-// </li>
-// </form>
-function updateCancel(cmtNo) {
-	let cancelEle = "";
-	let before = document.querySelector(`#update\${cmtNo}`);
-	cancelEle.innerHTML = before
 }
 	</script>
 </body>
