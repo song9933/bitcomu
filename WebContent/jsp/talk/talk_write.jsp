@@ -40,14 +40,14 @@
 		   		<form method='post' action="/bitcomu/talk/write.do" name="writeForm" onsubmit="return inputCheck();">
 				 	<div>
 			  		   제목 <br>
-			  		    <input type='text' name='title' id="title" size='70' placeholder="20자 까지 가능합니다"/>	<a>/100</a> 	
+			  		    <input type='text' name='title' id="title" size='70' placeholder="20자 까지 가능합니다"/>	 	
 				 	</div>
 				 	<div>
 					   작성자 :  ${user.userId} <input type='hidden' value="${user.userId}" name='writer' size='30' />
 				 	</div> 
 				 	<div>
 				            내용 <br>
-				          <textarea name='content' id="content" rows='20' cols='70' placeholder="500자  까지 가능합니다" ></textarea><a>/2000</a>
+				          <textarea name='content' id="content" rows='20' cols='70' placeholder="500자  까지 가능합니다" ></textarea>
 				 	</div>
 				 	
 				 	
