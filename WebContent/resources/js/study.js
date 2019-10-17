@@ -84,16 +84,16 @@ xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
 
 document.addEventListener('scroll', function() {
-    
-        if ((window.pageYOffset -17) == (document.body.offsetHeight - window.innerHeight)) {
+	
+		console.log("scrollY",window.scrollY);
+		console.log("height",(document.body.offsetHeight - window.innerHeight));
+        if ((window.scrollY - 15) >= (document.body.offsetHeight - window.innerHeight)) {
           pageNo++;
           xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
           xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
           xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
         }
-     
-    		
-    		
+     	
 });
 
 /**
