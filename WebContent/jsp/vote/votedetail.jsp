@@ -16,8 +16,9 @@
 
 <head>
 	<c:import url="/jsp/include/head.jsp">
-		<c:param name="msg" value="투표글쓰기" />
+		<c:param name="msg" value="투표 상세보기" />
 	</c:import>
+	
 
 <style>
 .vote-hidden {
@@ -115,7 +116,7 @@ div.vote-accordian {
 					</div>
 					
 					<!-- 메인 투표 폼 컨텐츠 시작 -->
-					<form method="post" name="form" >
+					<form method="post" name="form" onsubmit="return validateVoteIn()">
 					<c:choose>
 						<c:when test="${user.userNo eq vote.userNo}"></c:when>
 					</c:choose>
@@ -124,7 +125,7 @@ div.vote-accordian {
 							<c:when test="${vote.voteType == 0}">
 								<c:forEach var="aa" items="${realMenu}" varStatus="idx">
 									<div>
-										<input type="checkbox" class="w3-check" name="choice" value="${idx.index}">${aa}
+										<input type="checkbox" class="w3-check vote-check" name="choice" value="${idx.index}">${aa}
 									</div>
 								</c:forEach>
 							</c:when>
@@ -132,7 +133,7 @@ div.vote-accordian {
 							<c:when test="${vote.voteType == 1}">
 								<c:forEach var="aa" items="${realMenu}" varStatus="idx">
 									<div>
-										<input type="radio" class="w3-radio" name="choice" value="${idx.index}">${aa}
+										<input type="radio" class="w3-radio vote-check" name="choice" value="${idx.index}">${aa}
 									</div>
 								</c:forEach>
 							</c:when>
@@ -209,7 +210,7 @@ div.vote-accordian {
 									<h1 class="vote_h1">투표 수정하기</h1>
 								<input type="hidden" name="voteNo" value="${vote.voteNo}"/>	
 								<div>투표 제목을 입력해주세요.</div>
-								<input class="w3-input" type="text" name="voteTitle"
+								<input class="w3-input" type="text" name="voteTitle" id="dc-form-title"
 									value="${vote.voteTitle}">
 
 								<div>마감 기한을 선택해주세요.</div>
@@ -305,6 +306,7 @@ div.vote-accordian {
 
 
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/voteform.js"></script>
 <script>
 	
 		function nodata(){
@@ -435,9 +437,24 @@ div.vote-accordian {
             resultEle.classList.toggle("vote-show");
             resultEle.classList.toggle("vote-hidden");
       }
+      
+    //수정 및 제출에 대한 유효성 검사
+    function validateVoteIn() {
+    	let checkcnt = 0;
+    	let userChoice = document.querySelectorAll(".vote-check");
+    	for(let i = 0; i < userChoice.length; i++){
+    		if(userChoice[i].checked){
+    			checkcnt++;
+    		}
+    	}
+    	if (checkcnt == 0){
+    		alert('최소 1가지 이상 선택해주세요.');
+    		return false;
+    	}
+    }
 	
 	</script>
-	<script src="${pageContext.request.contextPath}/resources/js/voteform.js"></script>
+	
 	
 </body>
 

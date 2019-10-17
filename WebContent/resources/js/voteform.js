@@ -7,14 +7,15 @@ function validate(){
 		alert("제목을 입력해주세요.");
 		return false;
 	}
+	if (document.getElementById("dc-form-title").value.length > 33){
+		alert("제목은 33자이내로 입력해주세요.");
+		return false;
+	}
 	var date = new Date();
 	date.setMinutes(date.getMinutes()+3);
+	date.setHours(date.getHours()+9);
 	let dateString = date.toISOString().slice(0, 16);
-//	date.setHours(date.getHours()+9);
 	let inputdate = document.querySelector("#limitDate");
-	console.log(typeof(dateString),typeof(inputdate.value));
-	console.log(parseInt(dateString),parseInt(inputdate.value));
-	console.log(dateString,inputdate.value);
 	if (inputdate.value < dateString){
 		alert("마감기한은 현재시간보다 최소 3분 이후로 설정하셔야 합니다.");
 		return false;
@@ -24,6 +25,10 @@ function validate(){
 		alert("설명을 입력해주세요.");
 		return false;
 	}
+	if (document.querySelector("#vote-content").value.length > 666){
+		alert("666자 이내로 입력해주세요.");
+		return false;
+	}
 	
 	let menu = document.getElementsByClassName("vote_menu");
 	console.log(menu);
@@ -31,7 +36,12 @@ function validate(){
 		if(menu[i].value.trim().length == 0){
 			alert("선택지이름을 입력해주세요.");
 			return false;
-		}	
+		}
+		if(menu[i].value.length > 66){
+			alert("선택지 이름은 66자 이내로 입력해주세요.");
+			return false;
+		}
+		
 	}
 }
 

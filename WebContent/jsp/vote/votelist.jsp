@@ -6,7 +6,7 @@
 
 <head>
 <c:import url="/jsp/include/head.jsp">
-	<c:param name="msg" value="투표글쓰기" />
+	<c:param name="msg" value="투표 리스트" />
 </c:import>
 
 <link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
@@ -226,15 +226,20 @@ $(window).on("scroll", function() {
 	/* 검색아작스 */
 	document.getElementById("vote-search-button").addEventListener('click', function searchajax(){
 		userInput = document.getElementById("vote-search-input").value;
-		if(userInput != ""){
+// 		if(userInput.value.length == 0)
+			
+		if(userInput.trim().length == 0){
+			alert('최소 한글자이상 입력해주세요.')
+		}
+		
+		else {
 			keyword = userInput;
 			console.log('클릭이벤트 끝나기 직전 키워드',keyword);
 			page = 1;
 			searchSwitch = true;
 			voteListAjax();
-		} else {
-			alert('최소 한글자이상 입력해주세요.')
 		}
+		
 	});
 	
 	/*새로고침 기능*/
