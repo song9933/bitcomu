@@ -389,7 +389,7 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .pop_r { height: 210px; width: 310px; }
 .pop_r > *{ padding: 10px; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #e0e0e0; box-sizing: border-box; }
 .pop_r > div:nth-child(1) { height: 60px; }
-.pop_r > div:nth-child(2) { height: 100%; }
+.pop_r > div:nth-child(2) { overflow-y: scroll; height: 100%; }
 .pop_r > div:nth-child(3) { overflow: auto; padding-right: 30px; height: 80px; }
 .pop_r > div:nth-child(3) b { margin-right: 10px; }
 .pop_r > form:last-child { padding: 0; }
@@ -402,7 +402,7 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 
 .pop_r #commentList td { position: relative; }
 .pop_r #commentList tr:hover a { display: inline-block; float: right; top: 0; right: -10px; position: absolute; }
-
+.pop_ttl p:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 260px; }
 .online_cls .popup img {position: absolute; background: #333;}
 
 .online_cls .pop_layer ul { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); overflow: hidden; width: 200px; background-color: #fff; border-radius: 10px; }
