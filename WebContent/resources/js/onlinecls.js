@@ -20,12 +20,10 @@ for(let i = 0; i < ifrEle.length; i++) {
  */
 //selectOnlineclassListAjax(subj);
 function selectOnlineclassListAjax() {
-//	console.log("subj : ", subj)
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			let obj = JSON.parse(xhr.responseText);
-//			console.log("결과", obj);
 		}
 	};
 	xhr.open("GET", "onlineclsAjaxList.do?subj=" + subj, true);
@@ -79,7 +77,6 @@ function selectOnlineclassAjax(no) {
 			}
 			// 수정/삭제/취소 버튼 활성화 시 경로 변경
 			let delBtn = document.getElementById('delThis');
-//			delBtn.setAttribute('onclick', `location.href="${paramUrl}/onlineclass/delete.do?subj=${subj}&yt_no=${no}`);
 			delBtn.setAttribute('onclick', `location.href="${paramUrl}/onlineclass/delete.do?subj=${subj}&yt_no=${no}"`);
 			let updBtn = document.getElementById('updThis');
 			if (userNo == obj.ocls.userNo && updBtn != undefined) {
@@ -168,8 +165,6 @@ function udpBtnClick(cmtNo) {
 		let btnBtn = document.querySelector('form[name="crForm"] button');
 		udpBtn.setAttribute('onsubmit', `return commentUpdateAjax(${cmtNo});`);
 		btnBtn.innerText = "수정";
-//		commentUpdateAjax(upNo);
-	
 }
 
 function commentUpdateAjax(cmtNo) {
@@ -270,16 +265,15 @@ function makeCommentList(list) {
  * @returns
  */
 function chkcmtuserno(cmtUserNo, cmtNo) {
-	//<form name="crForm" method="post" onsubmit="return commentRegistAjax();" class="clearboth">
 	if (`${userNo}` == `${cmtUserNo}`) {
 		document.getElementById('cmtupdt').innerHTML =
-			`<li id="cmtUdp${cmtNo}" onclick="udpBtnClick(${cmtNo})" data-upno=${cmtNo}>댓글 수정</li>
-			<li onclick="commentDeleteAjax(${cmtNo});" class="red">댓글 삭제</li>
+			`<li id="cmtUdp${cmtNo}" onclick="udpBtnClick(${cmtNo})" data-upno=${cmtNo}>수정</li>
+			<li onclick="commentDeleteAjax(${cmtNo});" class="red">삭제</li>
       		<li><a href="javascript:closePop2()">댓글 취소</a></li>`;
 	} else {
 		document.getElementById('cmtupdt').innerHTML = 
-			`<li onclick="commentDeleteAjax(${cmtNo});" class="red">댓글 삭제</li>
-      		<li><a href="javascript:closePop2()">댓글 취소</a></li>`;
+			`<li onclick="commentDeleteAjax(${cmtNo});" class="red">삭제</li>
+      		<li><a href="javascript:closePop2()">취소</a></li>`;
 	}
 }
 
@@ -310,4 +304,3 @@ function addLike() {
 	xhr.open("GET", `addLike.do?no=${no}&userNo=${userNo}`);
 	xhr.send();
 }
-
