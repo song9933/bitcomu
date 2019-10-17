@@ -1076,13 +1076,6 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     font-weight: bold;
    
 }
-
-
-  /* 파일 업로드 */
-.qna_attatch {
-  margin-top: 10px;
-  margin-left: 282px;
-}  
   
   /* 검색 내용*/
 .qna_text_search {
@@ -1491,10 +1484,9 @@ from {opacity:0;} to {opacity:1;}
   float: left;
   width: 0em;
   height: 2em;
-  margin: 1em;
   margin-right: -4.5em;  
-  margin-top: 5px;
-  margin-left: 8px;
+  margin-top: 4px;
+  margin-left: 5px;
   background: #fff;
   color: #6A5D4F;
   font-size: 1em;
