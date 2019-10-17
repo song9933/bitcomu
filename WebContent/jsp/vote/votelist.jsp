@@ -169,7 +169,6 @@ voteListAjax();
 
 
 function loadMore(list) {
-	console.log(list.length);
 		let okok = document.querySelector(".vote_inner");
 		//검색 한번에 한번 실행되는 스위치.
 		if(searchSwitch) {
@@ -234,7 +233,6 @@ $(window).on("scroll", function() {
 		
 		else {
 			keyword = userInput;
-			console.log('클릭이벤트 끝나기 직전 키워드',keyword);
 			page = 1;
 			searchSwitch = true;
 			voteListAjax();
@@ -249,7 +247,6 @@ $(window).on("scroll", function() {
 
 	function mindate() {
 		var cdate = new Date();
-		console.log(c)
 		return new Date();
 	}
 	

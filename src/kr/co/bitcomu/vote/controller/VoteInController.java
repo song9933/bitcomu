@@ -55,23 +55,19 @@ public class VoteInController extends HttpServlet{
 			comment.setBoardPostNo(Integer.parseInt(req.getParameter("voteNo")));
 			//유저가 선택한 정보값을 받아오기 위해 파라미터에서 배열을 받아옴.
 			String[] choice = req.getParameterValues("choice");
-			System.out.println(choice.toString());
 			StringBuffer sb = new StringBuffer();
 			for(String c : choice) {
-				System.out.println("초이스로 얻어온 파라미터 밸류 하나하나 : " + c);
 				sb.append(c + "★");
 			}
 			String convertedChoice = sb.toString();	
 			comment.setCmtContent(convertedChoice);
 			comment.setCodeValue(dao.selectCodeValueVote());
 			voteNo = Integer.parseInt(req.getParameter("voteNo"));
-			System.out.println(voteNo);
 			dao.updateVoteInCnt(voteNo);
 			dao.insertVoteIn(comment);
 			req.setAttribute("voteNo", voteNo);
 		}
 		
-//		req.getRequestDispatcher("/jsp/vote/votedetail.do").forward(req, res);
 		res.sendRedirect("votedetail.do?voteNo=" + voteNo);
 	}
 	

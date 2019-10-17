@@ -31,7 +31,6 @@ function validate(){
 	}
 	
 	let menu = document.getElementsByClassName("vote_menu");
-	console.log(menu);
 	for (let i = 0; i < menu.length; i++){
 		if(menu[i].value.trim().length == 0){
 			alert("선택지이름을 입력해주세요.");
@@ -56,7 +55,6 @@ let index = 3;
 		input.setAttribute("class", "w3-input vote_menu")
 		input.setAttribute("placeholder", "선택지 이름을 입력하세요");
 		input.setAttribute("name", "menu");
-// 		input.setAttribute("value", `\${index}`);
 		let plusbtn = document.createElement("i");
 		plusbtn.setAttribute("class",`fa fa-plus-square vote_plusminus`);
 		plusbtn.setAttribute("onclick",`vote_add()`);
@@ -65,7 +63,6 @@ let index = 3;
 		minusbtn.setAttribute("class",`fa fa-minus-square vote_plusminus`);
 		minusbtn.setAttribute("onclick",`vote_sub(${index})`);
 		minusbtn.setAttribute("aria-hidden",`true`);
-// 		minusbtn.append(document.createElement("br"));
 		title.append(input, plusbtn, minusbtn);
 		tg.append(title);
 		index = index + 1;

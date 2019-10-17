@@ -62,10 +62,8 @@ public class VoteDetailController extends HttpServlet{
 		String[] splitedMenu = vote.getVoteMenu().split("★");
 		List<String> realMenu = new ArrayList<String>();
 		for(String m : splitedMenu) {
-//			System.out.println(m);
 			if(m.equals("")) continue;
 			realMenu.add(m);
-//			System.out.print(m + ", ");
 		}
 		req.setAttribute("realMenu", realMenu);
 		req.setAttribute("vote", vote);
@@ -78,20 +76,17 @@ public class VoteDetailController extends HttpServlet{
 //	    List<String> userNames = new ArrayList<String>();
 	    for(int i = 0; i < menusize; i++) {
 			int count = 0;
-//			System.out.println("씨리스트싸이즈 : " +cList.size());
 			
 			StringBuffer userNames = new StringBuffer();
 			for(int k = 0; k < cList.size(); k++) {
 				String temp = i + "★";
 				String data = cList.get(k).getCmtContent();
 				if(data != null && data.contains(temp)) {
-//					System.out.println(count);
 					menuCount.put(realMenu.get(i), ++count);
 					int choicedUserNo = cList.get(k).getUserNo();
 					String userName = dao.selectOneUserName(choicedUserNo);
 					userNames.append(userName + " ");
 				}
-				System.out.println("각" + i + "번째 마다의 유저넴이스투스트링 : " + userNames.toString());
 			}
 			choicedPeople.put(realMenu.get(i), userNames.toString());
 			
@@ -110,11 +105,9 @@ public class VoteDetailController extends HttpServlet{
 			com.setUserNo(user.getUserNo());
 			com.setBoardPostNo(vote.getVoteNo());
 			List<Comment> resultList = dao.selectCommentInVote(com);
-//			System.out.println("리절트리시트 투스트링" + resultList.toString());
 			if(resultList.size() >= 1) {
 				//정상적으로 데이터가 입력된 경우에 유저의 선택을 나타내는 코드
 				String userContent = resultList.get(0).getCmtContent();
-//				System.out.println(userContent);
 				//별을 떼고, 유저의 선택을 한문장으로 정리하기 위한 코드 시작
 				String[] sarr = userContent.split("★");
 				StringBuffer sbu = new StringBuffer();
@@ -131,7 +124,6 @@ public class VoteDetailController extends HttpServlet{
 		}
 		
 		//DB에 저장된 마감일을 자바스크립트에서 받아들일 수 있는 포맷으로 변경해서 넘기기.
-		System.out.println("투표 마감일 : " + vote.getVoteCloseDt());
 		
 		String closeDt = vote.getVoteCloseDt();
 		try {
@@ -139,10 +131,6 @@ public class VoteDetailController extends HttpServlet{
 			Date closeDate = sdf.parse(closeDt);
 			sdf.applyPattern("yyyy/MM/dd/HH:mm:ss");
 			String jsCloseDate = sdf.format(closeDate);
-			System.out.println("자스로 넘기는 스트링 : " + jsCloseDate);
-//			long timeDiff = closeDate.getTime() - new Date().getTime();
-//			long diffToMinutes = timeDiff / (60 * 1000);
-//			System.out.println("시간차를 분단위로 표현 : " + diffToMinutes);
 			req.setAttribute("jsCloseDate", jsCloseDate);
 		} catch (ParseException e) {
 			e.printStackTrace();

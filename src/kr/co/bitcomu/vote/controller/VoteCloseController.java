@@ -31,17 +31,6 @@ public class VoteCloseController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		/*update tb_vote 
-		   set VOTE_TITLE = #{voteTitle}, 
-		       VOTE_CONTENT = #{voteContent}
-		       VOTE_TYPE = #{voteType}
-		       VOTE_MENU = #{voteMenu}
-		       vote_notice_enabled = #{voteNoticeEnabled}
-		       vote_anony_enabled = #{voteAnonyEnabled}
-		       vote_close_enabled = #{voteCloseEnabled}
-		       vote_close_dt = #{voteCloseDt}
-		 where VOTE_NO = #{voteNo}*/
-		
 		int voteNo = Integer.parseInt(req.getParameter("voteClose"));
 		dao.updateVoteCloseEnabled(voteNo);
 		res.sendRedirect("votelist.do");

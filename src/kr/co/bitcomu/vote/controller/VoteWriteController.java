@@ -26,18 +26,14 @@ public class VoteWriteController extends HttpServlet{
 	}
 	
 	
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		super.doGet(req, resp);
 	}
 
 
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 	}
 
@@ -71,11 +67,8 @@ public class VoteWriteController extends HttpServlet{
 		}
 		String convertedMenu = sb.toString();
 		
-//		System.out.println("어레이스투스트링: " +result );
-//		System.out.println(convertedMenu);
 		
 		vote.setVoteMenu(convertedMenu);
-		System.out.println(req.getParameter("voteNotice"));
 		if(req.getParameter("voteNotice") != null) {
 			vote.setVoteNoticeEnabled("Y");
 		} else {

@@ -30,9 +30,6 @@ public class VoteListController extends HttpServlet{
 		for(Vote v : list) {
 			v.setUserId(dao.selectUserId(v.getVoteNo()));
 		}
-//		PrintWriter out = res.getWriter();
-//		out.println(new Gson().toJson(list));
-//		out.close();
 		req.setAttribute("list", list);
 		req.getRequestDispatcher("/jsp/vote/votelist.jsp").forward(req, res);
 	}

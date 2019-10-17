@@ -39,7 +39,6 @@ public class VoteListAjaxController extends HttpServlet{
 		}
 		PrintWriter out = res.getWriter();
 		out.println(new Gson().toJson(list));
-//		System.out.println(new Gson().toJson(list));
 		out.close();
 	}
 	
