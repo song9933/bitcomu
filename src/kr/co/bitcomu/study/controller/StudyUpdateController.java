@@ -33,7 +33,7 @@ public class StudyUpdateController extends HttpServlet {
 			study.setStudyLoc(req.getParameter("studyLoc"));
 			study.setStudyRecruitMemMin((Integer.parseInt(req.getParameter("studyRecruitMemMin"))));
 			study.setStudyRecruitMemMax((Integer.parseInt(req.getParameter("studyRecruitMemMax"))));
-			study.setStudyPostContent(req.getParameter("studyPostContent"));
+			study.setStudyPostContent(req.getParameter("studyPostContent").replace("\r\n", "<br/>"));
 			
 
 			dao.updateStudy(study);

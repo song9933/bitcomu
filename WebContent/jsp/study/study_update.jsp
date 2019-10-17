@@ -70,7 +70,7 @@
                   <input type="text"  name="studyPostTitle" value="<c:out value="${study.studyPostTitle}"/>">
               </p>
               <p class="text">
-                  <textarea name="studyPostContent"><c:out value="${study.studyPostContent}"/></textarea>
+                  <textarea id="textarea" name="studyPostContent"><c:out value="${study.studyPostContent}"/></textarea>
               </p>
               <div class="submit">
                   <input type="submit" value="수정">
@@ -84,7 +84,16 @@
  <%@include file="/jsp/include/footer.jsp" %>
   </div>
 <script>
+//글 수정시 엔터처리 - br태그 치환
+let str = document.getElementById("textarea").value;
+str = replaceAll(str,'<br/>',"\r\n");
 
+document.getElementById("textarea").innerHTML = str;
+
+function replaceAll(str, searchStr, replaceStr) {
+  return str.split(searchStr).join(replaceStr);
+}
+ 
 function nullChk(){
 	 let f = document.uForm;
 

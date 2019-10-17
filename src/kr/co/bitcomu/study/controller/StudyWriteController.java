@@ -34,8 +34,7 @@ public class StudyWriteController extends HttpServlet{
 		study.setStudyRecruitMemMin(Integer.parseInt(req.getParameter("studyRecruitMemMin")));
 		study.setStudyRecruitMemMax(Integer.parseInt(req.getParameter("studyRecruitMemMax")));
 		study.setStudyRecruitField(req.getParameter("studyRecruitField"));
-		study.setStudyPostContent(req.getParameter("studyPostContent"));
-		
+		study.setStudyPostContent(req.getParameter("studyPostContent").replace("\r\n", "<br/>"));
 		dao.insertStudy(study);
 
 		res.sendRedirect(req.getContextPath() + "/study/studyList.do");

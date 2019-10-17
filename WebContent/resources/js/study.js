@@ -85,8 +85,6 @@ xhr.send(`pageNo=${pageNo}&searchType=${searchType}&searchWord=${searchWord}`);
 
 document.addEventListener('scroll', function() {
 	
-		console.log("scrollY",window.scrollY);
-		console.log("height",(document.body.offsetHeight - window.innerHeight));
         if ((window.scrollY - 15) >= (document.body.offsetHeight - window.innerHeight)) {
           pageNo++;
           xhr.open('POST', '/bitcomu/study/studyList_ajax.do', true);
