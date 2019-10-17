@@ -40,9 +40,9 @@
 				<!-- 게시글 등록 -->
 				<div class="qna_board_qna_title">
            			<form method='post' action="/bitcomu/qna/qnaWrite.do" name="crForm1">
-              			<input type="text" class="qna_text_title" name="qnaTitle" style="resize: none" placeholder="Title" value="${b.qnaTitle}" />
+              			<input type="text" class="qna_text_title" name="qnaTitle" id="qnaTitle" "style="resize: none" placeholder="Title" value="${b.qnaTitle}" />
               			<input type="checkbox" id="qna_check_2" name="qnaEnabled" value="N"><i class="fa fa-lock" style="font-size: 2em" aria-hidden="true"></i>
-			  			<input type="text" class="qna_text_content" name="qnaContent" style="resize: none" placeholder="Content" value="${b.qnaContent}" /> 
+			  			<input type="text" class="qna_text_content" name="qnaContent"  id="qnaContent" style="resize: none" placeholder="Content" value="${b.qnaContent}" /> 
               			<button type="button" onclick="chkNullQna()" class="qna_button">등록</button>
          <!-- <input type="file" class="qna_attatch" enctype="multipart/form-data" name="attach" /> -->
           			</form>
@@ -481,6 +481,76 @@
         
         divEle.classList.toggle("hidden");
 	}
+	
+	//게시물 제목 길이 검사
+	  let title = document.getElementById("qnaTitle");
+	  title.addEventListener("keydown", (e) => {
+	      let ele = e.target;
+	      let val = ele.value;
+	      // console.log(ele.value, ele.value.length);
+	    
+	      // ctrl + v 한 경우의 체크
+	      if (e.key === "v" && e.ctrlKey) {
+	          setTimeout(() => {
+	              if (e.target.value.length > 20) {
+	                  alert("게시글 제목이 너무 깁니다");
+	                  e.target.value = e.target.value.substr(0, 20);
+	              }
+	          }, 10);
+	      }
+
+	      if (val.length < 20) return;   // 6글자까지 입력될 수 있게 처리
+	      
+	   // 일부 키 허용하기
+	      // 8 : 백스페이스, 37 : 화살표 왼쪽 이동, 46 : delete 키
+	      // if (e.keyCode === 8 || e.keyCode === 37 || e.keyCode === 46) return;
+	      if ([8, 37, 46].indexOf(e.keyCode) != -1) return;
+	      e.preventDefault();
+
+	      // 한글처리
+	      setTimeout(() => {
+	          ele.value = ele.value.substr(0, 20);
+	      		}, 10);
+	  	});
+	  title.addEventListener("blur", (e) => {
+	      e.target.value = e.target.value.substr(0, 20);
+	  }); 
+	  
+	//게시물 내용 길이 검사
+	  let content = document.getElementById("qnaContent");
+	  content.addEventListener("keydown", (e) => {
+	      let ele = e.target;
+	      let val = ele.value;
+	      // console.log(ele.value, ele.value.length);
+	      
+	      // ctrl + v 한 경우의 체크
+	      if (e.key === "v" && e.ctrlKey) {
+	          setTimeout(() => {
+	              if (e.target.value.length > 500) {
+	                  alert("게시글 내용이 너무 깁니다");
+	                  e.target.value = e.target.value.substr(0, 500);
+	              }
+	          }, 10);
+	      }
+
+	      if (val.length < 500) return;   // 6글자까지 입력될 수 있게 처리
+	      
+	      // 일부 키 허용하기
+	      // 8 : 백스페이스, 37 : 화살표 왼쪽 이동, 46 : delete 키
+	      // if (e.keyCode === 8 || e.keyCode === 37 || e.keyCode === 46) return;
+	      if ([8, 37, 46].indexOf(e.keyCode) != -1) return;
+	      e.preventDefault();
+
+	      // 한글처리
+	      setTimeout(() => {
+	          ele.value = ele.value.substr(0, 500);
+	      		}, 10);
+	  		});
+	  	  content.addEventListener("blur", (e) => {
+	      e.target.value = e.target.value.substr(0, 500);
+	 	 });
+	      
+	
     </script>
 </body>
 </html>
