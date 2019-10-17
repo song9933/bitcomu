@@ -180,7 +180,7 @@ div.vote-accordian {
 					
 					<%-- 로그인사용자가 작성자이고, 아직 투표에 참여한 사람이 없으면 수정하기 버튼이 나타나도록한다.--%>
 					<c:if
-						test="${user.userNo eq vote.userNo && vote.voteInCnt eq '0'}">
+						test="${user.userNo eq vote.userNo && vote.voteInCnt eq '0' && vote.voteCloseEnabled eq 'N'}">
 							<button id="vote-modify-btn" type="button" 
 							class="w3-btn w3-red vote_submit_button vote_btn">수정하기</button><br>
 					</c:if>

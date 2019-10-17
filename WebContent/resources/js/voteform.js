@@ -40,7 +40,13 @@ function validate(){
 			alert("선택지 이름은 66자 이내로 입력해주세요.");
 			return false;
 		}
-		
+		for(let j = 1; j < menu.length; j++){
+			console.log(menu[i].value, menu[j].value);
+			if(menu[i].value == menu[j].value && i != j){
+				alert("중복되는 선택지 이름이 있습니다.");
+				return false;
+			}
+		}
 	}
 }
 

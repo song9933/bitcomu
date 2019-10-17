@@ -126,6 +126,8 @@ writeBtn.addEventListener("click", writeVote);  // 선택한 요소에 click 이
 function writeVote() {
 	if('${sessionScope.user}' == '') {
 		alert('투표 등록하기는 로그인후에 이용하실 수 있습니다.');
+	} else if ('${sessionScope.user.userGrade}' == 1){
+		alert('투표 등록하기는 현재 관리자와 반장만 이용 가능합니다.');
 	} else {
 		document.getElementById('writevoteform').style.display='block';
 	}
