@@ -223,7 +223,7 @@
 // 		         					console.log('코멘트 하나하나', cmt)
 		         					html += `
 				         					<div class="qna_cmt_content" id="\${cmt.cmtNo}">
-				         				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" >
+				         				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" class="qna_comment_list">
 				                                 <p style="font-weight: bold; font-size: 1.3em; color: inherit;">\${cmt.userId}</p>
 				                                 <p>\${cmt.cmtContent}</p>
 				                                 <p>\${cmt.cmtRegDt}</p>
