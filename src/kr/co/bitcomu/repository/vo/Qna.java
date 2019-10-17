@@ -12,7 +12,7 @@ public class Qna {
 	private String qnaContent; // qna 내용
 	private String qnaPublicEnabled; // qna 공개 여부
 	private int qnaLikeCnt; // qna 좋아요 수
-	private Date qnaRegDt; // qna 등록 날짜
+	private String qnaRegDt; // qna 등록 날짜
 	private int qnaViewCnt; // qna 조회 수
 	private int qnaCmtCnt; // qna 댓글 수
 	private List<Comment> commentList;
@@ -75,10 +75,10 @@ public class Qna {
 	public void setQnaLikeCnt(int qnaLikeCnt) {
 		this.qnaLikeCnt = qnaLikeCnt;
 	}
-	public Date getQnaRegDt() {
+	public String getQnaRegDt() {
 		return qnaRegDt;
 	}
-	public void setQnaRegDt(Date qnaRegDt) {
+	public void setQnaRegDt(String qnaRegDt) {
 		this.qnaRegDt = qnaRegDt;
 	}
 	public int getQnaViewCnt() {
