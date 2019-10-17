@@ -193,11 +193,12 @@
 			        	}
 		        	}	
 		        		//관리자거나 작성자거나 공개여부가 Y라서 비공개글을 볼수 있는 경우
+		        		
 		        		if(!enabledFlag) {
 		        			html += `<h3 class="qna_title_1" onclick="changeView(\${b.qnaNo});">\${b.qnaTitle}</h3>`;
 		        		}
 		        		html +=	`<i class="fa fa-lock qna_pd10" style="font-size: 2em; color: #f9f9f9" aria-hidden="true"></i>
-		    				
+		        		
 		                   <span class="qna_updat_1">
 							 <a href="javascript:void(0)"
 							  onclick="updateQna(\${b.userNo}, \${b.qnaNo});"
@@ -247,8 +248,8 @@
 					         										<button type="button" onclick="chkNullQnaCmtUpdate(\${cmt.cmtNo})" class="close">수정</button>
 					         									</div>
 					         								</div>
-					         							  </form>
-					         						 <a href="#popupDelCmt\${cmt.cmtNo}">삭제</a>
+					         							  </form>	  
+				         					<a href="#popupDelCmt\${cmt.cmtNo}">삭제</a>
 					         								<form method="post" action="/bitcomu/qna/qnaCommentDelete.do">
 					         									<input type="hidden" name="cmtNo" value="\${cmt.cmtNo}" /> 
 					         									<input type="hidden" name="qnaNo" value="\${b.qnaNo}" />									
@@ -397,7 +398,7 @@
 // 		console.log('세션의유저',${user.userNo});
 		let qnaId = "light"+ qnaNo;
 		let qnaId2 = "fade"+ qnaNo;
-		if('${user.userNo}' == userNo) {
+		if('${user.userNo}' == userNo || '${user.userGrade}' == 3) {
 			document.getElementById(qnaId).style.display='block';
 			document.getElementById(qnaId2).style.display='block';
 		} else {
