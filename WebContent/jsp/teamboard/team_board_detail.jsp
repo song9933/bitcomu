@@ -68,21 +68,24 @@
 	<div class="wrapepr">
 		<c:import url="/jsp/include/header.jsp" />
 		<!-- width = 1280px 인 컨텐츠영역-->
-		<div class="w1280">
-			<section class="content">
+<div class="w1280">
+			<section class="content clearboth">
 
 				<h2 class="title_cws" style="text-align: center">
-					<a href="/teamBoardList.do"> 조별프로젝트 게시판 </a>
+					<a href="teamBoardList.do"> 조별프로젝트 게시판 </a>
 				</h2>
 				<br> <br> <br> <br>
 				<div class="tabs_cws">
-					<ul class="projectNo_active_cws">
-						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=1">1차</a></li>
-						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=2">2차</a></li>
-						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=3">3차</a></li>
+					<ul  class="projectNo_active_cws">
+						<li><a class="active" href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=1&teamNo=1">1 차</a></li>
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=2&teamNo=1">2 차</a></li>
+						<li><a href="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=3&teamNo=1">3 차</a></li>
 					</ul>
 				</div>
-				<br> <br>
+				<br> 
+				<br> 
+				<h3 style="margin-left: 300px;">${projectNo}차 프로젝트&nbsp; > &nbsp;${teamNo}조</h3>
+				<br>
 
 				<div class="subtabs_cws">
 					<br>
@@ -114,7 +117,6 @@
 					</div>
 				</div>
 
-
 				<div class="boardtitle_cws">
 					<h2 style="margin: 0 auto">${teamNo}조의 진행상황</h2>
 				</div>
@@ -124,46 +126,21 @@
 					<button class="writebutton_cws">글등록</button>
 				</form>
 				<br> <br> <br> <br>
-				<div class="board_cws">
+<!-- 				<div class="board_cws"> -->
 					<br>
-					<ul id="boardList_cws">
-						<c:forEach var="t" items="${list}">
-							<li><input type="image"
-								src="${pageContext.request.contextPath}/resources/images/top_ar.png"
-								style="border: 1px solid gray; width: 100px; height: 130px; float: right;">
-							</li>
-							<li style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a
-								href="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${t.teamBoardNo}"
-								style="font-size: 40px; "> ${t.teamBoardTitle}</a></li>
-							<br>
-							<li>
-								<h6 style="margin: 0 auto">작성자: ${t.userId}</h6>
-							</li>
-							<li>
-								<h6 style="margin: 0 auto">
-									작성일:
-									${t.teamBoardRegDt} />
-								</h6>
-							</li>
-							<c:if test="${sessionScope.user.userNo eq t.userNo or sessionScope.user.userGrade eq 3}">
-								<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do">
-									<input type="hidden" name="teamBoardNo" value="${t.teamBoardNo}"/>
-									<button>X</button>
-								</form>
-							</c:if>
-							<br>
-							<br>
-							<hr>
-<!-- 							<p>----------------------------------------------------------------------------------------------------</p> -->
-							<br>
-						</c:forEach>
-					</ul>
-					<br>
+					<div id="boardList_cws">
+						<!-- ajax 활용한 list출력 -->
+					</div>
+				
+				<div>
+					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}">
+						<button class="movetop_cws"
+							style="width: 60px; height: 60px; background-color: white; opacity: .9; border: none">
+							<br> <br> <br> <br>
+							<h3 style="color: #9c9b9b">맨 위로</h3>
+						</button>
+					</form>
 				</div>
-
-
-				<div>&nbsp;</div>
-
 			</section>
 		</div>
 		<!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -184,14 +161,14 @@
       		<div>
       			<h5>${teamBoard.projectNo}차 프로젝트 > ${teamBoard.teamNo}조</h5>
       		</div>
-			<h1 style="word-break:break-all; text-align: center;">${teamBoard.teamBoardTitle}</h1>
-			<br>
+			<h1 style="word-break:break-all; text-align: center; padding: 36px;">${teamBoard.teamBoardTitle}</h1>
+<!-- 			<br> -->
 <!-- 			<div class="detailimage_cws"> -->
 <!-- 				<input type="image" title="&emsp;글에 첨부된 이미지" -->
 <!-- 					style="width: 600px; height: 300px;"> -->
 <!-- 			</div> -->
 			<div class="detailcontent_cws" style="padding: 3px;">
-					<h4 style="float: right; margin-right: 80px; padding: 10px;">
+					<h4 style="float: right; margin-right: 10px; padding: 10px;">
 					${teamBoard.teamBoardRegDt}
 					</h4>
 					<br>
@@ -234,6 +211,8 @@
 		}
 		
 // 	댓글 ===========================================
+
+	// 댓글 내용 길이 제한
 
 // 삭제 여부 묻는 alert
 function confirmDel(){
@@ -361,8 +340,14 @@ function makeCommentList(list, showFlag) {
 		let f = document.crForm;
 		let cmtContent = document.getElementById("cmtContent").value;
 		xhr.send(`teamBoardNo=\${f.teamBoardNo.value}&userNo=\${f.userNo.value}&cmtContent=\${cmtContent}`);
-		f.cmtContent.value = ""
+		if (document.querySelector("#cmtContent").value.length == 0){
+			alert("내용을 입력하세요");
 			return false;
+		}
+		if (document.querySelector("#cmtContent").value.length > 100) {
+			alert("내용은 100자리를 초과할 수 없습니다.");
+		  	return false;
+		}
 	}
 /**
  * 댓글 삭제

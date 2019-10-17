@@ -76,7 +76,8 @@
 			<br>
 			<h1 style="text-align: center">수정페이지</h1>
 			<br>
-			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdate.do">
+			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardUpdate.do"
+					onsubmit="return updateConfirm()">
 				<div>
 					<select name="projectNo" id="projectNo" style="margin-left: 28px">
 						<option value="1">1차</option>
@@ -88,13 +89,12 @@
 				</div>
 				<div class="updatetitleboard_cws">
 				<input type="hidden" name="teamBoardNo" value="${teamBoard.teamBoardNo}">
-					<input type="text" name="teamBoardTitle" value="${teamBoard.teamBoardTitle}"
-							 placeholder="${teamBoard.teamBoardTitle}"
+					<input type="text" name="teamBoardTitle" id="teamBoardTitle" value="${teamBoard.teamBoardTitle}"
 						style="width: 100%; border: hidden"> <br> <br>
 					<div class="writecontent_cws">
-						<textarea name="teamBoardContent"
-							style="width: 100%; height: 100%; font-size: 16px; text-align: left; padding: 5px; resize: none">
-						${teamBoard.teamBoardContent}</textarea>
+						<textarea name="teamBoardContent" id="teamBoardContent"
+							style="width: 100%; height: 100%; font-size: 16px; text-align: left; padding: 5px; 
+								resize: none">${teamBoard.teamBoardContent}</textarea>
 					</div>
 					<br>
 <!-- 					<div class="alreadyfile_cws"> -->
@@ -118,6 +118,24 @@
 	</div>
 	<script>
 		// $(document).ready(alert());
+		function updateConfirm(){
+  		if (document.querySelector("#teamBoardTitle").value.trim().length == 0){
+  			alert("제목을 입력하세요");
+  			return false;
+  		}
+  		if (document.querySelector("#teamBoardContent").value.trim().length == 0){
+  			alert("내용을 입력하세요");
+  			return false;
+  		}
+  		if (document.querySelector("#teamBoardTitle").value.length > 66){
+  	  		alert("제목은 66자리를 초과할 수 없습니다.");
+  	  		return false;
+  	  	}
+  	  	if (document.querySelector("#teamBoardContent").value.length > 666){
+  	  		alert("내용은 666자리를 초과할 수 없습니다.");
+  	  		return false;
+  	  	}
+  	}
 		
 		 // 조 갯수
 		let teamTab = document.querySelector("#teamtabs_cws");

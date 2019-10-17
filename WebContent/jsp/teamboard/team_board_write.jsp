@@ -145,7 +145,7 @@ div.a_cws {
         <div class="writecontent_cws">
           <textarea name="teamBoardContent" id="teamBoardContent" 
           placeholder="내용을 입력하세요."
-          style="width: 100%; height: 100%; 
+          style="width: 98%; height: 100%; 
           font-size: 16px; text-align: left; 
           padding: 5px; resize: none"></textarea>
         </div>
@@ -173,16 +173,24 @@ div.a_cws {
   <script>
   // $(document).ready(alert());
   
-  	// 글내용 유효성검사
+  	// 글등록시 null값 유효성검사, 글등록시 길이 제한
   	function writeConfirm(){
   		if (document.querySelector("#teamBoardTitle").value.trim().length == 0){
-  		alert("제목을 입력하세요");
-  		return false;
+  			alert("제목을 입력하세요");
+  			return false;
   		}
   		if (document.querySelector("#teamBoardContent").value.trim().length == 0){
-  		alert("내용을 입력하세요");
-  		return false;
+  			alert("내용을 입력하세요");
+  			return false;
   		}
+  		if (document.querySelector("#teamBoardTitle").value.length > 66){
+  	  		alert("제목은 66자리를 초과할 수 없습니다.");
+  	  		return false;
+  	  	}
+  	  	if (document.querySelector("#teamBoardContent").value.length > 666){
+  	  		alert("내용은 666자리를 초과할 수 없습니다.");
+  	  		return false;
+  	  	}
   	}
   
   // 조 갯수
