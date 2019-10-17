@@ -38,7 +38,6 @@ public class OnlineclsCommentListAjaxController extends HttpServlet{
 		cmtMap.put("cmt", commentList);
 		cmtMap.put("cmtUser", cmtUserList);
 		
-//		System.out.println(cmtMap.get("cmt"));
 		
 		PrintWriter out = res.getWriter();
 		// 응답으로 Map을Json으로 바꿔 보낸다

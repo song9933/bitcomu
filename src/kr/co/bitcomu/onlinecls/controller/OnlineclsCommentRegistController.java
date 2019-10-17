@@ -48,8 +48,6 @@ public class OnlineclsCommentRegistController extends HttpServlet{
 		cmtMap.put("cmtUser", cmtUserList);
 		cmtMap.put("result", result);
 		
-//		System.out.println(cmtMap.get("cmt"));
-		
 		PrintWriter out = res.getWriter();
 		// 응답으로 Map을Json으로 바꿔 보낸다
 		out.println(new Gson().toJson(cmtMap));
