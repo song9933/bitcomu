@@ -303,7 +303,7 @@
 			  from tb_qna where user_no = #{userNo};
      
 	     	<include refid="deleteUsers" />
-	        where user_no = #{userNo};
+	        where user_no = #{userNo} and user_id !='admin';
         
         
         <include refid="procedureMakeEnd"/>      
@@ -322,6 +322,7 @@
       <!-- 유저 전체 삭제(관리자 전용) -->     
      <select id="deleteAllUserAdmin">
        <include refid="deleteUsers" />
+       where user_id !='admin'
 	 </select>
 	 
     
