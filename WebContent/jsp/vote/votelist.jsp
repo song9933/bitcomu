@@ -177,13 +177,34 @@ function loadMore(list) {
 		if(searchSwitch) {
 			document.querySelector(".vote_inner").innerHTML = "";
 		}
+		let strNone = "display:none;";
+		let strBlock = "display:inline-block;";
+		let voteNotice;
+		let voteAnnoy;
+		let voteClose;
 		for(var i = 0; i < list.length; i++){
 			let vote = list[i];
+			if(`\${vote.voteNoticeEnabled}` == 'Y') {
+				voteNotice = strBlock;
+			} else {
+				voteNotice = strNone;
+			}
+			if(`\${vote.voteAnonyEnabled}` == 'Y') {
+				voteAnony = strBlock;
+			} else {
+				voteAnony = strNone;
+			}
+			if(`\${vote.voteCloseEnabled}` == 'Y') {
+				voteClose = strBlock;
+			} else {
+				voteClose= strNone;
+			}
+			console.log(voteNotice, voteAnnoy, voteClose);
 			document.querySelector(".vote_inner").innerHTML += 
 		`<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card" 
 			onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">
 			<p>
-				<span class="vote-notice" style="display:none;">공지</span><span class="vote-annoy" style="display:none;">익명</span><span class="vote-close" style="display:none;">마감</span>  				
+				<span class="vote-notice" style=\${voteNotice}>공지</span><span class="vote-annoy" style=\${voteAnony}>익명</span><span class="vote-close" style=\${voteClose}>마감</span>  				
 			<div
 				onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">\${vote.voteTitle}</div>
 			</p>
@@ -192,25 +213,7 @@ function loadMore(list) {
 				\${vote.voteRegDt}
 			</p>
 		</div>`;
-			if(vote.voteNoticeEnabled == 'Y') {
-				let notices = document.querySelectorAll(".vote-notice");
-				for(let i = 0; i < notices.length; i++){
-					notices[i].style.display = 'inline-block';
-				}
-			}
-			
-			if(vote.voteAnonyEnabled == 'Y') {
-				let annoys = document.querySelectorAll(".vote-annoy");
-				for(let i = 0; i < annoys.length; i++){
-					annoys[i].style.display = 'inline-block';
-				}
-			}
-			if(vote.voteCloseEnabled == 'Y'){
-				let closes = document.querySelectorAll(".vote-close");
-				for(let i = 0; i < closes.length; i++){
-					closes[i].style.display = 'inline-block';
-				}
-			}
+	 	
 		}
 	
 		searchSwitch = false;
