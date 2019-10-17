@@ -2040,9 +2040,16 @@ from {opacity:0;} to {opacity:1;}
 
 .subtabs_cws ul li a:hover{
 	color: black;
+/* 	width: 77px; */
+/* 	height: 22px; */
+	text-align: center;
+	transform: scale(1.2);
+    transition-timing-function: linear;
+    transition-duration: 0.2s;
+	color: #0f5399;
+    border-color: #cccccca6;
 }
 .subtabs_cws ul li.active a {
-    border-color: #cccccca6;
 	color: #0f5399;
     margin-top: 40px;
 	margin-bottom: 40px;
@@ -2164,14 +2171,11 @@ div.a_cws {
 
 
 .close_cws{
-	color: black;
 	background-image: url("./../images/icon_closeW.png");
-	C:\java\git\bitcomu\WebContent\resources\images
 	background-size: cover;
 	position: absolute;
-	margin: 0;
 	right: -50px;
-	box-shadow: 10px 0px 10px 10px #807f7f;
+	box-shadow: 10px 0px 10px 7px #807f7f;
 	cursor: pointer; 
 	border-radius: 5px;
 }
@@ -2207,12 +2211,13 @@ div.a_cws {
 /* ----------------여기까지 write------------------ */
 .detailpopup_cws {
     position: absolute;
-	top: 50%; left: 50%;
-	transform: translate(-50%, -50%);
+	left: 30%;
+	top: 20%;
+	/*transform: translate(-50%, -50%);*/
 	width: 600px;
 	background-color: white;
     padding: 20px;
-    margin-top: 5%;
+    margin-bottom: 10%;
     box-shadow: 5px 0px 15px 15px #807f7f;
     border-radius: 10px;
 }
@@ -2240,6 +2245,7 @@ div.a_cws {
     font-size: 20px;
     margin-top: 40px;
     cursor: pointer; 
+    transition: 1s;
 }
 
 .updatebutton_cws {
@@ -2277,7 +2283,7 @@ div.a_cws {
     float: left;
 	border: 1px solid black;
 	height: 25px;
-	margin-left: 30px;
+	margin-left: 13px;
 	color: gray;
 }
 
@@ -2306,8 +2312,8 @@ div.a_cws {
 	width: 90px;
     height: 30px;
     font-size: 20px;
-	margin-top: -10px;
-	margin-left: 270px;
+	margin-top: 10px;
+	margin-left: 100px;
     cursor: pointer; 
     border: none;
 }
