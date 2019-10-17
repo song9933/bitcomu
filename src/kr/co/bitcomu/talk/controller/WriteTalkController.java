@@ -37,7 +37,7 @@ public class WriteTalkController extends HttpServlet {
 		
 		
 		n.setTitle(req.getParameter("title"));
-		n.setContent(req.getParameter("content"));
+		n.setContent(req.getParameter("content").replace("\r\n", "<br>"));
 		n.setUserNo(user.getUserNo());
 		dao.insertTalk(n);
 		res.sendRedirect("talkList.do");

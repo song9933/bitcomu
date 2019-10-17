@@ -35,7 +35,7 @@ public class WriteNoticeController extends HttpServlet {
 		
 		
 		n.setTitle(req.getParameter("title"));
-		n.setContent(req.getParameter("content"));
+		n.setContent(req.getParameter("content").replace("\r\n", "<br>"));
 		n.setUserNo(user.getUserNo());
 		dao.insertNotice(n);
 		res.sendRedirect("noticeList.do");

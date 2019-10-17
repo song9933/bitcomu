@@ -148,7 +148,7 @@
 								   <th><h3>&nbsp;${comment.userId}</h3></th>
 								  
 								  <th>
-									 <h6> ${comment.cmtRegDt}"</h6>
+									 <h6> ${comment.cmtRegDt}</h6>
 								  </th>
 								  
 								  <th>

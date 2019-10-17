@@ -82,7 +82,15 @@ let u = document.updateForm
   });
   */
   
-  
+  let str = document.getElementById("content").value;
+  str = replaceAll(str,'<br>',"\r\n");
+
+  document.getElementById("content").innerHTML = str;
+
+  function replaceAll(str, searchStr, replaceStr) {
+    return str.split(searchStr).join(replaceStr);
+  }
+   
   
   
 
