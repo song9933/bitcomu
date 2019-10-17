@@ -124,6 +124,14 @@ function commentListAjax(no) {
  * 댓글 등록 
  */
 function commentRegistAjax() {
+	let f = document.crForm;
+	// 댓글등록시 유효성 chk
+	let cmtTextareaVal = f.cmtdetail.value;
+	if (cmtTextareaVal.length > 300 || cmtTextareaVal.trim().length == 0) {
+		alert('댓글 내용을 입력하지 않았거나 100자를 초과했습니다. ');
+		return false;
+	}
+	// 댓글등록시 유효성 chk END
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4) {
@@ -137,7 +145,6 @@ function commentRegistAjax() {
 	let no = Ele.getAttribute('data-num');
 	xhr.open("POST", "cmt_reg.do", true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	let f = document.crForm;
 	xhr.send(`no=${no}&user=${userNo}&cmtDetail=${f.cmtdetail.value}`);
 	f.cmtdetail.value="";
 	return false;
@@ -151,7 +158,6 @@ function commentRegistAjax() {
 function udpBtnClick(cmtNo) {
 	let btnCmtUdp = document.getElementById(`cmtUdp${cmtNo}`);
 		let cmtNo_Udp = btnCmtUdp.getAttribute('data-upno');
-		// 
 		let tAreaEle = document.querySelector("textarea[name='cmtdetail']");
 		let orgTextarea = document.querySelector(`#cmtNo${cmtNo}`);
 		let orgTxt = orgTextarea.innerText;
@@ -159,7 +165,9 @@ function udpBtnClick(cmtNo) {
 		closePop2();
 		// 객체 찾고 수정할 내용 입력했으면 수정 실행
 		let udpBtn = document.querySelector('form[name="crForm"]');
+		let btnBtn = document.querySelector('form[name="crForm"] button');
 		udpBtn.setAttribute('onsubmit', `return commentUpdateAjax(${cmtNo});`);
+		btnBtn.innerText = "수정";
 //		commentUpdateAjax(upNo);
 	
 }
@@ -168,7 +176,6 @@ function commentUpdateAjax(cmtNo) {
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			
 			let obj = JSON.parse(xhr.responseText);
 			if (obj.result == 1) {
 				alert('수정완료');
@@ -184,10 +191,21 @@ function commentUpdateAjax(cmtNo) {
 	};
 	let Ele = document.querySelector('.pop_r');
 	let no = Ele.getAttribute('data-num');
-	
+	let f = document.crForm;
+	// 댓글 수정시 유효성 chk
+	let cmtTextareaVal = f.cmtdetail.value;
+	if (cmtTextareaVal.length > 300 || cmtTextareaVal.trim().length == 0) {
+		alert('수정 할 댓글 내용을 입력하지 않았거나 100자를 초과했습니다. \n댓글을 다시 선택하고 시도하세요. ');
+		let udpBtn = document.querySelector('form[name="crForm"]');
+		let btnBtn = document.querySelector('form[name="crForm"] button');
+		udpBtn.setAttribute('onsubmit', 'return commentRegistAjax();');
+		btnBtn.innerText = "전송";
+		cmtTextareaVal = "";
+		return false;
+	}
+	// 댓글 수정시 유효성 chk END
 	xhr.open("POST", "cmt_upd.do", true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	let f = document.crForm;
 	xhr.send(`no=${no}&cmtNo=${cmtNo}&cmtDetail=${f.cmtdetail.value}`);
 	f.cmtdetail.value = "";
 	return false;

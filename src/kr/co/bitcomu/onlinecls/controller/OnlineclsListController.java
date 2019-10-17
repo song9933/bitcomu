@@ -36,8 +36,6 @@ public class OnlineclsListController extends HttpServlet{
 		String sPageNo = req.getParameter("pageNo");
 		String sPageList = req.getParameter("pageList");
 		
-		System.out.println("넘어온 서브젝트 파라미터 : " + subject);
-		
 		// 요청한 페이지를 1로 초기화
 		int pageNo = 1;
 //		int pageList = 10;
@@ -71,10 +69,6 @@ public class OnlineclsListController extends HttpServlet{
 
 		
 		// 과목 선택하여 전체 온라인강의 리스트
-//		List<Onlinecls> list = dao.seletOnlinecls(subject);
-		for(Onlinecls s : list) {
-			System.out.println("과목선택 온라인강의리스트" + s.getYtSubject());
-		}
 		req.setAttribute("list", list);
 		// 탭전환하여 전체 과목 목록
 		List<Onlinecls> sList = dao.selectOnlineclsSubject();

@@ -53,13 +53,6 @@ public class OnlineclsWriteController extends HttpServlet{
 		}
 		
 		ocls.setYtSubject(yt_subject);
-//		System.out.println("작성자 " + user.getUserNo());
-//		System.out.println("제목 " + req.getParameter("yt_title"));
-//		System.out.println("내용 " + req.getParameter("yt_detail"));
-//		System.out.println("원본주소 " + req.getParameter("yt_addr"));
-//		System.out.println("hidden주소 " + req.getParameter("yt_addr_mod"));
-//		System.out.println("과목 " + yt_subject);
-//		System.out.println("insert결과::" + result);
 		
 		int resultC = dao.insertOnlinecls(ocls);
 		req.setAttribute("resultC", resultC);

@@ -250,6 +250,11 @@ function closePop0() {
 	popEle1.style.display = 'none';
 	popEle0.classList.toggle('opacbox');
 	popEle0.style.display  ='none';
+	
+	let udpBtn = document.querySelector('form[name="crForm"]');
+	let btnBtn = document.querySelector('form[name="crForm"] button');
+	udpBtn.setAttribute('onsubmit', 'return commentRegistAjax();');
+	btnBtn.innerText = "전송";
 }
 function closePop(){
 	popEle1.classList.toggle('opacbox');
