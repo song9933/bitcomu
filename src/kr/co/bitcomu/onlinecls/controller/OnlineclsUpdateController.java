@@ -34,10 +34,8 @@ public class OnlineclsUpdateController extends HttpServlet {
 		// 온라인강의 원본 주소
 		String ytAddr = req.getParameter("yt_addr");
 		oncls.setYtAddr(ytAddr);
-		// 온라인강의 첫번째 파라미터만)
-		String[] addrArr = ytAddr.split("\\?v=");
-		String modAddr = addrArr[1].split("&")[0];
-		oncls.setYtAddr(modAddr);
+		// 첫번째 파라미터만 뽑기
+		oncls.setYtAddrMod(req.getParameter("yt_addr_mod"));
 		int resultU = dao.updateOnlinecls(oncls);
 		req.setAttribute("resultU", resultU);
 		

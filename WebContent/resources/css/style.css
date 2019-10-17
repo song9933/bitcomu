@@ -463,6 +463,9 @@ footer { width: 100%; line-height: 60px; text-align: center; }
 .login_form_wrap .modal-login .btn:hover, .modal-login .btn:focus { background: #45aba6; outline: none; }
 .login_form_wrap .modal-footer { padding: 15px; text-align: right; border-top: 1px solid #e5e5e5; }
 .login_form_wrap .modal-footer a:hover { text-decoration: underline; }
+
+.upload_form input[name="yt_addr"] { width: 80%; }
+
 /* 지인 끝 */
 
 
