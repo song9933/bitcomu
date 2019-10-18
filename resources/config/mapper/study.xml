@@ -185,9 +185,9 @@
 	
 	<!-- 메인화면 스터디게시판 글 -->
 	<select id="mainStudyPost" resultMap="studyMap">
-		select rownum , s.* from tb_study s
-		    where rownum between 1 and 4
-		    order by STUDY_RECRUIT_ENABLED desc, study_post_no desc	
+		select a.* from (select rownum , s.* from tb_study s
+		    order by STUDY_RECRUIT_ENABLED desc, study_post_no desc) a
+            where rownum between 1 and 4
 	</select>
 	
 </mapper>
