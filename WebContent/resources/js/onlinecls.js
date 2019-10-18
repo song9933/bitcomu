@@ -250,7 +250,7 @@ function makeCommentList(list) {
 		<td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
 		<td><b>${list.cmtUser[i]}</b></td>
 		<td id="cmtNo${list.cmt[i].cmtNo}">${list.cmt[i].cmtContent}`;
-			if (userNo == cmtUserNo || userNo ==2) {
+			if (userNo == cmtUserNo || userNo == 1) {
 				html += `<a href="javascript:openPop2()" class="hidden">···</a></td>`;
 			}
 		html += `</tr>`;	

@@ -99,7 +99,7 @@ let btnSubmit 		= document.querySelector('button[type="submit"]');
 
 function validate() {
 	// subjectInput
-	if (subjectInput.value = "") {
+	if (subjectInput.value == "") {
 		alert("다시 시도하세요");
 	}
 	// addrInput
