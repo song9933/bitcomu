@@ -1056,6 +1056,7 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     border-right: 2px solid rgb(112, 111, 111);
    	margin-top: -97px;  
     margin-left: 800px; 
+    margin-bottom: 5px;
     font-size: 20px;
     font-weight: bold;
    
@@ -1073,8 +1074,9 @@ pre.terms_sj { margin-top: 20px; background-color: #F1F3F4; color: black; paddin
     display: grid;
     width: 45px;
     height: 20px;
-    margin-top: -20px;  
-    margin-left: 855px;   
+    margin-top: -25px;  
+    margin-left: 855px; 
+    margin-bottom: 5px;  
     font-size: 20px;
     font-weight: bold;
    
