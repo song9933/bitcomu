@@ -35,13 +35,6 @@ public class AdminBoardSelDelAjaxController extends HttpServlet{
 		Gson gson = new GsonBuilder().registerTypeAdapter(HashMap.class, new HashMapDeserializer()).create();
 		Map<String, List<Integer>> list = gson.fromJson(req.getParameter("data"), new TypeToken<Map<String, List<Integer>>>() {}.getType());
 		
-//		for(Map.Entry<String, List<Integer>> entry : list.entrySet()) {
-//			for (Integer i : entry.getValue()) {
-//				System.out.println("key => " + entry.getKey());
-//				System.out.println("value => " + i);
-//			}
-//		}
-		
 		
 		PrintWriter out = res.getWriter();
 		

@@ -199,7 +199,6 @@ function loadMore(list) {
 			} else {
 				voteClose= strNone;
 			}
-			console.log(voteNotice, voteAnnoy, voteClose);
 			document.querySelector(".vote_inner").innerHTML += 
 		`<div class="w3-panel w3-hover-shadow w3-round dc_listbox w3-card" 
 			onclick="location.href='/bitcomu/vote/votedetail.do?voteNo=\${vote.voteNo}'">

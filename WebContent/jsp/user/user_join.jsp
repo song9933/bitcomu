@@ -143,7 +143,6 @@
 				if (xhr.status == 200) {
 					hideLoadingbar();
 					let result = xhr.responseText.trim();
-					console.log(result);
 					if (result == 0) {
 						alert("사용가능한 아이디 입니다.");
 						joinFlag = true;
@@ -177,7 +176,6 @@
   function chkJoinForm() {
 	 
 	  let obj = document.fr;
-	  console.log(idPtn.test(obj.id.value));
       if(!(idPtn.test(obj.id.value))) {
           alert('아이디 4~12자 이외의 값, 한글, 특수문자등은 입력하실 수 없습니다.');
           obj.id.focus();

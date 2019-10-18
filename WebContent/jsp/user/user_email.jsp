@@ -167,7 +167,6 @@
 	  let joinForm = document.querySelector("#joinForm");
 	  
 	  joinForm.addEventListener("click" , e =>  {
-		  	console.log("joinFlag : ", joinFlag);
 			if (!joinFlag) {
 				alert("이메일 인증 , 번호확인 후에 회원가입이 가능합니다.");
 				return false;

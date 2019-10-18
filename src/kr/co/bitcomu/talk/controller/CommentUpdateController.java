@@ -36,8 +36,6 @@ public class CommentUpdateController extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		
 		Comment comment = new Comment();
-		System.out.println(request.getParameter("cmtContent"));
-		System.out.println(request.getParameter("cmtNo"));
 		comment.setCmtContent(request.getParameter("cmtContent"));
 		comment.setCmtNo(Integer.parseInt(request.getParameter("cmtNo").trim()));
 		dao.updateComment(comment);

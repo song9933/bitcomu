@@ -107,7 +107,6 @@ public class VoteWriteController extends HttpServlet{
 //		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-YYYY HH:mm:ss");
 //		String after2day = sdf.format(twoDaysLater);
 //		//마감일자 설정부분은 자바스크립트 공부한후에 다시하기
-//		System.out.println(after2day);
 //		vote.setVoteCloseDt(after2day);
 		
 //		투표참여인원숫자
@@ -120,6 +119,5 @@ public class VoteWriteController extends HttpServlet{
 	public static void main(String[] args) {
 		String fromjs = "2019-10-03T20:46";
 //		String year = fromjs.substring(0,4);
-//		System.out.println(year);
 	}
 }

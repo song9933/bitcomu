@@ -42,7 +42,6 @@ public class Page {
 		int listSize = 5;
 		for (int pageNo = 1; pageNo < 11; pageNo++) {
 			Page p1 = new Page(pageNo, listSize);
-			System.out.println(p1.getPageNo() + "-" + p1.getBegin() + "-" + p1.getEnd());
 		}
 	}
 }

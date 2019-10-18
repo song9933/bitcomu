@@ -39,7 +39,6 @@ public class QnaSearchAjaxController extends HttpServlet{
 		
 		for(Qna q : list) {
 			q.setUserId(dao.selectUserId(q.getQnaNo()));
-			System.out.println("큐엔에이 하나하나들" + q.toString());
 		}
 		PrintWriter out = res.getWriter();
 		out.println(new Gson().toJson(list));

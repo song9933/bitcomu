@@ -28,8 +28,6 @@ public class UpdateTeamCommentController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Comment cmt = new Comment();
 		cmt.setCmtNo(Integer.parseInt(req.getParameter("cmtNo")));
-		System.out.println(req.getParameter("cmtNo"));
-		System.out.println(req.getParameter("cmtContent"));
 		cmt.setCmtContent(req.getParameter("cmtContent"));
 		
 		dao.updateTeamComment(cmt);

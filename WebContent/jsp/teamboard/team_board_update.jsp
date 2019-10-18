@@ -140,7 +140,6 @@
 		 // 조 갯수
 		let teamTab = document.querySelector("#teamtabs_cws");
 		let team = ${codeValue};
-		console.log("1", team);
 		for (let i = 1; i <= team; i++) {
 			let liEle = document.createElement("li");
 			let aEle = document.createElement("a");

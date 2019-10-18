@@ -56,7 +56,6 @@ var itemContainer =  document.getElementById('list');
     	sContainer.appendChild(sTitle);
     	sContainer.appendChild(sInfo);
     	
-    	//console.log(sContainer);
     	itemContainer.appendChild(sContainer);
     	
     	

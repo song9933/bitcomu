@@ -30,14 +30,6 @@ public class DeleteTeamCommentController extends HttpServlet {
 		int teamBoardNo = Integer.parseInt(req.getParameter("teamBoardNo"));
 		res.sendRedirect(req.getContextPath() + "/team/teamBoardDetail.do?teamBoardNo=" + req.getParameter("teamBoardNo"));
 		
-		// 댓글 목록 공유
-//		int cmtNo = Integer.parseInt(req.getParameter("cmtNo"));
-//		List<Comment> commentList = dao.selectTeamComment(teamBoardNo);
-//
-//		PrintWriter out = res.getWriter();
-//		out.println(new Gson().toJson(commentList));
-////		System.out.println(commentList);
-//		out.close();
 	}
 	
 	

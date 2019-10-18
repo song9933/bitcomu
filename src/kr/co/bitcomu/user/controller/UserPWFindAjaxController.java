@@ -35,7 +35,6 @@ public class UserPWFindAjaxController extends HttpServlet {
 		
 		user.setUserId(id);
 		user.setUserEmail(email);
-		System.out.println(user);
 		try {
 			 int result = dao.findUserIdEmail(user);
 			 if (result == 0) {

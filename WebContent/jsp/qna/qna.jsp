@@ -75,7 +75,6 @@
         	let xhr = new XMLHttpRequest();
         	xhr.onreadystatechange = function() {
         		if (xhr.readyState == 4 && xhr.status == 200) {
-//         			console.log(xhr.responseText);
        				let result = JSON.parse(xhr.responseText);
        				
        				if (result[0] != 1) {
@@ -98,7 +97,6 @@
         	let xhr = new XMLHttpRequest();
         	xhr.onreadystatechange = function() {
         		if (xhr.readyState == 4 && xhr.status == 200) {
-//         			console.log(xhr.responseText);
         			let result = JSON.parse(xhr.responseText);
        				
        				if (result[0] =='already') {
@@ -138,7 +136,6 @@
         		if (xhr.readyState == 4) {
         			if (xhr.status == 200) {
         				qlist = JSON.parse(xhr.responseText);
-//         				console.log('큐리스트',qlist);
         				// makeCommentList(list);
         				if(qlist.length == 0){
         					//만약 검색을 통해 받아온리스트가 아예 0일때
@@ -154,7 +151,6 @@
         		}
         	};
         	if(keyword){
-//         		console.log('키워드 이프문 진입');
         		xhr.open("GET", "/bitcomu/qna/qnasearchajax.do?pageno="+page+"&keyword="+keyword, true);
         		xhr.send();
         	}else{
@@ -166,7 +162,6 @@
 
 
         function loadMore(qlist) {
-//         	console.log(qlist.length);
         		let okok = document.querySelector(".qna_inner");
         		//검색 한번에 한번 실행되는 스위치.
         		if(searchSwitch) {
@@ -177,14 +172,11 @@
         		for(var i = 0; i < qlist.length; i++){
         			enabledFlag = false;
         			let b = qlist[i];
-//         			console.log('b는', b);
         				
 					html +=`
 		          			<div class="qna_accordion vertical" >	
 		        			<div method='post' action="/bitcomu/qna/qnaList.do">`;
 		        	if (`\${b.qnaPublicEnabled}` == 'N') {
-// 		        				console.log(${sessionScope.user.userNo});
-// 		        				console.log(b.userNo);
 			        	if (${sessionScope.user.userNo} != b.userNo && ${sessionScope.user.userGrade} != 3) {
 			        		html += `
 			        			<h3 class="qna_title_1 qna_private">비공개 글입니다.</h3>
@@ -221,7 +213,6 @@
 		                    if(qlist[i].commentList != null) {
 		         				for(var j = 0; j < qlist[i].commentList.length; j++) {
 		         					let cmt = qlist[i].commentList[j];
-// 		         					console.log('코멘트 하나하나', cmt)
 		         					html += `
 				         					<div class="qna_cmt_content" id="\${cmt.cmtNo}">
 				         				  	<form method='post' action="/bitcomu/qna/qnaCommentList.do" class="qna_comment_list">
@@ -231,9 +222,6 @@
 				         					</form> 
 				         			 		</div>
 				         			 		<div class="wrapper qna_comment">`;
-// 				         					console.log(${sessionScope.user.userNo});
-// 				         					console.log(b.userNo);
-// 				         					console.log(${sessionScope.user.userGrade});
 				         					if (${sessionScope.user.userNo} == cmt.userNo || ${sessionScope.user.userGrade} == 3) {
 				         					
 					         					html +=	`<div class="qna_item parent">
@@ -363,7 +351,6 @@
 		userInput = document.getElementById("qna-input-content").value;
 		if(userInput != ""){
 			keyword = userInput;
-// 			console.log('클릭이벤트 끝나기 직전 키워드',keyword);
 			page = 1;
 			searchSwitch = true;
 			qnaListAjax();
@@ -380,7 +367,6 @@
 	/* 게시글 수정에 조건 주는 펑션 */
 	
 	function updateQna(userNo, qnaNo){
-// 		console.log('세션의유저',${user.userNo});
 		let qnaId = "light_1"+ qnaNo;
 		let qnaId2 = "fade_1"+ qnaNo;
 		if('${user.userNo}' == userNo) {
@@ -395,7 +381,6 @@
 	/* 게시글 삭제조건 주는 펑션 */
 	
 	function deleteQna(userNo, qnaNo){
-// 		console.log('세션의유저',${user.userNo});
 		let qnaId = "light"+ qnaNo;
 		let qnaId2 = "fade"+ qnaNo;
 		if('${user.userNo}' == userNo || '${user.userGrade}' == 3) {
@@ -502,7 +487,6 @@
 	
 	function changeView(i) {
         let divEle = document.getElementById(`c\${i}`);
-//        	console.log(divEle);
         if (divEle.classList.contains("hidden")) {
 			loadMore2(i);	        	
 	        divEle.classList.toggle("show");

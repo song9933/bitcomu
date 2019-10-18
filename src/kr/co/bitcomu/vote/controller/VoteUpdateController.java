@@ -63,7 +63,6 @@ private VoteDAO dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(VoteDAO.c
 		String convertedMenu = sb.toString();
 		
 		vote.setVoteMenu(convertedMenu);
-		System.out.println(req.getParameter("voteNotice"));
 		if(req.getParameter("voteNotice") != null) {
 			vote.setVoteNoticeEnabled("Y");
 		} else {

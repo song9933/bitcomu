@@ -38,19 +38,14 @@ public class Upload extends HttpServlet {
 			List<FileItem> lists = upload.parseRequest(req);
 			for (FileItem item : lists) {
 				// input 태그의 name 속성의 값을 반환
-//				System.out.println(item.getFieldName());
 				// type이 file 인지 아니면 일반 폼 타입인지 확인
 				if (item.isFormField()) {  // 타입이 파일이 아닌 경우 true
 					// input 속성에 입력한 값을 반환
-//					System.out.println(item.getString());
 				} else {  // 타입이 파일인 경우
 					// 원본파일명, 파일의 크기
 					String name = item.getName();
 					long size = item.getSize();
 					String contentType = item.getContentType();
-//					System.out.println("파일명 : " + name);
-//					System.out.println("파일크기 : " + size);
-//					System.out.println("파일타입 : " + contentType);
 					
 					// 실제 저장하는 파일의 이름(직접 - UUID 활용)
 					String ext = "";

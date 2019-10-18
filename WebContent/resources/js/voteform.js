@@ -41,7 +41,6 @@ function validate(){
 			return false;
 		}
 		for(let j = 1; j < menu.length; j++){
-			console.log(menu[i].value, menu[j].value);
 			if(menu[i].value == menu[j].value && i != j){
 				alert("중복되는 선택지 이름이 있습니다.");
 				return false;

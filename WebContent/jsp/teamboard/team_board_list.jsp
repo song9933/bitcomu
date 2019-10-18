@@ -194,7 +194,6 @@ div.a_cws {
 		// 조 삭제
 		function doDel() {
 			let delEle = document.querySelector(`#team\${team}`);
-			console.log(delEle);
 			delEle.remove();
 			team--;
 			
@@ -242,7 +241,6 @@ div.a_cws {
 					}
 				}
 			};
-// 			console.log(page);
 			xhr.open("GET", "teamBoardList_ajax.do?projectNo=${projectNo}&teamNo=${teamNo}&pageNo=" + page, true);
 			xhr.send();
 		}

@@ -55,7 +55,6 @@ public class QnaListAjaxController extends HttpServlet{
 		
 		out.println(new Gson().toJson(list));
 		
-		// System.out.println(new Gson().toJson(list));
 		out.close();
 	}
 	

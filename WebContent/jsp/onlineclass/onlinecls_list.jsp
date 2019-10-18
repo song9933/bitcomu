@@ -272,7 +272,6 @@ let tabEle = document.querySelector('.tab');
 let tabBtn = document.querySelectorAll('.tab li');
 let subjList = document.querySelector('.subj_container');
 let vidList = document.querySelector('.vid_container');
-//console.log(tabBtn.length);
 for(let i = 0; i < tabBtn.length; i++) {
 	tabBtn[i].addEventListener('click', (e) => {
 		if (!(tabBtn[i].classList.contains('on'))) {

@@ -12,15 +12,10 @@ public class BitcomuFileRenamePolicy implements FileRenamePolicy {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String filePath = "/board" + sdf.format(new Date());
 		File f = new File("c:/java/bitupload" + filePath);
-		System.out.println(f.getParent());
 		String name = f.getName();
 		int index = name.lastIndexOf(".");
-//		System.out.println(index); //index 가 -1일 경우: 확장자가 없음
 		String extName = "";
 		if (index != -1) extName = name.substring(index);
-//		System.out.println(UUID.randomUUID().toString() + extName);
-//		
-//		System.out.println(name);
 	}
 
 	@Override

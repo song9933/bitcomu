@@ -15,8 +15,6 @@ function commentListAjax() {
 				let list =  xhr.responseText.split("]");
 				list[0] += "]";
 				list[0] = JSON.parse(list[0]);
-				console.log(list[0]);
-				console.log(list[1]);
 				makeCommentList(list);
 			}
 		}
@@ -37,8 +35,6 @@ function makeCommentList(list) {
 	for (let i = 0; i < list[0].length; i++) {
 		let comment = list[0][i];
 		let pr = list[1][i];
-		console.log(comment.cmtContent);
-		console.log(pr.pageNo);
 		
 			
 		html += `
@@ -77,7 +73,6 @@ function makeCommentList(list) {
 	}
 	html += "</div>";
 	AjaxCmtList.innerHTML = html;
-	console.log("html : ", html)
 	// 삭제링크 이벤트 설정??
 }
 
@@ -93,8 +88,6 @@ function commentDeleteAjax(cmtNo, boardPostNo, pageNo ) {
 				let list =  xhr.responseText.split("]");
 				list[0] += "]";
 				list[0] = JSON.parse(list[0]);
-				console.log(list[0]);
-				console.log(list[1]);
 				makeCommentList(list);
 				
 			}
@@ -121,8 +114,6 @@ function commentRegistAjax() {
 				let list =  xhr.responseText.split("]");
 				list[0] += "]";
 				list[0] = JSON.parse(list[0]);
-				console.log(list[0]);
-				console.log(list[1]);
 				makeCommentList(list);
 			}
 		}
@@ -144,11 +135,8 @@ function commentRegistAjax() {
  * @returns
  */
 function commentUpdateAjax(cmtNo) {
-	console.log("cmtNo : ",cmtNo);
 	id = "cmtUpdateBox" +  cmtNo + "";
-	console.log(id)
 	let AjaxUpdate = document.getElementById(id);
-	console.log(AjaxUpdate + "ajax")
 	let html = "";
 
 	
@@ -170,8 +158,6 @@ function commentUpdateDoAjax(cmtNo) {
 				let list =  xhr.responseText.split("]");
 				list[0] += "]";
 				list[0] = JSON.parse(list[0]);
-				console.log(list[0]);
-				console.log(list[1]);
 				makeCommentList(list);
 				
 				
@@ -185,10 +171,7 @@ function commentUpdateDoAjax(cmtNo) {
 	
 	let f = document.updateForm;
 	id = "cmtContent" +  cmtNo;
-	console.log("id : ", id);
 	let u = document.getElementById(id);
-	console.log(id)
-	console.log("ddddd:",f.boardPostNo.value);
 	let cmtContent = document.getElementById(`cmtContent${cmtNo}`).value;
 	xhr.send(`boardPostNo=${f.boardPostNo.value}&cmtNo=${cmtNo}&cmtPageNo=${f.cmtPageNo.value}&cmtContent=${cmtContent}`);
 	return false;

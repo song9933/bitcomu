@@ -60,7 +60,7 @@
                           <td><span><strong><i class="fa fa-arrow-circle-right" aria-hidden="true" style="color: #ffa500"></i></text>이메일에서 받은 인증번호를 입력해 주세요.</strong> </span><br/>
 				   				<span>
 				                    <input type="text"
-				                  name="emailAuth" class="input_box_sj box_default_sj" id="emailAuthResult" placeholder="인증번호를 입력하세요"/></span>
+				                  name="emailAuth" class="input_box_sj box_default_sj" id="emailAuthResult" style="width: 250px;" placeholder="인증번호를 입력하세요"/></span>
 										<span id="countdown" class="vote_countdown" ></span>
 				                
                             
@@ -129,7 +129,6 @@
 				if (xhr.status == 200) {
 					hideLoadingbar();
 					let result = xhr.responseText.trim();
-					console.log(result);
 					
 					
 					
