@@ -93,9 +93,9 @@
    		</div> 
 			
   			<div>
-			  <button type="button" class="button_box_sj box_email_sj" id="delSelBoard">선택 게시판 삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	          <button type="button" class="button_box_sj box_email_sj" id="delSelAllBoard">선택 게시판 전체 삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	          <button type="button" class="button_box_sj box_email_sj" id="delAllBoard">전체 게시판 삭제</button>
+			  <button type="button" class="button_box_sj box_email_sj" id="delSelBoard">선택 게시글 삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          <button type="button" class="button_box_sj box_email_sj" id="delSelAllBoard">선택 게시판 초기화</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          <button type="button" class="button_box_sj box_email_sj" id="delAllBoard">전체 게시판 초기화</button>
           	</div>
 
             <div class="ns_listlength">

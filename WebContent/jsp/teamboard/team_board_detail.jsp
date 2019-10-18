@@ -143,6 +143,7 @@
 		<!--// 푸터 끝-->
 		<div class="background_cws"></div>
 		<div class="detailpopup_cws">
+		<a href="#" id="teamList-scroll" style="display: none;">맨 위로<span></span></a>
 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${teamBoard.projectNo}&teamNo=${teamBoard.teamNo}">
         		<button class="close_cws" style="width:50px; height:50px; 
       				opacity: .9; border: none; font-size: 40px;">
@@ -187,6 +188,20 @@
 	</div>
 	<script>
 
+	 $(document).ready(function(){ 
+		    $(window).scroll(function(){ 
+		        if ($(this).scrollTop() > 100) { 
+		            $('#teamList-scroll').fadeIn(); 
+		        } else { 
+		            $('#teamList-scroll').fadeOut(); 
+		        } 
+		    }); 
+		    $('#teamList-scroll').click(function(){ 
+		        $("html, body").animate({ scrollTop: 0 }, 600); 
+		        return false; 
+		    	}); 
+			});
+	
 // 	댓글 아코디언
 		function viewComment(listLength) {
 				let commentEle = document.querySelector("#team_comment_cws");
@@ -391,7 +406,9 @@ function realUpdate(cmtNo, teamBoardNo){
  */
 //	href="teamBoardDetail.do?teamBoardNo=${teamBoard.teamBoardNo}" 
 
+
 function updateF(cmtNo, cmtContent, boardPostNo) {
+	
 	let upEle = document.querySelector(`#update\${cmtNo}`);
 	upEle.style="height: 40px; border: 1px solid black; padding: 4px;";
 	upEle.innerHTML = `
@@ -406,6 +423,25 @@ function updateF(cmtNo, cmtContent, boardPostNo) {
 		</li>
 	`;
 }
+	</script>
+	<script>
+
+	let str = document.getElementById("#cmtCon").value;
+	str = replaceAll(str,'<br>',"\r\n");
+	document.getElementById("#cmtCon").innerHTML = str;
+	
+	let str2 = document.getElementById("#cmtContent").value;
+	str2 = replaceAll(str2,'<br>',"\r\n");
+	document.getElementById("#cmtContent").innerHTML = str2;
+	
+	let str3 = document.getElementById("#teamBoardContent").value;
+	str3 = replaceAll(str3,'<br>',"\r\n");
+	document.getElementById("#teamBoardContent").innerHTML = str3;
+	
+	function replaceAll(str, searchStr, replaceStr) {
+	  return str.split(searchStr).join(replaceStr);
+	}
+	
 	</script>
 </body>
 

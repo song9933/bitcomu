@@ -58,6 +58,7 @@ div.a_cws {
 </head>
 
 <body>
+<a href="#" id="teamList-scroll" style="display: none;"><span></span></a>
 	<div class="wrapepr">
 	<c:import url="/jsp/include/header.jsp"/>
 		<!-- width = 1280px 인 컨텐츠영역-->
@@ -125,15 +126,15 @@ div.a_cws {
 						<!-- ajax 활용한 list출력 -->
 					</div>
 				
-				<div>
-					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}">
-						<button class="movetop_cws" style="background-color: #f9f9f9; color: #a4a3a3;">
-						<i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i>
-							<br> <br> 
-							<h3 style="color: #a4a3a3">맨 위로</h3>
-						</button>
-					</form>
-				</div>
+<!-- 				<div> -->
+<%-- 					<form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}"> --%>
+<!-- 						<button class="movetop_cws" style="background-color: #f9f9f9; color: #a4a3a3;"> -->
+<!-- 						<i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i> -->
+<!-- 							<br> <br>  -->
+<!-- 							<h3 style="color: #a4a3a3">맨 위로</h3> -->
+<!-- 						</button> -->
+<!-- 					</form> -->
+<!-- 				</div> -->
 			</section>
 		</div>
 		<!-- //width = 1280px 인 컨텐츠영역 끝-->
@@ -146,6 +147,21 @@ div.a_cws {
 	</div>
 	<script>
 		// $(document).ready(alert());
+		
+		// back to top
+	   $(document).ready(function(){ 
+	    $(window).scroll(function(){ 
+	        if ($(this).scrollTop() > 100) { 
+	            $('#teamList-scroll').fadeIn(); 
+	        } else { 
+	            $('#teamList-scroll').fadeOut(); 
+	        } 
+	    }); 
+	    $('#teamList-scroll').click(function(){ 
+	        $("html, body").animate({ scrollTop: 0 }, 600); 
+	        return false; 
+	    	}); 
+		});
 		
 		// 추가 / 삭제된 조 사이드탭에 출력
 		let teamTab = document.querySelector("#teamtabs_cws");

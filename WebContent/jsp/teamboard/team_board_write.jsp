@@ -116,9 +116,10 @@ div.a_cws {
     </div>
     <div class="writepopup_cws">
       <form method="post" action="${pageContext.request.contextPath}/team/teamBoardList.do?projectNo=${projectNo}&teamNo=${teamNo}">
-        <button class="close_cws" style="width:50px; height:50px; 
-      		background-color: white; opacity: .9; border: none">
+              <button class="close_cws" style="width:50px; height:50px; 
+                      opacity: .9; border: none; font-size: 40px;">
       	</button>
+      	
       </form>
       <br>
       <h1 style="text-align: center">글등록</h1>
