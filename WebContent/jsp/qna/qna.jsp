@@ -198,13 +198,13 @@
 		        			html += `<h3 class="qna_title_1" onclick="changeView(\${b.qnaNo});">\${b.qnaTitle}</h3>`;
 		        		}
 		        		html +=	`<i class="fa fa-lock qna_pd10" style="font-size: 2em; color: #f9f9f9" aria-hidden="true"></i>
-		        		
+		        		<!-- 게시물 수정 버튼 -->
 		                   <span class="qna_updat_1">
 							 <a href="javascript:void(0)"
 							  onclick="updateQna(\${b.userNo}, \${b.qnaNo});"
 							  style="font-weight: bold">수정</a>
 						   </span>
-				   
+				   		<!-- 게시물 삭제 버튼 -->
 						   <span class="qna_delete_1">
 							  <a href="javascript:void(0)"
 								  onclick="deleteQna(\${b.userNo}, \${b.qnaNo});"
@@ -494,6 +494,7 @@
 					alert("100자 이내로 입력해주세요.");
 					return false;
 				}
+				
 				crFomVal3.submit();
 			}
 		}	
