@@ -280,9 +280,11 @@ for(let i = 0; i < tabBtn.length; i++) {
 			if (tabEle.firstElementChild.classList.contains('on')) {
 				$(vidList).addClass('hidden');
 				$(subjList).removeClass('hidden');
+				$('.pagination.nams').css('display', 'none');
 			} else {
 				$(vidList).removeClass('hidden');
 				$(subjList).addClass('hidden');
+				$('.pagination.nams').css('display', 'block');
 			};
 			return;
 		} else {
