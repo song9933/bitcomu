@@ -66,7 +66,7 @@
            
            
            <div class="ns_table_write">
-     <form method='post' action="/bitcomu/noticeUpdate.do" name="writeForm" onsubmit="return inputCheck();"> <!-- enctype = "multipart/form-data"> -->
+     <form method='post' action="/bitcomu/notice/noticeUpdate.do" name="writeForm" onsubmit="return inputCheck();"> <!-- enctype = "multipart/form-data"> -->
      	<input type="hidden" name="postNo" value="${board.postNo}" />
      	<input type="hidden" name="userNo" value="${board.userNo}" />
 	 	<div>

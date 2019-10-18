@@ -20,7 +20,7 @@ import kr.co.bitcomu.repository.vo.Search;
 import kr.co.bitcomu.repository.vo.User;
 import kr.co.bitcomu.util.PageResult;
 
-@WebServlet("/notice_detail.do")
+@WebServlet("/notice/notice_detail.do")
 public class DetailNoticeController extends HttpServlet {
 
 	private NoticeDAO dao;

@@ -77,6 +77,7 @@ function makeCommentList(list) {
 	}
 	html += "</div>";
 	AjaxCmtList.innerHTML = html;
+	console.log("html : ", html)
 	// 삭제링크 이벤트 설정??
 }
 
@@ -142,7 +143,7 @@ function commentRegistAjax() {
  * 댓글 수정 
  * @returns
  */
-function commentUpdateAjax(cmtNo, cmtContent) {
+function commentUpdateAjax(cmtNo) {
 	console.log("cmtNo : ",cmtNo);
 	id = "cmtUpdateBox" +  cmtNo + "";
 	console.log(id)
@@ -152,8 +153,9 @@ function commentUpdateAjax(cmtNo, cmtContent) {
 
 	
 	html += `
-		<textarea id="cmtContent${cmtNo}" name="cmtContent" id="cmtContent" rows="2" cols="60"></textarea>
-		<button onclick="commentUpdateDoAjax(${cmtNo});" type="button">수정</button>
+		<input type="hidden" name="cmtNo" value="${cmtNo}">
+		<textarea id="cmtContent${cmtNo}" name="cmtUpdateContent" rows="2" cols="60"></textarea>
+		<button onclick="inputCheck2(${cmtNo})" type="button">수정</button>
 		<a href="javascript:;" onclick="commentListAjax()">취소</a>
 	`;
 	AjaxUpdate.innerHTML = html;
@@ -183,6 +185,7 @@ function commentUpdateDoAjax(cmtNo) {
 	
 	let f = document.updateForm;
 	id = "cmtContent" +  cmtNo;
+	console.log("id : ", id);
 	let u = document.getElementById(id);
 	console.log(id)
 	console.log("ddddd:",f.boardPostNo.value);

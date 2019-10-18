@@ -66,7 +66,7 @@
            
            
            <div class="ns_table_write">
-     <form method='post' action="/bitcomu/notice/write.do" name="writeForm" onsubmit="return inputCheck();"> <!-- enctype = "multipart/form-data"> -->
+     <form method='post' action="/bitcomu/notice/notice_write.do" name="writeForm" onsubmit="return inputCheck();"> <!-- enctype = "multipart/form-data"> -->
 	 	<div>
   		   제목 :<br> <input type='text' name='title' size='70' placeholder="20자 까지 가능합니다" />	 	
 	 	</div>

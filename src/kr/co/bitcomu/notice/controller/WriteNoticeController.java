@@ -16,7 +16,7 @@ import kr.co.bitcomu.repository.vo.User;
 
 
 
-@WebServlet("/notice/write.do")
+@WebServlet("/notice/notice_write.do")
 public class WriteNoticeController extends HttpServlet {
 	private NoticeDAO dao;
 	public WriteNoticeController() {

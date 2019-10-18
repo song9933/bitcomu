@@ -7,26 +7,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bitcomu.common.db.MyAppSqlConfig;
 import kr.co.bitcomu.repository.dao.NoticeDAO;
+import kr.co.bitcomu.repository.vo.User;
 
 
 
-@WebServlet("/notice/noticedelete.do")
-public class DeleteNoticeController extends HttpServlet {
-	
+@WebServlet("/notice/notice_write_form.do")
+public class WriteFormNoticeController extends HttpServlet {
+
 	private NoticeDAO dao;
 	
-	public DeleteNoticeController() {
+	public WriteFormNoticeController() {
 		dao = MyAppSqlConfig.getSqlSessionInstance().getMapper(NoticeDAO.class);
 	}
 	
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// 데이터베이스 처리하기
-		dao.deleteNotice(Integer.parseInt(req.getParameter("postNo"))); 
-		res.sendRedirect("/bitcomu/notice/noticeList.do");
+		
+		req.getRequestDispatcher("/jsp/notice/notice_write.jsp").forward(req, res);
 	}
 }
 

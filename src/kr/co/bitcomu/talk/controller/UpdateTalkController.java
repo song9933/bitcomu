@@ -37,7 +37,7 @@ public class UpdateTalkController extends HttpServlet {
 		Talk talk = new Talk();
 		talk.setPostNo(Integer.parseInt(request.getParameter("postNo")));
 		talk.setTitle(request.getParameter("title"));
-		talk.setContent(request.getParameter("content"));
+		talk.setContent(request.getParameter("content").replace("\r\n", "<br>"));
 		talk.setUserNo(Integer.parseInt(request.getParameter("userNo")));
 		dao.updateTalk(talk);
 		

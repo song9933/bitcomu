@@ -229,7 +229,7 @@
 	             <c:if test="${pr.count != 0}">
 				  	<c:if test="${pr.prev}">
 					    <li>
-					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.beginPage - 1}" aria-label="previous">
+					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.beginPage - 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="previous">
 					        <span aria-hidden="true">&laquo;</span>
 					      </a>
 					    </li>
@@ -237,11 +237,11 @@
 				    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
 				    	<li 
 				    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-				    	><a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${i}">${i}</a></li>
+				    	><a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${i}&searchType=${search.searchType}&searchWord=${search.searchWord}">${i}</a></li>
 				    </c:forEach>
 				  	<c:if test="${pr.next}">
 					    <li>
-					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage + 1}" aria-label="next">
+					      <a href="talk_detail.do?postNo=${talkDetail.postNo}&pageNo=${pr.endPage + 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="next">
 					        <span aria-hidden="true">&raquo;</span>
 					      </a>
 					    </li>
@@ -252,7 +252,7 @@
              
            <c:choose>
 	          <c:when test="${ not empty sessionScope.user.userNo }">
-		          <a class="ns_go_write" href="/bitcomu/jsp/talk/talk_write.jsp"> 
+		          <a class="ns_go_write" href="/bitcomu/talk/talk_write_form.do"> 
 		            <div> 
 		            	  글쓰기
 		            </div>

@@ -127,7 +127,7 @@
 		</c:if>
             
             <c:if test="${ sessionScope.user.userGrade eq 3}">
-            <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
+            <a class="ns_go_write" href="/bitcomu/notice/notice_write_form.do"> 
               <div> 
               	  글쓰기
               </div>

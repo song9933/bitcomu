@@ -15,7 +15,7 @@ import kr.co.bitcomu.repository.vo.User;
 
 
 
-@WebServlet("/updateNoticeForm.do")
+@WebServlet("/notice/updateNoticeForm.do")
 public class UpdateFormNoticeController extends HttpServlet {
 
 	private NoticeDAO dao;

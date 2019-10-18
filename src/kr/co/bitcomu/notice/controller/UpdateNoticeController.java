@@ -16,7 +16,7 @@ import kr.co.bitcomu.repository.vo.User;
 
 
 
-@WebServlet("/noticeUpdate.do")
+@WebServlet("/notice/noticeUpdate.do")
 public class UpdateNoticeController extends HttpServlet {
 	
 	private NoticeDAO dao;
@@ -35,7 +35,7 @@ public class UpdateNoticeController extends HttpServlet {
 		Notice notice = new Notice();
 		notice.setPostNo(Integer.parseInt(request.getParameter("postNo")));
 		notice.setTitle(request.getParameter("title"));
-		notice.setContent(request.getParameter("content"));
+		notice.setContent(request.getParameter("content").replace("\r\n", "<br>"));
 		notice.setUserNo(Integer.parseInt(request.getParameter("userNo")));
 		dao.updateNotice(notice);
 		

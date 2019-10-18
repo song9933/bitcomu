@@ -19,7 +19,7 @@ import kr.co.bitcomu.repository.vo.User;
 
 
 
-@WebServlet("/talk/write_form.do")
+@WebServlet("/talk/talk_write_form.do")
 public class WriteTalkFormController extends HttpServlet {
 	private TalkDAO dao;
 	public WriteTalkFormController() {

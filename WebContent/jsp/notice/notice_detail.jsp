@@ -105,11 +105,11 @@
                 </ul>
              <c:if test="${sessionScope.user.userGrade eq 3 }">
               <div class="ns_go_update"> 
-            <a  href="/bitcomu/updateNoticeForm.do?postNo=${noticeDetail.postNo}"> 
+            <a  href="/bitcomu/notice/updateNoticeForm.do?postNo=${noticeDetail.postNo}"> 
                	 수정
             </a>
               </div>
-            <a class="ns_go_delete" href="/bitcomu/noticedelete.do?postNo=${noticeDetail.postNo}"> 
+            <a class="ns_go_delete" href="/bitcomu/notice/noticedelete.do?postNo=${noticeDetail.postNo}"> 
               <div> 
                	 삭제
               </div>
@@ -161,7 +161,7 @@
               <c:if test="${pr.count != 0}">
 		  	<c:if test="${pr.prev}">
 		    <li>
-		      <a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.beginPage - 1}" aria-label="previous">
+		      <a href="/bitcomu/notice/notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.beginPage - 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
@@ -169,11 +169,11 @@
 		    <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
 		    	<li 
 		    		<c:if test="${pr.pageNo == i}">class="active"</c:if>
-		    	><a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${i}">${i}</a></li>
+		    	><a href="/bitcomu/notice/notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${i}&searchType=${search.searchType}&searchWord=${search.searchWord}">${i}</a></li>
 		    </c:forEach>
 		  	<c:if test="${pr.next}">
 		    <li>
-		      <a href="notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.endPage + 1}" aria-label="next">
+		      <a href="/bitcomu/notice/notice_detail.do?postNo=${noticeDetail.postNo}&pageNo=${pr.endPage + 1}&searchType=${search.searchType}&searchWord=${search.searchWord}" aria-label="next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
@@ -182,7 +182,7 @@
 			</ul>
 			</c:if>
              <c:if test="${sessionScope.user.userGrade eq 3 }">  
-             <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.jsp"> 
+             <a class="ns_go_write" href="/bitcomu/jsp/notice/notice_write.do"> 
               <div> 
               	  글쓰기
               </div>
