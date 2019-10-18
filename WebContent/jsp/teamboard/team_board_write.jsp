@@ -121,6 +121,7 @@ div.a_cws {
       	</button>
       	
       </form>
+      <h4>${projectNo}차 프로젝트&nbsp; > &nbsp;${teamNo}조</h4>
       <br>
       <h1 style="text-align: center">글등록</h1>
       <br>
