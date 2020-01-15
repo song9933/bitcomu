@@ -5,12 +5,19 @@ public class Team {
 	private int teamNo;
 	private int projectNo;
 	private int teamBoardNo;
+	private int cmtCount;
 	private String userName;
 	private String userId;
 	private String teamBoardTitle;
 	private String teamBoardContent;
 	private String teamBoardRegDt;
 	
+	public int getCmtCount() {
+		return cmtCount;
+	}
+	public void setCmtCount(int cmtCount) {
+		this.cmtCount = cmtCount;
+	}
 	public String getUserName() {
 		return userName;
 	}

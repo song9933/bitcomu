@@ -34,15 +34,10 @@ public class TeamListAjaxController extends HttpServlet {
 		
 		// 요청 페이지를 1페이지로 변경
 			int pageNo = 1;
-//			int pageNo = Integer.parseInt(req.getParameter("pagenum"));
-//				int listSize = dao.selectBoardCount();
 				int pageList = 8; 
 			if (sPageNo != null) {
 				pageNo = Integer.parseInt(sPageNo);
 			}
-//				if (sPageList != null) {
-//					pageList = Integer.parseInt(sPageList);
-//				}
 				
 			Page page = new Page(pageNo , pageList);
 			Team team = new Team();
@@ -57,17 +52,6 @@ public class TeamListAjaxController extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		out.println(new Gson().toJson(teamList));
 		out.close();
-		
-//		int pageNo = 1;
-//		int pageNo = Integer.parseInt(req.getParameter("pagenum"));
-//		if (sPageNo != null) {
-//			pageNo = Integer.parseInt(sPageNo);
-//		}
-//		Page page = new Page(pageNo);
-//		
-//		int totalCount = dao.selectBoardCount();
-//		PageResult pr = new PageResult(pageNo, totalCount);
-//		req.setAttribute("pr", pr);
 	}
 }
 

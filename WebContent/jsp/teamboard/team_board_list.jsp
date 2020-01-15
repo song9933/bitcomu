@@ -257,7 +257,7 @@ div.a_cws {
 		 		if ('${sessionScope.user.userNo}' == tList.userNo || '${sessionScope.user.userGrade}' == 3){
 		 			a.innerHTML = 
 		 			`<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDelete.do" />
-		 			<button onclick="return confirmDel();" style="margin-top:-100px; cursor: pointer; float: right; background: none; border: none">
+		 			<button onclick="return confirmDel();" style="margin-top:-125px; cursor: pointer; float: right; background: none; border: none">
 		 			<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
 		 			</button>
 		 			<input type="hidden" name="teamBoardNo" value="\${tList.teamBoardNo}"/>
@@ -272,6 +272,7 @@ div.a_cws {
 			 		<br>
 			 		<li><h6 style="margin: 0 auto">작성자: \${tList.userId}</h6></li>
 			 		<li><h6 style="margin: 0 auto">작성일: \${tList.teamBoardRegDt}</h6></li>
+			 		<li><h4 style="margin: 0 auto"><i class="fa fa-commenting-o" aria-hidden="true">  \${tList.cmtCount}개</i></h4></li>
 			 		\${a.innerHTML}
 			 		</ul>
 			 		<br><br><br>
@@ -285,20 +286,6 @@ div.a_cws {
 		
 		
 		// infinity scroll
-		
-
-
-		// Add 20 items.
-// 		let nextItem = 1;
-// 		let loadMore = function() {
-//   			for (var i = 0; i < 10; i++) {
-//   				let item = document.querySelector('#boardList_cws > li');
-//     			item.innerText = 'Item ' + nextItem++;
-//     			listElm.appendChild(item);
-//   			}
-// 		}
-		
-// 		let listElm = document.querySelector('#boardList_cws');
 		$(window).on('scroll', function() {
 			let scrollHeight = $(document).height();
 			let scrollPosition = $(window).height() + $(window).scrollTop();		

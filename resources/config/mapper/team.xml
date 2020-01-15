@@ -14,6 +14,16 @@
 		<result column="team_board_title" property="teamBoardTitle" />
 		<result column="team_board_content" property="teamBoardContent" />
 		<result column="team_board_reg_dt" property="teamBoardRegDt" />
+		<result column="cmt_count" property="cmtCount" />
+	</resultMap>
+	<resultMap id="commentMap" type="Comment">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="board_post_no" property="boardPostNo" />
+		<result column="cmt_no" property="cmtNo" />
+		<result column="cmt_content" property="cmtContent" />
+		<result column="cmt_reg_dt" property="cmtRegDt" />
+		<result column="code_value" property="codeValue" />
 	</resultMap>
 	
 	<!-- 페이징 처리 시작 -->
@@ -56,7 +66,6 @@
 	</select>
 
 	<select id="selectTeamBoard" parameterType="Map" resultMap="teamMap" flushCache="true" useCache="true">
-		
 		<include refid="pagingStart" />
 		select t.team_board_no, t.user_no, t.team_no, t.project_no, 
 				t.team_board_title, t.team_board_content, 
@@ -64,7 +73,11 @@
 				 as team_board_reg_dt,
 			   (select user_id  
 				  from tb_user u
-                 where u.user_no = t.user_no ) as user_id
+                 where u.user_no = t.user_no ) as user_id,
+               (select count(cmt_no)
+				  from tb_comment c
+				 where c.board_post_no = t.team_board_no
+				   and code_value = (select code_value from tb_codenm where code_name = '팀프로젝트게시판')) as cmt_count
           from tb_team t
          where project_no = #{t.projectNo}
            and team_no = #{t.teamNo}
@@ -120,16 +133,12 @@
 
 <!-- ===댓글================================================= -->
 
-	<resultMap id="commentMap" type="Comment">
-		<result column="user_no" property="userNo" />
-		<result column="user_id" property="userId" />
-		<result column="board_post_no" property="boardPostNo" />
-		<result column="cmt_no" property="cmtNo" />
-		<result column="cmt_content" property="cmtContent" />
-		<result column="cmt_reg_dt" property="cmtRegDt" />
-		<result column="code_value" property="codeValue" />
-	</resultMap>
-	
+	<select id="teamCommentCount" parameterType="int">
+		select count(cmt_no)
+		  from tb_comment
+		 where board_post_no = #{teamBoardNo}
+		   and code_value = (select code_value from tb_codenm where code_name = '팀프로젝트게시판')
+	</select>
 	<select id="selectTeamComment" parameterType="int" resultMap="commentMap">
 		select c.cmt_no, c.user_no, c.board_post_no, c.cmt_content,
 			   c.code_value, to_char(c.cmt_reg_dt,'YYYY-MM-DD HH24:MI:SS') 
@@ -163,6 +172,26 @@
 	</delete>
 	
 <!-- ===파일================================================= -->
+
+<!-- 	<resultMap id="fileMap" type="File"> -->
+<!-- 		<result column="user_no" property="userNo" /> -->
+<!-- 		<result column="file_no" property="fileNo" /> -->
+<!-- 		<result column="board_post_no" property="boardPostNo" /> -->
+<!-- 		<result column="file_sys_name" property="fileSysName" /> -->
+<!-- 		<result column="file_org_name" property="fileOrgName" /> -->
+<!-- 		<result column="file_reg_dt" property="fileRegDt" /> -->
+<!-- 		<result column="file_path" property="filePath" /> -->
+<!-- 		<result column="file_size" property="fileSize" /> -->
+<!-- 		<result column="code_value" property="codeValue" /> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<insert id="insertFile" parameterType="File"> -->
+<!-- 		insert into tb_file( -->
+<!-- 			file_no, user_no, board_post_no, file_sys_name, file_org_name, file_path, file_size, code_value -->
+<!-- 		) values ( -->
+<!-- 			tb_file_seq.nextval, #{userNo}, #{boardPostNo}, #{fileSysName}, #{fileOrgName}, #{filePath}, #{fileSize}, (select code_value from tb_codenm where code_name = '팀프로젝트게시판') -->
+<!-- 		) -->
+<!-- 	</insert> -->
 	
 </mapper>
 	
