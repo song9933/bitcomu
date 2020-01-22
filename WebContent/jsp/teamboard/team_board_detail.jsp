@@ -70,7 +70,6 @@
 		<!-- width = 1280px 인 컨텐츠영역-->
 <div class="w1280">
 			<section class="content clearboth">
-
 				<h2 class="title_cws" style="text-align: center">
 					<a href="teamBoardList.do"> 조별프로젝트 게시판 </a>
 				</h2>
@@ -178,12 +177,12 @@
 		</div>
 
 		<div>
-			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${teamBoard.teamBoardNo}">
-				<button id="movetop" class="movetop_cws"><i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i>
-					<br> <br> 
-					<h3 style="color: #ffffffe5">맨 위로</h3>
-				</button>
-			</form>
+<%-- 			<form method="post" action="${pageContext.request.contextPath}/team/teamBoardDetail.do?teamBoardNo=${teamBoard.teamBoardNo}"> --%>
+<!-- 				<button id="movetop" class="movetop_cws"><i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i> -->
+<!-- 					<br> <br>  -->
+<!-- 					<h3 style="color: #ffffffe5">맨 위로</h3> -->
+<!-- 				</button> -->
+<!-- 			</form> -->
 		</div>	
 	</div>
 	<script>
@@ -201,6 +200,19 @@
 		        return false; 
 		    	}); 
 			});
+	 // 조 갯수
+		let teamTab = document.querySelector("#teamtabs_cws");
+		let team = ${codeValue};
+		for (let i = 1; i <= team; i++) {
+			let liEle = document.createElement("li");
+			let aEle = document.createElement("a");
+			
+			let txtNode = document.createTextNode(`\${i}조`);
+			aEle.append(txtNode);
+			liEle.append(aEle);
+			liEle.setAttribute("id", `team\${i}`);
+			teamTab.append(liEle);
+		}
 	
 // 	댓글 아코디언
 		function viewComment(listLength) {
@@ -213,10 +225,8 @@
 				commentEle.classList.toggle("show");
 				
 		}
-		
+			
 // 	댓글 ===========================================
-
-	// 댓글 내용 길이 제한
 
 // 삭제 여부 묻는 alert
 function confirmDel(){

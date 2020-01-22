@@ -2059,6 +2059,7 @@ div.a_cws {
 	padding-top: 70px;
 	padding-bottom: 70px;
 	width: 120px;
+	position: absolute;
 }
 
 .title_cws {

@@ -53,6 +53,9 @@ div.a_cws {
 	margin: 0 auto;
 	margin-left: 150px;
 }
+#attach {
+	margin-left: -28%;
+}
 </style>
 </head>
 
@@ -152,7 +155,9 @@ div.a_cws {
           padding: 5px; resize: none"></textarea>
         </div>
         <br> 
-        <br>
+        <div>
+			<input type="file" id="attach" name="attach" multiple="multiple" /><br>
+        </div>
         <button class="submitbutton_cws" type="submit" >등록</button>
       </div>
      </form>
@@ -164,6 +169,28 @@ div.a_cws {
   </div>
   <script>
   // $(document).ready(alert());
+  	// 파일업로드
+  	$("button").click(() => {
+			// ajax를 이용한 폼의 데이터 처리
+			let fd = new FormData();
+			fd.append("msg", $("#msg").val());
+			
+			let files = $("#attach")[0].files;
+			for (let i = 0; i < files.length; i++){
+				fd.append("attach" + i, files[i]);
+			}
+			
+			// ajax를 이용한 파일 업로드 설정
+			// 필수 2가지 설정 필요
+			let path = '\${pageContext.request.contextPath}'
+			$.ajax({
+				url: path + "/team/fileUpload.do",
+				type: "POST",
+				data: fd,
+				contentType: false,
+				processData: false,
+			});
+		});
   
   	// 글등록시 null값 유효성검사, 글등록시 길이 제한
   	function writeConfirm(){

@@ -30,7 +30,7 @@ private TeamDAO dao;
 		int no = Integer.parseInt(req.getParameter("teamBoardNo"));
 		Team t =  dao.selectOneTeamBoard(no);
 		req.setAttribute("teamBoard", t);
-		
+		req.setAttribute("codeValue", dao.selectTeamCode());
 		// 댓글
 		req.setAttribute("teamCmt", new Gson().toJson(dao.selectTeamComment(no)));
 		
