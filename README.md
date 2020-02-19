@@ -13,7 +13,7 @@
 
 
 ## ERD
-![](image/erd.png)
+![](images/erd.png)
 
 
 ## 나의 역할
